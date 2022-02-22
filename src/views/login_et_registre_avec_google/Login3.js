@@ -6,11 +6,10 @@ import { useTheme } from '@material-ui/core';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
-import AuthWrapper1 from './../AuthWrapper1';
-import AuthCardWrapper from './../AuthCardWrapper';
-import FirebaseLogin from './../firebase-forms/FirebaseLogin';
-import Logo from './../../../../ui-component/Logo';
-import AuthFooter from './../../../../ui-component/cards/AuthFooter';
+import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
+import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
+//import FirebaseLogin from './../firebase-forms/FirebaseLogin';
+import Logo from './../../assets/Logo';
 
 // assets
 
@@ -57,7 +56,7 @@ const Login = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <FirebaseLogin login={3} />
+                                        {/* <FirebaseLogin login={3} />*/}
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -80,7 +79,6 @@ const Login = () => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
                 </Grid>
             </Grid>
         </AuthWrapper1>

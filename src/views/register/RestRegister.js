@@ -22,12 +22,18 @@ import {
     useMediaQuery
 } from '@material-ui/core';
 
-// third party
+// validation des champs
 import * as Yup from 'yup';
+
+
+//pour lea gestion du formulaire
 import { Formik } from 'formik';
+//api pou le contact avec le back-end
 import axios from 'axios';
 
 // project imports
+
+//use ref ta3mil ref  lil objet   min il react
 import useScriptRef from '../../hooks/useScriptRef';
 import AnimateButton from './../../animation/AnimateButton';
 import { strengthColor, strengthIndicator } from '../../verification_password/password-strength';

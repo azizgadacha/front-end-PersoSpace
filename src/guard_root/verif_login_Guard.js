@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // project imports
-import config from '../../config';
+import config from '../config';
 
 //-----------------------|| GUEST GUARD ||-----------------------//
 

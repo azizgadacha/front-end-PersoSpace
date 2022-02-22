@@ -5,7 +5,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 
 // project import
-import MainCard from './../../../ui-component/cards/MainCard';
+import MainCard from './../composant_de_style/cards/MainCard';
 
 // style constant
 const useStyles = makeStyles((theme) => ({

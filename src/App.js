@@ -12,7 +12,7 @@ import Routes from './routes';
 import theme from './themes';
 
 // project imports
-import NavigationScroll from './layout/NavigationScroll';
+import NavigationScroll from './animation/NavigationScroll';
 
 
 const App =()=> {

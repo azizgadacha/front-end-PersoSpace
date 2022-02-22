@@ -1,12 +1,12 @@
 import React, { Suspense } from 'react';
 
 // project imports
-import bar_de_chargement from './bar_de_chargement';
+import BarDeChargement from './BarDeChargement';
 
 //-----------------------|| LOADABLE - LAZY LOADING ||-----------------------//
 
 const Preparation_du_page = (Component) => (props) => (
-    <Suspense fallback={<bar_de_chargement />}>
+    <Suspense fallback={<BarDeChargement />}>
         <Component {...props} />
     </Suspense>
 );

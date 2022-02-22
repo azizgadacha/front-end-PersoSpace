@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 //-----------------------|| Loader ||-----------------------//
 
-const Bar_de_chargement = () => {
+const BarDeChargement = () => {
     const classes = useStyles();
 
     return (
@@ -30,4 +30,4 @@ const Bar_de_chargement = () => {
     );
 };
 
-export default Bar_de_chargement;
+export default BarDeChargement;
