@@ -9,8 +9,8 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 
 // style
 import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
-import Logo from './../../../../  /ui-component/Logo';
-import AuthCardWrapper from './../AuthCardWrapper';
+import Logo from './../../assets/Logo';
+import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
 import RestLogin from './RestLogin';
 
 

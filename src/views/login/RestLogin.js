@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import configData from '../../../../config';
+import configData from '../../config';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -27,9 +27,9 @@ import { Formik } from 'formik';
 import axios from 'axios';
 
 // project imports
-import useScriptRef from '../../../../hooks/useScriptRef';
-import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { ACCOUNT_INITIALIZE } from './../../../../store/actions';
+import useScriptRef from '../../hooks/useScriptRef';
+import AnimateButton from '../../animation/AnimateButton';
+import { ACCOUNT_INITIALIZE } from '../../store/actions';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';

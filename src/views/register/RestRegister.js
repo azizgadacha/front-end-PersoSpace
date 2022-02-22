@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import configData from '../../../../config';
+import configData from '../../config';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -28,9 +28,9 @@ import { Formik } from 'formik';
 import axios from 'axios';
 
 // project imports
-import useScriptRef from '../../../../hooks/useScriptRef';
-import AnimateButton from './../../../../ui-component/extended/AnimateButton';
-import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
+import useScriptRef from '../../hooks/useScriptRef';
+import AnimateButton from './../../animation/AnimateButton';
+import { strengthColor, strengthIndicator } from '../../verification_password/password-strength';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';

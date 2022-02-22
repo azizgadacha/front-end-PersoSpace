@@ -6,11 +6,10 @@ import { useTheme } from '@material-ui/core';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
-import AuthWrapper1 from './../AuthWrapper1';
-import AuthCardWrapper from './../AuthCardWrapper';
-import Logo from './../../../../ui-component/Logo';
+import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
+import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
+import Logo from './../../assets/Logo';
 import RestRegister from './RestRegister';
-import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 
 // assets
 
@@ -80,7 +79,6 @@ const Register = () => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
                 </Grid>
             </Grid>
         </AuthWrapper1>
