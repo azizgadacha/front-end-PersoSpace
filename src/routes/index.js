@@ -4,7 +4,6 @@ import { Redirect, Switch } from 'react-router-dom';
 // routes
 import MainRoutes from './MainRoutes';
 import LoginRoutes from './LoginRoutes';
-import AuthenticationRoutes from './route_login_supplimentaire';
 
 // project imports
 import config from './../config';

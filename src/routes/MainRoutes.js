@@ -3,7 +3,7 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 
 // project imports
 import MainLayout from '../views/Scolette_du_Dashboard';
-import Preparation_du_page from '../animation/Preparation_du_page ';
+import Preparation_du_page from "./../animation/Preparation_du_page";
 import AuthGuard from './../guard_root/AuthGuard';
 
 // dashboard routing

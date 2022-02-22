@@ -6,7 +6,7 @@ import { ButtonBase } from '@material-ui/core';
 
 // project imports
 import config from './../../../config';
-import Logo from './../../../ui-component/Logo';
+import Logo from './../../../assets/Logo';
 
 //-----------------------|| MAIN LOGO ||-----------------------//
 

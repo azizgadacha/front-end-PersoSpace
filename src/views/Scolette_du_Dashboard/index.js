@@ -10,13 +10,13 @@ import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
 import clsx from 'clsx';
 
 // project imports
-import Breadcrumbs from './../../ui-component/extended/Breadcrumbs';
+import Breadcrumbs from './../../composant_de_style/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Customization from './../Customization';
-import navigation from './../../menu-items';
+import Customization from './../../composant_de_style/Customization';
+import navigation from './../../liste_side_bare';
 import { drawerWidth } from '../../store/constant';
-import { SET_MENU } from './../../store/actions';
+import { SET_MENU } from '../../store/actions';
 
 // assets
 import { IconChevronRight } from '@tabler/icons';
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         backgroundColor: theme.palette.background.default
     },
+
     appBarWidth: {
         transition: theme.transitions.create('width'),
         backgroundColor: theme.palette.background.default

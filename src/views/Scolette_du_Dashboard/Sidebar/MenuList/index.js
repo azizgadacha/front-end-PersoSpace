@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 
 // project imports
 import NavGroup from './NavGroup';
-import menuItem from './../../../../menu-items';
+import menuItem from './../../../../liste_side_bare';
 
 //-----------------------|| SIDEBAR MENU LIST ||-----------------------//
 
