@@ -26,8 +26,8 @@ import {
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // project imports
-import MainCard from '../../../../ui-component/cards/MainCard';
-import Transitions from '../../../../ui-component/extended/Transitions';
+import MainCard from '../../../../composant_de_style/cards/MainCard';
+import Transitions_menu_dash from '../../../../animation/Transitions_menu_dash';
 import NotificationList from './NotificationList';
 
 // assets
@@ -174,7 +174,7 @@ const NotificationSection = () => {
                 }}
             >
                 {({ TransitionProps }) => (
-                    <Transitions in={open} {...TransitionProps}>
+                    <Transitions_menu_dash in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
@@ -240,7 +240,7 @@ const NotificationSection = () => {
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>
-                    </Transitions>
+                    </Transitions_menu_dash>
                 )}
             </Popper>
         </React.Fragment>

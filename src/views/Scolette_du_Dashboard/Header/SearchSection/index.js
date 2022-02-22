@@ -8,7 +8,7 @@ import { Avatar, Box, ButtonBase, Card, CardContent, Grid, InputAdornment, Outli
 import PopupState, { bindPopper, bindToggle } from 'material-ui-popup-state';
 
 // project imports
-import Transitions from '../../../../ui-component/extended/Transitions';
+import Transitions_menu_dash from '../../../../animation/Transitions_menu_dash';
 
 // assets
 import { IconAdjustmentsHorizontal, IconSearch, IconX } from '@tabler/icons';
@@ -103,7 +103,7 @@ const SearchSection = () => {
                             </Box>
                             <Popper {...bindPopper(popupState)} transition className={classes.popperContainer}>
                                 {({ TransitionProps }) => (
-                                    <Transitions type="zoom" {...TransitionProps} sx={{ transformOrigin: 'center left' }}>
+                                    <Transitions_menu_dash type="zoom" {...TransitionProps} sx={{ transformOrigin: 'center left' }}>
                                         <Card className={classes.card}>
                                             <CardContent className={classes.cardContent}>
                                                 <Grid container alignItems="center" justifyContent="space-between">
@@ -156,7 +156,7 @@ const SearchSection = () => {
                                                 </Grid>
                                             </CardContent>
                                         </Card>
-                                    </Transitions>
+                                    </Transitions_menu_dash>
                                 )}
                             </Popper>
                         </React.Fragment>

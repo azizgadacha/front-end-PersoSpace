@@ -29,10 +29,10 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
 
 // project imports
-import MainCard from '../../../../ui-component/cards/MainCard';
-import Transitions from '../../../../ui-component/extended/Transitions';
+import MainCard from '../../../../composant_de_style/cards/MainCard';
+import Transitions_menu_dash from '../../../../animation/Transitions_menu_dash';
 import UpgradePlanCard from './UpgradePlanCard';
-import { LOGOUT } from './../../../../store/actions';
+import { LOGOUT } from '../../../../store/actions';
 
 // assets
 import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
@@ -208,7 +208,7 @@ const ProfileSection = () => {
                 }}
             >
                 {({ TransitionProps }) => (
-                    <Transitions in={open} {...TransitionProps}>
+                    <Transitions_menu_dash in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
@@ -300,7 +300,7 @@ const ProfileSection = () => {
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>
-                    </Transitions>
+                    </Transitions_menu_dash>
                 )}
             </Popper>
         </React.Fragment>
