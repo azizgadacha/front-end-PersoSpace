@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link as RouterLink, Link} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import configData from '../../config';
@@ -34,6 +34,7 @@ import { ACCOUNT_INITIALIZE } from '../../store/actions';
 // assets
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import {Alert} from "@material-ui/lab";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -218,9 +219,10 @@ const RestLogin = (props, { ...others }) => {
                                 label="Remember me"
                             />
                             <Typography
+                                component={RouterLink}
+                                to='/forget'
                                 variant="subtitle1"
-                                component={Link}
-                                to={props.login ? '/pages/forgot-password/forgot-password' + props.login : '#'}
+
                                 color="secondary"
                                 sx={{ textDecoration: 'none' }}
                             >
@@ -235,9 +237,9 @@ const RestLogin = (props, { ...others }) => {
                             >
 
 
+                                  <Alert severity="error">{errors.submit}</Alert>
 
 
-                                <FormHelperText error>{errors.submit}</FormHelperText>
                             </Box>
                         )}
 

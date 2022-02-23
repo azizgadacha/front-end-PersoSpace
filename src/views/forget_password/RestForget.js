@@ -6,6 +6,7 @@ import configData from '../../config';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
+
     Box,
     Button,
     Checkbox,
@@ -36,7 +37,6 @@ import axios from 'axios';
 //use ref ta3mil ref  lil objet   min il react
 import useScriptRef from '../../hooks/useScriptRef';
 import AnimateButton from './../../animation/AnimateButton';
-import { strengthColor, strengthIndicator } from '../../verification_password/password-strength';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -84,34 +84,20 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const RestRegister = ({ ...others }) => {
+const RestForget = ({ ...others }) => {
     const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
 
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
 
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
 
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
+
 
     return (
         <React.Fragment>
@@ -119,30 +105,25 @@ const RestRegister = ({ ...others }) => {
                 initialValues={{
                     username: '',
                     email: '',
-                    password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     username: Yup.string().required('Username is required'),
-                    password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'users/register', {
+                            .post( configData.API_SERVER + 'users/forget', {
                                 username: values.username,
-                                password: values.password,
                                 email: values.email
                             })
                             .then(function (response) {
-                                if (response.data.success) {
-                                    history.push('/login');
-                                } else {
+
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
-                                }
+
                             })
                             .catch(function (error) {
                                 setStatus({ success: false });
@@ -206,44 +187,7 @@ const RestRegister = ({ ...others }) => {
                             )}
                         </FormControl>
 
-                        <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-password-register"
-                                type={showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                name="password"
-                                label="Password"
-                                onBlur={handleBlur}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    changePassword(e.target.value);
-                                }}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                inputProps={{
-                                    classes: {
-                                        notchedOutline: classes.notchedOutline
-                                    }
-                                }}
-                            />
-                            {touched.password && errors.password && (
-                                <FormHelperText error id="standard-weight-helper-text-password-register">
-                                    {errors.password}
-                                </FormHelperText>
 
-                            )}
-                        </FormControl>
 
                         {strength !== 0 && (
                             <FormControl fullWidth>
@@ -273,14 +217,22 @@ const RestRegister = ({ ...others }) => {
                             </FormControl>
                         )}
 
+                        <Grid container alignItems="center" justifyContent="space-between">
 
+                        </Grid>
                         {errors.submit && (
                             <Box
                                 sx={{
                                     mt: 3
                                 }}
                             >
-                                <Alert severity="error">{errors.submit}</Alert>
+                                {errors.submit=="le compte exciste"?<Alert severity="info">{errors.submit}</Alert>:<Alert severity="error">{errors.submit}</Alert>}
+
+
+
+
+
+
 
                             </Box>
                         )}
@@ -300,7 +252,7 @@ const RestRegister = ({ ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign UP
+                                    Send mail
                                 </Button>
                             </AnimateButton>
                         </Box>
@@ -311,4 +263,4 @@ const RestRegister = ({ ...others }) => {
     );
 };
 
-export default RestRegister;
+export default RestForget;

@@ -9,17 +9,21 @@ import  Preparation_du_page from '../animation/Preparation_du_page';
 // login routing
 const AuthLogin = Preparation_du_page(lazy(() => import('../views/login')));
 const AuthRegister = Preparation_du_page(lazy(() => import('../views/register')));
+const AuthForget = Preparation_du_page(lazy(() => import('../views/forget_password')));
+
 //-----------------------|| AUTH ROUTING ||-----------------------//
 const LoginRoutes = () => {
     const location = useLocation();
     return (
-        <Route path={['/login', '/register']}>
+        <Route path={['/login', '/register','/forget']}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
                         <Verif_login_Guard>
                             <Route path="/login" component={AuthLogin} />
                             <Route path="/register" component={AuthRegister} />
+                            <Route path="/forget" component={AuthForget} />
+
                         </Verif_login_Guard>
                     </Animation_entre_page>
                 </Switch>
