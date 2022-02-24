@@ -37,6 +37,10 @@ import { LOGOUT } from '../../../../store/actions';
 // assets
 import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
 import User1 from './../../../../assets/images/users/user-round.svg';
+import {Link as RouterLink} from "react-router-dom";
+
+//
+
 
 // style const
 const useStyles = makeStyles((theme) => ({
@@ -283,6 +287,21 @@ const ProfileSection = () => {
                                             </Card>
                                             <Divider />
                                             <List component="nav" className={classes.navContainer}>
+                                                <ListItemButton
+                                                    className={classes.listItem}
+                                                    sx={{ borderRadius: customization.borderRadius + 'px' }}
+                                                    selected={selectedIndex === 4}
+                                                >
+                                                    <ListItemIcon>
+                                                        <IconLogout stroke={1.5} size="1.3rem" />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={
+                                                        <Typography
+                                                            component={RouterLink}
+                                                            to="/Profile"
+                                                            variant="body2"
+                                                    >Profile </Typography>} />
+                                                </ListItemButton>
                                                 <ListItemButton
                                                     className={classes.listItem}
                                                     sx={{ borderRadius: customization.borderRadius + 'px' }}

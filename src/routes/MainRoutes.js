@@ -15,6 +15,7 @@ const UtilsColor = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte
 const UtilsShadow = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/Shadow')));
 const UtilsMaterialIcons = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/MaterialIcons')));
 const UtilsTablerIcons = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/TablerIcons')));
+const Profile = Preparation_du_page(lazy(() => import('../views/Profile')));
 
 // sample page routing
 const SamplePage = Preparation_du_page(lazy(() => import('../views/sample-page')));
@@ -34,7 +35,7 @@ const MainRoutes = () => {
                 '/utils/util-shadow',
                 '/icons/tabler-icons',
                 '/icons/material-icons',
-
+                '/Profile',
                 '/sample-page'
             ]}
         >
@@ -48,6 +49,7 @@ const MainRoutes = () => {
                         <Route path="/utils/util-shadow" component={UtilsShadow} />
                         <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
                         <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
+                        <Route path="/Profile" component={Profile} />
 
                         <Route path="/sample-page" component={SamplePage} />
                     </AuthGuard>
