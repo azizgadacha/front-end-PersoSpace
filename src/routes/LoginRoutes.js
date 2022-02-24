@@ -15,7 +15,7 @@ const AuthForget = Preparation_du_page(lazy(() => import('../views/forget_passwo
 const LoginRoutes = () => {
     const location = useLocation();
     return (
-        <Route path={['/login', '/register','/forget']}>
+        <Route path={['/login', '/register','/forget','/forget/:token']}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
@@ -23,6 +23,7 @@ const LoginRoutes = () => {
                             <Route path="/login" component={AuthLogin} />
                             <Route path="/register" component={AuthRegister} />
                             <Route path="/forget" component={AuthForget} />
+                            <Route path="/forget/:token" component={AuthForget} />
 
                         </Verif_login_Guard>
                     </Animation_entre_page>
