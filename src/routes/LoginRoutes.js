@@ -24,8 +24,8 @@ const LoginRoutes = () => {
                         <Verif_login_Guard>
                             <Route path="/login" component={AuthLogin} />
                             <Route path="/register" component={AuthRegister} />
-                            <Route path="/forget" component={AuthForget} />
                             <Route path="/forget/:token" component={Authverif} />
+                            <Route path="/forget" component={AuthForget} />
 
                         </Verif_login_Guard>
                     </Animation_entre_page>

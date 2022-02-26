@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Link as RouterLink, useHistory, useParams} from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -12,16 +12,43 @@ import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
 import Logo from './../../assets/Logo';
 import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
 import RestVerif from './RestVerif';
+import axios from "axios";
+import configData from "../../config";
 
 
 // assets
 
 //================================|| LOGIN MAIN ||================================//
 
-const Login = () => {
+const Login = async() => {
     const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    let {token}=useParams()
+    let history = useHistory();
 
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+await useEffect(()=>{
+    try {
+        console.log(token)
+
+        axios
+            .post( configData.API_SERVER + 'users/checkValidity', {token
+            })
+            .then(function (response) {
+
+                if (!response.data.success) {
+                    history.push('/login');
+
+                } })
+            .catch(function (error) {
+                history.push('/login');
+
+            });
+    } catch (err) {
+        history.push('/login');
+
+    }
+
+},[])
     return (
         <AuthWrapper1>
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
@@ -49,10 +76,10 @@ const Login = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                     Reinstall password
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
+                                                        Enter your new password
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
@@ -66,14 +93,7 @@ const Login = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Typography
-                                                component={RouterLink}
-                                                to="/register"
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none' }}
-                                            >
-                                       DON'T HAVE AN ACCOUNT ?  CLICK HERE
-                                            </Typography>
+
                                         </Grid>
                                     </Grid>
                                 </Grid>

@@ -226,7 +226,7 @@ const RestForget = ({ ...others }) => {
                                     mt: 3
                                 }}
                             >
-                                {errors.submit=="le compte exciste"?<Alert severity="info">{errors.submit}</Alert>:<Alert severity="error">{errors.submit}</Alert>}
+                                {errors.submit=="un mail contenant le lien de reinstalisation du mot de pass  a ete envoyer"?<Alert severity="info">{errors.submit}</Alert>:<Alert severity="error">{errors.submit}</Alert>}
 
 
 
