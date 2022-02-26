@@ -12,7 +12,7 @@ import clsx from 'clsx';
 // project imports
 import Breadcrumbs from './../../../composant_de_style/Breadcrumbs';
 import Header from './../Header';
-import Sidebar from './../Sidebar';
+
 import Customization from './../../../composant_de_style/Customization';
 import navigation from './../../../liste_side_bare';
 import { drawerWidth } from '../../../store/constant';
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//-----------------------|| MAIN LAYOUT ||-----------------------//
+//-----------------------|| Profile LAYOUT ||-----------------------//
 
 const ProfileLayout = ({ children }) => {
     const classes = useStyles();
@@ -97,7 +97,7 @@ const ProfileLayout = ({ children }) => {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            {/* header */}
+
             <AppBar
                 enableColorOnDark
                 position="fixed"
@@ -118,7 +118,7 @@ const ProfileLayout = ({ children }) => {
                     }
                 ])}
             >
-                {/* <Main open={leftDrawerOpened}> */}
+
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                 <div>{children}</div>

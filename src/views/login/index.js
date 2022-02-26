@@ -12,6 +12,7 @@ import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
 import Logo from './../../assets/Logo';
 import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
 import RestLogin from './RestLogin';
+import AuthCardWrapper1 from "../../composant_de_style/AuthCardWrapper1";
 
 
 // assets
@@ -28,7 +29,7 @@ const Login = () => {
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
-                            <AuthCardWrapper>
+                            <AuthCardWrapper1>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
                                         <RouterLink to="#">
@@ -77,7 +78,7 @@ const Login = () => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                            </AuthCardWrapper>
+                            </AuthCardWrapper1>
                         </Grid>
                     </Grid>
                 </Grid>
