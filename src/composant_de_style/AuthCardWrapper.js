@@ -10,7 +10,7 @@ import MainCard from './../composant_de_style/cards/MainCard';
 // style constant
 const useStyles = makeStyles((theme) => ({
     card: {
-        maxWidth: '475px',
+        maxWidth: '1000px',
         '& > *': {
             flexGrow: 1,
             flexBasis: '50%'
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('lg')]: {
             maxWidth: '400px'
-        }
+        },
     },
     content: {
         padding: theme.spacing(5) + ' !important',

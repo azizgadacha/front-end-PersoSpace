@@ -6,6 +6,7 @@ import Verif_login_Guard from './../guard_root/verif_login_Guard';
 import Animation_entre_page from '../animation/Animation_entre_page';
 import  Preparation_du_page from '../animation/Preparation_du_page';
 
+
 // login routing
 const AuthLogin = Preparation_du_page(lazy(() => import('../views/login')));
 const AuthRegister = Preparation_du_page(lazy(() => import('../views/register')));
@@ -17,6 +18,7 @@ const LoginRoutes = () => {
     return (
         <Route path={['/login', '/register','/forget']}>
 
+
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
                         <Verif_login_Guard>
@@ -25,6 +27,7 @@ const LoginRoutes = () => {
                             <Route path="/forget" component={AuthForget} />
 
                         </Verif_login_Guard>
+
                     </Animation_entre_page>
                 </Switch>
 
