@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link as RouterLink, Link} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {Link as RouterLink} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 import configData from '../../config';
 
@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 //============================|| API JWT - LOGIN ||============================//
 
 const RestLogin = (props, { ...others }) => {
+
     const classes = useStyles();
     const dispatcher = useDispatch();
 
@@ -116,6 +117,8 @@ const RestLogin = (props, { ...others }) => {
                                 if (response.data.success) {
 
                                     console.log(response.data);
+
+
                                     dispatcher({
                                         type: ACCOUNT_INITIALIZE,
                                         payload: { isLoggedIn: true, user: response.data.user, token: response.data.token }

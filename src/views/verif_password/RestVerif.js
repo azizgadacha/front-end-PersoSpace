@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 import configData from '../../config';
 
@@ -8,16 +8,14 @@ import { makeStyles } from '@material-ui/styles';
 import {
     Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
+
     FormHelperText,
     Grid,
     IconButton,
     InputAdornment,
     InputLabel,
-    OutlinedInput,
-    TextField,
+    OutlinedInput, Snackbar,
     Typography,
     useMediaQuery
 } from '@material-ui/core';
@@ -42,8 +40,8 @@ import { strengthColor, strengthIndicator } from '../../verification_password/pa
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
-import {useLocation} from "react-router";
-import * as queryString from "querystring";
+import {useDispatch, useSelector} from "react-redux";
+
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -88,17 +86,19 @@ const useStyles = makeStyles((theme) => ({
 
 const RestRegister = ({ ...others }) => {
 
+let history =useHistory()
+
+    const dispatcher = useDispatch();
+
 
     const classes = useStyles();
 
-    let location =useLocation()
     let {token}=useParams()
-  let  history= useHistory()
+    const [open, setOpen] = React.useState(false);
 
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
-    const [checked, setChecked] = React.useState(true);
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
@@ -106,11 +106,19 @@ const RestRegister = ({ ...others }) => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-
+    const handleClick = () => {
+        setOpen(true);
+    };
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
 
+        setOpen(false);
+    };
     const changePassword = (value) => {
         const temp = strengthIndicator(value);
         setStrength(temp);
@@ -136,22 +144,29 @@ const RestRegister = ({ ...others }) => {
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-console.log(token)
+console.log("3asfour"+token)
+                        handleClick()
 
                         axios
-                            .post( configData.API_SERVER + 'users/change', {token
-                            })
+                            .post( configData.API_SERVER + 'users/change', {token,password: values.password})
                             .then(function (response) {
 
-                                setStatus({ success: false });
+                                setStatus({ success: true });
                                 setErrors({ submit: response.data.msg });
                                 setSubmitting(false);
+                                history.push("/login")
+                                dispatcher({
+                                    type:"Click",
+                                    payload: {text:"la mot de passe a ete envoyer"}
+                                });
 
                             })
                             .catch(function (error) {
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
                                 setSubmitting(false);
+
+
                             });
                     } catch (err) {
                         console.error(err);
@@ -247,7 +262,9 @@ console.log(token)
                                     mt: 3
                                 }}
                             >
-                                <Alert severity="error">{errors.submit}</Alert>
+                                <Alert variant="filled" severity="error">
+                                    {errors.submit}</Alert>
+
 
                             </Box>
                         )}
@@ -267,7 +284,7 @@ console.log(token)
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign UP
+                                    Change it
                                 </Button>
                             </AnimateButton>
                         </Box>

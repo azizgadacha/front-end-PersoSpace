@@ -124,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfileSection = () => {
     const classes = useStyles();
     const theme = useTheme();
+
     const customization = useSelector((state) => state.customization);
     const account = useSelector((state) => state.account);
     const dispatcher = useDispatch();
@@ -292,6 +293,9 @@ const ProfileSection = () => {
                                                     sx={{ borderRadius: customization.borderRadius + 'px' }}
                                                     selected={selectedIndex === 4}
                                                 >
+
+
+
                                                     <ListItemIcon>
                                                         <IconLogout stroke={1.5} size="1.3rem" />
                                                     </ListItemIcon>

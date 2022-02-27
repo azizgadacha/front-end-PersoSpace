@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 
 import configData from '../../config';
 
@@ -8,9 +8,8 @@ import { makeStyles } from '@material-ui/styles';
 import {
     Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
+
     FormHelperText,
     Grid,
     IconButton,
@@ -42,6 +41,7 @@ import { strengthColor, strengthIndicator } from '../../verification_password/pa
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
+import {useDispatch} from "react-redux";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -90,7 +90,6 @@ const RestRegister = ({ ...others }) => {
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
-    const [checked, setChecked] = React.useState(true);
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
@@ -113,6 +112,7 @@ const RestRegister = ({ ...others }) => {
         changePassword('123456');
     }, []);
 
+    const dispatcher = useDispatch();
     return (
         <React.Fragment>
             <Formik
@@ -138,6 +138,10 @@ const RestRegister = ({ ...others }) => {
                             .then(function (response) {
                                 if (response.data.success) {
                                     history.push('/login');
+                                    dispatcher({
+                                        type:"Click",
+                                        payload: {text:"l'utilisateur a ete ajouter"}
+                                    });
                                 } else {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });

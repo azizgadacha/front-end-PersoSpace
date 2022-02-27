@@ -4,7 +4,9 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 // project imports
 import MainLayout from '../views/Scolette_du_Dashboard';
 import Preparation_du_page from "./../animation/Preparation_du_page";
-import AuthGuard from './../guard_root/AuthGuard';
+import AuthGuard from "../guard_root/AuthGuard";
+import {Alert} from "@material-ui/lab";
+import {Snackbar} from "@material-ui/core";
 
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
@@ -54,6 +56,7 @@ const MainRoutes = () => {
                         <Route path="/sample-page" component={SamplePage} />
                     </AuthGuard>
                 </Switch>
+
             </MainLayout>
         </Route>
     );

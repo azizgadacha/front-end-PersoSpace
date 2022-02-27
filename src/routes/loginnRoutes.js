@@ -23,7 +23,7 @@ const LoginRoutes = () => {
     return (
 
         <React.Fragment>
-        <Route path={['/login', '/register','/change/:token','/forget']}>
+            <Route path={['/login', '/register','/change/:token','/forget']}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
@@ -36,14 +36,14 @@ const LoginRoutes = () => {
                             <Route path="/forget" component={AuthForget} />
 
 
-                                <Route path="/change/:token" component={Authverif} />
+                            <Route path="/change/:token" component={Authverif} />
 
 
                         </Verif_login_Guard>
                     </Animation_entre_page>
                 </Switch>
 
-        </Route>
+            </Route>
         </React.Fragment>
     );
 };

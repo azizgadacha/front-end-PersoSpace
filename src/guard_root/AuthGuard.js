@@ -3,28 +3,25 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-// project imports
-import config from '../config';
-
-//-----------------------|| GUEST GUARD ||-----------------------//
+//-----------------------|| AUTH GUARD ||-----------------------//
 
 /**
- * Guest guard for routes having no auth required
+ * Authentication guard for routes
  * @param {PropTypes.node} children children element/node
  */
-const Verif_login_Guard = ({ children }) => {
+const AuthGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
     const { isLoggedIn } = account;
 
-    if (isLoggedIn) {
-        return <Redirect to="login" />;
+    if (!isLoggedIn) {
+        return <Redirect to="/login" />;
     }
 
     return children;
 };
 
-Verif_login_Guard.propTypes = {
+AuthGuard.propTypes = {
     children: PropTypes.node
 };
 
-export default Verif_login_Guard;
+export default AuthGuard;

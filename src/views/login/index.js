@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { useTheme } from '@material-ui/core';
+import {Snackbar, useTheme} from '@material-ui/core';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
@@ -12,6 +12,8 @@ import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
 import Logo from './../../assets/Logo';
 import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
 import RestLogin from './RestLogin';
+import {Alert} from "@material-ui/lab";
+import {useDispatch, useSelector} from "react-redux";
 
 
 // assets
@@ -19,10 +21,30 @@ import RestLogin from './RestLogin';
 //================================|| LOGIN MAIN ||================================//
 
 const Login = () => {
+    let open1 = useSelector((state) => state.snack);
+
+    const dispatcher = useDispatch();
+
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        dispatcher({
+            type:"Close"
+        });
+
+    };
+
+
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
+<React.Fragment>
+
         <AuthWrapper1>
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
@@ -86,6 +108,12 @@ const Login = () => {
                 </Grid>*/}
             </Grid>
         </AuthWrapper1>
+    {console.log(open1)}
+    <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            {open1.text}                </Alert>
+    </Snackbar>
+</React.Fragment>
     );
 };
 

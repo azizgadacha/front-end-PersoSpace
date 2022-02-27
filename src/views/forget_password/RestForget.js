@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React from 'react';
 
 import configData from '../../config';
 
@@ -9,13 +8,10 @@ import {
 
     Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
     FormHelperText,
     Grid,
-    IconButton,
-    InputAdornment,
+
     InputLabel,
     OutlinedInput,
     TextField,
@@ -39,8 +35,7 @@ import useScriptRef from '../../hooks/useScriptRef';
 import AnimateButton from './../../animation/AnimateButton';
 
 // assets
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
 import {Alert} from "@material-ui/lab";
 
 // style constant
@@ -86,10 +81,8 @@ const useStyles = makeStyles((theme) => ({
 
 const RestForget = ({ ...others }) => {
     const classes = useStyles();
-    let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [checked, setChecked] = React.useState(true);
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
@@ -226,7 +219,7 @@ const RestForget = ({ ...others }) => {
                                     mt: 3
                                 }}
                             >
-                                {errors.submit=="un mail contenant le lien de reinstalisation du mot de pass  a ete envoyer"?<Alert severity="info">{errors.submit}</Alert>:<Alert severity="error">{errors.submit}</Alert>}
+                                {errors.submit==="un mail contenant le lien de reinstalisation du mot de pass  a ete envoyer"?<Alert variant="filled" severity="info">{errors.submit}</Alert>:<Alert variant="filled" severity="error">{errors.submit}</Alert>}
 
 
 
