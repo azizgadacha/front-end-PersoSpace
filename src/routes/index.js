@@ -27,6 +27,9 @@ const Routes = () => {
                 <LoginRoutes />
                 {/* Routes for main layouts */}
                 <MainRoutes />
+
+
+
             </React.Fragment>
 
 

@@ -145,7 +145,6 @@ let history =useHistory()
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
 console.log("3asfour"+token)
-                        handleClick()
 
                         axios
                             .post( configData.API_SERVER + 'users/change', {token,password: values.password})
@@ -157,7 +156,7 @@ console.log("3asfour"+token)
                                 history.push("/login")
                                 dispatcher({
                                     type:"Click",
-                                    payload: {text:"la mot de passe a ete envoyer"}
+                                    payload: {text:"la mot de passe a ete envoyer",severity:"success"}
                                 });
 
                             })

@@ -1,10 +1,12 @@
+import { CLICK, CLOSE,  } from './actions';
 
 
 
 
 export const initialState = {
    open:false,
-    text:""
+    text:"",
+    severity:""
 
 };
 
@@ -16,16 +18,17 @@ const SnackbarReducer = (state = initialState, action) => {
     //const [listecard, addcart] = useState({cards:});
 
     switch (action.type) {
-        case "Click":
+        case CLICK:
       const  {text}=action.payload
+            const  {severity}=action.payload
 
             return {
 
                 ...state,
                 open:true,
-text
+text,severity
             };
-        case "Close":
+        case CLOSE:
 
             return {
                 ...state,

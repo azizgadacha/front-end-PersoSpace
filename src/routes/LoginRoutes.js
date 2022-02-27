@@ -1,50 +1,46 @@
-import React, { lazy } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Redirect, Switch } from 'react-router-dom';
+
+// routes
+import MainRoutes from './MainRoutes';
+import LoginRoutes from './LoginRoutes';
 
 // project imports
-import Verif_login_Guard from './../guard_root/verif_login_Guard';
-import ValidationGuard from './../guard_root/ValidationGuard';
+import config from './../config';
+import {Button, Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
+import {useDispatch, useSelector} from "react-redux";
+import LoginnRoutes from "./loginnRoutes";
+import Animation_entre_page from "../animation/Animation_entre_page";
+import Verif_login_Guard from "../guard_root/verif_login_Guard";
+import ChangeRoutes from "./ChangeRoutes";
 
-import Animation_entre_page from '../animation/Animation_entre_page';
-import  Preparation_du_page from '../animation/Preparation_du_page';
+//-----------------------|| ROUTING RENDER ||-----------------------//
 
-
-// login routing
-const AuthLogin = Preparation_du_page(lazy(() => import('../views/login')));
-const Authverif = Preparation_du_page(lazy(() => import('../views/verif_password')));
-
-const AuthRegister = Preparation_du_page(lazy(() => import('../views/register')));
-const AuthForget = Preparation_du_page(lazy(() => import('../views/forget_password')));
-
-//-----------------------|| AUTH ROUTING ||-----------------------//
-const LoginRoutes = () => {
-    const location = useLocation();
+const Routes = () => {
 
     return (
 
         <React.Fragment>
-        <Route path={['/login', '/register','/change/:token','/forget']}>
-
-                <Switch location={location} key={location.pathname}>
-                    <Animation_entre_page>
-                        <Verif_login_Guard>
-                            <Route path="/login" component={AuthLogin} />
-                            <Route path="/register" component={AuthRegister} />
+            <Switch>
+                <Animation_entre_page>
 
 
-
-                            <Route path="/forget" component={AuthForget} />
-
-
-                                <Route path="/change/:token" component={Authverif} />
+                    <Verif_login_Guard>
 
 
+                    {/* Route for login */}
+                    <LoginnRoutes />
+                    {/* Routes for main layouts */}
+                     <ChangeRoutes/>
                         </Verif_login_Guard>
-                    </Animation_entre_page>
-                </Switch>
 
-        </Route>
+
+                </Animation_entre_page>
+            </Switch>
+
         </React.Fragment>
     );
 };
-export default LoginRoutes;
+
+export default Routes;

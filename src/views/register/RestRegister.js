@@ -140,7 +140,7 @@ const RestRegister = ({ ...others }) => {
                                     history.push('/login');
                                     dispatcher({
                                         type:"Click",
-                                        payload: {text:"l'utilisateur a ete ajouter"}
+                                        payload: {text:"l'utilisateur a ete ajouter",severity:"success"}
                                     });
                                 } else {
                                     setStatus({ success: false });
