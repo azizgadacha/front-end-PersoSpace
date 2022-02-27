@@ -3,7 +3,7 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Grid, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Avatar, Grid,  Typography } from '@material-ui/core';
 
 // project imports
 import MainCard from './../../../composant_de_style/cards/MainCard';

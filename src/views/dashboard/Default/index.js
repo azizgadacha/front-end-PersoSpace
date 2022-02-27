@@ -8,8 +8,7 @@ import EarningCard from './EarningCard';
 
 import { gridSpacing } from '../../../store/constant';
 import PlusCard from './PlusCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { ACCOUNT_INITIALIZE } from '../../../store/actions';
+import {  useSelector } from 'react-redux';
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
@@ -24,11 +23,9 @@ const Dashboard = (props, { ...others }) => {
         setLoading(false);
     }, []);
 
-    var listecard = useSelector((state) => state.card);
-    {console.log("salah1"+listecard)}
+    let listecard = useSelector((state) => state.card);
 
-    var lc =   listecard.cards.map((card) => {
-        {console.log("salah22"+card)}
+    let lc =   listecard.cards.map((card) => {
 
 return(
 

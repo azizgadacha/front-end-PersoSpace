@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link as RouterLink, useHistory, useParams} from 'react-router-dom';
 
 // material-ui
-import {Snackbar, useTheme} from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
@@ -10,45 +10,80 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 // style
 import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
 import Logo from './../../assets/Logo';
-import RestLogin from './RestLogin';
-
+import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
+import RestVerif from './RestVerif';
+import axios from "axios";
+import configData from "../../config";
+import {useDispatch} from "react-redux";
 import AuthCardWrapper1 from "../../composant_de_style/AuthCardWrapper1";
-
-import {Alert} from "@material-ui/lab";
-import {useDispatch, useSelector} from "react-redux";
 
 
 
 // assets
 
 //================================|| LOGIN MAIN ||================================//
-
-const Login = () => {
-    let open1 = useSelector((state) => state.snack);
-
+const Verification = () => {
     const dispatcher = useDispatch();
 
+    let {token}=useParams()
+    let history=useHistory()
 
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        dispatcher({
-            type:"Close"
-        });
-
-    };
-
+    const [success,setSucess]=useState(false)
+    const [err,setErr]=useState(true)
 
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+useEffect(()=>{
+    console.log("3asfour"+token)
+
+    const activationmail=async ()=>{
+
+            console.log("3asfour"+token)
+if(!token){
+
+    dispatcher({
+        type: "Click",
+        payload: {text: "lien invalid", severity: 'error'}
+    });
+
+    history.push("/login")
+
+}else
+{
+        try {
+    let result = await axios
+        .post(configData.API_SERVER + 'users/validation', {token,})
+    setSucess(result.data.success)
+    console.log("il ntija hya"+ result.data.success)
+    console.log("il ntija hya"+ result)
+
+    if(!result.data.success) {
+        dispatcher({
+            type: "Click",
+            payload: {text: "lien invalid", severity: 'error'}
+        });
+
+        history.push("/login")
+    }
+
+}catch (err)
+{
+    console.log("tnekna")
+
+    history.push("/login")
+    err.response.data.success&&setErr(err.response.data.success)
+}}
+    }
+   activationmail()
+
+},[])
 
     return (
-<React.Fragment>
+
+        success &&(
 
         <AuthWrapper1>
+
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
@@ -74,31 +109,24 @@ const Login = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                     Reinstall password
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
+                                                        Enter your new password
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
                                         </Grid>
                                          </Grid>
                                      <Grid item xs={12}>
-                                        <RestLogin />
+                                        <RestVerif />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Typography
-                                                component={RouterLink}
-                                                to="/register"
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none' }}
-                                            >
-                                       DON'T HAVE AN ACCOUNT ?  CLICK HERE
-                                            </Typography>
+
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -106,18 +134,10 @@ const Login = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                {/*    <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
-                </Grid>*/}
+
             </Grid>
         </AuthWrapper1>
-    {console.log(open1)}
-    <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={open1.severity} sx={{ width: '100%' }}>
-            {open1.text}                </Alert>
-    </Snackbar>
-</React.Fragment>
-    );
+    ));
 };
 
-export default Login;
+export default Verification;

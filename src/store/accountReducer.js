@@ -38,13 +38,6 @@ const accountReducer = (state = initialState, action) => {
                 user: null
             };
         }
-        case Profile:{
-            const {user}=action.payload;
-            return {
-                ...state,
-                user
-            }
-        }
         default: {
             return { ...state };
         }

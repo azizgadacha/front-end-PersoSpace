@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import customizationReducer from './customizationReducer';
 import accountReducer from './accountReducer';
 import cardReducer from './cardReducer';
+import SnackbarReducer from "./SnackbarReducer";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -19,7 +20,8 @@ const reducer = combineReducers({
         accountReducer
     ),
     customization: customizationReducer,
-    card:cardReducer
+    card:cardReducer,
+    snack:SnackbarReducer
 });
 
 export default reducer;

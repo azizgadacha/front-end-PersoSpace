@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {  useHistory } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 import configData from '../../config';
 
@@ -15,8 +15,7 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
-    OutlinedInput,
-    TextField,
+    OutlinedInput, Snackbar,
     Typography,
     useMediaQuery
 } from '@material-ui/core';
@@ -41,7 +40,8 @@ import { strengthColor, strengthIndicator } from '../../verification_password/pa
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -85,8 +85,17 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestRegister = ({ ...others }) => {
+
+let history =useHistory()
+
+    const dispatcher = useDispatch();
+
+
     const classes = useStyles();
-    let history = useHistory();
+
+    let {token}=useParams()
+    const [open, setOpen] = React.useState(false);
+
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
@@ -97,11 +106,19 @@ const RestRegister = ({ ...others }) => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-
+    const handleClick = () => {
+        setOpen(true);
+    };
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
 
+        setOpen(false);
+    };
     const changePassword = (value) => {
         const temp = strengthIndicator(value);
         setStrength(temp);
@@ -112,46 +129,43 @@ const RestRegister = ({ ...others }) => {
         changePassword('123456');
     }, []);
 
-    const dispatcher = useDispatch();
     return (
         <React.Fragment>
             <Formik
-                initialValues={{
-                    username: '',
-                    email: '',
+
+
+            initialValues={{
+
                     password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    username: Yup.string().required('Username is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
+console.log("3asfour"+token)
+
                         axios
-                            .post( configData.API_SERVER + 'users/register', {
-                                username: values.username,
-                                password: values.password,
-                                email: values.email
-                            })
+                            .post( configData.API_SERVER + 'users/change', {token,password: values.password})
                             .then(function (response) {
-                                if (response.data.success) {
-                                    history.push('/login');
-                                    dispatcher({
-                                        type:"Click",
-                                        payload: {text:"l'utilisateur a ete ajouter",severity:"success"}
-                                    });
-                                } else {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: response.data.msg });
-                                    setSubmitting(false);
-                                }
+
+                                setStatus({ success: true });
+                                setErrors({ submit: response.data.msg });
+                                setSubmitting(false);
+                                history.push("/login")
+                                dispatcher({
+                                    type:"Click",
+                                    payload: {text:"la mot de passe a ete envoyer",severity:"success"}
+                                });
+
                             })
                             .catch(function (error) {
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
                                 setSubmitting(false);
+
+
                             });
                     } catch (err) {
                         console.error(err);
@@ -167,48 +181,11 @@ const RestRegister = ({ ...others }) => {
                     <form noValidate onSubmit={handleSubmit} {...others}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
                             <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Username"
-                                    margin="normal"
-                                    name="username"
-                                    id="username"
-                                    type="text"
-                                    value={values.username}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    className={classes.loginInput}
-                                    error={touched.username && Boolean(errors.username)}
-                                />
-                                {touched.username && errors.username && (
-                                    <FormHelperText error id="standard-weight-helper-text--register">
-                                        {errors.username}
-                                    </FormHelperText>
-                                )}
+
+
                             </Grid>
                         </Grid>
-                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-email-register"
-                                type="email"
-                                value={values.email}
-                                name="email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{
-                                    classes: {
-                                        notchedOutline: classes.notchedOutline
-                                    }
-                                }}
-                            />
-                            {touched.email && errors.email && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {' '}
-                                    {errors.email}{' '}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
+
 
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
@@ -284,7 +261,9 @@ const RestRegister = ({ ...others }) => {
                                     mt: 3
                                 }}
                             >
-                                <Alert severity="error">{errors.submit}</Alert>
+                                <Alert variant="filled" severity="error">
+                                    {errors.submit}</Alert>
+
 
                             </Box>
                         )}
@@ -304,7 +283,7 @@ const RestRegister = ({ ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign UP
+                                    Change it
                                 </Button>
                             </AnimateButton>
                         </Box>
