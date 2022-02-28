@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {lazy} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
@@ -20,6 +20,14 @@ import { SET_MENU } from '../../store/actions';
 
 // assets
 import { IconChevronRight } from '@tabler/icons';
+import {Redirect, Route, Switch} from "react-router-dom";
+import config from "../../config";
+import LoginRoutes from "../../routes/LoginRoutes";
+import MainRoutes from "../../routes/MainRoutes";
+import SecondRoutes from "../../routes/SecondRoutes";
+import sidebar from "./Sidebar";
+import Preparation_du_page from "../../animation/Preparation_du_page";
+const Profile = Preparation_du_page(lazy(() => import('../Profile')));
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -111,7 +119,7 @@ const MainLayout = ({ children }) => {
             </AppBar>
 
             {/* drawer */}
-            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
+
 
             {/* main content */}
             <main

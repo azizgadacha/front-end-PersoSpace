@@ -18,7 +18,7 @@ export const other = {
             id: 'sample-page',
             title: 'Sample Page',
             type: 'item',
-            url: '/sample-page',
+            url: '/dashboard/sample-page',
             icon: icons['IconBrandChrome'],
             breadcrumbs: false
         },
