@@ -27,7 +27,7 @@ const Dashboard = (props, { ...others }) => {
 
     let lc =   listecard.cards.map((card) => {
 
-return(
+        {/*return(
 
                 <Grid item lg={4} md={6} sm={6} xs={12}>
                     <EarningCard isLoading={isLoading} />
@@ -38,18 +38,19 @@ return(
 
 
 )
+*/}
          })
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-            {lc}
+                    {/* {lc}*/}
 
 
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
+
+                    <Grid item lg={6} md={6} sm={12} xs={12}>
                         <PlusCard/>
                     </Grid>
-
                 </Grid>
             </Grid>
         </Grid>

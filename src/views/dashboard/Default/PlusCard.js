@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -7,6 +7,8 @@ import EarningIcon from '../../../assets/images/icons/earning.svg';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from '../../../store/actions';
+//
+import Modal from '../../modal/index'
 
 // style constant
 const useStyles = makeStyles({
@@ -24,22 +26,19 @@ const PlusCard = () => {
 
     const listecard = useSelector((state) => state.card);
 
-var i=3
 
     const classes = useStyles();
+
+    const [openModal,setOpenModal]=useState(false);
     const handleClick = () => {
-        i=i+1
-
-        dispatch({ type: "ajout", card:{id:i}} )
-
-
+setOpenModal(true);
     };
 
 
     return (
 
 
-
+<React.Fragment>
         <Card>
             <CardContent>
                 <Grid container direction="column">
@@ -66,6 +65,10 @@ var i=3
                 </Grid>
             </CardContent>
         </Card>
+
+        {openModal && <Modal/>}
+
+</React.Fragment>
     );
 };
 

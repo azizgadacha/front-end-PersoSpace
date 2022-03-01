@@ -1,5 +1,5 @@
 // action - state management
-import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT,Profile } from './actions';
+import { ACCOUNT_INITIALIZE, LOGIN, LOGOUT,Profileqq } from './actions';
 
 export const initialState = {
     token: '',
