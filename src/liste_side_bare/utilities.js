@@ -22,7 +22,7 @@ export const utilities = {
             id: 'util-typography',
             title: 'Typography',
             type: 'item',
-            url: '/utils/util-typography',
+            url: '/dashboard/utils/util-typography',
             icon: icons['IconTypography'],
             breadcrumbs: false
         },
@@ -30,7 +30,7 @@ export const utilities = {
             id: 'util-color',
             title: 'Color',
             type: 'item',
-            url: '/utils/util-color',
+            url: '/dashboard/utils/util-color',
             icon: icons['IconPalette'],
             breadcrumbs: false
         },
@@ -38,7 +38,7 @@ export const utilities = {
             id: 'util-shadow',
             title: 'Shadow',
             type: 'item',
-            url: '/utils/util-shadow',
+            url: '/dashboard/utils/util-shadow',
             icon: icons['IconShadow'],
             breadcrumbs: false
         },
@@ -52,14 +52,14 @@ export const utilities = {
                     id: 'tabler-icons',
                     title: 'Tabler Icons',
                     type: 'item',
-                    url: '/icons/tabler-icons',
+                    url: '/dashboard/icons/tabler-icons',
                     breadcrumbs: false
                 },
                 {
                     id: 'material-icons',
                     title: 'Material Icons',
                     type: 'item',
-                    url: '/icons/material-icons',
+                    url: '/dashboard/icons/material-icons',
                     breadcrumbs: false
                 }
             ]

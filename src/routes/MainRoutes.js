@@ -6,6 +6,9 @@ import MainLayout from '../views/Scolette_du_Dashboard';
 import Preparation_du_page from "./../animation/Preparation_du_page";
 
 import AuthGuard from './../guard_root/AuthGuard';
+import Sidebar from "../views/Scolette_du_Dashboard/Sidebar";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_MENU} from "../store/actions";
 
 
 // dashboard routing
@@ -24,6 +27,11 @@ const SamplePage = Preparation_du_page(lazy(() => import('../views/sample-page')
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
+    const leftDrawerOpened = useSelector((state) => state.customization.opened);
+    const dispatch = useDispatch();
+    const handleLeftDrawerToggle = () => {
+        dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
+    };
     const location = useLocation();
 
     return (
@@ -31,28 +39,30 @@ const MainRoutes = () => {
             path={[
                 '/dashboard/default',
 
-                '/utils/util-typography',
-                '/utils/util-color',
-                '/utils/util-shadow',
-                '/icons/tabler-icons',
-                '/icons/material-icons',
+                '/dashboard/utils/util-typography',
+                '/dashboard/utils/util-color',
+                '/dashboard/utils/util-shadow',
+                '/dashboard/icons/tabler-icons',
+                '/dashboard/icons/material-icons',
 
-                '/sample-page'
+                '/dashboard/sample-page'
             ]}
         >
 
             <MainLayout>
+
+
                 <Switch location={location} key={location.pathname}>
                     <AuthGuard>
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
-                        <Route path="/utils/util-typography" component={UtilsTypography} />
-                        <Route path="/utils/util-color" component={UtilsColor} />
-                        <Route path="/utils/util-shadow" component={UtilsShadow} />
-                        <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
-                        <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
+                        <Route path="/dashboard/utils/util-typography" component={UtilsTypography} />
+                        <Route path="/dashboard/utils/util-color" component={UtilsColor} />
+                        <Route path="/dashboard/utils/util-shadow" component={UtilsShadow} />
+                        <Route path="/dashboard/icons/tabler-icons" component={UtilsTablerIcons} />
+                        <Route path="/dashboard/icons/material-icons" component={UtilsMaterialIcons} />
 
-                        <Route path="/sample-page" component={SamplePage} />
+                        <Route path="/dashboard/sample-page" component={SamplePage} />
                     </AuthGuard>
                 </Switch>
 

@@ -100,53 +100,9 @@ const MainLayout = ({ children }) => {
     }, [matchDownMd]);
 
     return (
-        <div className={classes.root}>
-            <CssBaseline />
-            {/* header */}
-            <AppBar
-                enableColorOnDark
-                position="fixed"
-                color="inherit"
-                elevation={0}
-                className={leftDrawerOpened ? classes.appBarWidth : classes.appBar}
-            >
-                <Toolbar>
-                    <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
-                </Toolbar>
-            </AppBar>
 
-            {/* drawer */}
-            <Switch>
-
-
-                    <LoginRoutes />
-                    {/* Routes for main layouts */}
-                    <MainRoutes />
-
-
-
-
-            </Switch>
             <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
-
-            {/* main content */}
-            <main
-                className={clsx([
-                    classes.content,
-                    {
-                        [classes.contentShift]: leftDrawerOpened
-                    }
-                ])}
-            >
-                {/* <Main open={leftDrawerOpened}> */}
-                {/* breadcrumb */}
-                <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
-                <div>{children}</div>
-                {/* </Main> */}
-            </main>
-            <Customization />
-        </div>
     );
 };
 

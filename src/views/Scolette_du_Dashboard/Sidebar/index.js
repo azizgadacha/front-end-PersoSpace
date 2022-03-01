@@ -13,7 +13,7 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
-import { drawerWidth } from './../../../store/constant';
+import { drawerWidth } from '../../../store/constant';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
