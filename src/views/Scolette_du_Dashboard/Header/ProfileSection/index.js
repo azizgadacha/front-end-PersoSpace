@@ -31,7 +31,6 @@ import axios from 'axios';
 // project imports
 import MainCard from '../../../../composant_de_style/cards/MainCard';
 import Transitions_menu_dash from '../../../../animation/Transitions_menu_dash';
-import UpgradePlanCard from './UpgradePlanCard';
 import { LOGOUT } from '../../../../store/actions';
 
 // assets
@@ -140,7 +139,7 @@ const ProfileSection = () => {
 
 
     const handleProfile =()=>{
-       history.push('/Profile')
+       history.push('/dashboard/Profile')
     }
 
 
@@ -255,7 +254,7 @@ const ProfileSection = () => {
                                         />
                                         <Divider />
                                         <PerfectScrollbar className={classes.ScrollHeight}>
-                                            <UpgradePlanCard />
+
                                             <Divider />
                                             <Card className={classes.card}>
                                                 <CardContent>

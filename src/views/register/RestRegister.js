@@ -14,8 +14,8 @@ import {
     Grid,
     IconButton,
     InputAdornment,
-    InputLabel,
-    OutlinedInput,
+    InputLabel, MenuItem,
+    OutlinedInput, Select,
     TextField,
     Typography,
     useMediaQuery
@@ -97,6 +97,11 @@ const RestRegister = ({ ...others }) => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
+    const [role, setRole] = React.useState('');
+
+    const handleChangerole = (event) => {
+        setRole(event.target.value);
+    };
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -107,6 +112,7 @@ const RestRegister = ({ ...others }) => {
         setStrength(temp);
         setLevel(strengthColor(temp));
     };
+
 
     useEffect(() => {
         changePassword('123456');
@@ -120,20 +126,27 @@ const RestRegister = ({ ...others }) => {
                     username: '',
                     email: '',
                     password: '',
+                    role: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     username: Yup.string().required('Username is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    password: Yup.string().max(255).required('Password is required'),
+                    role: Yup.string().required('role is required')
+
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+                    console.log(values.role)
+
                     try {
+
                         axios
                             .post( configData.API_SERVER + 'users/register', {
                                 username: values.username,
                                 password: values.password,
-                                email: values.email
+                                email: values.email,
+                                role:values.role
                             })
                             .then(function (response) {
                                 if (response.data.success) {
@@ -210,6 +223,37 @@ const RestRegister = ({ ...others }) => {
                             )}
                         </FormControl>
 
+
+                        <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
+                            <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
+                            <Select
+                                margin="normal"
+                                        sx={{minHeight:63}}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="role"
+                                name="role"
+
+                                value={values.role}
+                                        label="Role"
+                                        onBlur={handleBlur}
+                                        error={touched.role && Boolean(errors.role)}
+
+                                onChange={handleChange}    >
+
+                                <MenuItem value={"administrateur"}>administrateur</MenuItem>
+
+                                <MenuItem value={"Simple Employer"}>Simple Employer</MenuItem>
+                                <MenuItem value={"responsable resource humaine"}>responsable resource humaine</MenuItem>
+                            </Select>
+                            {touched.role && errors.role && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {' '}
+                                    {errors.role}{' '}
+                                </FormHelperText>
+                            )}
+
+                        </FormControl>
+
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
                             <OutlinedInput
@@ -233,7 +277,7 @@ const RestRegister = ({ ...others }) => {
                                         >
                                             {showPassword ? <Visibility /> : <VisibilityOff />}
                                         </IconButton>
-                                    </InputAdornment>
+                                    </            InputAdornment>
                                 }
                                 inputProps={{
                                     classes: {
@@ -248,6 +292,27 @@ const RestRegister = ({ ...others }) => {
 
                             )}
                         </FormControl>
+                        <Grid item>
+                            <Typography variant="subtitle1" fontSize="0.75rem">
+                                {level.label}
+                            </Typography>
+                            <Grid container spacing={2} alignItems="center">
+                                <Grid item>
+                                    <Box
+                                        backgroundColor={level.color}
+                                        sx={{
+                                            width: 85,
+                                            height: 8,
+                                            borderRadius: '7px'
+                                        }}
+                                    ></Box>
+                                </Grid>
+
+                            </Grid>
+
+                        </Grid>
+
+
 
                         {strength !== 0 && (
                             <FormControl fullWidth>
@@ -256,23 +321,7 @@ const RestRegister = ({ ...others }) => {
                                         mb: 2
                                     }}
                                 >
-                                    <Grid container spacing={2} alignItems="center">
-                                        <Grid item>
-                                            <Box
-                                                backgroundColor={level.color}
-                                                sx={{
-                                                    width: 85,
-                                                    height: 8,
-                                                    borderRadius: '7px'
-                                                }}
-                                            ></Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="subtitle1" fontSize="0.75rem">
-                                                {level.label}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
+
                                 </Box>
                             </FormControl>
                         )}

@@ -9,6 +9,7 @@ import LoginRoutes from './LoginRoutes';
 import config from './../config';
 
 import SecondRoutes from "./SecondRoutes";
+import Route_initial from "./Route_initial";
 
 
 //-----------------------|| ROUTING RENDER ||-----------------------//
@@ -26,10 +27,9 @@ const Routes = () => {
                 {/* Route for login */}
                 <LoginRoutes />
                 {/* Routes for main layouts */}
-                <MainRoutes />
+                <Route_initial />
 
                 {/* Routes for Personal informations expect the Menu Items so*/}
-                <SecondRoutes/>
 
             </React.Fragment>
 

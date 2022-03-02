@@ -19,24 +19,18 @@ const SecondRoutes = () => {
     const location = useLocation();
 
     return (
-        <Route
-            path={[
 
-                '/Profile',
 
-            ]}
-        >
 
-            <ProfileLayout>
                 <Switch location={location} key={location.pathname}>
                     <AuthGuard>
 
-                        <Route path="/Profile" component={Profile} />
+                        <Route path="/dashboard/Profile" component={Profile} />
 
                     </AuthGuard>
                 </Switch>
-            </ProfileLayout>
-        </Route>
+
+
     );
 };
 

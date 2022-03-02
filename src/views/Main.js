@@ -1,28 +1,24 @@
 import PropTypes from 'prop-types';
-import React, {lazy} from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
-import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
+import {  useMediaQuery } from '@material-ui/core';
 
 // third-party
 import clsx from 'clsx';
 
 // project imports
-import Breadcrumbs from './../../composant_de_style/Breadcrumbs';
-import Header from './Header';
-import Sidebar from './../Main';
-import Customization from './../../composant_de_style/Customization';
-import navigation from './../../liste_side_bare';
-import { drawerWidth } from '../../store/constant';
-import { SET_MENU } from '../../store/actions';
-import {Route, Switch} from "react-router-dom";
-import MainRoutes from "../../routes/MainRoutes";
-import SecondRoutes from "../../routes/SecondRoutes";
-import Preparation_du_page from "../../animation/Preparation_du_page";
-import {IconChevronRight} from "@tabler/icons";
+import Breadcrumbs from './../composant_de_style/Breadcrumbs';
 
+import Sidebar from '../views/Scolette_du_Dashboard/Sidebar';
+import navigation from './../liste_side_bare';
+import { drawerWidth } from '../store/constant';
+import { SET_MENU } from '../store/actions';
+
+// assets
+import { IconChevronRight } from '@tabler/icons';
 
 
 // style constant
@@ -80,17 +76,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //-----------------------|| MAIN LAYOUT ||-----------------------//
-const DashboardDefault = Preparation_du_page(lazy(() => import('../dashboard/Default')));
-const Slidebar = Preparation_du_page(lazy(() => import('../slidebar')));
 
-// Bare_du_cotte routing
-const registre = Preparation_du_page(lazy(() => import('../register')));
-const Profile = Preparation_du_page(lazy(() => import('../Profile/index')));
-
-const UtilsMaterialIcons = Preparation_du_page(lazy(() => import('../Bare_du_cotte/MaterialIcons')));
-const UtilsTablerIcons = Preparation_du_page(lazy(() => import('../Bare_du_cotte/TablerIcons')));
-
-const MainLayout = ({ children }) => {
+const Main = ({ children }) => {
     const classes = useStyles();
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -108,33 +95,11 @@ const MainLayout = ({ children }) => {
     }, [matchDownMd]);
 
     return (
-        <div className={classes.root}>
-            <CssBaseline />
-            {/* header */}
-            <AppBar
-                enableColorOnDark
-                position="fixed"
-                color="inherit"
-                elevation={0}
-                className={leftDrawerOpened ? classes.appBarWidth : classes.appBar}
-            >
-                <Toolbar>
-                    <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
-                </Toolbar>
-            </AppBar>
+        <React.Fragment>
+            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
 
-            <Switch>
-
-                <Route path="/dashboard/nav" component={Slidebar} />
-
-
-            </Switch>
-
-            {/* drawer */}
-
-
-
+            {/* main content */}
             <main
                 className={clsx([
                     classes.content,
@@ -146,29 +111,17 @@ const MainLayout = ({ children }) => {
                 {/* <Main open={leftDrawerOpened}> */}
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
-                <div> <Switch>
-                    <Route path="/dashboard/Profile" component={Profile} />
-
-                    <Route path="/dashboard/nav/default" component={DashboardDefault} />
-
-                    <Route path="/dashboard/nav/registre" component={registre} />
-
-                    <Route path="/dashboard/nav/icons/tabler-icons" component={UtilsTablerIcons} />
-                    <Route path="/dashboard/nav/icons/material-icons" component={UtilsMaterialIcons} />
-
-
-                </Switch></div>
+                <div>{children}</div>
                 {/* </Main> */}
             </main>
-            {/* main content */}
 
-            <Customization />
-        </div>
+
+        </React.Fragment>
     );
 };
 
-MainLayout.propTypes = {
+Main.propTypes = {
     children: PropTypes.node
 };
 
-export default MainLayout;
+export default Main;

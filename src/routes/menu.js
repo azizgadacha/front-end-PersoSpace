@@ -10,7 +10,7 @@ import Sidebar from "../views/Scolette_du_Dashboard/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_MENU} from "../store/actions";
 import SecondRoutes from "./SecondRoutes";
-import Main from "../views/Main";
+import Main from "./../views/Main";
 
 
 // dashboard routing
@@ -36,27 +36,29 @@ const MainRoutes = () => {
     const location = useLocation();
 
     return (
-
-            <Switch location={location} key={location.pathname}>
-                <AuthGuard>
-
-                <Main>
+        <Route
+            path={[
 
 
+                '/dashboard'
+
+            ]}
+        >
+
+            <MainLayout>
 
 
-                        <Route path="/dashboard/default" component={DashboardDefault} />
+                <Switch location={location} key={location.pathname}>
+                    <AuthGuard>
 
-                        <Route path="/dashboard/registre" component={registre} />
 
-                        <Route path="/dashboard/icons/tabler-icons" component={UtilsTablerIcons} />
-                        <Route path="/dashboard/icons/material-icons" component={UtilsMaterialIcons} />
-                </Main>
+                        <Route path="/dashboard" component={Main} />
 
                     </AuthGuard>
                 </Switch>
 
-
+            </MainLayout>
+        </Route>
     );
 };
 

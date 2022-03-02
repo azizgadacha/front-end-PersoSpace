@@ -6,25 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
 
-// third-party
-import clsx from 'clsx';
 
 // project imports
-import Breadcrumbs from './../../composant_de_style/Breadcrumbs';
-import Header from './Header';
-import Sidebar from './Sidebar';
-import Customization from './../../composant_de_style/Customization';
-import navigation from './../../liste_side_bare';
-import { drawerWidth } from '../../store/constant';
-import { SET_MENU } from '../../store/actions';
+import Sidebar from './Scolette_du_Dashboard/Sidebar';
+
+import { drawerWidth } from '../store/constant';
+import { SET_MENU } from '../store/actions';
 
 // assets
-import { IconChevronRight } from '@tabler/icons';
-import {Redirect, Switch} from "react-router-dom";
-import config from "../../config";
-import LoginRoutes from "../../routes/LoginRoutes";
-import MainRoutes from "../../routes/MainRoutes";
-import SecondRoutes from "../../routes/SecondRoutes";
+
 
 // style constant
 const useStyles = makeStyles((theme) => ({

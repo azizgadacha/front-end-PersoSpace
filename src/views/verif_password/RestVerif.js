@@ -94,7 +94,6 @@ let history =useHistory()
     const classes = useStyles();
 
     let {token}=useParams()
-    const [open, setOpen] = React.useState(false);
 
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -106,19 +105,11 @@ let history =useHistory()
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-    const handleClick = () => {
-        setOpen(true);
-    };
+
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
 
-        setOpen(false);
-    };
     const changePassword = (value) => {
         const temp = strengthIndicator(value);
         setStrength(temp);
