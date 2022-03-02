@@ -28,7 +28,7 @@ const Routes = () => {
                 <LoginRoutes />
                 {/* Routes for main layouts */}
                 <Route_initial />
-
+                <SecondRoutes/>
                 {/* Routes for Personal informations expect the Menu Items so*/}
 
             </React.Fragment>

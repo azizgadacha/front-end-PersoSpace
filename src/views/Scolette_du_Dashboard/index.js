@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {lazy} from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
@@ -12,18 +12,14 @@ import clsx from 'clsx';
 // project imports
 import Breadcrumbs from './../../composant_de_style/Breadcrumbs';
 import Header from './Header';
-import Sidebar from './../Main';
+import Sidebar from './Sidebar';
 import Customization from './../../composant_de_style/Customization';
 import navigation from './../../liste_side_bare';
 import { drawerWidth } from '../../store/constant';
 import { SET_MENU } from '../../store/actions';
-import {Route, Switch} from "react-router-dom";
-import MainRoutes from "../../routes/MainRoutes";
-import SecondRoutes from "../../routes/SecondRoutes";
-import Preparation_du_page from "../../animation/Preparation_du_page";
-import {IconChevronRight} from "@tabler/icons";
 
-
+// assets
+import { IconChevronRight } from '@tabler/icons';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -80,15 +76,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //-----------------------|| MAIN LAYOUT ||-----------------------//
-const DashboardDefault = Preparation_du_page(lazy(() => import('../dashboard/Default')));
-const Slidebar = Preparation_du_page(lazy(() => import('../slidebar')));
-
-// Bare_du_cotte routing
-const registre = Preparation_du_page(lazy(() => import('../register')));
-const Profile = Preparation_du_page(lazy(() => import('../Profile/index')));
-
-const UtilsMaterialIcons = Preparation_du_page(lazy(() => import('../Bare_du_cotte/MaterialIcons')));
-const UtilsTablerIcons = Preparation_du_page(lazy(() => import('../Bare_du_cotte/TablerIcons')));
 
 const MainLayout = ({ children }) => {
     const classes = useStyles();
@@ -123,18 +110,10 @@ const MainLayout = ({ children }) => {
                 </Toolbar>
             </AppBar>
 
-
-            <Switch>
-
-                <Route path="/dashboard/nav" component={Slidebar} />
-
-
-            </Switch>
-
             {/* drawer */}
+            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
 
-
-
+            {/* main content */}
             <main
                 className={clsx([
                     classes.content,
@@ -146,22 +125,9 @@ const MainLayout = ({ children }) => {
                 {/* <Main open={leftDrawerOpened}> */}
                 {/* breadcrumb */}
                 <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
-                <div> <Switch>
-                    <Route path="/dashboard/Profile" component={Profile} />
-
-                    <Route path="/dashboard/nav/default" component={DashboardDefault} />
-
-                    <Route path="/dashboard/nav/registre" component={registre} />
-
-                    <Route path="/dashboard/nav/icons/tabler-icons" component={UtilsTablerIcons} />
-                    <Route path="/dashboard/nav/icons/material-icons" component={UtilsMaterialIcons} />
-
-
-                </Switch></div>
+                <div>{children}</div>
                 {/* </Main> */}
             </main>
-            {/* main content */}
-
             <Customization />
         </div>
     );

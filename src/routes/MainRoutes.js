@@ -37,6 +37,21 @@ const MainRoutes = () => {
 
     return (
 
+        <Route
+            path={[
+                '/dashboard/default',
+
+                '/utils/util-typography',
+                '/utils/util-color',
+                '/utils/util-shadow',
+                '/icons/tabler-icons',
+                '/icons/material-icons',
+
+                '/sample-page'
+            ]}
+        >
+
+        <MainLayout>
             <Switch location={location} key={location.pathname}>
                 <AuthGuard>
 
@@ -55,8 +70,8 @@ const MainRoutes = () => {
 
                     </AuthGuard>
                 </Switch>
-
-
+        </MainLayout>
+        </Route>
     );
 };
 
