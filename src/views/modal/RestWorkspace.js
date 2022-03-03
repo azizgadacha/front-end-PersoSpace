@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {  useHistory } from 'react-router-dom';
 
 import configData from '../../config';
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const RestWorkspace = ({ ...others }) => {
+const RestWorkspace = (SetModal,{ ...others }) => {
     const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
@@ -93,6 +93,7 @@ const RestWorkspace = ({ ...others }) => {
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
     const account = useSelector((state) => state.account);
+    const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     return (
         <React.Fragment>
@@ -241,11 +242,34 @@ const RestWorkspace = ({ ...others }) => {
                                     type="submit"
                                     variant="contained"
                                     color="secondary"
+
                                 >
                                     Add Workspace
                                 </Button>
                             </AnimateButton>
+
                         </Box>
+                        <Box
+                            sx={{
+                                mt: 2
+                            }}
+                        >
+                            <AnimateButton>
+                                <Button
+                                    disableElevation
+                                    disabled={isSubmitting}
+                                    fullWidth
+                                    size="large"
+                                    onClick={()=>SetModal(false)}
+                                    variant="contained"
+                                    color="secondary"
+                                >
+                                 Cancel
+                                </Button>
+                            </AnimateButton>
+
+                        </Box>
+
                     </form>
                 )}
             </Formik>

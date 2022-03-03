@@ -9,6 +9,7 @@ import EarningCard from './EarningCard';
 import { gridSpacing } from '../../../store/constant';
 import PlusCard from './PlusCard';
 import {  useSelector } from 'react-redux';
+import WorkspaceCard from "./WorkspaceCard";
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
@@ -23,14 +24,14 @@ const Dashboard = (props, { ...others }) => {
         setLoading(false);
     }, []);
 
-    let listecard = useSelector((state) => state.card);
+   /* let listecard = useSelector((state) => state.card);
 
     let lc =   listecard.cards.map((card) => {
 
-        {/*return(
+        return(
 
                 <Grid item lg={4} md={6} sm={6} xs={12}>
-                    <EarningCard isLoading={isLoading} />
+                    <WorkspaceCard isLoading={isLoading} />
                 </Grid>
                 
 
@@ -38,19 +39,21 @@ const Dashboard = (props, { ...others }) => {
 
 
 )
-*/}
+
          })
+
+    */
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    {/* {lc}*/}
-
-
-
-                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <WorkspaceCard isLoading={isLoading} />
+                    </Grid>
+                    <Grid item lg={4} md={6} sm={12} xs={12}>
                         <PlusCard/>
                     </Grid>
+
                 </Grid>
             </Grid>
         </Grid>
