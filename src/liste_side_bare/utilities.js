@@ -19,7 +19,7 @@ export const utilities = {
             id: 'Add new User',
             title: 'Add new User',
             type: 'item',
-            url: '/dashboard/nav/registre',
+            url: '/dashboard/registre',
             icon: icons['IconUserPlus'],
             breadcrumbs: false
         },
@@ -33,14 +33,14 @@ export const utilities = {
                     id: 'tabler-icons',
                     title: 'Tabler Icons',
                     type: 'item',
-                    url: '/dashboard/nav/icons/tabler-icons',
+                    url: '/dashboard/icons/tabler-icons',
                     breadcrumbs: false
                 },
                 {
                     id: 'material-icons',
                     title: 'Material Icons',
                     type: 'item',
-                    url: '/dashboard/nav/icons/material-icons',
+                    url: '/dashboard/icons/material-icons',
                     breadcrumbs: false
                 }
             ]

@@ -27,7 +27,7 @@ const Routes = () => {
                 {/* Route for login */}
                 <LoginRoutes />
                 {/* Routes for main layouts */}
-                <Route_initial />
+                <MainRoutes />
                 <SecondRoutes/>
                 {/* Routes for Personal informations expect the Menu Items so*/}
 
