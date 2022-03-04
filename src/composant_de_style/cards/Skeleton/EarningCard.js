@@ -18,8 +18,8 @@ const useStyles = makeStyles({
 const EarningCard = () => {
     const classes = useStyles();
     return (
-        <Card>
-            <CardContent>
+        <Card >
+            <CardContent >
                 <Grid container direction="column">
                     <Grid item>
                         <Grid container justifyContent="space-between">
