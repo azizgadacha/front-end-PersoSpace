@@ -3,6 +3,9 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const CLICK = 'Click';
 export const CLOSE = 'Close';
+export const OPEN_MODAL= 'OPEN_MODAL';
+export const CLOSE_MODAL= 'CLOSE_MODAL';
+
 
 export const ACCOUNT_INITIALIZE = 'ACCOUNT_INITIALIZE';
 

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { OPEN_MODAL, CLOSE_MODAL,  } from '../../../store/actions';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -28,17 +29,22 @@ const PlusCard = () => {
 
 
     const classes = useStyles();
+    let open1 = useSelector((state) => state.modal);
 
-    const [openModal,setOpenModal]=useState(false);
+    const dispatcher = useDispatch();
 
     const handleClick = () => {
-       setOpenModal(true);
+        dispatcher({
+            type:OPEN_MODAL,
 
+        });
     };
 
     function handleClose  () {
-        setOpenModal(false);
-console.log("nemchi2.0")
+        dispatcher({
+            type:CLOSE_MODAL,
+
+        });
     };
 
     return (
@@ -61,7 +67,7 @@ console.log("nemchi2.0")
             </CardContent>
         </Card>
 
-    {openModal && (<Modal  handleClose={handleClose}/>)}
+    {open1.ModalState && (<Modal  handleClose={handleClose}/>)}
 
 
 
