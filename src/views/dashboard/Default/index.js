@@ -25,13 +25,14 @@ const Dashboard = (props, { ...others }) => {
 
 
     useEffect(() => {
-        setLoading(false);
         axios
             .post( configData.API_SERVER + 'users/getworkspace',{token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
                 setworkspaces(response.data.workspaceitems)
+                setLoading(false);
+
             })
             .catch(function (error) {
                 console.log('le menemchich zeda')
@@ -40,7 +41,7 @@ const Dashboard = (props, { ...others }) => {
             })
 
 
-    }, []);
+    });
 
 
     let lc =   workspaces.map((card) => {

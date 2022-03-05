@@ -44,6 +44,7 @@ import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import WorkspaceCard from "../dashboard/Default/WorkspaceCard";
+import {CLOSE_MODAL} from "../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -122,6 +123,11 @@ const RestWorkspace = (props) => {
                             })
                             .then(function (response) {
                                 if (response.data.success) {
+
+                                    dispatcher({
+                                        type:CLOSE_MODAL,
+
+                                    })
                                     history.push(configData.defaultPath);
 
                                 } else {

@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 //-----------------------|| SKELETON EARNING CARD ||-----------------------//
 
 const PlusCard = () => {
-    const dispatch = useDispatch();
+
 
     const listecard = useSelector((state) => state.card);
 
