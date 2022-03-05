@@ -1,12 +1,12 @@
-import { CLICK, CLOSE,  } from './actions';
+import { CLICK, CLOSE  } from './actions';
 
 
 
 
 export const initialState = {
-   open:false,
-    text:"",
-    severity:""
+   open:true,
+    text:" sal  h",
+    severity:"success"
 
 };
 

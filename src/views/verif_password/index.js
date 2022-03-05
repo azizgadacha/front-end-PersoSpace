@@ -10,7 +10,6 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 // style
 import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
 import Logo from './../../assets/Logo';
-import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
 import RestVerif from './RestVerif';
 import axios from "axios";
 import configData from "../../config";
@@ -68,7 +67,10 @@ if(!token){
 
 }catch (err)
 {
-    console.log("tnekna")
+    dispatcher({
+        type: "Click",
+        payload: {text: "lien invalid", severity: 'error'}
+    });
 
     history.push("/login")
     err.response.data.success&&setErr(err.response.data.success)

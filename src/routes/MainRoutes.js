@@ -6,57 +6,67 @@ import MainLayout from '../views/Scolette_du_Dashboard';
 import Preparation_du_page from "./../animation/Preparation_du_page";
 
 import AuthGuard from './../guard_root/AuthGuard';
+import Sidebar from "../views/Scolette_du_Dashboard/Sidebar";
+import {useDispatch, useSelector} from "react-redux";
+import {SET_MENU} from "../store/actions";
+import SecondRoutes from "./SecondRoutes";
 
 
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
 
 // Bare_du_cotte routing
-const UtilsTypography = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/Typography')));
-const UtilsColor = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/Color')));
-const UtilsShadow = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/Shadow')));
+const registre = Preparation_du_page(lazy(() => import('../views/register')));
+const Profile = Preparation_du_page(lazy(() => import('../views/Profile/index')));
+
 const UtilsMaterialIcons = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/MaterialIcons')));
 const UtilsTablerIcons = Preparation_du_page(lazy(() => import('../views/Bare_du_cotte/TablerIcons')));
 
 // sample page routing
-const SamplePage = Preparation_du_page(lazy(() => import('../views/sample-page')));
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
+    const leftDrawerOpened = useSelector((state) => state.customization.opened);
+    const dispatch = useDispatch();
+    const handleLeftDrawerToggle = () => {
+        dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
+    };
     const location = useLocation();
 
     return (
+
         <Route
             path={[
                 '/dashboard/default',
 
-                '/utils/util-typography',
-                '/utils/util-color',
-                '/utils/util-shadow',
-                '/icons/tabler-icons',
-                '/icons/material-icons',
+                '/dashboard/registre',
 
-                '/sample-page'
+                '/dashboard/icons/tabler-icons',
+                '/dashboard/icons/material-icons',
+
             ]}
         >
 
-            <MainLayout>
-                <Switch location={location} key={location.pathname}>
-                    <AuthGuard>
+        <MainLayout>
+            <Switch location={location} key={location.pathname}>
+                <AuthGuard>
+
+
+
+
+
+
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
-                        <Route path="/utils/util-typography" component={UtilsTypography} />
-                        <Route path="/utils/util-color" component={UtilsColor} />
-                        <Route path="/utils/util-shadow" component={UtilsShadow} />
-                        <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
-                        <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
+                        <Route path="/dashboard/registre" component={registre} />
 
-                        <Route path="/sample-page" component={SamplePage} />
+                        <Route path="/dashboard/icons/tabler-icons" component={UtilsTablerIcons} />
+                        <Route path="/dashboard/icons/material-icons" component={UtilsMaterialIcons} />
+
                     </AuthGuard>
                 </Switch>
-
-            </MainLayout>
+        </MainLayout>
         </Route>
     );
 };

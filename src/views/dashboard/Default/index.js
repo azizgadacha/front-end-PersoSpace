@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 // material-ui
 import { Grid } from '@material-ui/core';
 
@@ -9,9 +8,13 @@ import EarningCard from './EarningCard';
 import { gridSpacing } from '../../../store/constant';
 import PlusCard from './PlusCard';
 import {  useSelector } from 'react-redux';
+
 import WorkspaceCard from "./WorkspaceCard";
 import axios from "axios";
 import configData from "../../../config";
+
+import TotalGrowthBarChart from "./TotalGrowthBarChart";
+
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
@@ -41,6 +44,7 @@ const Dashboard = (props, { ...others }) => {
             })
 
 
+
     });
 
 
@@ -63,7 +67,14 @@ const Dashboard = (props, { ...others }) => {
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
+
                     {lc}
+
+
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <TotalGrowthBarChart isLoading={isLoading} />
+
+                    </Grid>
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <PlusCard/>

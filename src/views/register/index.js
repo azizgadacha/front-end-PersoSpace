@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -8,9 +7,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 // project imports
 import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
 import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
-import Logo from './../../assets/Logo';
 import RestRegister from './RestRegister';
-import AuthCardWrapper1 from "../../composant_de_style/AuthCardWrapper1";
 
 // assets
 
@@ -22,16 +19,14 @@ const Register = () => {
 
     return (
         <AuthWrapper1>
-            <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
+            <Grid container direction="column" justifyContent="flex-end" sx={{ maxHeight: '100vh' }}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
-                            <AuthCardWrapper1>
+                            <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
-                                        <RouterLink to="#">
-                                            <Logo />
-                                        </RouterLink>
+
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid
@@ -47,11 +42,9 @@ const Register = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Sign up
+Ajouter un nouveau compte
                                                     </Typography>
-                                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
-                                                    </Typography>
+
                                                 </Stack>
                                             </Grid>
                                         </Grid>
@@ -63,19 +56,10 @@ const Register = () => {
                                         <Divider />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Typography
-                                                component={RouterLink}
-                                                to="/login"
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none' }}
-                                            >
-                                                Have an account?
-                                            </Typography>
-                                        </Grid>
+
                                     </Grid>
                                 </Grid>
-                            </AuthCardWrapper1>
+                            </AuthCardWrapper>
                         </Grid>
                     </Grid>
                 </Grid>

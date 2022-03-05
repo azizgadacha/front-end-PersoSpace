@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import {Bar} from 'react-chartjs-2'
+import {Chart as ChartJS} from "chart.js/auto";
 // material-ui
 import { Grid, MenuItem, TextField, Typography, useTheme } from '@material-ui/core';
 
 // third-party
 import ApexCharts from 'apexcharts';
-import Chart from 'react-apexcharts';
 
 // project imports
-import SkeletonTotalGrowthBarChart from './../../../ui-component/cards/Skeleton/TotalGrowthBarChart';
-import MainCard from './../../../ui-component/cards/MainCard';
-import { gridSpacing } from './../../../store/constant';
+import SkeletonTotalGrowthBarChart from './../../../composant_de_style/cards/Skeleton/TotalGrowthBarChart';
+import { gridSpacing } from '../../../store/constant';
 
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';
+import BarChart from "../Chart/BarChart";
+import MainCard from "../../../composant_de_style/cards/MainCard";
 
 const status = [
     {
@@ -78,16 +79,16 @@ const TotalGrowthBarChart = ({ isLoading }) => {
         };
 
         // do not load chart when loading
-        if (!isLoading) {
-            ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
-        }
+       /* if (!isLoading) {
+            ChartJS. exec(`bar-chart`, 'updateOptions', newChartData);
+       }*/
     }, [primary200, primaryDark, secondaryMain, secondaryLight, primary, grey200, isLoading, grey500]);
 
     return (
         <React.Fragment>
-            {isLoading ? (
+            {/*    {isLoading ? (
                 <SkeletonTotalGrowthBarChart />
-            ) : (
+            ) : (*/}
                 <MainCard>
                     <Grid container spacing={gridSpacing}>
                         <Grid item xs={12}>
@@ -119,11 +120,11 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <Chart {...chartData} />
+                            <BarChart {...chartData} />
                         </Grid>
                     </Grid>
                 </MainCard>
-            )}
+            {/*)}*/}
         </React.Fragment>
     );
 };
