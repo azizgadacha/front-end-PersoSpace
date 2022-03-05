@@ -10,6 +10,8 @@ import { gridSpacing } from '../../../store/constant';
 import PlusCard from './PlusCard';
 import {  useSelector } from 'react-redux';
 import WorkspaceCard from "./WorkspaceCard";
+import axios from "axios";
+import configData from "../../../config";
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
@@ -17,49 +19,57 @@ const Dashboard = (props, { ...others }) => {
 
 
     const [isLoading, setLoading] = useState(true);
+    const [workspaces,setworkspaces]=useState([]);
+    const account = useSelector((state) => state.account);
 
 
 
     useEffect(() => {
         setLoading(false);
+        axios
+            .post( configData.API_SERVER + 'users/getworkspace',{token:account.token})
+            .then(response =>{
+                console.log('nemchi')
+                console.log(response.data.workspaceitems);
+                setworkspaces(response.data.workspaceitems)
+            })
+            .catch(function (error) {
+                console.log('le menemchich zeda')
+                console.log('error')
+
+            })
+
+
     }, []);
 
-   /* let listecard = useSelector((state) => state.card);
 
-    let lc =   listecard.cards.map((card) => {
+    let lc =   workspaces.map((card) => {
 
         return(
 
-                <Grid item lg={4} md={6} sm={6} xs={12}>
-                    <WorkspaceCard isLoading={isLoading} />
-                </Grid>
-                
+            <Grid item lg={4} md={6} sm={6} xs={12}>
+                <WorkspaceCard isLoading={isLoading} card={card}      />
+            </Grid>
 
 
 
 
-)
 
-         })
-
-    */
+        )})
     return (
-       /* <Grid container direction="column" spacing={gridSpacing}>
-            <Grid item xs={12} >
-                 <Grid container spacing={gridSpacing}>
-                    //<Grid item lg={4} md={6} sm={6} xs={12} >
-                        */
-                        <WorkspaceCard isLoading={isLoading} />
 
-                   /* </Grid>
-                    <Grid item lg={4} md={6} sm={12} xs={12}>
+        <Grid container spacing={gridSpacing}>
+            <Grid item xs={12}>
+                <Grid container spacing={gridSpacing}>
+                    {lc}
+
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
                         <PlusCard/>
                     </Grid>
 
                 </Grid>
-
+            </Grid>
         </Grid>
-*/
 
     );
 

@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
-const WorkspaceCard = ({ isLoading }) => {
+const WorkspaceCard = ({ isLoading,card }) => {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -120,104 +120,59 @@ const WorkspaceCard = ({ isLoading }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const [workspaces,setworkspaces]=useState([]);
-    const account = useSelector((state) => state.account);
 
-
-    useEffect(()=>{
-
-        axios
-            .post( configData.API_SERVER + 'users/getworkspace',{token:account.token})
-            .then(response =>{
-                console.log('nemchi')
-                console.log(response.data.workspaceitems);
-                setworkspaces(response.data.workspaceitems)
-            })
-            .catch(function (error) {
-                console.log('le menemchich zeda')
-                console.log('error')
-
-            })
-    },[])
-
-   return(
-
-      // <div style={{display:"flex",flexWrap:"wrap",justifyContent:"center"}} >
-       <div>
-           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-    {workspaces.map((w)=>{
-        return (
-            <Grid item xs={2} sm={4} md={4} >
-            <div style={{margin:'10px'}}>
-                {isLoading ? (
-                    <SkeletonEarningCard />
-                ) : (
-
-                    <MainCard border={false} className={classes.card} contentClass={classes.content} >
-                        <Grid container direction="column" >
-                            <Grid item>
-                                <Grid container justifyContent="space-between">
-                                    <Grid item>
-                                        <Avatar variant="rounded" className={classes.avatar}>
-                                            <img src={EarningIcon} alt="Notification" />
-                                        </Avatar>
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar
-                                            variant="rounded"
-                                            className={classes.avatarRight}
-                                            aria-controls="menu-earning-card"
-                                            aria-haspopup="true"
-
-                                            onClick={Click}
-                                        >
-
-                                            <MoreHorizIcon fontSize="inherit" />
-                                        </Avatar>
-
-                                    </Grid>
+    return (
+        <React.Fragment>
+            {isLoading ? (
+                <SkeletonEarningCard />
+            ) : (
+                <MainCard border={false} className={classes.card} contentClass={classes.content}>
+                    <Grid container direction="column">
+                        <Grid item>
+                            <Grid container justifyContent="space-between">
+                                <Grid item>
+                                    <Avatar variant="rounded" className={classes.avatar}>
+                                        <img src={EarningIcon} alt="Notification" />
+                                    </Avatar>
                                 </Grid>
-                            </Grid>
-                            <Grid item>
-                                <Grid  alignItems="center">
-                                    <Grid item  align="center">
-                                        <Typography align="center"  className={classes.cardHeading}>{w.WorkspaceName}</Typography>
-                                    </Grid>
+                                <Grid item>
+                                    <Avatar
+                                        variant="rounded"
+                                        className={classes.avatarRight}
+                                        aria-controls="menu-earning-card"
+                                        aria-haspopup="true"
+
+                                        onClick={Click}
+                                    >
+
+                                        <MoreHorizIcon fontSize="inherit" />
+                                    </Avatar>
 
                                 </Grid>
-                            </Grid>
-                            <Grid item sx={{ mb: 1.25 }}>
-                                <Typography align="center" className={classes.subHeading}>{w.description}</Typography>
                             </Grid>
                         </Grid>
-                    </MainCard>
+                        <Grid item>
+                            <Grid  alignItems="center">
+                                <Grid item  align="center">
+                                    <Typography align="center"  className={classes.cardHeading}>{card.WorkspaceName}</Typography>
+                                </Grid>
 
-                )}
-            </div>
-            </Grid>
-
-        );
-    })}
-               <Grid item lg={4} md={4} sm={4} xs={12}>
-                   <PlusCard/>
-               </Grid>
-           </Grid>
-
-
-</div>
-
-
-);
-
-
-
-
-
+                            </Grid>
+                        </Grid>
+                        <Grid item sx={{ mb: 1.25 }}>
+                            <Typography align="center" className={classes.subHeading}>{card.description}</Typography>
+                        </Grid>
+                    </Grid>
+                </MainCard>
+            )}
+        </React.Fragment>
+    );
 };
 
-
 WorkspaceCard.propTypes = {
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    card: PropTypes.object
+
 };
 
 export default WorkspaceCard;
