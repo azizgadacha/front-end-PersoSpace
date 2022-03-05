@@ -128,6 +128,7 @@ const RestWorkspace = (props) => {
                                         type:CLOSE_MODAL,
 
                                     })
+
                                     history.push(configData.defaultPath);
 
                                 } else {
