@@ -9,7 +9,7 @@ const icons = {
 
 //-----------------------|| DASHBOARD MENU ITEMS ||-----------------------//
 
-export const dashboard = {
+export const dashboard = { 
     id: 'dashboard',
     title: 'Dashboard',
     type: 'group',

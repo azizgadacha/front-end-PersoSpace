@@ -40,7 +40,7 @@ import { strengthColor, strengthIndicator } from '../../verification_password/pa
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 
 // style constant
@@ -135,7 +135,7 @@ let history =useHistory()
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-console.log("3asfour"+token)
+
 
                         axios
                             .post( configData.API_SERVER + 'users/change', {token,password: values.password})

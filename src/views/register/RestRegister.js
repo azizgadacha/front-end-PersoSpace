@@ -137,8 +137,7 @@ const RestRegister = ({ ...others }) => {
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-                    console.log(values.role)
-                    console.log(values.role)
+
 
                     try {
 

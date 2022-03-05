@@ -45,7 +45,6 @@ const MainRoutes = () => {
                 '/dashboard/icons/tabler-icons',
                 '/dashboard/icons/material-icons',
 
-                '/dashboard/sample-page'
             ]}
         >
 

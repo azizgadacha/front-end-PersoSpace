@@ -9,7 +9,7 @@ import MuiBreadcrumbs from '@material-ui/core/Breadcrumbs';
 
 // project imports
 import config from './../config';
-import { gridSpacing } from './../store/constant';
+import { gridSpacing } from '../store/constant';
 
 // assets
 import AccountTreeTwoToneIcon from '@material-ui/icons/AccountTreeTwoTone';

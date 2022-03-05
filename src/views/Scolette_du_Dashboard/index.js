@@ -4,22 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
-import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
+import {AppBar, CssBaseline, Snackbar, Toolbar, useMediaQuery} from '@material-ui/core';
 
 // third-party
 import clsx from 'clsx';
 
 // project imports
+import navigation from "../../BareItem/Esseyage"
 import Breadcrumbs from './../../composant_de_style/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Customization from './../../composant_de_style/Customization';
-import navigation from './../../liste_side_bare';
 import { drawerWidth } from '../../store/constant';
 import { SET_MENU } from '../../store/actions';
-
 // assets
 import { IconChevronRight } from '@tabler/icons';
+import {Alert} from "@material-ui/lab";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +77,24 @@ const useStyles = makeStyles((theme) => ({
 
 //-----------------------|| MAIN LAYOUT ||-----------------------//
 
+
 const MainLayout = ({ children }) => {
+    let open1 = useSelector((state) => state.snack);
+
+    const dispatcher = useDispatch();
+
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        dispatcher({
+            type:"Close"
+        });
+
+    };
     const classes = useStyles();
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
@@ -112,7 +129,6 @@ const MainLayout = ({ children }) => {
 
             {/* drawer */}
             <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
-
             {/* main content */}
             <main
                 className={clsx([
@@ -124,11 +140,14 @@ const MainLayout = ({ children }) => {
             >
                 {/* <Main open={leftDrawerOpened}> */}
                 {/* breadcrumb */}
-                <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
+                <Breadcrumbs separator={IconChevronRight} navigation={navigation()} icon title rightAlign />
                 <div>{children}</div>
                 {/* </Main> */}
             </main>
             <Customization />
+            <Snackbar   anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose} >
+                <Alert onClose={handleClose} severity={open1.severity}>{open1.text}                </Alert>
+            </Snackbar>
         </div>
     );
 };
@@ -138,3 +157,4 @@ MainLayout.propTypes = {
 };
 
 export default MainLayout;
+

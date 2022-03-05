@@ -1,40 +1,24 @@
-import React, {useState,useEffect} from 'react';
-import {Link as RouterLink, Link} from 'react-router-dom';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import configData from '../../config';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
-    Box,
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormHelperText, Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
-    Stack, TextField,
-    Typography, useMediaQuery
+
+    Grid,
+
+     TextField,
+     useMediaQuery
 } from '@material-ui/core';
 
-// third party
-import * as Yup from 'yup';
-import { Formik } from 'formik';
-import axios from 'axios';
+
 
 // project imports
 import useScriptRef from '../../hooks/useScriptRef';
-import AnimateButton from '../../animation/AnimateButton';
-import { Profile } from '../../store/actions';
+
 
 // assets
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import {Alert} from "@material-ui/lab";
 
 // style constant
 const useStyles = makeStyles((theme) => ({

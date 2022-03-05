@@ -14,7 +14,7 @@ import Breadcrumbs from './../../../composant_de_style/Breadcrumbs';
 import Header from './../Header';
 
 import Customization from './../../../composant_de_style/Customization';
-import navigation from './../../../liste_side_bare';
+import Essayage from '../../../BareItem/Esseyage';
 import { drawerWidth } from '../../../store/constant';
 import { SET_MENU } from '../../../store/actions';
 
@@ -120,7 +120,7 @@ const ProfileLayout = ({ children }) => {
             >
 
                 {/* breadcrumb */}
-                <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
+                <Breadcrumbs separator={IconChevronRight} navigation={Essayage()} icon title rightAlign />
                 <div>{children}</div>
                 {/* </Main> */}
             </main>
