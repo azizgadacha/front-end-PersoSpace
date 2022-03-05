@@ -30,6 +30,9 @@ const PlusCard = () => {
     const classes = useStyles();
 
     const [openModal,setOpenModal]=useState(false);
+     setOpenModal ((previousstate,etat)=>{
+         openModal:state;
+     })
     const handleClick = () => {
        setOpenModal(true);
 
@@ -56,7 +59,7 @@ const PlusCard = () => {
             </CardContent>
         </Card>
 
-    {openModal && <Modal SetModal={setOpenModal}/>}
+    {openModal && <Modal openModal={openModal} setOpenModal={setOpenModal}/>}
 
 
 

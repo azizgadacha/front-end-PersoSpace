@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const RestWorkspace = (SetModal,{ ...others }) => {
+const RestWorkspace = (props) => {
     const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
@@ -93,7 +93,7 @@ const RestWorkspace = (SetModal,{ ...others }) => {
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
     const account = useSelector((state) => state.account);
-    const [openModal,setOpenModal]=useState(false);
+    //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     return (
         <React.Fragment>
@@ -144,7 +144,7 @@ const RestWorkspace = (SetModal,{ ...others }) => {
                 }}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit} {...others}>
+                    <form noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -260,7 +260,7 @@ const RestWorkspace = (SetModal,{ ...others }) => {
                                     disabled={isSubmitting}
                                     fullWidth
                                     size="large"
-                                    onClick={()=>SetModal(false)}
+                                    onClick={()=>props.setOpenModal(false)}
                                     variant="contained"
                                     color="secondary"
                                 >
