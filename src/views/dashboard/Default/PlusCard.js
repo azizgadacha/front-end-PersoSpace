@@ -30,14 +30,16 @@ const PlusCard = () => {
     const classes = useStyles();
 
     const [openModal,setOpenModal]=useState(false);
-     setOpenModal ((previousstate,etat)=>{
-         openModal:state;
-     })
+
     const handleClick = () => {
        setOpenModal(true);
 
     };
 
+    function handleClose  () {
+        setOpenModal(false);
+console.log("nemchi2.0")
+    };
 
     return (
 
@@ -59,7 +61,7 @@ const PlusCard = () => {
             </CardContent>
         </Card>
 
-    {openModal && <Modal openModal={openModal} setOpenModal={setOpenModal}/>}
+    {openModal && (<Modal  handleClose={handleClose}/>)}
 
 
 

@@ -34,7 +34,7 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const Modal = ({}) => {
+const Modal = (props) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -67,7 +67,7 @@ const Modal = ({}) => {
                    </Grid>
                </Grid>
                <Grid item xs={6}>
-                   <RestWorkspace />
+                   <RestWorkspace handleClose={props.handleClose} />
                </Grid>
                <Grid item xs={6}>
                    <Divider />

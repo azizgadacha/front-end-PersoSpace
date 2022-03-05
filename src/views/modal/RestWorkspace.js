@@ -42,6 +42,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
+import PropTypes from "prop-types";
+import WorkspaceCard from "../dashboard/Default/WorkspaceCard";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -260,7 +262,7 @@ const RestWorkspace = (props) => {
                                     disabled={isSubmitting}
                                     fullWidth
                                     size="large"
-                                    onClick={()=>props.setOpenModal(false)}
+                                    onClick={props.handleClose}
                                     variant="contained"
                                     color="secondary"
                                 >
