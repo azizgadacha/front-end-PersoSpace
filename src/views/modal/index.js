@@ -67,7 +67,7 @@ const Modal = (props) => {
                    </Grid>
                </Grid>
                <Grid item xs={6}>
-                   <RestWorkspace handleClose={props.handleClose} />
+                   <RestWorkspace handleClose={props.handleClose}  />
                </Grid>
                <Grid item xs={6}>
                    <Divider />

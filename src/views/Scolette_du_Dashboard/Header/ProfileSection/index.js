@@ -151,7 +151,9 @@ const ProfileSection = () => {
                 
                 // Force the LOGOUT
                 //if (response.data.success) {
+
                     dispatcher({ type: LOGOUT });
+                    history.push("/login");
                 //} else {
                 //    console.log('response - ', response.data.msg);
                 //}
