@@ -14,6 +14,7 @@ import SecondRoutes from "./SecondRoutes";
 
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
+const ViewAll = Preparation_du_page(lazy(() => import('../tables')));
 
 // Bare_du_cotte routing
 const registre = Preparation_du_page(lazy(() => import('../views/register')));
@@ -41,7 +42,7 @@ const MainRoutes = () => {
                 '/dashboard/default',
 
                 '/dashboard/registre',
-
+                '/dashboard/viewAll',
                 '/dashboard/icons/tabler-icons',
                 '/dashboard/icons/material-icons',
 
@@ -60,6 +61,8 @@ const MainRoutes = () => {
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
                         <Route path="/dashboard/registre" component={registre} />
+                    <Route path='/dashboard/viewAll' component={ViewAll} />
+
 
                         <Route path="/dashboard/icons/tabler-icons" component={UtilsTablerIcons} />
                         <Route path="/dashboard/icons/material-icons" component={UtilsMaterialIcons} />

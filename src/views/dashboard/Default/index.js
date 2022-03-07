@@ -13,6 +13,7 @@ import WorkspaceCard from "./WorkspaceCard";
 import axios from "axios";
 import configData from "../../../config";
 
+
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 
 
@@ -52,17 +53,69 @@ const Dashboard = (props, { ...others }) => {
 
         return(
 
-            <Grid item lg={4} md={6} sm={6} xs={12}>
+           /* <Grid item lg={4} md={6} sm={6} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}      />
             </Grid>
 
+*/
+            <Grid item xs={12} md={6} xl={3}>
+                <WorkspaceCard isLoading={isLoading} card={card}      />
 
-
+            </Grid>
 
 
 
         )})
     return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} lg={8}>
+                <Grid container spacing={3}>
+
+                    {lc}
+                    <Grid item xs={12} md={6} xl={3}>
+                        <PlusCard/>
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <Grid item xs={12} lg={4}>
+                <TotalGrowthBarChart isLoading={isLoading} />
+            </Grid>
+        </Grid>
+
+    )
+
+        {/*
+        <React.Fragment >
+
+                <Grid container spacing={3}>
+                    <Grid item xs={12} lg={8}>
+                        <Grid container spacing={3}>
+
+                            {lc}
+
+                            <Grid item xs={8} md={6} xl={3}>
+                                <PlusCard/>
+
+                        </Grid>
+
+
+                        </Grid>
+
+                    </Grid>
+                    <Grid item xs={12} lg={4}>
+                        <TotalGrowthBarChart isLoading={isLoading} />
+                    </Grid>
+                </Grid>
+
+</React.Fragment>
+    )
+
+
+
+
+
 
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -83,8 +136,9 @@ const Dashboard = (props, { ...others }) => {
                 </Grid>
             </Grid>
         </Grid>
+*/}
 
-    );
+
 
 }
 export default Dashboard;

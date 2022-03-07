@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {useHistory, useParams} from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 
 import configData from '../../config';
 
@@ -14,8 +14,9 @@ import {
     Grid,
     IconButton,
     InputAdornment,
-    InputLabel,
-    OutlinedInput, Snackbar,
+    InputLabel, MenuItem,
+    OutlinedInput, Select,
+    TextField,
     Typography,
     useMediaQuery
 } from '@material-ui/core';
@@ -41,7 +42,6 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
 import {useDispatch} from "react-redux";
-
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -82,19 +82,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+//===========================|| API JWT - REGISTER ||===========================//
 
-
-const RestRegister = ({ ...others }) => {
-
-let history =useHistory()
-
-    const dispatcher = useDispatch();
-
-
+const RestViewAll = ({ ...others }) => {
     const classes = useStyles();
-
-    let {token}=useParams()
-
+    let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
@@ -104,6 +96,11 @@ let history =useHistory()
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
+    };
+    const [role, setRole] = React.useState('');
+
+    const handleChangerole = (event) => {
+        setRole(event.target.value);
     };
 
     const handleMouseDownPassword = (event) => {
@@ -116,47 +113,58 @@ let history =useHistory()
         setLevel(strengthColor(temp));
     };
 
+
     useEffect(() => {
         changePassword('123456');
     }, []);
 
+    const dispatcher = useDispatch();
     return (
         <React.Fragment>
             <Formik
-
-
-            initialValues={{
-
+                initialValues={{
+                    username: '',
+                    email: '',
                     password: '',
+                    role: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    password: Yup.string().max(255).required('Password is required')
+                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                    username: Yup.string().required('Username is required'),
+                    password: Yup.string().max(255).required('Password is required'),
+                    role: Yup.string().required('role is required')
+
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+
+
                     try {
 
-
                         axios
-                            .post( configData.API_SERVER + 'users/change', {token,password: values.password})
+                            .post( configData.API_SERVER + 'users/register', {
+                                username: values.username,
+                                password: values.password,
+                                email: values.email,
+                                role:values.role
+                            })
                             .then(function (response) {
-
-                                setStatus({ success: true });
-                                setErrors({ submit: response.data.msg });
-                                setSubmitting(false);
-                                history.push("/login")
-                                dispatcher({
-                                    type:"Click",
-                                    payload: {text:"la mot de passe a ete envoyer",severity:"success"}
-                                });
-
+                                if (response.data.success) {
+                                    history.push('/login');
+                                    dispatcher({
+                                        type:"Click",
+                                        payload: {text:"l'utilisateur a ete ajouter",severity:"success"}
+                                    });
+                                } else {
+                                    setStatus({ success: false });
+                                    setErrors({ submit: response.data.msg });
+                                    setSubmitting(false);
+                                }
                             })
                             .catch(function (error) {
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
                                 setSubmitting(false);
-
-
                             });
                     } catch (err) {
                         console.error(err);
@@ -172,11 +180,79 @@ let history =useHistory()
                     <form noValidate onSubmit={handleSubmit} {...others}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
                             <Grid item xs={12}>
-
-
+                                <TextField
+                                    fullWidth
+                                    label="Username"
+                                    margin="normal"
+                                    name="username"
+                                    id="username"
+                                    type="text"
+                                    value={values.username}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    className={classes.loginInput}
+                                    error={touched.username && Boolean(errors.username)}
+                                />
+                                {touched.username && errors.username && (
+                                    <FormHelperText error id="standard-weight-helper-text--register">
+                                        {errors.username}
+                                    </FormHelperText>
+                                )}
                             </Grid>
                         </Grid>
+                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
+                            <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-email-register"
+                                type="email"
+                                value={values.email}
+                                name="email"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{
+                                    classes: {
+                                        notchedOutline: classes.notchedOutline
+                                    }
+                                }}
+                            />
+                            {touched.email && errors.email && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {' '}
+                                    {errors.email}{' '}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
 
+
+                        <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
+                            <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
+                            <Select
+                                margin="normal"
+                                        sx={{minHeight:63}}
+                                        labelId="demo-simple-select-helper-label"
+                                        id="role"
+                                name="role"
+
+                                value={values.role}
+                                        label="Role"
+                                        onBlur={handleBlur}
+                                        error={touched.role && Boolean(errors.role)}
+
+                                onChange={handleChange}    >
+
+                                <MenuItem value={"administrateur"}>administrateur</MenuItem>
+
+                                <MenuItem value={"Simple Employer"}>Simple Employer</MenuItem>
+                                <MenuItem value={"responsable resource humaine"}>responsable resource humaine</MenuItem>
+                            </Select>
+                            {touched.role && errors.role && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {' '}
+                                    {errors.role}{' '}
+                                </FormHelperText>
+                            )}
+
+                        </FormControl>
 
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
@@ -201,7 +277,7 @@ let history =useHistory()
                                         >
                                             {showPassword ? <Visibility /> : <VisibilityOff />}
                                         </IconButton>
-                                    </InputAdornment>
+                                    </            InputAdornment>
                                 }
                                 inputProps={{
                                     classes: {
@@ -216,6 +292,27 @@ let history =useHistory()
 
                             )}
                         </FormControl>
+                        <Grid item>
+                            <Typography variant="subtitle1" fontSize="0.75rem">
+                                {level.label}
+                            </Typography>
+                            <Grid container spacing={2} alignItems="center">
+                                <Grid item>
+                                    <Box
+                                        backgroundColor={level.color}
+                                        sx={{
+                                            width: 85,
+                                            height: 8,
+                                            borderRadius: '7px'
+                                        }}
+                                    ></Box>
+                                </Grid>
+
+                            </Grid>
+
+                        </Grid>
+
+
 
                         {strength !== 0 && (
                             <FormControl fullWidth>
@@ -224,23 +321,7 @@ let history =useHistory()
                                         mb: 2
                                     }}
                                 >
-                                    <Grid container spacing={2} alignItems="center">
-                                        <Grid item>
-                                            <Box
-                                                backgroundColor={level.color}
-                                                sx={{
-                                                    width: 85,
-                                                    height: 8,
-                                                    borderRadius: '7px'
-                                                }}
-                                            ></Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="subtitle1" fontSize="0.75rem">
-                                                {level.label}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
+
                                 </Box>
                             </FormControl>
                         )}
@@ -252,9 +333,7 @@ let history =useHistory()
                                     mt: 3
                                 }}
                             >
-                                <Alert variant="filled" severity="error">
-                                    {errors.submit}</Alert>
-
+                                <Alert severity="error">{errors.submit}</Alert>
 
                             </Box>
                         )}
@@ -274,7 +353,7 @@ let history =useHistory()
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Change it
+                                    Sign UP
                                 </Button>
                             </AnimateButton>
                         </Box>
@@ -285,4 +364,4 @@ let history =useHistory()
     );
 };
 
-export default RestRegister;
+export default RestViewAll;
