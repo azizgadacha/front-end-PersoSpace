@@ -19,7 +19,7 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 // Custom styles for the MDBadge
-import MDBadgeRoot from "components/MDBadge/MDBadgeRoot";
+import MDBadgeRoot from "./MDBadgeRoot";
 
 const MDBadge = forwardRef(
   ({ color, variant, size, circular, indicator, border, container, children, ...rest }, ref) => (

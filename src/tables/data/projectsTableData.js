@@ -25,12 +25,12 @@ import MDAvatar from "../../composant_de_style/MDAvatar";
 import MDProgress from "../../composant_de_style/MDProgress";
 
 // Images
-import LogoAsana from "assets/images/small-logos/logo-asana.svg";
-import logoGithub from "assets/images/small-logos/github.svg";
-import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
-import logoSlack from "assets/images/small-logos/logo-slack.svg";
-import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-import logoInvesion from "assets/images/small-logos/logo-invision.svg";
+import LogoAsana from "../../assets/images/image_importer/small-logos/logo-asana.svg";
+import logoGithub from "../../assets/images/image_importer/small-logos/github.svg";
+import logoAtlassian from "../../assets/images/image_importer/small-logos/logo-atlassian.svg";
+import logoSlack from "../../assets/images/image_importer/small-logos/logo-slack.svg";
+import logoSpotify from "../../assets/images/image_importer/small-logos/logo-spotify.svg";
+import logoInvesion from "../../assets/images/image_importer/small-logos/logo-invision.svg";
 
 export default function data() {
   const Project = ({ image, name }) => (

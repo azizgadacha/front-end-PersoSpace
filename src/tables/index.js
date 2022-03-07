@@ -21,23 +21,20 @@ import Card from "@mui/material/Card";
 import MDBox from "../composant_de_style/MDBox";
 import MDTypography from "../composant_de_style/MDTypography";
 
-// Material Dashboard 2 React example components
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
-import DataTable from "examples/Tables/DataTable";
+
+
+import DataTable from "../assets/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import authorsTableData from "./data/authorsTableData";
+import projectsTableData from "./data/projectsTableData";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
   const { columns: pColumns, rows: pRows } = projectsTableData();
 
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
+
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -96,8 +93,7 @@ function Tables() {
           </Grid>
         </Grid>
       </MDBox>
-      <Footer />
-    </DashboardLayout>
+
   );
 }
 
