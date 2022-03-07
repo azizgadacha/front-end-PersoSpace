@@ -4,9 +4,9 @@ import { CLICK, CLOSE  } from './actions';
 
 
 export const initialState = {
-   open:true,
-    text:" sal  h",
-    severity:"success"
+   open:false,
+    text:"",
+    severity:""
 
 };
 

@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 const PlusCard = () => {
 
 
-    const listecard = useSelector((state) => state.card);
 
 
     const classes = useStyles();
@@ -67,7 +66,7 @@ const PlusCard = () => {
             </CardContent>
         </Card>
 
-    {open1.ModalState && (<Modal  handleClose={handleClose}/>)}
+    {open1.ModalState && (<Modal  handleClose={handleClose} />)}
 
 
 
