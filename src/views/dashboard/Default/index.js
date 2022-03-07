@@ -68,13 +68,10 @@ const Dashboard = (props, { ...others }) => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
 
-                    {lc}
+                   {lc}
 
 
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalGrowthBarChart isLoading={isLoading} />
 
-                    </Grid>
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
                         <PlusCard/>

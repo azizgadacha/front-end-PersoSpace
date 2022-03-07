@@ -126,10 +126,13 @@ const RestWorkspace = (props) => {
 
                                     dispatcher({
                                         type:CLOSE_MODAL,
-
+                                    })
+                                    history.push(configData.defaultPath);
+                                    dispatcher({
+                                        type:"Click",
+                                        payload: {text:"Workspace added successfully",severity:"success"}
                                     })
 
-                                    history.push(configData.defaultPath);
 
                                 } else {
                                     setStatus({ success: false });
