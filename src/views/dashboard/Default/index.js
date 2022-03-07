@@ -7,13 +7,15 @@ import EarningCard from './EarningCard';
 
 import { gridSpacing } from '../../../store/constant';
 import PlusCard from './PlusCard';
-import {  useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import WorkspaceCard from "./WorkspaceCard";
 import axios from "axios";
 import configData from "../../../config";
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
+import {Workspaces} from "@material-ui/icons";
+import {ADD} from "../../../store/actions";
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
@@ -22,9 +24,10 @@ const Dashboard = (props, { ...others }) => {
 
 
     const [isLoading, setLoading] = useState(true);
-    const [workspaces,setworkspaces]=useState([]);
     const account = useSelector((state) => state.account);
+    const workspaces = useSelector((state) => state.workspace);
 
+    const dispatcher = useDispatch();
 
 
     useEffect(() => {
@@ -33,7 +36,16 @@ const Dashboard = (props, { ...others }) => {
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
-                setworkspaces(response.data.workspaceitems)
+                dispatcher({
+                        type:ADD,
+                    payload: {work:response.data.workspaceitems}
+
+
+                    }
+                )
+                console.log(workspaces.Workspace)
+
+
                 setLoading(false);
 
             })
@@ -42,13 +54,10 @@ const Dashboard = (props, { ...others }) => {
                 console.log('error')
 
             })
+    },[]);
 
 
-
-    });
-
-
-    let lc =   workspaces.map((card)  => {
+    let lc =   workspaces.Workspace.map((card)  => {
 
         return(
 
@@ -77,7 +86,7 @@ const Dashboard = (props, { ...others }) => {
                     </Grid>
 
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <PlusCard/>
+                        <PlusCard  />
                     </Grid>
 
                 </Grid>

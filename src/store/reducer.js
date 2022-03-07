@@ -8,6 +8,7 @@ import accountReducer from './accountReducer';
 import cardReducer from './cardReducer';
 import SnackbarReducer from "./SnackbarReducer";
 import ModalReducer from "./ModalReducer";
+import WorkspaceStore from "./WorkspaceStore";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -23,7 +24,9 @@ const reducer = combineReducers({
     customization: customizationReducer,
     card:cardReducer,
     snack:SnackbarReducer,
-    modal:ModalReducer
+    modal:ModalReducer,
+    workspace:WorkspaceStore
+
 });
 
 export default reducer;
