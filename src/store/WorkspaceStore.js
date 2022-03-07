@@ -1,4 +1,4 @@
-import {ADD, CLICK, CLOSE  } from './actions';
+import {ADD } from './actions';
 
 
 

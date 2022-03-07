@@ -43,8 +43,7 @@ const MainRoutes = () => {
 
                 '/dashboard/registre',
                 '/dashboard/viewAll',
-                '/dashboard/icons/tabler-icons',
-                '/dashboard/icons/material-icons',
+
 
             ]}
         >
@@ -55,19 +54,16 @@ const MainRoutes = () => {
 
 
 
-                    {console.log("rani fil login")}
-                    {console.log("rani fil ")}
 
 
 
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
                         <Route path="/dashboard/registre" component={registre} />
-                    <Route path='/dashboard/viewAll' component={ViewAll} />
+                        <Route path='/dashboard/viewAll' component={ViewAll} />
 
 
-                        <Route path="/dashboard/icons/tabler-icons" component={UtilsTablerIcons} />
-                        <Route path="/dashboard/icons/material-icons" component={UtilsMaterialIcons} />
+
 
                     </AuthGuard>
                 </Switch>
