@@ -4,6 +4,8 @@ export const LOGOUT = 'LOGOUT';
 export const CLICK = 'Click';
 export const CLOSE = 'Close';
 export const ADD = 'ADD';
+export const DELETE='DELETE'
+export const INISIALIZE='INISIALIZE';
 
 export const OPEN_MODAL= 'OPEN_MODAL';
 export const CLOSE_MODAL= 'CLOSE_MODAL';

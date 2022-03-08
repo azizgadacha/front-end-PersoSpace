@@ -153,6 +153,7 @@ const ProfileSection = () => {
                 //if (response.data.success) {
 
                     dispatcher({ type: LOGOUT });
+                    console.log('out')
                     history.push("/login");
                 //} else {
                 //    console.log('response - ', response.data.msg);

@@ -15,7 +15,8 @@ import configData from "../../../config";
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 import {Workspaces} from "@material-ui/icons";
-import {ADD} from "../../../store/actions";
+import {ADD, INISIALIZE} from "../../../store/actions";
+import {Route} from "react-router-dom";
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
@@ -37,11 +38,9 @@ const Dashboard = (props, { ...others }) => {
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
                 dispatcher({
-                        type:ADD,
+                        type:INISIALIZE,
                     payload: {work:response.data.workspaceitems}
-
-
-                    }
+                }
                 )
                 console.log(workspaces.Workspace)
 
@@ -61,10 +60,10 @@ const Dashboard = (props, { ...others }) => {
 
         return(
 
-            <Grid item lg={4} md={6} sm={6} xs={12}>
+
+                <Grid item lg={4} md={6} sm={6} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}      />
             </Grid>
-
 
 
 

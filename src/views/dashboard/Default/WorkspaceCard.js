@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import configData from "../../../config";
 import PlusCard from "./PlusCard";
+import {ADD, DELETE, INISIALIZE} from "../../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -110,10 +111,35 @@ const WorkspaceCard = ({ isLoading,card }) => {
     };
     const dispatch = useDispatch();
     const listecard = useSelector((state) => state.card);
-
+    const account = useSelector((state) => state.account);
+    const dispatcher = useDispatch();
     const Click = () => {
-        console.log("hello")
-        dispatch({ type: "supprimer", card:{id:1}} )
+        axios
+            .post( configData.API_SERVER + 'users/deleteworkspace',{
+                token:account.token,
+                user_id:account.user_id,
+                WorkspaceName:card.WorkspaceName
+            })
+            .then(response =>{
+            console.log('Delete Work')
+            console.log(response.data);
+                dispatcher({
+                    type:DELETE,
+                    payload: {work:response.data.workspaceitems}
+                })
+            dispatcher({
+                    type:"Click",
+                payload: {text:"Workspace Removed successfully",severity:"success"}
+                })
+
+
+            })
+            .catch(function (error) {
+                console.log(' Delete dont work')
+                console.log('error')
+
+            })
+
 
     };
 
