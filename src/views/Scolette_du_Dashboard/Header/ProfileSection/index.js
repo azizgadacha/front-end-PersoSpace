@@ -139,7 +139,7 @@ const ProfileSection = () => {
 
 
     const handleProfile =()=>{
-       history.push('/dashboard/Profile')
+       history.push('/Profile')
     }
 
 

@@ -1,10 +1,11 @@
-import { OPEN_MODAL, CLOSE_MODAL,  } from './actions';
+import {OPEN_MODAL, CLOSE_MODAL, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL,} from './actions';
 
 
 
 
 export const initialState = {
-    ModalState:false
+    ModalState:false,
+    ModalDeleteState:false
 
 };
 
@@ -30,6 +31,23 @@ const ModalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ModalState:false
+
+
+            };
+        case OPEN_DELETE_MODAL:
+
+
+            return {
+
+                ...state,
+                ModalDeleteState:true,
+
+            };
+        case CLOSE_DELETE_MODAL:
+
+            return {
+                ...state,
+                ModalDeleteState:false
 
 
             };

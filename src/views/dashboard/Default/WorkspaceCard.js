@@ -17,7 +17,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import configData from "../../../config";
 import PlusCard from "./PlusCard";
-import {ADD, DELETE, INISIALIZE} from "../../../store/actions";
+import {
+    ADD,
+    CLOSE_DELETE_MODAL,
+    CLOSE_MODAL,
+    DELETE,
+    INISIALIZE,
+    OPEN_DELETE_MODAL,
+    OPEN_MODAL
+} from "../../../store/actions";
+import Modal from "../../modal";
+import Modal_Delete_Workspace from "../../modal_delete_workspace";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -106,47 +116,37 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleClick = (event) => {
+   /* const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+    */
     const dispatch = useDispatch();
     const listecard = useSelector((state) => state.card);
     const account = useSelector((state) => state.account);
+
+    let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
-    const Click = () => {
-        axios
-            .post( configData.API_SERVER + 'users/deleteworkspace',{
-                token:account.token,
-                user_id:account.user_id,
-                WorkspaceName:card.WorkspaceName
-            })
-            .then(response =>{
-            console.log('Delete Work')
-            console.log(response.data);
-                dispatcher({
-                    type:DELETE,
-                    payload: {work:response.data.workspaceitems}
-                })
-            dispatcher({
-                    type:"Click",
-                payload: {text:"Workspace Removed successfully",severity:"success"}
-                })
+    const handleClick = () => {
+        dispatcher({
+            type:OPEN_DELETE_MODAL,
 
-
-            })
-            .catch(function (error) {
-                console.log(' Delete dont work')
-                console.log('error')
-
-            })
-
-
+        });
     };
 
-    const handleClose = () => {
+    function handleClose  () {
+        dispatcher({
+            type:CLOSE_DELETE_MODAL,
+
+        });
+    };
+
+  /*  const handleClose = () => {
         setAnchorEl(null);
     };
 
+
+   */
     return (
         <React.Fragment>
             {isLoading ? (
@@ -168,7 +168,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                         aria-controls="menu-earning-card"
                                         aria-haspopup="true"
 
-                                        onClick={Click}
+                                        onClick={handleClick}
                                     >
 
                                         <MoreHorizIcon fontSize="inherit" />
@@ -191,6 +191,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                     </Grid>
                 </MainCard>
             )}
+            {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={card} />)}
         </React.Fragment>
     );
 };
