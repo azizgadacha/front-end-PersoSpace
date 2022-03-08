@@ -139,7 +139,7 @@ const ProfileSection = () => {
 
 
     const handleProfile =()=>{
-       history.push('/Profile')
+        history.push('/Profile')
     }
 
 
@@ -148,12 +148,13 @@ const ProfileSection = () => {
         axios
             .post( configData.API_SERVER + 'users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
             .then(function (response) {
-                
+
                 // Force the LOGOUT
                 //if (response.data.success) {
 
-                    dispatcher({ type: LOGOUT });
-                    history.push("/login");
+                dispatcher({ type: LOGOUT });
+                console.log('out')
+                history.push("/login");
                 //} else {
                 //    console.log('response - ', response.data.msg);
                 //}
@@ -229,8 +230,10 @@ const ProfileSection = () => {
                                     <CardContent className={classes.cardContent}>
                                         <Grid container direction="column" spacing={0}>
                                             <Grid item className={classes.flex}>
-                                                <Typography variant="h4">Hello {account.user.username}</Typography>
-
+                                                <Typography variant="h4">Good Morning,</Typography>
+                                                <Typography component="span" variant="h4" className={classes.name}>
+                                                    {account.user.username}
+                                                </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant="subtitle2">{account.user.role}</Typography>

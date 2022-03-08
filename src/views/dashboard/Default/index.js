@@ -16,7 +16,7 @@ import configData from "../../../config";
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 import {Workspaces} from "@material-ui/icons";
-import {ADD} from "../../../store/actions";
+import {INISIALIZE} from "../../../store/actions";
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
@@ -32,13 +32,15 @@ const Dashboard = (props, { ...others }) => {
 
 
     useEffect(() => {
+
+        console.log("wa " +account.token)
         axios
             .post( configData.API_SERVER + 'users/getworkspace',{token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
                 dispatcher({
-                        type:ADD,
+                        type:INISIALIZE,
                     payload: {work:response.data.workspaceitems}
 
 

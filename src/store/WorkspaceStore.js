@@ -1,4 +1,4 @@
-import {ADD } from './actions';
+import {ADD,INISIALIZE} from './actions';
 
 
 
@@ -15,12 +15,19 @@ const WorkspaceStore = (state = initialState, action) => {
     //const [listecard, addcart] = useState({cards:});
 
     switch (action.type) {
-        case ADD:
-         const work=action.payload.work
-            console.log("apartir")
+        case INISIALIZE:
 
-            console.log(work)
-         state.Workspace=state.Workspace.concat(work)
+            state.Workspace=action.payload.work
+            return {
+
+                ...state,
+
+            };
+        case ADD:
+
+
+
+            state.Workspace=state.Workspace.concat(action.payload.work)
             return {
 
                 ...state,

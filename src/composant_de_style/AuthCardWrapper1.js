@@ -10,6 +10,7 @@ import MainCard from './../composant_de_style/cards/MainCard';
 // style constant
 const useStyles = makeStyles((theme) => ({
     card: {
+
         maxWidth: '475px',
         '& > *': {
             flexGrow: 1,

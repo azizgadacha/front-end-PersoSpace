@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Bar} from 'react-chartjs-2'
-import {Chart as ChartJS} from "chart.js/auto";
+
 // material-ui
 import { Grid, MenuItem, TextField, Typography, useTheme } from '@material-ui/core';
 
 // third-party
-import ApexCharts from 'apexcharts';
 
 // project imports
-import SkeletonTotalGrowthBarChart from './../../../composant_de_style/cards/Skeleton/TotalGrowthBarChart';
 import { gridSpacing } from '../../../store/constant';
 
 // chart data

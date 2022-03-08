@@ -1,16 +1,11 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import {Card, CardContent, useTheme} from '@material-ui/core';
+import {useTheme} from '@material-ui/core';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
-import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
-import Logo from './../../assets/Logo';
 import RestWorkspace from '../modal/RestWorkspace'
-import AuthCardWrapper1 from "../../composant_de_style/AuthCardWrapper1";
-import zIndex from "@material-ui/core/styles/zIndex";
 
 // assets
 
