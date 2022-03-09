@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {  useHistory } from 'react-router-dom';
+import config from './../../config';
 
 import configData from '../../config';
 
@@ -41,7 +42,8 @@ import { strengthColor, strengthIndicator } from '../../verification_password/pa
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {CLICK} from "../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -85,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestRegister = ({ ...others }) => {
+    let account = useSelector((state) => state.account);
+
     const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
@@ -127,12 +131,16 @@ const RestRegister = ({ ...others }) => {
                     email: '',
                     password: '',
                     role: '',
+                    phone: '',
+
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                    email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
                     username: Yup.string().required('Username is required'),
-                    password: Yup.string().max(255).required('Password is required'),
+                    password: Yup.string().max(100,"must contain only 100 digits").required('Password is required'),
+                    phone: Yup.number().typeError("Must be a number").required('phone number is required').integer("Must be a valid number").positive(),
+
                     role: Yup.string().required('role is required')
 
                 })}
@@ -146,13 +154,17 @@ const RestRegister = ({ ...others }) => {
                                 username: values.username,
                                 password: values.password,
                                 email: values.email,
-                                role:values.role
+                                phone: values.phone,
+
+                                role:values.role,
+                                token:account.token
                             })
                             .then(function (response) {
                                 if (response.data.success) {
-                                    history.push('/login');
+
+                                    history.push( config.defaultPath);
                                     dispatcher({
-                                        type:"Click",
+                                        type:CLICK,
                                         payload: {text:"l'utilisateur a ete ajouter",severity:"success"}
                                     });
                                 } else {
@@ -222,6 +234,32 @@ const RestRegister = ({ ...others }) => {
                                 </FormHelperText>
                             )}
                         </FormControl>
+
+
+
+                        <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} className={classes.loginInput}>
+                            <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number</InputLabel>
+                            <OutlinedInput
+                                id="outlined-adornment-phone-register"
+                                type="phone"
+                                value={values.phone}
+                                name="phone"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                inputProps={{
+                                    classes: {
+                                        notchedOutline: classes.notchedOutline
+                                    }
+                                }}
+                            />
+                            {touched.phone && errors.phone && (
+                                <FormHelperText error id="standard-weight-helper-text--register">
+                                    {' '}
+                                    {errors.phone}{' '}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
+
 
 
                         <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
@@ -353,7 +391,7 @@ const RestRegister = ({ ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign UP
+                                    Add User
                                 </Button>
                             </AnimateButton>
                         </Box>

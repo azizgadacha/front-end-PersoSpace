@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // material-ui
-import { Grid } from '@material-ui/core';
+import {Grid, Snackbar} from '@material-ui/core';
 
 // project imports
 import EarningCard from './EarningCard';
@@ -17,6 +17,7 @@ import configData from "../../../config";
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 import {Workspaces} from "@material-ui/icons";
 import {INISIALIZE} from "../../../store/actions";
+import {Alert} from "@material-ui/lab";
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
@@ -147,7 +148,11 @@ const Dashboard = (props, { ...others }) => {
                 </Grid>
             </Grid>
         </Grid>
-*/}
+*/
+
+
+
+        }
 
 
 

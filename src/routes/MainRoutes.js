@@ -56,10 +56,9 @@ const MainRoutes = () => {
                         <Route path="/dashboard/default" component={DashboardDefault} />
 
                         <Route path="/dashboard/registre" component={registre} />
-                    <ThemeConfig>
+
 
                     <Route path='/dashboard/viewAll' component={ViewAll} />
-                    </ThemeConfig>
 
 
 

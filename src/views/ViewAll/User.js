@@ -14,15 +14,18 @@ import {
   Container,
   Typography,
   TableContainer,
-  TablePagination
+  TablePagination, Box, Button
 } from '@mui/material';
 // components
+import ThemeConfig from "../../themes/theme2"
 
 import Scrollbar from '../../animation/NavigationScroll';
 import SearchNotFound from './import/customer/SearchNotFound';
 import { UserListHead, UserListToolbar, UserMoreMenu } from './import/customer/@dashboard/user';
 //
 import { USERLIST } from './import/customer/customers';
+import {Upload as UploadIcon} from "./import/customer/upload";
+import {Download as DownloadIcon} from "./import/customer/download";
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
@@ -62,7 +65,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function User(props) {
 
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
@@ -124,13 +127,31 @@ export default function User() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-      <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h2" gutterBottom>
-            User Liste
-          </Typography>
 
-        </Stack>
+      <Container>
+        <ThemeConfig>
+
+        <Box
+            sx={{
+              alignItems: 'center',
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              m: -1
+            }}
+        >
+          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+            <Typography variant="h2" gutterBottom>
+              User Liste
+            </Typography>
+
+          </Stack>
+          </Box>
+
+
+
+
+
 
         <Card>
           <UserListToolbar
@@ -225,6 +246,7 @@ export default function User() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
+          </ThemeConfig>
       </Container>
 
   );
