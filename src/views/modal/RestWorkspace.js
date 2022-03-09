@@ -12,10 +12,7 @@ import {
 
     FormHelperText,
     Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput,
+
     TextField,
     Typography,
     useMediaQuery
@@ -35,15 +32,12 @@ import axios from 'axios';
 //use ref ta3mil ref  lil objet   min il react
 import useScriptRef from '../../hooks/useScriptRef';
 import AnimateButton from './../../animation/AnimateButton';
-import { strengthColor, strengthIndicator } from '../../verification_password/password-strength';
 
 // assets
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
-import PropTypes from "prop-types";
-import WorkspaceCard from "../dashboard/Default/WorkspaceCard";
+
 import {ADD, CLOSE_MODAL} from "../../store/actions";
 
 // style constant

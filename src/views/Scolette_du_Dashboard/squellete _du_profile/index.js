@@ -10,16 +10,13 @@ import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
 import clsx from 'clsx';
 
 // project imports
-import Breadcrumbs from './../../../composant_de_style/Breadcrumbs';
 import Header from './../Header';
 
 import Customization from './../../../composant_de_style/Customization';
-import Essayage from '../../../BareItem/Esseyage';
 import { drawerWidth } from '../../../store/constant';
 import { SET_MENU } from '../../../store/actions';
 
 // assets
-import { IconChevronRight } from '@tabler/icons';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -120,7 +117,6 @@ const ProfileLayout = ({ children }) => {
             >
 
                 {/* breadcrumb */}
-                <Breadcrumbs separator={IconChevronRight} navigation={Essayage()} icon title rightAlign />
                 <div>{children}</div>
                 {/* </Main> */}
             </main>

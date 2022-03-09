@@ -34,9 +34,9 @@ import Transitions_menu_dash from '../../../../animation/Transitions_menu_dash';
 import { LOGOUT } from '../../../../store/actions';
 
 // assets
-import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
+import { IconLogout, IconSettings } from '@tabler/icons';
 import User1 from './../../../../assets/images/users/user-round.svg';
-import {Link as RouterLink, Redirect, Route, useHistory} from "react-router-dom";
+import { useHistory} from "react-router-dom";
 
 //
 
@@ -139,7 +139,8 @@ const ProfileSection = () => {
 
 
     const handleProfile =()=>{
-       history.push('/Profile')
+
+        history.push('/Profile')
     }
 
 
@@ -148,13 +149,15 @@ const ProfileSection = () => {
         axios
             .post( configData.API_SERVER + 'users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
             .then(function (response) {
-                
+
                 // Force the LOGOUT
                 //if (response.data.success) {
 
-                    dispatcher({ type: LOGOUT });
-                    console.log('out')
-                    history.push("/login");
+
+                dispatcher({ type: LOGOUT });
+                console.log('out')
+                history.push("/login");
+
                 //} else {
                 //    console.log('response - ', response.data.msg);
                 //}
@@ -232,70 +235,19 @@ const ProfileSection = () => {
                                             <Grid item className={classes.flex}>
                                                 <Typography variant="h4">Good Morning,</Typography>
                                                 <Typography component="span" variant="h4" className={classes.name}>
-                                                    John
+                                                    {account.user.username}
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <Typography variant="subtitle2">Project Admin</Typography>
+                                                <Typography variant="subtitle2">{account.user.role}</Typography>
                                             </Grid>
                                         </Grid>
-                                        <OutlinedInput
-                                            className={classes.searchControl}
-                                            id="input-search-profile"
-                                            value={value}
-                                            onChange={(e) => setValue(e.target.value)}
-                                            placeholder="Search profile options"
-                                            startAdornment={
-                                                <InputAdornment position="start">
-                                                    <IconSearch stroke={1.5} size="1.3rem" className={classes.startAdornment} />
-                                                </InputAdornment>
-                                            }
-                                            aria-describedby="search-helper-text"
-                                            inputProps={{
-                                                'aria-label': 'weight'
-                                            }}
-                                        />
+
                                         <Divider />
                                         <PerfectScrollbar className={classes.ScrollHeight}>
 
-                                            <Divider />
-                                            <Card className={classes.card}>
-                                                <CardContent>
-                                                    <Grid container spacing={3} direction="column">
-                                                        <Grid item>
-                                                            <Grid item container alignItems="center" justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1">Start DND Mode</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Switch
-                                                                        color="primary"
-                                                                        checked={sdm}
-                                                                        onChange={(e) => setSdm(e.target.checked)}
-                                                                        name="sdm"
-                                                                        size="small"
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Grid item container alignItems="center" justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1">Allow Notifications</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Switch
-                                                                        checked={notification}
-                                                                        onChange={(e) => setNotification(e.target.checked)}
-                                                                        name="sdm"
-                                                                        size="small"
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </CardContent>
-                                            </Card>
+
+
                                             <Divider />
                                             <List component="nav" className={classes.navContainer}>
                                                 <ListItemButton

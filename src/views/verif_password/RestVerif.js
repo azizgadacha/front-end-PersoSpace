@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-//===========================|| API JWT - REGISTER ||===========================//
+
 
 const RestRegister = ({ ...others }) => {
 

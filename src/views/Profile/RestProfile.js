@@ -8,8 +8,8 @@ import {
 
     Grid,
 
-     TextField,
-     useMediaQuery
+    TextField, Typography,
+    useMediaQuery
 } from '@material-ui/core';
 
 
@@ -93,14 +93,14 @@ const RestProfile = (props, { ...others }) => {
 
                     <Grid item   xs={12} >
                         <label>Username: </label>
-                        <TextField
-                            fullWidth
-                            margin="normal"
-                            name="username"
-                            id="username"
-                            type="text"
-                            value={account.user.username}
-                        />
+
+                        <Typography margin="normal"
+                                    name="username"
+                                    id="username" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                            {account.user.username}
+                        </Typography>
+
+
                     </Grid>
                     <Grid>
 

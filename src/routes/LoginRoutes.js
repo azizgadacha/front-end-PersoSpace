@@ -30,13 +30,12 @@ const Routes = () => {
 
 
 <React.Fragment>
-<Route path={["/ddashboard/registre",'/login','/forget',"/change/:token"]}>
+<Route path={['/login','/forget',"/change/:token"]}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
                         <Verif_login_Guard>
 
-                            <Route path="/ddashboard/registre" component={registre} />
 
                             <Route path="/login" component={AuthLogin} />
                             <Route path="/forget" component={AuthForget} />

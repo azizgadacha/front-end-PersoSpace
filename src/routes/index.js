@@ -21,7 +21,6 @@ const Routes = () => {
         <Switch>
             <Redirect exact from="/" to={config.defaultPath} />
             <React.Fragment>
-                {console.log("rani fil index")}
 
                 {/* Route for login */}
                 <LoginRoutes />

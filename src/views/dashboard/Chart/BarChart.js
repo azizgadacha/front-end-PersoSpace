@@ -33,7 +33,7 @@ return(
                          borderWidth: 1
                      }]
                  }}
-                  height={480}/>
+                  height={300} width={300}/>
     </Fragment>
 )
 }

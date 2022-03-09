@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // material-ui
-import { Grid } from '@material-ui/core';
+import {Grid, Snackbar} from '@material-ui/core';
 
 // project imports
 import EarningCard from './EarningCard';
@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import WorkspaceCard from "./WorkspaceCard";
 import axios from "axios";
 import configData from "../../../config";
+
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 import {Workspaces} from "@material-ui/icons";
@@ -32,6 +33,8 @@ const Dashboard = (props, { ...others }) => {
 
 
     useEffect(() => {
+
+        console.log("wa " +account.token)
         axios
             .post( configData.API_SERVER + 'users/getworkspace',{token:account.token})
             .then(response =>{
@@ -61,16 +64,69 @@ const Dashboard = (props, { ...others }) => {
         return(
 
 
-                <Grid item lg={4} md={6} sm={6} xs={12}>
+           /* <Grid item lg={4} md={6} sm={6} xs={12}>
+
                 <WorkspaceCard isLoading={isLoading} card={card}      />
             </Grid>
 
+*/
+            <Grid item xs={12} md={6} xl={3}>
+                <WorkspaceCard isLoading={isLoading} card={card}      />
 
-
+            </Grid>
 
 
         )})
     return (
+        <Grid container spacing={3}>
+            <Grid item xs={12} lg={8}>
+                <Grid container spacing={3}>
+
+                    {lc}
+                    <Grid item xs={12} md={6} xl={3}>
+                        <PlusCard/>
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+            <Grid item xs={12} lg={4}>
+                <TotalGrowthBarChart isLoading={isLoading} />
+            </Grid>
+        </Grid>
+
+    )
+
+        {/*
+        <React.Fragment >
+
+                <Grid container spacing={3}>
+                    <Grid item xs={12} lg={8}>
+                        <Grid container spacing={3}>
+
+                            {lc}
+
+                            <Grid item xs={8} md={6} xl={3}>
+                                <PlusCard/>
+
+                        </Grid>
+
+
+                        </Grid>
+
+                    </Grid>
+                    <Grid item xs={12} lg={4}>
+                        <TotalGrowthBarChart isLoading={isLoading} />
+                    </Grid>
+                </Grid>
+
+</React.Fragment>
+    )
+
+
+
+
+
 
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
@@ -88,8 +144,13 @@ const Dashboard = (props, { ...others }) => {
                 </Grid>
             </Grid>
         </Grid>
+*/
 
-    );
+
+
+        }
+
+
 
 }
 export default Dashboard;

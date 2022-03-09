@@ -1,4 +1,6 @@
+
 import {ADD, CLICK, CLOSE, DELETE, INISIALIZE} from './actions';
+
 
 
 
@@ -17,6 +19,8 @@ const WorkspaceStore = (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE:
 
+
+
             state.Workspace=action.payload.work
             return {
 
@@ -24,11 +28,10 @@ const WorkspaceStore = (state = initialState, action) => {
 
             };
         case ADD:
-         const work=action.payload.work
-            console.log("apartir")
 
-            console.log(work)
-         state.Workspace=state.Workspace.concat(work)
+
+
+            state.Workspace=state.Workspace.concat(action.payload.work)
             return {
 
                 ...state,
