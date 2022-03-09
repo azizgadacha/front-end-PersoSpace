@@ -145,6 +145,7 @@ const ProfileSection = () => {
 
 
     const handleLogout = () => {
+
         console.log(account.token);
         axios
             .post( configData.API_SERVER + 'users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
@@ -153,6 +154,7 @@ const ProfileSection = () => {
                 // Force the LOGOUT
                 //if (response.data.success) {
 
+                console.log('out2.0')
 
                 dispatcher({ type: LOGOUT });
                 console.log('out')
@@ -235,11 +237,12 @@ const ProfileSection = () => {
                                             <Grid item className={classes.flex}>
                                                 <Typography variant="h4">Good Morning,</Typography>
                                                 <Typography component="span" variant="h4" className={classes.name}>
-                                                    {account.user.username}
+                                                    {     account.user&&( account.user.username)}
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <Typography variant="subtitle2">{account.user.role}</Typography>
+                                                <Typography variant="subtitle2">
+                                                    {     account.user&& (account.user.role)}</Typography>
                                             </Grid>
                                         </Grid>
 

@@ -1,6 +1,22 @@
 import { v4 as uuid } from 'uuid';
+import {useEffect} from "react";
 
-export const USERLIST = [
+const user=()=>{
+
+  return {
+    id: uuid(),
+
+    avatarUrl: '/static/images/avatars/avatar_3.png',
+    email: 'hamadi@devias.io',
+    name: 'hamadi sahbi',
+    phone: '304-428-3097'
+  }
+
+}
+
+export const USERLIST1 = [
+user(),
+
   {
     id: uuid(),
 
