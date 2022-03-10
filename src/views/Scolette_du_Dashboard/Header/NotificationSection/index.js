@@ -186,13 +186,10 @@ const NotificationSection = () => {
                                                         <Grid item>
                                                             <Stack direction="row" spacing={2}>
                                                                 <Typography variant="subtitle1">All Notification</Typography>
-                                                                <Chip size="small" label="01" className={classes.notificationChip} />
                                                             </Stack>
                                                         </Grid>
                                                         <Grid item>
-                                                            <Typography component={Link} to="#" variant="subtitle2" color="primary">
-                                                                Mark as all read
-                                                            </Typography>
+
                                                         </Grid>
                                                     </Grid>
                                                 </div>
@@ -232,11 +229,7 @@ const NotificationSection = () => {
                                         </Grid>
                                     </CardContent>
                                     <Divider />
-                                    <CardActions className={classes.cardAction}>
-                                        <Button size="small" disableElevation>
-                                            View All
-                                        </Button>
-                                    </CardActions>
+
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>

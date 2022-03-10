@@ -90,16 +90,7 @@ const Login = () => {
                                         <Divider />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Typography
-                                                component={RouterLink}
-                                                to="/register"
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none' }}
-                                            >
-                                       DON'T HAVE AN ACCOUNT ?  CLICK HERE
-                                            </Typography>
-                                        </Grid>
+
                                     </Grid>
                                 </Grid>
                             </AuthCardWrapper1>

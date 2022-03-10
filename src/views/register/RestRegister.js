@@ -165,7 +165,7 @@ const RestRegister = ({ ...others }) => {
                                     history.push( config.defaultPath);
                                     dispatcher({
                                         type:CLICK,
-                                        payload: {text:"l'utilisateur a ete ajouter",severity:"success"}
+                                        payload: {text:"User added successfully",severity:"success"}
                                     });
                                 } else {
                                     setStatus({ success: false });

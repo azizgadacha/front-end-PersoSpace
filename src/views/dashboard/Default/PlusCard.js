@@ -55,7 +55,7 @@ const PlusCard = () => {
                 <Grid container direction="column">
                     <Grid item height={140} >
                         <svg xmlns="http://www.w3.org/2000/svg" onClick={handleClick}  fontSize="inherit"  className="icon icon-tabler icon-tabler-plus"
-                             width="290" height="150" viewBox="-12 -7 35 40" stroke-width="1.75" stroke="#2c3e50"
+                             width="290" height="150" viewBox="-7 -7 35 40" stroke-width="1.75" stroke="#2c3e50"
                              fill="none" stroke-linecap="round" stroke-linejoin="round" >
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <line x1="12" y1="5" x2="12" y2="19" />

@@ -219,7 +219,7 @@ const RestForget = ({ ...others }) => {
                                     mt: 3
                                 }}
                             >
-                                {errors.submit==="un mail contenant le lien de reinstalisation du mot de pass  a ete envoyer"?<Alert variant="filled" severity="info">{errors.submit}</Alert>:<Alert variant="filled" severity="error">{errors.submit}</Alert>}
+                                {errors.submit==="\n" + "an email containing the password reset link has been sent"?<Alert variant="filled" severity="info">{errors.submit}</Alert>:<Alert variant="filled" severity="error">{errors.submit}</Alert>}
 
 
 
