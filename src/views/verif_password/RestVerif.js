@@ -147,7 +147,7 @@ let history =useHistory()
                                 history.push("/login")
                                 dispatcher({
                                     type:"Click",
-                                    payload: {text:"la mot de passe a ete envoyer",severity:"success"}
+                                    payload: {text:"the password has been sent",severity:"success"}
                                 });
 
                             })

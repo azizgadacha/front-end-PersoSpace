@@ -108,15 +108,12 @@ const RestProfile = (props, { ...others }) => {
 
                     <Grid item xs={12} alignItems="baseline" >
                         <label>Email:      </label>
-                        <TextField
-                            fullWidth
-                            margin="normal"
-                            name="email"
-                            id="email"
-                            type="text"
-                            value={account.user.email}
 
-                        />
+                        <Typography margin="normal"
+                                    name="Email"
+                                    id="Email" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                            {account.user.email}
+                        </Typography>
                     </Grid>
 
                 </Grid>
