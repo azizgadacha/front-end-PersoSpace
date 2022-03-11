@@ -113,7 +113,7 @@ const RestForget = ({ ...others }) => {
                             })
                             .then(function (response) {
 
-                                    setStatus({ success: false });
+                                    setStatus({ success: response.data.success });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
 
@@ -219,14 +219,7 @@ const RestForget = ({ ...others }) => {
                                     mt: 3
                                 }}
                             >
-                                {errors.submit==="\n" + "an email containing the password reset link has been sent"?<Alert variant="filled" severity="info">{errors.submit}</Alert>:<Alert variant="filled" severity="error">{errors.submit}</Alert>}
-
-
-
-
-
-
-
+                                {errors.submit==="an email containing the password reset link has been sent"?<Alert variant="filled" severity="info">{errors.submit}</Alert>:<Alert variant="filled" severity="error">{errors.submit}</Alert>}
                             </Box>
                         )}
 
