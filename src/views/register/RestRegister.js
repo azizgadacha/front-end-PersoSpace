@@ -101,11 +101,7 @@ const RestRegister = ({ ...others }) => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-    const [role, setRole] = React.useState('');
 
-    const handleChangerole = (event) => {
-        setRole(event.target.value);
-    };
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();

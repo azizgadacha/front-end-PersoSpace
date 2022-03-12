@@ -1,5 +1,8 @@
 import { filter } from 'lodash';
-import { useState} from 'react';
+import React, {Fragment, useState} from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
 // material
 import {
     Card,
@@ -14,12 +17,17 @@ import {
 
     Typography,
     TableContainer,
-    TablePagination,
+    TablePagination, Button, Box,
 } from '@mui/material';
 // components
 import Scrollbar from '../../animation/NavigationScroll';
 import SearchNotFound from './import/customer/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from './import/customer/@dashboard/user';
+import { UserListHead, UserListToolbar } from './import/customer/@dashboard/user';
+import {Label} from "@material-ui/icons";
+import Modal_Delete_Workspace from "../modal_delete_workspace";
+import {CLOSE_DELETE_MODAL, OPEN_DELETE_MODAL} from "../../store/actions";
+import {useDispatch, useSelector} from "react-redux";
+import Modal_Delete_User from "../Modal_delete_user";
 
 
 // ----------------------------------------------------------------------
@@ -29,7 +37,7 @@ const TABLE_HEAD = [
     { id: 'username', label: 'User name', alignRight: false },
     { id: 'email', label: 'Email', alignRight: false },
     { id: 'phone', label: 'Phone', alignRight: false },
-    { id: '' }
+    {  id: 'action', label: '           Activites', alignLeft: true }
 ];
 
 // ----------------------------------------------------------------------
@@ -66,23 +74,10 @@ function applySortFilter(array, comparator, query) {
 
 const RestUser=  ({USERLIST}) => {
 
-
-
-
-
-
-
-
-    console.log("tun8")
-
-
-    console.log("sa58")
-
-
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
-    const [orderBy, setOrderBy] = useState('name');
+    const [orderBy, setOrderBy] = useState('username');
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -118,6 +113,14 @@ const RestUser=  ({USERLIST}) => {
         }
         setSelected(newSelected);
     };
+    const dispatcher = useDispatch();
+
+    const handleClickModal = () => {
+        dispatcher({
+            type:OPEN_DELETE_MODAL,
+
+        });
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -138,6 +141,13 @@ const RestUser=  ({USERLIST}) => {
 
     const isUserNotFound = filteredUsers.length === 0;
 
+    let open = useSelector((state) => state.modal);
+    function handleCloseModal  () {
+        dispatcher({
+            type:CLOSE_DELETE_MODAL,
+
+        });
+    };
 
     return (
 
@@ -173,6 +183,7 @@ const RestUser=  ({USERLIST}) => {
                                             const isItemSelected = selected.indexOf(username) !== -1;
 
                                             return (
+                                                <Fragment>
                                                 <TableRow
                                                     hover
                                                     key={_id}
@@ -201,12 +212,26 @@ const RestUser=  ({USERLIST}) => {
                                                     <TableCell align="left">{phone}</TableCell>
 
 
-                                                    <TableCell align="right">
-                                                        <UserMoreMenu/>
+                                                    <TableCell align="left">
+                                                        <Box sx={{ '& button': { m: 1 } }}>
+
+                                                            <div>
+                                                                <Button sx={{width:100}} variant="outlined"  color="info" startIcon={<EditIcon />}>
+                                                                    Edit
+                                                                </Button>
+                                                                <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
+                                                                    DELETE
+                                                                </Button>
+                                                            </div>
+                                                        </Box>
+
+
                                                     </TableCell>
                                                 </TableRow>
-                                            );
-                                        })}
+                                            {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={{row}} />)}
+                                                </Fragment>
+                                        );
+                                        } )}
                                     {emptyRows > 0 && (
                                         <TableRow style={{height: 53 * emptyRows}}>
                                             <TableCell colSpan={6}/>

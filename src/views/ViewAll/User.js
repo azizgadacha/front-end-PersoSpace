@@ -14,7 +14,7 @@ import ThemeConfig from "../../themes/theme2"
 
 import axios from "axios";
 import configData from "../../config";
-import  {USERLIST1} from "./import/customer/customers"
+
 import {useSelector} from "react-redux";
 import RestUser from "./RestUser";
 // ----------------------------------------------------------------------
@@ -49,7 +49,7 @@ const User=  (props) => {
 
 
   return (
-success&&(
+      success&&(
       <Container>
         <ThemeConfig>
 
@@ -70,15 +70,12 @@ success&&(
             </Stack>
           </Box>
 
-            { console.log("test")}
-            {console.log(userListe)}
-            {
-                console.log("test2")}
+
             <RestUser  USERLIST={userListe} />
-            {console.log("hallo")}
+
         </ThemeConfig>
       </Container>
-)
-  );
+))
+  ;
 }
 export default User;

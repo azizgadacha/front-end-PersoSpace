@@ -2,11 +2,11 @@ import React from 'react';
 
 // material-ui
 import {useTheme} from '@material-ui/core';
-import { Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid,   useMediaQuery } from '@material-ui/core';
 
 // project imports
 import Modal_Delete from "../Modal_delete"
-import DeleteWorkspace from "./DeleteWorkspace";
+import DeleteUser from "./DeleteUser";
 
 // assets
 
@@ -30,7 +30,7 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const Modal_Delete_Workspace = (props) => {
+const Modal_Delete_User = (props) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -39,9 +39,9 @@ const Modal_Delete_Workspace = (props) => {
         <div style={OVERLAY_Styles}>
             <div style={Modal_Styles}>
 
-                <Modal_Delete  name={props.card.WorkspaceName} type={"Workspace"} />
+                <Modal_Delete  name={props.row.username} type={"User"} />
          <Grid container alignItems={"center"}>
-                <DeleteWorkspace handleClose={props.handleClose} card={props.card}  />
+                <DeleteUser handleClose={props.handleClose} card={props.user}  />
          </Grid>
             </div>
 
@@ -49,4 +49,4 @@ const Modal_Delete_Workspace = (props) => {
     );
 };
 
-export default Modal_Delete_Workspace;
+export default Modal_Delete_User;

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 // material-ui
-import {Grid, Snackbar} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 
 // project imports
-import EarningCard from './EarningCard';
 
-import { gridSpacing } from '../../../store/constant';
 import PlusCard from './PlusCard';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -15,15 +13,15 @@ import configData from "../../../config";
 
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
-import {Workspaces} from "@material-ui/icons";
-import {ADD, INISIALIZE} from "../../../store/actions";
-import {Route} from "react-router-dom";
+import {INISIALIZE} from "../../../store/actions";
+import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
 
+    const [succes, setSucces] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
     const account = useSelector((state) => state.account);
@@ -49,6 +47,7 @@ const Dashboard = (props, { ...others }) => {
 
 
                 setLoading(false);
+                setSucces(true)
 
             })
             .catch(function (error) {
@@ -78,12 +77,18 @@ const Dashboard = (props, { ...others }) => {
 
         )})
     return (
+
+
+
+
+        succes&&(
         <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
                 <Grid container spacing={3}>
+                    {succes?lc:<SkeletonEarningCard />}
 
-                    {lc}
-                    <Grid item xs={12} md={6} xl={3}>
+
+                        <Grid item xs={12} md={6} xl={3}>
                         <PlusCard/>
 
                     </Grid>
@@ -94,7 +99,7 @@ const Dashboard = (props, { ...others }) => {
                 <TotalGrowthBarChart isLoading={isLoading} />
             </Grid>
         </Grid>
-
+        )
     )
 
         {/*

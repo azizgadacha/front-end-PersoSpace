@@ -25,7 +25,7 @@ import AnimateButton from './../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLICK, CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
+import {CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const DeleteWorkspace = (props) => {
+const DeleteUser = (props) => {
 
 
 
@@ -79,8 +79,7 @@ const DeleteWorkspace = (props) => {
         axios
             .post( configData.API_SERVER + 'users/deleteworkspace',{
                 token:account.token,
-                id:account.user_id,
-                WorkspaceName:props.card.WorkspaceName
+                user_id:account.user_id,
             })
             .then(response =>{
                 console.log('Delete Work')
@@ -93,7 +92,7 @@ const DeleteWorkspace = (props) => {
                     payload: {work:response.data.workspaceitems}
                 })
                 dispatcher({
-                    type:CLICK,
+                    type:"Click",
                     payload: {text:"Workspace Removed successfully",severity:"success"}
                 })
 
@@ -114,7 +113,7 @@ const DeleteWorkspace = (props) => {
                             sx={{
                                 mt: 2,
                                 marginRight:2,
-                                marginLeft:13
+                                marginLeft:5
                             }}
                         >
                             <AnimateButton>
@@ -158,4 +157,4 @@ const DeleteWorkspace = (props) => {
     );
 };
 
-export default DeleteWorkspace;
+export default DeleteUser;

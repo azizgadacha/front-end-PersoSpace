@@ -14,7 +14,6 @@ import navigation from "../../BareItem/Esseyage"
 import Breadcrumbs from './../../composant_de_style/Breadcrumbs';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Customization from './../../composant_de_style/Customization';
 import { drawerWidth } from '../../store/constant';
 import { SET_MENU } from '../../store/actions';
 // assets
@@ -144,7 +143,7 @@ const MainLayout = ({ children }) => {
                 <div>{children}</div>
                 {/* </Main> */}
             </main>
-            <Customization />
+
             <Snackbar   anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose} >
                 <Alert onClose={handleClose} severity={open1.severity}>{open1.text}                </Alert>
             </Snackbar>

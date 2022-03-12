@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import {Avatar, Container, Grid, Typography} from '@material-ui/core';
+import {Avatar,  Grid, Typography} from '@material-ui/core';
 
 // project imports
 import MainCard from './../../../composant_de_style/cards/MainCard';
@@ -14,20 +14,17 @@ import EarningIcon from './../../../assets/images/icons/earning.svg';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { useDispatch, useSelector } from 'react-redux';
-import axios from "axios";
-import configData from "../../../config";
-import PlusCard from "./PlusCard";
+
 import {
-    ADD,
+
     CLOSE_DELETE_MODAL,
-    CLOSE_MODAL,
-    DELETE,
-    INISIALIZE,
+
     OPEN_DELETE_MODAL,
-    OPEN_MODAL
+
 } from "../../../store/actions";
 import Modal from "../../modal";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
+import ThemeConfig from "../../../themes/theme2";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -114,16 +111,13 @@ const useStyles = makeStyles((theme) => ({
 const WorkspaceCard = ({ isLoading,card }) => {
     const classes = useStyles();
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
 
    /* const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     */
-    const dispatch = useDispatch();
-    const listecard = useSelector((state) => state.card);
-    const account = useSelector((state) => state.account);
+
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
@@ -191,7 +185,14 @@ const WorkspaceCard = ({ isLoading,card }) => {
                     </Grid>
                 </MainCard>
             )}
-            {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={card} />)}
+            {open.ModalDeleteState && (
+                <ThemeConfig>
+
+
+                <Modal_Delete_Workspace  handleClose={handleClose} card={card} />
+                    </ThemeConfig>
+
+                    )}
         </React.Fragment>
     );
 };
