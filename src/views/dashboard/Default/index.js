@@ -16,8 +16,9 @@ import configData from "../../../config";
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 import {Workspaces} from "@material-ui/icons";
-import {ADD, INISIALIZE} from "../../../store/actions";
+import {ADD, CLOSE_DELETE_MODAL, INISIALIZE} from "../../../store/actions";
 import {Route} from "react-router-dom";
+import Modal_Delete_Workspace from "../../modal_delete_workspace";
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
@@ -30,6 +31,13 @@ const Dashboard = (props, { ...others }) => {
     const workspaces = useSelector((state) => state.workspace);
 
     const dispatcher = useDispatch();
+    let open = useSelector((state) => state.modal);
+    function handleClose  () {
+        dispatcher({
+            type:CLOSE_DELETE_MODAL,
+
+        });
+    };
 
 
     useEffect(() => {
@@ -71,7 +79,7 @@ const Dashboard = (props, { ...others }) => {
 
 */
             <Grid item xs={12} md={6} xl={3}>
-                <WorkspaceCard isLoading={isLoading} card={card}      />
+                <WorkspaceCard isLoading={isLoading} card={card}/>
 
             </Grid>
 
@@ -83,6 +91,8 @@ const Dashboard = (props, { ...others }) => {
                 <Grid container spacing={3}>
 
                     {lc}
+                    {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.card}  />)}
+
                     <Grid item xs={12} md={6} xl={3}>
                         <PlusCard/>
 

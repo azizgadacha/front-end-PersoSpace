@@ -128,8 +128,11 @@ const WorkspaceCard = ({ isLoading,card }) => {
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
     const handleClick = () => {
+
         dispatcher({
             type:OPEN_DELETE_MODAL,
+            payload: {card}
+
 
         });
     };
@@ -191,7 +194,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                     </Grid>
                 </MainCard>
             )}
-            {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={card} />)}
+
         </React.Fragment>
     );
 };
