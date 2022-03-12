@@ -121,7 +121,7 @@ const DeleteWorkspace = (props) => {
                             sx={{
                                 mt: 2,
                                 marginRight:2,
-                                marginLeft:13
+                                marginLeft:12
                             }}
                         >
                             <AnimateButton>

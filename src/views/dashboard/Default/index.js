@@ -19,6 +19,7 @@ import {ADD, CLOSE_DELETE_MODAL, INISIALIZE} from "../../../store/actions";
 import {Route} from "react-router-dom";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
+import ThemeConfig from "../../../themes/theme2";
 
 
 
@@ -93,15 +94,18 @@ const Dashboard = (props, { ...others }) => {
 
 
 
-        succes&&(
+
         <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
                 <Grid container spacing={3}>
-                    {succes?lc:<SkeletonEarningCard />}
+
 
 
                     {lc}
+                    <ThemeConfig>
+
                     {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.card}  />)}
+                        </ThemeConfig>
 
                     <Grid item xs={12} md={6} xl={3}>
 
@@ -115,7 +119,7 @@ const Dashboard = (props, { ...others }) => {
                 <TotalGrowthBarChart isLoading={isLoading} />
             </Grid>
         </Grid>
-        )
+
     )
 
         {/*
