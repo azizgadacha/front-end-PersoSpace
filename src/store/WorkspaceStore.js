@@ -48,6 +48,7 @@ const WorkspaceStore = (state = initialState, action) => {
                 if((item.WorkspaceName === deleteWork[0].WorkspaceName)&&(item.description===deleteWork[0].description)){
                     index = i;
                     return i;
+                    //console.log(i)
 
                 }
             });
