@@ -15,7 +15,7 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
-    OutlinedInput, Snackbar,
+    OutlinedInput,
     Typography,
     useMediaQuery
 } from '@material-ui/core';

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {  useHistory } from 'react-router-dom';
 
 import configData from '../../config';
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestWorkspace = (props) => {
-    const classes = useStyles();
+
     let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -111,7 +111,7 @@ const RestWorkspace = (props) => {
                         axios
                             .post( configData.API_SERVER + 'users/addworkspace', {
                                 token:account.token,
-                                user_id:account.user._id,
+                                id:account.user._id,
                                 WorkspaceName: values.WorkspaceName,
                                 description: values.description
                             })

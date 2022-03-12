@@ -25,7 +25,7 @@ import AnimateButton from './../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLICK, CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
+import {CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -68,30 +68,22 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const DeleteWorkspace = (props) => {
+const DeleteUser = (props) => {
 
 
 
     const account = useSelector((state) => state.account);
     //const [openModal,setOpenModal]=useState(false);
-    let open = useSelector((state) => state.modal);
-
     const dispatcher = useDispatch();
     const Click = () => {
         axios
-            .post( configData.API_SERVER + 'users/deleteworkspace',{
+            .post( configData.API_SERVER + 'users/deleteUser',{
                 token:account.token,
-
-                user_id:account.user._id,
-                WorkspaceName:open.card.WorkspaceName
-
-
+                user_id:props.rows._id,
             })
             .then(response =>{
-                console.log('1'+account.user._id)
-                console.log('2'+props.card.WorkspaceName)
                 console.log('Delete Work')
-                console.log(response.data.workspaceitems);
+                console.log(response.data);
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
@@ -100,7 +92,7 @@ const DeleteWorkspace = (props) => {
                     payload: {work:response.data.workspaceitems}
                 })
                 dispatcher({
-                    type:CLICK,
+                    type:"Click",
                     payload: {text:"Workspace Removed successfully",severity:"success"}
                 })
 
@@ -121,7 +113,7 @@ const DeleteWorkspace = (props) => {
                             sx={{
                                 mt: 2,
                                 marginRight:2,
-                                marginLeft:13
+                                marginLeft:5
                             }}
                         >
                             <AnimateButton>
@@ -165,4 +157,4 @@ const DeleteWorkspace = (props) => {
     );
 };
 
-export default DeleteWorkspace;
+export default DeleteUser;

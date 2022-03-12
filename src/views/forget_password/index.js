@@ -7,7 +7,6 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 
 // project imports
 import AuthWrapper1 from './../../composant_de_style/AuthWrapper1';
-import AuthCardWrapper from './../../composant_de_style/AuthCardWrapper';
 import Logo from './../../assets/Logo';
 import RestForget from './RestForget';
 import AuthCardWrapper1 from "../../composant_de_style/AuthCardWrapper1";
