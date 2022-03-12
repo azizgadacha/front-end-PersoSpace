@@ -34,7 +34,7 @@ const Dashboard = (props, { ...others }) => {
 
         console.log("wa " +account.token)
         axios
-            .post( configData.API_SERVER + 'users/getworkspace',{token:account.token})
+            .post( configData.API_SERVER + 'users/getworkspace',{id:account.user._id, token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
