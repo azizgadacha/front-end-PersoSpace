@@ -77,9 +77,9 @@ const DeleteUser = (props) => {
     const dispatcher = useDispatch();
     const Click = () => {
         axios
-            .post( configData.API_SERVER + 'users/deleteworkspace',{
+            .post( configData.API_SERVER + 'users/deleteUser',{
                 token:account.token,
-                user_id:account.user_id,
+                user_id:props.rows._id,
             })
             .then(response =>{
                 console.log('Delete Work')

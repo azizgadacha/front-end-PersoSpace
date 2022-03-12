@@ -181,7 +181,7 @@ const RestUser=  ({USERLIST}) => {
                                         .map((row) => {
 
 
-                                            const {_id, username, email,role, phone, avatarUrl} = row;
+                                            const {_id, username, email, phone,role, avatarUrl} = row;
                                             const isItemSelected = selected.indexOf(username) !== -1;
 
                                             return (
@@ -211,16 +211,23 @@ const RestUser=  ({USERLIST}) => {
 
 
                                                     <TableCell align="left">{email}</TableCell>
+                                                    <TableCell align="left">{phone}</TableCell>
+
                                                     <TableCell align="left">{role}</TableCell>
 
-                                                    <TableCell align="left">{phone}</TableCell>
+                                                    {console.log('nemcchi1.0')}
+                                                    {console.log(row)}
+                                                    {console.log(username)}
+
+                                                    {console.log(_id)}
+                                                    {console.log('nemcchi2.0')}
 
 
                                                     <TableCell align="left">
                                                         <Box sx={{ '& button': { m: 1 } }}>
 
                                                             <div>
-                                                                <Button sx={{width:100}} variant="outlined"  color="info" startIcon={<EditIcon />}>
+                                                                <Button sx={{width:110}} variant="outlined"  color="info" startIcon={<EditIcon />}>
                                                                     Edit
                                                                 </Button>
                                                                 <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
@@ -231,8 +238,10 @@ const RestUser=  ({USERLIST}) => {
 
 
                                                     </TableCell>
+                                                    {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={{_id,email,username}} />)}
+
                                                 </TableRow>
-                                            {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={{row}} />)}
+
                                                 </Fragment>
                                         );
                                         } )}
@@ -241,6 +250,7 @@ const RestUser=  ({USERLIST}) => {
                                             <TableCell colSpan={6}/>
                                         </TableRow>
                                     )}
+
                                 </TableBody>
                                 {isUserNotFound && (
                                     <TableBody>

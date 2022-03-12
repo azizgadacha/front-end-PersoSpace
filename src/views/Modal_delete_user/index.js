@@ -39,9 +39,10 @@ const Modal_Delete_User = (props) => {
         <div style={OVERLAY_Styles}>
             <div style={Modal_Styles}>
 
-                <Modal_Delete  name={props.row.username} type={"User"} />
+                <Modal_Delete  name={props.user.username} type={"User"} />
          <Grid container alignItems={"center"}>
-                <DeleteUser handleClose={props.handleClose} card={props.user}  />
+             {console.log("hani lena "+props.user._id)}
+                <DeleteUser handleClose={props.handleClose} user={props.user}  />
          </Grid>
             </div>
 
