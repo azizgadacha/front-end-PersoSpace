@@ -22,7 +22,6 @@ import {
     OPEN_DELETE_MODAL,
 
 } from "../../../store/actions";
-import Modal from "../../modal";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
 

@@ -1,8 +1,7 @@
 import React from 'react';
 
 // material-ui
-import {useTheme} from '@material-ui/core';
-import { Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 // project imports
 import Modal_Delete from "../Modal_delete"
@@ -31,8 +30,6 @@ const OVERLAY_Styles ={
 
 }
 const Modal_Delete_Workspace = (props) => {
-    const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
 
     return (

@@ -37,6 +37,8 @@ const TABLE_HEAD = [
     { id: 'username', label: 'User name', alignRight: false },
     { id: 'email', label: 'Email', alignRight: false },
     { id: 'phone', label: 'Phone', alignRight: false },
+    { id: 'role', label: 'Role', alignRight: false },
+
     {  id: 'action', label: '           Activites', alignLeft: true }
 ];
 
@@ -179,7 +181,7 @@ const RestUser=  ({USERLIST}) => {
                                         .map((row) => {
 
 
-                                            const {_id, username, email, phone, avatarUrl} = row;
+                                            const {_id, username, email,role, phone, avatarUrl} = row;
                                             const isItemSelected = selected.indexOf(username) !== -1;
 
                                             return (
@@ -209,6 +211,8 @@ const RestUser=  ({USERLIST}) => {
 
 
                                                     <TableCell align="left">{email}</TableCell>
+                                                    <TableCell align="left">{role}</TableCell>
+
                                                     <TableCell align="left">{phone}</TableCell>
 
 
