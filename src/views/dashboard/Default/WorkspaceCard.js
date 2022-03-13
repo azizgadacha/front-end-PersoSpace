@@ -124,7 +124,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
         dispatcher({
             type:OPEN_DELETE_MODAL,
-            payload: {card}
+            payload: {objet:card}
 
 
         });

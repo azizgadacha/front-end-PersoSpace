@@ -28,6 +28,7 @@ import Modal_Delete_Workspace from "../modal_delete_workspace";
 import {CLOSE_DELETE_MODAL, OPEN_DELETE_MODAL} from "../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import Modal_Delete_User from "../Modal_delete_user";
+import Cells from "./Cells";
 
 
 // ----------------------------------------------------------------------
@@ -194,52 +195,7 @@ const RestUser=  ({USERLIST}) => {
                                                     selected={isItemSelected}
                                                     aria-checked={isItemSelected}
                                                 >
-                                                    <TableCell padding="checkbox">
-                                                        <Checkbox
-                                                            checked={isItemSelected}
-                                                            onChange={(event) => handleClick(event, username)}
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell component="th" scope="row" padding="none">
-                                                        <Stack direction="row" alignItems="center" spacing={2}>
-                                                            <Avatar alt={username} src={avatarUrl}/>
-                                                            <Typography variant="subtitle2" noWrap>
-                                                                {username}
-                                                            </Typography>
-                                                        </Stack>
-                                                    </TableCell>
-
-
-                                                    <TableCell align="left">{email}</TableCell>
-                                                    <TableCell align="left">{phone}</TableCell>
-
-                                                    <TableCell align="left">{role}</TableCell>
-
-                                                    {console.log('nemcchi1.0')}
-                                                    {console.log(row)}
-                                                    {console.log(username)}
-
-                                                    {console.log(_id)}
-                                                    {console.log('nemcchi2.0')}
-
-
-                                                    <TableCell align="left">
-                                                        <Box sx={{ '& button': { m: 1 } }}>
-
-                                                            <div>
-                                                                <Button sx={{width:110}} variant="outlined"  color="info" startIcon={<EditIcon />}>
-                                                                    Edit
-                                                                </Button>
-                                                                <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
-                                                                    DELETE
-                                                                </Button>
-                                                            </div>
-                                                        </Box>
-
-
-                                                    </TableCell>
-                                                    {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={{_id,email,username}} />)}
-
+                                                 <Cells  user={row} isItemSelected={isItemSelected}  />
                                                 </TableRow>
 
                                                 </Fragment>
@@ -274,6 +230,8 @@ const RestUser=  ({USERLIST}) => {
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
+                    {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
+
                 </Card>
 
 

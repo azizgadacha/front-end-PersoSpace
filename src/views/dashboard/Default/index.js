@@ -104,7 +104,7 @@ const Dashboard = (props, { ...others }) => {
                     {lc}
                     <ThemeConfig>
 
-                    {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.card}  />)}
+                    {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
 
                     <Grid item xs={12} md={6} xl={3}>

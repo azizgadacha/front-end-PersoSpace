@@ -83,7 +83,7 @@ const DeleteWorkspace = (props) => {
                 token:account.token,
 
                 user_id:account.user._id,
-                WorkspaceName:open.card.WorkspaceName
+                WorkspaceName:props.card.WorkspaceName
 
 
             })

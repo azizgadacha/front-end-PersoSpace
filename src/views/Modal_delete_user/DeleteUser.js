@@ -76,10 +76,15 @@ const DeleteUser = (props) => {
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     const Click = () => {
+        console.log("salut")
+        console.log(props.user)
+        console.log(props.user._id)
+
+
         axios
             .post( configData.API_SERVER + 'users/deleteUser',{
                 token:account.token,
-                user_id:props.rows._id,
+                user_id:props.user._id,
             })
             .then(response =>{
                 console.log('Delete Work')
@@ -87,13 +92,10 @@ const DeleteUser = (props) => {
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
-                dispatcher({
-                    type:DELETE,
-                    payload: {work:response.data.workspaceitems}
-                })
+
                 dispatcher({
                     type:"Click",
-                    payload: {text:"Workspace Removed successfully",severity:"success"}
+                    payload: {text:"User has been deleted",severity:"success"}
                 })
 
 

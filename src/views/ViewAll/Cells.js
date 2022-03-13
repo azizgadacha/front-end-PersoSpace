@@ -109,6 +109,7 @@ const Cells=  (props) => {
     const handleClickModal = () => {
         dispatcher({
             type:OPEN_DELETE_MODAL,
+            payload: {objet:props.user}
 
         });
     };
@@ -132,14 +133,14 @@ const Cells=  (props) => {
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         checked={props.isItemSelected}
-                                                        onChange={(event) => handleClick(event,props.username)}
+                                                        onChange={(event) => handleClick(event,props.user.username)}
                                                     />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row" padding="none">
                                                     <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Avatar alt={props.username} src={props.avatarUrl}/>
+                                                        <Avatar alt={props.user.username} src={props.user.avatarUrl}/>
                                                         <Typography variant="subtitle2" noWrap>
-                                                            {props.username}
+                                                            {props.user.username}
                                                         </Typography>
                                                     </Stack>
                                                 </TableCell>
@@ -150,13 +151,9 @@ const Cells=  (props) => {
 
                                                 <TableCell align="left">{props.user.role}</TableCell>
 
-                                                {console.log('nemcchi1.0')}
-                                                {console.log(props.user.row)}
-                                                {console.log(props.user.username)}
 
-                                                {console.log(props.user._id)}
-                                                {console.log('nemcchi2.0')}
-
+                                         {console.log("selmo")}
+                                         {console.log(props.user.username)}
 
                                                 <TableCell align="left">
                                                     <Box sx={{ '& button': { m: 1 } }}>
@@ -173,7 +170,6 @@ const Cells=  (props) => {
 
 
                                                 </TableCell>
-                                         {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={{_id:props.user._id,email:props.user.email,username:props.user.username}} />)}
 
                                      </Fragment>
 
