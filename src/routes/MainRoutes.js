@@ -51,7 +51,7 @@ const MainRoutes = () => {
                         <Route path="/dashboard/registre" component={registre} />
 
 
-                    <Route path='/dashboard/viewAll' component={ViewAll} />
+                    <Route path='/dashboard/viewAll' component={ViewAll} onLeave={()=>{console.log("hemmmm666llo")}}/>
 
 
 

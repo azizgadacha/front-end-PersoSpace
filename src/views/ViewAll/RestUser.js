@@ -1,5 +1,5 @@
 import { filter } from 'lodash';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -76,7 +76,16 @@ function applySortFilter(array, comparator, query) {
 
 
 const RestUser=  ({USERLIST}) => {
+    const dispatcher = useDispatch();
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_DELETE_MODAL,
+
+            });
+        }
+    }, [])
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -116,7 +125,6 @@ const RestUser=  ({USERLIST}) => {
         }
         setSelected(newSelected);
     };
-    const dispatcher = useDispatch();
 
     const handleClickModal = () => {
         dispatcher({

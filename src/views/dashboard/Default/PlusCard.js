@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { OPEN_MODAL, CLOSE_MODAL,  } from '../../../store/actions';
+import React, {useEffect, useState} from 'react';
+import {OPEN_MODAL, CLOSE_MODAL, CLOSE_DELETE_MODAL,} from '../../../store/actions';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -24,13 +24,20 @@ const useStyles = makeStyles({
 
 const PlusCard = () => {
 
+    const dispatcher = useDispatch();
 
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
 
+            });
+        }
+    }, [])
     const classes = useStyles();
     let open1 = useSelector((state) => state.modal);
 
-    const dispatcher = useDispatch();
 
     const handleClick = () => {
         dispatcher({

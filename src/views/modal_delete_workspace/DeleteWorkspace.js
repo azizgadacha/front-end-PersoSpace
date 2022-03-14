@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 import configData from '../../config';
@@ -26,6 +26,8 @@ import AnimateButton from './../../animation/AnimateButton';
 import {useDispatch, useSelector} from "react-redux";
 
 import {CLICK, CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
+import {LoadingButton} from "@material-ui/lab";
+import SaveIcon from "@mui/icons-material/Save";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DeleteWorkspace = (props) => {
 
+    const [isloading, setIsloading] = useState(false);
 
 
     const account = useSelector((state) => state.account);
@@ -78,6 +81,8 @@ const DeleteWorkspace = (props) => {
 
     const dispatcher = useDispatch();
     const Click = () => {
+        setIsloading(true)
+
         axios
             .post( configData.API_SERVER + 'users/deleteworkspace',{
                 token:account.token,
@@ -121,23 +126,15 @@ const DeleteWorkspace = (props) => {
                             sx={{
                                 mt: 2,
                                 marginRight:2,
-                                marginLeft:12
+                                marginLeft:9.5
                             }}
                         >
                             <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    onClick={Click}
-                                    color="error"
 
-                                >
-                                    Delete
-                                </Button>
-                            </AnimateButton>
+
+                                {isloading?(<LoadingButton variant="contained" sx={{width:118}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">DELETING</LoadingButton>): <Button disableElevation sx={{width:118}} size="large" type="submit" variant="contained" onClick={Click} color="error">Delete</Button>}
+
+                                </AnimateButton>
 
                         </Box>
                         <Box
@@ -149,7 +146,7 @@ const DeleteWorkspace = (props) => {
                             <AnimateButton>
                                 <Button
                                     disableElevation
-                                    fullWidth
+                                    sx={{width:118}}
                                     size="large"
                                     onClick={props.handleClose}
                                     variant="contained"

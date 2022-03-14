@@ -15,8 +15,9 @@ import ThemeConfig from "../../themes/theme2"
 import axios from "axios";
 import configData from "../../config";
 
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import RestUser from "./RestUser";
+import {INISIALIZE, INISIALIZE_USER} from "../../store/actions";
 // ----------------------------------------------------------------------
 
 
@@ -25,24 +26,37 @@ import RestUser from "./RestUser";
 
 const User=  (props) => {
 
+
+
+    const dispatcher = useDispatch();
+
     let account = useSelector((state) => state.account);
+    let user = useSelector((state) => state.user);
+
     const [success,setSucess]=useState(false)
-    const [userListe,setUserListe]=useState([])
 
 
    useEffect(() => {
 
     axios
         .post(configData.API_SERVER + 'users/all', {
+            id:account.user._id,
 
           token: account.token
         }).then((result) => {
       console.log("im gere")
       console.log(result.data.users)
-     setUserListe( result.data.users)
+        dispatcher({
+            type:INISIALIZE_USER,
+            payload: {users:result.data.users},
+        })
         setSucess(true)
-    })
-  }, [])
+
+    })}, []);
+
+
+
+
 
 
 
@@ -71,7 +85,7 @@ const User=  (props) => {
           </Box>
 
 
-            <RestUser  USERLIST={userListe} />
+            <RestUser  USERLIST={user.users} />
 
         </ThemeConfig>
       </Container>
