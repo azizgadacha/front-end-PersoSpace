@@ -47,18 +47,12 @@ const Dashboard = (props, { ...others }) => {
 
         console.log("wa " +account.token)
         axios
-            .post( configData.API_SERVER + 'users/getworkspace',{id:account.user._id, token:account.token})
+            .post( configData.API_SERVER + 'users/getinsideworkspace',{_id:workspaces.id.card._id, token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
-                dispatcher({
-                        type:INISIALIZE,
-                    payload: {work:response.data.workspaceitems}
-                }
-                )
-                console.log(workspaces.Workspace)
 
-
+                //console.log(workspaces.Workspace)
                 setLoading(false);
                 setSucces(true)
 
@@ -100,7 +94,6 @@ const Dashboard = (props, { ...others }) => {
                 <Grid container spacing={3}>
 
 
-                    {console.log(workspaces)}
                     {/*{lc}*/}
                     <ThemeConfig>
 
