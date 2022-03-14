@@ -24,8 +24,6 @@ import {
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
-import {useHistory} from "react-router-dom";
-import config from "../../../config";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -122,11 +120,6 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
-    let history =useHistory()
-    const click = () => {
-     console.log('im the card  '+card.WorkspaceName)
-        history.push(config.defaultPath + card._id)
-    }
     const handleClick = () => {
 
         dispatcher({
@@ -160,9 +153,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                         <Grid item>
                             <Grid container justifyContent="space-between">
                                 <Grid item>
-                                    <Avatar variant="rounded" className={classes.avatar}
-                                    onClick={click}
-                                    >
+                                    <Avatar variant="rounded" className={classes.avatar}>
                                         <img src={EarningIcon} alt="Notification" />
                                     </Avatar>
                                 </Grid>
