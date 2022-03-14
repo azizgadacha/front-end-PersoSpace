@@ -28,7 +28,7 @@ const MainRoutes = () => {
         <Route
             path={[
                 '/dashboard/default',
-                '/dashboard/default622f25a1ff104143d68ab6dc',
+                '/dashboard/default:id',
                 '/dashboard/registre',
                 '/dashboard/viewAll',
 
@@ -50,7 +50,7 @@ const MainRoutes = () => {
 
                         <Route path="/dashboard/registre" component={registre} />
 
-                    <Route path="/dashboard/default622f25a1ff104143d68ab6dc" component={InsideWorkspace} />
+                    <Route path="/dashboard/default:id" component={InsideWorkspace} />
                     <Route path='/dashboard/viewAll' component={ViewAll} />
 
 
