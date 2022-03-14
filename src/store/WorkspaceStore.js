@@ -1,12 +1,13 @@
 
-import {ADD, CLICK, CLOSE, DELETE, INISIALIZE} from './actions';
+import {ADD, CLICK, CLOSE, DELETE, IDWORKSPACE, INISIALIZE} from './actions';
 
 
 
 
 
 export const initialState = {
-   Workspace:[]
+   Workspace:[],
+    id:null
 
 };
 
@@ -55,27 +56,17 @@ const WorkspaceStore = (state = initialState, action) => {
             state.Workspace.splice(index,1)
             console.log(index, filteredObj);
 
-
-        {/*if (index > -1) {
-                state.Workspace.splice(index, 1); // 2nd parameter means remove one item only
-            }
-            */}
-
             return {
                 ...state
             }
 
-        /*      case "supprimer":
-                  const index = state.cards.indexOf({id:1});
-                  console.log("index is "+index)
-                  state.cards.splice(index, 1);
+        case IDWORKSPACE :
+            state.id = action.payload;
+            return {
+                ...state
+            }
 
 
-                  return {
-                      ...state
-
-                  };
-      */
         default:
             return {...state};
 

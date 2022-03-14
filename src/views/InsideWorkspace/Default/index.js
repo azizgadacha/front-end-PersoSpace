@@ -95,14 +95,12 @@ const Dashboard = (props, { ...others }) => {
 
 
 
-
-
         <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
                 <Grid container spacing={3}>
 
 
-
+                    {console.log(workspaces)}
                     {/*{lc}*/}
                     <ThemeConfig>
 

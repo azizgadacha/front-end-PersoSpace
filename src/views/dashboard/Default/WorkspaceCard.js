@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
 
-    CLOSE_DELETE_MODAL,
+    CLOSE_DELETE_MODAL, IDWORKSPACE,
 
     OPEN_DELETE_MODAL,
 
@@ -125,6 +125,12 @@ const WorkspaceCard = ({ isLoading,card }) => {
     let history =useHistory()
     const click = () => {
      console.log('im the card  '+card.WorkspaceName)
+        dispatcher({
+            type:IDWORKSPACE,
+            payload: {card}
+
+
+        });
         history.push(config.defaultPath + card._id)
     }
     const handleClick = () => {
