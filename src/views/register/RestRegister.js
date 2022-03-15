@@ -44,6 +44,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 import {CLICK} from "../../store/actions";
+import ThemeConfig from "../../themes/theme2";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -121,6 +122,8 @@ const RestRegister = ({ ...others }) => {
     const dispatcher = useDispatch();
     return (
         <React.Fragment>
+            <ThemeConfig>
+
             <Formik
                 initialValues={{
                     username: '',
@@ -187,7 +190,7 @@ const RestRegister = ({ ...others }) => {
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12}>
+                            <Grid item xs={5}>
                                 <TextField
                                     fullWidth
                                     label="Username"
@@ -198,7 +201,6 @@ const RestRegister = ({ ...others }) => {
                                     value={values.username}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    className={classes.loginInput}
                                     error={touched.username && Boolean(errors.username)}
                                 />
                                 {touched.username && errors.username && (
@@ -394,6 +396,8 @@ const RestRegister = ({ ...others }) => {
                     </form>
                 )}
             </Formik>
+                </ThemeConfig>
+
         </React.Fragment>
     );
 };

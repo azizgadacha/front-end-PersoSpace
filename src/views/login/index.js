@@ -16,9 +16,19 @@ import AuthCardWrapper1 from "../../composant_de_style/AuthCardWrapper1";
 
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
+import {styled} from "@mui/material/styles";
+import {Card} from "@mui/material";
 
 
-
+const SectionStyle = styled(Card)(({ theme }) => ({
+    width: '100%',
+height:560,
+    maxWidth: 464,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    margin: theme.spacing(2, 0, 2, 2)
+}));
 // assets
 
 //================================|| LOGIN MAIN ||================================//
@@ -48,10 +58,20 @@ const Login = () => {
     return (
 <React.Fragment>
 
+
         <AuthWrapper1>
+
             <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
+
                 <Grid item xs={12}>
+
                     <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
+                        <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
+                            <Typography variant="h3" sx={{ px: 4, mt: 10, mb: 5 }}>
+                                Manage the job more effectively with Minimal
+                            </Typography>
+                            <img alt="register" src="/static/illustrations/illustration_register.png" />
+                        </SectionStyle>
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
                             <AuthCardWrapper1>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">

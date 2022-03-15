@@ -23,12 +23,10 @@ import {
 import Scrollbar from '../../animation/NavigationScroll';
 import SearchNotFound from './import/customer/SearchNotFound';
 import { UserListHead, UserListToolbar } from './import/customer/@dashboard/user';
-import {Label} from "@material-ui/icons";
 import Modal_Delete_Workspace from "../modal_delete_workspace";
 import {CLOSE_DELETE_MODAL, OPEN_DELETE_MODAL} from "../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import Modal_Delete_User from "../Modal_delete_user";
-
 
 // ----------------------------------------------------------------------
 
@@ -165,6 +163,7 @@ const Cells=  (props) => {
                                                             <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
                                                                 DELETE
                                                             </Button>
+
                                                         </div>
                                                     </Box>
 
