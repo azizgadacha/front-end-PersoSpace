@@ -136,6 +136,8 @@ const RestWorkspace = (props) => {
                                         payload: {text:"Workspace added successfully",severity:"success"}
                                     })
                                     history.push(configData.defaultPath);
+                                    console.log()
+
 
                                 } else {
                                     setStatus({ success: false });

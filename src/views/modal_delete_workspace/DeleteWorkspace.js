@@ -82,7 +82,7 @@ const DeleteWorkspace = (props) => {
             .post( configData.API_SERVER + 'users/deleteworkspace',{
                 token:account.token,
 
-                user_id:account.user._id,
+                superior_id:account.user._id,
                 WorkspaceName:open.card.WorkspaceName
 
 
