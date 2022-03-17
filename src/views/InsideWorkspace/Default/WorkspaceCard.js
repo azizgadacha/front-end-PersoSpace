@@ -17,13 +17,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
 
-    CLOSE_DELETE_MODAL,
+    CLOSE_DELETE_MODAL, IDWORKSPACE,
 
     OPEN_DELETE_MODAL,
 
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
+import {useHistory} from "react-router-dom";
+import config from "../../../config";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -111,15 +113,26 @@ const WorkspaceCard = ({ isLoading,card }) => {
     const classes = useStyles();
 
 
-   /* const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    /* const handleClick = (event) => {
+         setAnchorEl(event.currentTarget);
+     };
 
-    */
+     */
 
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
+    let history =useHistory()
+    const click = () => {
+        console.log('im the card  '+card.WorkspaceName)
+        dispatcher({
+            type:IDWORKSPACE,
+            payload: {card}
+
+
+        });
+        history.push(config.defaultPath + card._id)
+    }
     const handleClick = () => {
 
         dispatcher({
@@ -137,12 +150,12 @@ const WorkspaceCard = ({ isLoading,card }) => {
         });
     };
 
-  /*  const handleClose = () => {
-        setAnchorEl(null);
-    };
+    /*  const handleClose = () => {
+          setAnchorEl(null);
+      };
 
 
-   */
+     */
     return (
         <React.Fragment>
             {isLoading ? (
@@ -153,7 +166,9 @@ const WorkspaceCard = ({ isLoading,card }) => {
                         <Grid item>
                             <Grid container justifyContent="space-between">
                                 <Grid item>
-                                    <Avatar variant="rounded" className={classes.avatar}>
+                                    <Avatar variant="rounded" className={classes.avatar}
+                                            onClick={click}
+                                    >
                                         <img src={EarningIcon} alt="Notification" />
                                     </Avatar>
                                 </Grid>

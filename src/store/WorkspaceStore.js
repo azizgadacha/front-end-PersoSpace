@@ -1,5 +1,14 @@
 
-import {ADD, CLICK, CLOSE, DELETE, IDWORKSPACE, INISIALIZE} from './actions';
+import {
+    ADD,
+    ADDINSIDEWORKSPACE,
+    CLICK,
+    CLOSE,
+    DELETE,
+    IDWORKSPACE,
+    INISIALIZE,
+    INISIALIZEINSIDEWORKSPACE
+} from './actions';
 
 
 
@@ -7,6 +16,7 @@ import {ADD, CLICK, CLOSE, DELETE, IDWORKSPACE, INISIALIZE} from './actions';
 
 export const initialState = {
    Workspace:[],
+    InsideWorkspace:[],
     id:null
 
 };
@@ -28,11 +38,31 @@ const WorkspaceStore = (state = initialState, action) => {
                 ...state,
 
             };
+        case INISIALIZEINSIDEWORKSPACE:
+
+
+
+            state.InsideWorkspace=action.payload.work
+            return {
+
+                ...state,
+
+            };
         case ADD:
 
 
 
             state.Workspace=state.Workspace.concat(action.payload.work)
+            return {
+
+                ...state,
+
+            };
+        case ADDINSIDEWORKSPACE:
+
+
+
+            state.InsideWorkspace=state.InsideWorkspace.concat(action.payload.work)
             return {
 
                 ...state,

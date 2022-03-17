@@ -9,7 +9,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from '../../../store/actions';
 //
-import Modal from '../../modal/index'
+import Modal from '../../modalinsideworkspace/index'
 
 // style constant
 const useStyles = makeStyles({
