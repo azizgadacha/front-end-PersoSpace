@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {  useHistory } from 'react-router-dom';
 import config from './../../config';
-
 import configData from '../../config';
 
 // material-ui
@@ -24,8 +23,6 @@ import {
 
 // validation des champs
 import * as Yup from 'yup';
-
-
 //pour lea gestion du formulaire
 import { Formik } from 'formik';
 //api pou le contact avec le back-end
@@ -45,6 +42,8 @@ import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 import {CLICK} from "../../store/actions";
 import ThemeConfig from "../../themes/theme2";
+import {Avatar, Paper, Stack} from "@mui/material";
+import {FileUpload} from "@material-ui/icons";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -84,11 +83,44 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.customInput
     }
 }));
-
+const useStyl = makeStyles((theme) => ({
+    root: {
+        alignSelf: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    input: {
+        display: "none",
+    },
+    large: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+    },
+}));
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestRegister = ({ ...others }) => {
+    const [source, setSource] = React.useState("/static/images/avatar_1.jpg");
+
+    const [images, setImages] = React.useState([]);
+
+    const handleCapture = ({target}) => {
+        const fileReader = new FileReader();
+       // const name = target.accept.includes('image') ? 'images' : 'videos';
+console.log(target.files[0])
+
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            setSource(e.target.result);
+        };
+    };
+
     let account = useSelector((state) => state.account);
+    const classes1 = useStyl();
 
     const classes = useStyles();
     let history = useHistory();
@@ -120,6 +152,34 @@ const RestRegister = ({ ...others }) => {
     }, []);
 
     const dispatcher = useDispatch();
+    {/* const getInitialState = function () {
+        return {
+            previewOpen: false,
+            img: null,
+            savedImg: "http://www.placekitten.com/400/400"
+        };
+    }
+    const handleFileChange = function (dataURI) {
+        this.setState({
+            img: dataURI,
+            savedImg: this.state.savedImg,
+        });
+    }
+    const handleSave = function (dataURI) {
+        this.setState({
+            previewOpen: false,
+            img: null,
+            savedImg: dataURI
+        });
+    }
+    const handleRequestHide = function () {
+        this.setState({
+            previewOpen: false
+        });
+    }
+*/}
+
+
     return (
         <React.Fragment>
             <ThemeConfig>
@@ -131,7 +191,7 @@ const RestRegister = ({ ...others }) => {
                     password: '',
                     role: '',
                     phone: '',
-
+                    file:null,
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -145,16 +205,17 @@ const RestRegister = ({ ...others }) => {
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
-
                     try {
+                        console.log(values.file)
 
                         axios
+
                             .post( configData.API_SERVER + 'users/register', {
                                 username: values.username,
                                 password: values.password,
                                 email: values.email,
                                 phone: values.phone,
-
+                                photo: values.file,
                                 role:values.role,
                                 token:account.token
                             })
@@ -187,30 +248,137 @@ const RestRegister = ({ ...others }) => {
                     }
                 }}
             >
-                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit} {...others}>
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={5}>
-                                <TextField
-                                    fullWidth
-                                    label="Username"
-                                    margin="normal"
-                                    name="username"
-                                    id="username"
+                {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+                    <form  noValidate onSubmit={handleSubmit} {...others}>
+
+
+
+
+
+    {/* <div>
+        <div className="avatar-photo">
+            <FileUpload handleFileChange={this.handleFileChange} />
+            <Button color="primary">Pick an Image</Button>
+            <img src={this.state.savedImg} />
+        </div>
+        {this.state.previewOpen &&
+            <AvatarPicker
+                onRequestHide={handleRequestHide}
+                previewOpen={this.state.previewOpen}
+                onSave={handleSave}
+                image={this.state.img}
+                width={400}
+                height={400}
+            />
+        }  }
+    </div>
+
+    <Button
+        variant="contained"
+        component="label"
+    >
+        Upload File
+        <input
+            type="file"
+            hidden
+        />
+    </Button>
+    <Typography>hell</Typography>
+    {/*  <Box alignItems='center' display='flex' justifyContent='center' flexDirection='column'>
+        <Box>
+            <input accept="image/*" id="upload-company-logo" type='file' hidden />
+            <label htmlFor="upload-company-logo">
+                <Button component="span" >
+                    <Paper elevation={6}>
+                        <Avatar src="https://www.w3schools.com/howto/img_avatar.png" variant='rounded' />
+                    </Paper>
+                </Button>
+            </label>
+        </Box>
+    </Box>
+*/}
+
+    <FormControl fullWidth  className={classes1.root}>
+
+        <input
+                             name="file" accept="image/*"
+               onBlur={handleBlur}
+
+               onChange={(event)=>{
+            handleCapture(event);
+                   handleChange(event)
+
+                   setFieldValue("file",event.target.files[0])
+                   console.log("rani   mchina mchina mchil=na")
+
+        }}
+
+               className={classes1.input} id="file" type="file"
+        />
+        <label htmlFor="file">
+            <IconButton color="primary" aria-label="upload picture" component="span">
+                <Avatar src={source} className={classes1.large} />
+            </IconButton>
+        </label>
+    </FormControl>
+
+
+    {/*
+    <Button
+        variant="contained"
+        component="label"
+    >
+        Upload File
+        <input
+            type="file"
+            hidden
+        />
+    </Button>
+    <input
+        accept="image/*"
+        className={classes.input}
+        style={{ display: 'none' }}
+        id="raised-button-file"
+        multiple
+        type="file"
+    />
+    <label htmlFor="raised-button-file">
+        <Button variant="raised" component="span" className={classes.button}>
+            Upload
+        </Button>
+    </label>
+
+
+*/}
+    <Stack spacing={3}>
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+
+
+                            <FormControl fullWidth error={Boolean(touched.username && errors.username)} className={classes.loginInput}>
+                                <InputLabel htmlFor="outlined-adornment-username-register">Username</InputLabel>
+                                <OutlinedInput
+                                    id="outlined-adornment-username-register"
                                     type="text"
                                     value={values.username}
+                                    name="username"
                                     onBlur={handleBlur}
                                     onChange={handleChange}
-                                    error={touched.username && Boolean(errors.username)}
+                                    inputProps={{
+                                        classes: {
+                                            notchedOutline: classes.notchedOutline
+                                        }
+                                    }}
                                 />
+
                                 {touched.username && errors.username && (
-                                    <FormHelperText error id="standard-weight-helper-text--register">
+                                    <FormHelperText error id="standard-weight-helper-text--username">
                                         {errors.username}
                                     </FormHelperText>
                                 )}
-                            </Grid>
-                        </Grid>
-                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
+                            </FormControl>
+
+
+                            <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-register"
@@ -233,7 +401,9 @@ const RestRegister = ({ ...others }) => {
                             )}
                         </FormControl>
 
+                        </Stack>
 
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
 
                         <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number</InputLabel>
@@ -259,11 +429,9 @@ const RestRegister = ({ ...others }) => {
                         </FormControl>
 
 
-
                         <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
                             <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
                             <Select
-                                margin="normal"
                                         sx={{minHeight:63}}
                                         labelId="demo-simple-select-helper-label"
                                         id="role"
@@ -289,6 +457,8 @@ const RestRegister = ({ ...others }) => {
                             )}
 
                         </FormControl>
+
+                        </Stack>
 
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
@@ -328,10 +498,13 @@ const RestRegister = ({ ...others }) => {
 
                             )}
                         </FormControl>
+                    </Stack>
+
                         <Grid item>
                             <Typography variant="subtitle1" fontSize="0.75rem">
                                 {level.label}
                             </Typography>
+                            </Grid >
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item>
                                     <Box
@@ -346,7 +519,7 @@ const RestRegister = ({ ...others }) => {
 
                             </Grid>
 
-                        </Grid>
+
 
 
 
@@ -363,6 +536,8 @@ const RestRegister = ({ ...others }) => {
                         )}
 
 
+
+
                         {errors.submit && (
                             <Box
                                 sx={{
@@ -373,7 +548,6 @@ const RestRegister = ({ ...others }) => {
 
                             </Box>
                         )}
-
                         <Box
                             sx={{
                                 mt: 2
@@ -393,6 +567,7 @@ const RestRegister = ({ ...others }) => {
                                 </Button>
                             </AnimateButton>
                         </Box>
+
                     </form>
                 )}
             </Formik>

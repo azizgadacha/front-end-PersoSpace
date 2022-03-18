@@ -128,12 +128,7 @@ const Cells=  (props) => {
 
 
                                      <Fragment>
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox
-                                                        checked={props.isItemSelected}
-                                                        onChange={(event) => handleClick(event,props.user.username)}
-                                                    />
-                                                </TableCell>
+
                                                 <TableCell component="th" scope="row" padding="none">
                                                     <Stack direction="row" alignItems="center" spacing={2}>
                                                         <Avatar alt={props.user.username} src={props.user.avatarUrl}/>

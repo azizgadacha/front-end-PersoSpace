@@ -203,7 +203,47 @@ const RestUser=  ({USERLIST}) => {
                                                     selected={isItemSelected}
                                                     aria-checked={isItemSelected}
                                                 >
-                                                 <Cells  user={row} isItemSelected={isItemSelected}  />
+                                                    <TableCell padding="checkbox">
+                                                        <Checkbox
+                                                            checked={isItemSelected}
+                                                            onChange={(event) => handleClick(username)}
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell component="th" scope="row" padding="none">
+                                                        <Stack direction="row" alignItems="center" spacing={2}>
+                                                            <Avatar alt={username} src={avatarUrl}/>
+                                                            <Typography variant="subtitle2" noWrap>
+                                                                {username}
+                                                            </Typography>
+                                                        </Stack>
+                                                    </TableCell>
+
+
+                                                    <TableCell align="left">{email}</TableCell>
+                                                    <TableCell align="left">{phone}</TableCell>
+
+                                                    <TableCell align="left">{role}</TableCell>
+
+
+                                                    {console.log("selmo")}
+                                                    {console.log(username)}
+
+                                                    <TableCell align="left">
+                                                        <Box sx={{ '& button': { m: 1 } }}>
+
+                                                            <div>
+                                                                <Button sx={{width:110}} variant="outlined"  color="info" startIcon={<EditIcon />}>
+                                                                    Edit
+                                                                </Button>
+                                                                <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
+                                                                    DELETE
+                                                                </Button>
+
+                                                            </div>
+                                                        </Box>
+
+
+                                                    </TableCell>
                                                 </TableRow>
 
                                                 </Fragment>
