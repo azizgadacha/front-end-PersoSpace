@@ -206,20 +206,28 @@ console.log(target.files[0])
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
                     try {
+
+
+
+                        console.log("il file fih")
+
                         console.log(values.file)
+                        let fd = new FormData();
 
-                        axios
+                        fd.append('username',values.username)
+                        fd.append('password',values.password)
+                        fd.append('email',values.email)
+                        fd.append('phone',values.phone)
+                        fd.append('file',values.file)
+                        fd.append('role',values.role)
+                        fd.append('token',account.token)
 
-                            .post( configData.API_SERVER + 'users/register', {
-                                username: values.username,
-                                password: values.password,
-                                email: values.email,
-                                phone: values.phone,
-                                photo: values.file,
-                                role:values.role,
-                                token:account.token
-                            })
+                        axios.post( configData.API_SERVER + 'users/register', fd,{ headers: {
+                            "Content-Type": "multipart/form-data"
+                        }})
                             .then(function (response) {
+
+                                console.log(response.data)
                                 if (response.data.success) {
 
                                     history.push( config.defaultPath);
