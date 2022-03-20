@@ -125,9 +125,10 @@ const WorkspaceCard = ({ isLoading,card }) => {
     let history =useHistory()
     const click = () => {
      console.log('im the card  '+card.WorkspaceName)
+        let card1=card;
         dispatcher({
             type:IDWORKSPACE,
-            payload: {card}
+            payload: {card1}
 
 
         });

@@ -17,9 +17,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
 
-    CLOSE_DELETE_MODAL, IDWORKSPACE,
+    CLOSE_DELETE_MODAL, CLOSE_INSIDE_DELETE_MODAL, IDWORKSPACE,
 
-    OPEN_DELETE_MODAL,
+    OPEN_DELETE_MODAL, OPEN_INSIDE_DELETE_MODAL,
 
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
-const WorkspaceCard = ({ isLoading,card }) => {
+const WorkspaceCard = ({ isLoading,card1 }) => {
     const classes = useStyles();
 
 
@@ -124,20 +124,21 @@ const WorkspaceCard = ({ isLoading,card }) => {
     const dispatcher = useDispatch();
     let history =useHistory()
     const click = () => {
-        console.log('im the card  '+card.WorkspaceName)
+        console.log('im the card  '+card1.WorkspaceName)
         dispatcher({
             type:IDWORKSPACE,
-            payload: {card}
+            payload: {card1}
 
 
         });
-        history.push(config.defaultPath + card._id)
+        history.push(config.defaultPath + card1._id)
     }
     const handleClick = () => {
 
         dispatcher({
-            type:OPEN_DELETE_MODAL,
-            payload: {card}
+            type:OPEN_INSIDE_DELETE_MODAL,
+
+            payload: {card1}
 
 
         });
@@ -145,7 +146,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     function handleClose  () {
         dispatcher({
-            type:CLOSE_DELETE_MODAL,
+            type:CLOSE_INSIDE_DELETE_MODAL,
 
         });
     };
@@ -191,13 +192,13 @@ const WorkspaceCard = ({ isLoading,card }) => {
                         <Grid item>
                             <Grid  alignItems="center">
                                 <Grid item  align="center">
-                                    <Typography align="center"  className={classes.cardHeading}>{card.WorkspaceName}</Typography>
+                                    <Typography align="center"  className={classes.cardHeading}>{card1.WorkspaceName}</Typography>
                                 </Grid>
 
                             </Grid>
                         </Grid>
                         <Grid item sx={{ mb: 1.25 }}>
-                            <Typography align="center" className={classes.subHeading}>{card.description}</Typography>
+                            <Typography align="center" className={classes.subHeading}>{card1.description}</Typography>
                         </Grid>
                     </Grid>
                 </MainCard>

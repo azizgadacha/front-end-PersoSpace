@@ -15,11 +15,18 @@ import configData from "../../../config";
 
 
 import {Workspaces} from "@material-ui/icons";
-import {ADD, CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZEINSIDEWORKSPACE} from "../../../store/actions";
+import {
+    ADD,
+    CLOSE_DELETE_MODAL,
+    CLOSE_INSIDE_DELETE_MODAL,
+    INISIALIZE,
+    INISIALIZEINSIDEWORKSPACE
+} from "../../../store/actions";
 import {Route} from "react-router-dom";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
+import Modal_Inside_Delete_Workspace from "../../modal_delete_inside_workspace";
 
 
 
@@ -37,21 +44,22 @@ const Dashboard = (props, { ...others }) => {
     let open = useSelector((state) => state.modal);
     function handleClose  () {
         dispatcher({
-            type:CLOSE_DELETE_MODAL,
+            type:CLOSE_INSIDE_DELETE_MODAL,
 
         });
     };
 
-
     useEffect(() => {
 
         console.log("wa " +account.token)
+
         axios
-            .post( configData.API_SERVER + 'users/getinsideworkspace',{superior_id:workspaces.id.card._id, token:account.token})
+            .post( configData.API_SERVER + 'users/getinsideworkspace',{superior_id:(workspaces.id.card1._id), token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
                 dispatcher({
+
                         type:INISIALIZEINSIDEWORKSPACE,
                         payload: {work:response.data.workspaceitems}
                     }
@@ -72,7 +80,7 @@ const Dashboard = (props, { ...others }) => {
 
 
 
-    let lc = workspaces.InsideWorkspace.map((card)  => {
+    let lc = workspaces.InsideWorkspace.map((card1)  => {
 
         return(
 
@@ -84,7 +92,7 @@ const Dashboard = (props, { ...others }) => {
 
  */
             <Grid item xs={12} md={6} xl={3}>
-                <WorkspaceCard isLoading={isLoading} card={card}/>
+                <WorkspaceCard isLoading={isLoading} card1={card1}/>
 
             </Grid>
 
@@ -100,9 +108,10 @@ const Dashboard = (props, { ...others }) => {
                 <Grid container spacing={3}>
 
                     {lc}
+
                     <ThemeConfig>
 
-                    {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.card}  />)}
+                    {open.ModalInsideDeleteState && (<Modal_Inside_Delete_Workspace  handleClose={handleClose} card1={open.card1}/>)}
                         </ThemeConfig>
 
                     <Grid item xs={12} md={6} xl={3}>

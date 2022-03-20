@@ -1,4 +1,11 @@
-import {OPEN_MODAL, CLOSE_MODAL, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL,} from './actions';
+import {
+    OPEN_MODAL,
+    CLOSE_MODAL,
+    OPEN_DELETE_MODAL,
+    CLOSE_DELETE_MODAL,
+    OPEN_INSIDE_DELETE_MODAL,
+    CLOSE_INSIDE_DELETE_MODAL,
+} from './actions';
 
 
 
@@ -6,7 +13,9 @@ import {OPEN_MODAL, CLOSE_MODAL, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL,} from '.
 export const initialState = {
     ModalState:false,
     ModalDeleteState:false,
-    card:null
+    ModalInsideDeleteState:false,
+    card:null,
+    card1:null
 
 };
 
@@ -36,7 +45,7 @@ const ModalReducer = (state = initialState, action) => {
 
             };
         case OPEN_DELETE_MODAL:
-            const  {card}=action.payload
+            const {card}=action.payload
 
             return {
 
@@ -53,6 +62,25 @@ const ModalReducer = (state = initialState, action) => {
 
 
             };
+        case OPEN_INSIDE_DELETE_MODAL:
+            const  {card1}=action.payload
+
+            return {
+
+                ...state,
+                card1,
+                ModalInsideDeleteState:true,
+
+            };
+        case CLOSE_INSIDE_DELETE_MODAL:
+
+            return {
+                ...state,
+                ModalInsideDeleteState:false
+
+
+            };
+
 
         default:
             return {...state};

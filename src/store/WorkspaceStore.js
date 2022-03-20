@@ -4,7 +4,7 @@ import {
     ADDINSIDEWORKSPACE,
     CLICK,
     CLOSE,
-    DELETE,
+    DELETE, DELETEINSIDEWORKSPACE,
     IDWORKSPACE,
     INISIALIZE,
     INISIALIZEINSIDEWORKSPACE
@@ -85,6 +85,26 @@ const WorkspaceStore = (state = initialState, action) => {
             });
             state.Workspace.splice(index,1)
             console.log(index, filteredObj);
+
+            return {
+                ...state
+            }
+        case DELETEINSIDEWORKSPACE:
+            const deleteinsideWork=action.payload.work
+            console.log("Store Delete")
+            console.log(deleteinsideWork[0].WorkspaceName)
+            console.log(state.Workspace)
+            let index1 = 0;
+            var filteredObj = state.InsideWorkspace.find(function(item, i){
+                if((item.WorkspaceName === deleteinsideWork[0].WorkspaceName)&&(item.description===deleteinsideWork[0].description)){
+                    index1 = i;
+                    return i;
+                    //console.log(i)
+
+                }
+            });
+            state.InsideWorkspace.splice(index1,1)
+            console.log(index1, filteredObj);
 
             return {
                 ...state

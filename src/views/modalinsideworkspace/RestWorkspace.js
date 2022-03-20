@@ -112,7 +112,7 @@ const RestInsideWorkspace = (props) => {
                         axios
                             .post( configData.API_SERVER + 'users/addinsideworkspace', {
                                 token:account.token,
-                                superior_id:workspaces.id.card._id,
+                                superior_id:workspaces.id.card1._id,
                                 WorkspaceName: values.WorkspaceName,
                                 description: values.description
                             })
@@ -136,7 +136,7 @@ const RestInsideWorkspace = (props) => {
                                         type:"Click",
                                         payload: {text:"Workspace added successfully",severity:"success"}
                                     })
-                                    history.push(configData.defaultPath + workspaces.id.card._id );
+                                    history.push(configData.defaultPath + workspaces.id.card1._id );
                                     console.log()
 
 
