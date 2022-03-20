@@ -127,7 +127,7 @@ const RestWorkspace = (props) => {
 
                                     dispatcher({
                                         type:ADD,
-                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description}]}
+                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID}]}
 
 
                                     })
