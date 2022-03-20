@@ -118,7 +118,8 @@ const RestInsideWorkspace = (props) => {
                             })
                             .then(function (response) {
                                 if (response.data.success) {
-
+                                   console.log("ena el data")
+                                    console.log(response.data.WorkspaceID)
                                     dispatcher({
                                         type:CLOSE_MODAL,
 
@@ -128,7 +129,7 @@ const RestInsideWorkspace = (props) => {
 
                                     dispatcher({
                                         type:ADDINSIDEWORKSPACE,
-                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description}]}
+                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID}]}
 
 
                                     })

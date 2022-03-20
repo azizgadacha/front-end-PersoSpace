@@ -108,6 +108,8 @@ const Dashboard = (props, { ...others }) => {
                 <Grid container spacing={3}>
 
                     {lc}
+                    {console.log('alam')}
+                    {console.log(workspaces)}
 
                     <ThemeConfig>
 

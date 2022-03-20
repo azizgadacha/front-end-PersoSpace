@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -123,7 +123,9 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
     let history =useHistory()
+
     const click = () => {
+        console.log("aaaaaaaaaaaaaa "+card1._id)
         console.log('im the card  '+card1.WorkspaceName)
         dispatcher({
             type:IDWORKSPACE,
