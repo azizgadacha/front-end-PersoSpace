@@ -132,7 +132,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
         });
-        history.push(config.defaultPath + card._id)
+        history.push(config.defaultPath+'/'+ card._id)
     }
     const handleClick = () => {
 

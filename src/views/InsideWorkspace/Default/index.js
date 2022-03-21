@@ -22,7 +22,7 @@ import {
     INISIALIZE,
     INISIALIZEINSIDEWORKSPACE
 } from "../../../store/actions";
-import {Route} from "react-router-dom";
+import {Route, useParams} from "react-router-dom";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
@@ -48,13 +48,14 @@ const Dashboard = (props, { ...others }) => {
 
         });
     };
-
+    let {id}=useParams()
     useEffect(() => {
 
         console.log("wa " +account.token)
 
+
         axios
-            .post( configData.API_SERVER + 'users/getinsideworkspace',{superior_id:(workspaces.id.card1._id), token:account.token})
+            .post( configData.API_SERVER + 'users/getinsideworkspace',{superior_id:id, token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);
