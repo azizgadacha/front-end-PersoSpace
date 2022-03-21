@@ -83,11 +83,8 @@ const useStyles = makeStyles((theme) => ({
     },
     loginInput: {
         ...theme.typography.customInput
-    }
-}));
+    },
 
-
-const useStyl = makeStyles((theme) => ({
     root: {
         alignSelf: 'center',
         justifyContent: "center",
@@ -105,15 +102,17 @@ const useStyl = makeStyles((theme) => ({
         height: theme.spacing(20),
     },
 
+
 }));
+
+
+
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestRegister = ({ ...others }) => {
 
 
     const [source, setSource] = React.useState("/static/images/avatar_1.jpg");
-
-    const [images, setImages] = React.useState([]);
 
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
@@ -127,7 +126,6 @@ console.log(target.files[0])
     };
 
     let account = useSelector((state) => state.account);
-    const classes1 = useStyl();
     const theme = useTheme();
 
     const classes = useStyles();
@@ -199,7 +197,10 @@ console.log(target.files[0])
                     password: '',
                     role: '',
                     phone: '',
-                    file:configData.API_SERVER+"avatar_1.jpg",
+                    sendtphoto:false,
+                    file:null,
+
+
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -217,9 +218,6 @@ console.log(target.files[0])
 
 
 
-                        console.log("il file fih")
-
-                        console.log(values.file)
                         let fd = new FormData();
 
                         fd.append('username',values.username)
@@ -274,14 +272,14 @@ console.log(target.files[0])
 
 
 
-
+<grid>
 
                         <Typography
                         gutterBottom
                         variant={matchDownSM ? 'h6' : 'h6'}
                    align={"center"}  >
-Choise a photo                    </Typography>
-    <FormControl fullWidth  className={classes1.root}>
+Choise a photo                    </Typography></grid>
+    <FormControl fullWidth  className={classes.root}>
 
         <input name="file" accept="image/*"
                onBlur={handleBlur}
@@ -291,15 +289,17 @@ Choise a photo                    </Typography>
                    handleChange(event)
 
                    setFieldValue("file",event.target.files[0])
+                       setFieldValue("sendtphoto",true)
 
 
-        }}
 
-               className={classes1.input} id="file" type="file"
+               }}
+
+               className={classes.input} id="file" type="file"
         />
         <label htmlFor="file">
             <IconButton color="primary" aria-label="upload picture" component="span">
-                <Avatar src={source} className={classes1.large} />
+                <Avatar src={source} className={classes.large}  />
 
             </IconButton>
         </label>
