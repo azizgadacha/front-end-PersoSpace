@@ -85,7 +85,7 @@ const DeleteUser = (props) => {
 
 
         axios
-            .post( configData.API_SERVER + 'users/deleteUser',{
+            .post( configData.API_SERVER + 'api/users/deleteUser',{
                 token:account.token,
                 user_id:props.user._id,
             })

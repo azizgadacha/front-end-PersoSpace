@@ -59,7 +59,7 @@ const load=[1,2,3,4]
 
         console.log("wa " +account.token)
         axios
-            .post( configData.API_SERVER + 'users/getworkspace',{id:account.user._id, token:account.token})
+            .post( configData.API_SERVER + 'api/users/getworkspace',{id:account.user._id, token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);

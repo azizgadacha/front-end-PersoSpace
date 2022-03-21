@@ -40,11 +40,8 @@ const UserReducer = (state = initialState, action) => {
 
         case USER_DELETE:
             const deleteUser=action.payload.user
-            console.log("Store Delete")
-            
-            console.log("rani nayek 3ala wath3i")
+
             console.log(deleteUser)
-            console.log("rani nayek 3ala wath3i  2.0")
 
             console.log(deleteUser.username)
             console.log(state.users)

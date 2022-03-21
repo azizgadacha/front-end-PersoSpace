@@ -16,6 +16,8 @@ import {
 
 // project imports
 import useScriptRef from '../../hooks/useScriptRef';
+import {Avatar, Stack} from "@mui/material";
+import configData from "../../config";
 
 
 // assets
@@ -58,10 +60,31 @@ const useStyles = makeStyles((theme) => ({
         ...theme.typography.customInput
     }
 }));
+const useStyl = makeStyles((theme) => ({
+    root: {
+        alignSelf: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    input: {
+        display: "none",
+    },
+    large: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+    },
+
+}));
 
 //============================|| API JWT - LOGIN ||============================//
 
 const RestProfile = (props, { ...others }) => {
+    const classes1 = useStyl();
+
     const classes = useStyles();
     const dispatcher = useDispatch();
 
@@ -89,7 +112,17 @@ const RestProfile = (props, { ...others }) => {
     return (
         <React.Fragment>
             <form >
-                <Grid container spacing={6} >
+
+
+                <Stack spacing={5}>
+
+                <div className={classes1.root}>
+
+                <Avatar src={`${configData.API_SERVER}${account.user.photo}`} className={classes1.large} />
+                </div>
+
+
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={6}>
 
                     <Grid item   xs={12} >
                         <label>Username: </label>
@@ -102,9 +135,7 @@ const RestProfile = (props, { ...others }) => {
 
 
                     </Grid>
-                    <Grid>
 
-                    </Grid>
 
                     <Grid item xs={12} alignItems="baseline" >
                         <label>Email:      </label>
@@ -115,8 +146,33 @@ const RestProfile = (props, { ...others }) => {
                             {account.user.email}
                         </Typography>
                     </Grid>
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={6} margin={3}>
 
-                </Grid>
+                    <Grid item xs={12} alignItems="baseline" >
+                        <label>Phone     </label>
+
+                        <Typography margin="normal"
+                                    name="Phone"
+                                    id="phone" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                            {account.user.phone}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} alignItems="baseline" >
+                        <label>Role    </label>
+
+                        <Typography margin="normal"
+                                    name="Role"
+                                    id="Role" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                            {account.user.role}
+                        </Typography>
+                    </Grid>
+                    </Stack>
+
+
+
+
+                </Stack>
 
             </form>
         </React.Fragment>

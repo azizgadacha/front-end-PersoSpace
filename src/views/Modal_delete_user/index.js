@@ -39,7 +39,6 @@ const Modal_Delete_User = (props) => {
         <div style={OVERLAY_Styles}>
             <div style={Modal_Styles}>
 
-                {console.log("mriglzz")}
 
                 {console.log(props.user)}
 

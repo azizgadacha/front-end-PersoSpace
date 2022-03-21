@@ -84,7 +84,7 @@ const DeleteWorkspace = (props) => {
         setIsloading(true)
 
         axios
-            .post( configData.API_SERVER + 'users/deleteworkspace',{
+            .post( configData.API_SERVER + 'api/users/deleteworkspace',{
                 token:account.token,
 
                 user_id:account.user._id,

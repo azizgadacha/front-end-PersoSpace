@@ -109,7 +109,7 @@ const RestWorkspace = (props) => {
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'users/addworkspace', {
+                            .post( configData.API_SERVER + 'api/users/addworkspace', {
                                 token:account.token,
                                 id:account.user._id,
                                 WorkspaceName: values.WorkspaceName,
