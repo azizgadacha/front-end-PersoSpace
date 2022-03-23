@@ -24,8 +24,7 @@ const SecondRoutes = () => {
 
                 '/Profile',
 
-            ]}
-        >
+            ]}>
 
             <ProfileLayout>
                 <Switch location={location} key={location.pathname}>
