@@ -60,7 +60,9 @@ return(
           flexDirection: 'column'
         }}
       >
-          <Avatar src={`${configData.API_SERVER}${account.user.photo}`}  className={classes.large}/>
+          <Avatar  className={classes.large}>
+          <img src={`${configData.API_SERVER}${account.user.photo}`}  width="100%" height="100%" alt="ffff" />
+          </Avatar>
           <Badge
               badgeContent={
                   true && (

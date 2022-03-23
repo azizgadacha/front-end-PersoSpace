@@ -39,6 +39,7 @@ const ModalReducer = (state = initialState, action) => {
                 ...state,
                 ModalState:true,
 
+
             };
         case CLOSE_MODAL:
 

@@ -89,7 +89,7 @@ const DeleteWorkspace = (props) => {
 
 
                 superior_id:account.user._id,
-                WorkspaceName:open.card.WorkspaceName
+                WorkspaceName:props.card.WorkspaceName
 
 
 
