@@ -19,8 +19,10 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             margin: '20px'
         },
+
         [theme.breakpoints.down('lg')]: {
-            maxWidth: '400px'
+            maxWidth: '400px',
+
         },
     },
     content: {

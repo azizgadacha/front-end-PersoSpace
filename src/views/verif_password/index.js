@@ -51,7 +51,7 @@ if(!token){
 {
         try {
     let result = await axios
-        .post(configData.API_SERVER + 'users/validation', {token,})
+        .post(configData.API_SERVER + 'api/users/validation', {token,})
     setSucess(result.data.success)
     console.log("il ntija hya"+ result.data.success)
     console.log("il ntija hya"+ result)

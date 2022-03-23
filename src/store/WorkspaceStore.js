@@ -30,7 +30,7 @@ const WorkspaceStore = (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE:
 
-
+console.log("rani fi workspace store fil inizialize")
 
             state.Workspace=action.payload.work
             return {
@@ -51,6 +51,7 @@ const WorkspaceStore = (state = initialState, action) => {
         case ADD:
 
 
+            console.log("rani fi workspace store fil add")
 
             state.Workspace=state.Workspace.concat(action.payload.work)
             return {
@@ -70,6 +71,8 @@ const WorkspaceStore = (state = initialState, action) => {
             };
 
         case DELETE:
+            console.log("rani fi workspace store fil delete")
+
             const deleteWork=action.payload.work
             console.log("Store Delete")
             console.log(deleteWork[0].WorkspaceName)
@@ -107,6 +110,9 @@ const WorkspaceStore = (state = initialState, action) => {
             console.log(index1, filteredObj);
 
             return {
+
+
+
                 ...state
             }
 
@@ -118,6 +124,8 @@ const WorkspaceStore = (state = initialState, action) => {
 
 
         default:
+            console.log("rani fi workspace store fil return")
+
             return {...state};
 
 

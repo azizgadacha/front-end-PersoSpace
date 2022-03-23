@@ -13,9 +13,13 @@ import {
 export const initialState = {
     ModalState:false,
     ModalDeleteState:false,
+
     ModalInsideDeleteState:false,
-    card:null,
-    card1:null
+
+    card1:null,
+
+    objet:null
+
 
 };
 
@@ -45,12 +49,14 @@ const ModalReducer = (state = initialState, action) => {
 
             };
         case OPEN_DELETE_MODAL:
-            const {card}=action.payload
+
+            const  {objet}=action.payload
+
 
             return {
 
                 ...state,
-                card,
+               objet,
                 ModalDeleteState:true,
 
             };

@@ -6,20 +6,16 @@ import configData from '../../../../config';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
     Avatar,
-    Card,
     CardContent,
     Chip,
     ClickAwayListener,
     Divider,
     Grid,
-    InputAdornment,
     List,
     ListItemIcon,
     ListItemText,
-    OutlinedInput,
     Paper,
     Popper,
-    Switch,
     Typography
 } from '@material-ui/core';
 import ListItemButton from '@material-ui/core/ListItemButton';
@@ -148,7 +144,7 @@ const ProfileSection = () => {
 
         console.log(account.token);
         axios
-            .post( configData.API_SERVER + 'users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
+            .post( configData.API_SERVER + 'api/users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
             .then(function (response) {
 
                 // Force the LOGOUT
@@ -186,14 +182,19 @@ const ProfileSection = () => {
 
         prevOpen.current = open;
     }, [open]);
+
+
+
     return (
         <React.Fragment>
+            {     account.user&& (
             <Chip
                 classes={{ label: classes.profileLabel }}
                 className={classes.profileChip}
+
                 icon={
                     <Avatar
-                        src={User1}
+                        src={`${configData.API_SERVER}${account.user.photo}`}
                         className={classes.headerAvatar}
                         ref={anchorRef}
                         aria-controls={open ? 'menu-list-grow' : undefined}
@@ -208,7 +209,7 @@ const ProfileSection = () => {
                 aria-haspopup="true"
                 onClick={handleToggle}
                 color="primary"
-            />
+            />)}
             <Popper
                 placement="bottom-end"
                 open={open}

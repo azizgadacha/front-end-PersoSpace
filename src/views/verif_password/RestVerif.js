@@ -138,7 +138,7 @@ let history =useHistory()
 
 
                         axios
-                            .post( configData.API_SERVER + 'users/change', {token,password: values.password})
+                            .post( configData.API_SERVER + 'api/users/change', {token,password: values.password})
                             .then(function (response) {
 
                                 setStatus({ success: true });

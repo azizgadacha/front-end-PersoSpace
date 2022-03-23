@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {  useHistory } from 'react-router-dom';
 import config from './../../config';
-
 import configData from '../../config';
 
 // material-ui
@@ -17,15 +16,13 @@ import {
     InputAdornment,
     InputLabel, MenuItem,
     OutlinedInput, Select,
-    TextField,
+
     Typography,
-    useMediaQuery
+    useMediaQuery, useTheme
 } from '@material-ui/core';
 
 // validation des champs
 import * as Yup from 'yup';
-
-
 //pour lea gestion du formulaire
 import { Formik } from 'formik';
 //api pou le contact avec le back-end
@@ -43,7 +40,12 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
-import {CLICK} from "../../store/actions";
+import {ADD_USER, CLICK} from "../../store/actions";
+import ThemeConfig from "../../themes/theme2";
+import {Avatar, Paper, Stack} from "@mui/material";
+import {FileUpload} from "@material-ui/icons";
+import {gridSpacing} from "../../store/constant";
+import SkeletonEarningCard from "../../composant_de_style/cards/Skeleton/EarningCard";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -81,13 +83,52 @@ const useStyles = makeStyles((theme) => ({
     },
     loginInput: {
         ...theme.typography.customInput
-    }
+    },
+
+    root: {
+        alignSelf: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    input: {
+        display: "none",
+
+
+    },
+    large: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+    },
+
+
 }));
+
+
 
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestRegister = ({ ...others }) => {
+
+
+    const [source, setSource] = React.useState("/static/images/avatar_1.jpg");
+
+    const handleCapture = ({target}) => {
+        const fileReader = new FileReader();
+       // const name = target.accept.includes('image') ? 'images' : 'videos';
+console.log(target.files[0])
+
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            setSource(e.target.result);
+        };
+    };
+
     let account = useSelector((state) => state.account);
+    const theme = useTheme();
 
     const classes = useStyles();
     let history = useHistory();
@@ -119,8 +160,38 @@ const RestRegister = ({ ...others }) => {
     }, []);
 
     const dispatcher = useDispatch();
+    {/* const getInitialState = function () {
+        return {
+            previewOpen: false,
+            img: null,
+            savedImg: "http://www.placekitten.com/400/400"
+        };
+    }
+    const handleFileChange = function (dataURI) {
+        this.setState({
+            img: dataURI,
+            savedImg: this.state.savedImg,
+        });
+    }
+    const handleSave = function (dataURI) {
+        this.setState({
+            previewOpen: false,
+            img: null,
+            savedImg: dataURI
+        });
+    }
+    const handleRequestHide = function () {
+        this.setState({
+            previewOpen: false
+        });
+    }
+*/}
+
+
     return (
         <React.Fragment>
+            <ThemeConfig>
+
             <Formik
                 initialValues={{
                     username: '',
@@ -128,6 +199,9 @@ const RestRegister = ({ ...others }) => {
                     password: '',
                     role: '',
                     phone: '',
+                    sendtphoto:false,
+                    file:null,
+
 
                     submit: null
                 }}
@@ -142,27 +216,44 @@ const RestRegister = ({ ...others }) => {
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
-
                     try {
 
-                        axios
-                            .post( configData.API_SERVER + 'users/register', {
-                                username: values.username,
-                                password: values.password,
-                                email: values.email,
-                                phone: values.phone,
 
-                                role:values.role,
-                                token:account.token
-                            })
+
+                        let fd = new FormData();
+
+                        fd.append('username',values.username)
+                        fd.append('password',values.password)
+                        fd.append('email',values.email)
+                        fd.append('phone',values.phone)
+                        fd.append('file',values.file)
+                        fd.append('role',values.role)
+                        fd.append('token',account.token)
+
+                        fd.append('sendtphoto',values.sendtphoto)
+
+                        axios.post( configData.API_SERVER + 'api/users/register', fd,{ headers: {
+                            "Content-Type": "multipart/form-data"
+                        }})
                             .then(function (response) {
+
+                                console.log(response.data)
                                 if (response.data.success) {
+                                     console.log("hani lena")
+                                    console.log(response.data.user)
+
+                                    dispatcher({
+                                        type:ADD_USER,
+                                        payload: {user:response.data.user}
+                                    });
+                                    console.log("hani lena 200")
 
                                     history.push( config.defaultPath);
                                     dispatcher({
                                         type:CLICK,
                                         payload: {text:"User added successfully",severity:"success"}
                                     });
+
                                 } else {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
@@ -184,109 +275,202 @@ const RestRegister = ({ ...others }) => {
                     }
                 }}
             >
-                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit} {...others}>
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Username"
-                                    margin="normal"
-                                    name="username"
-                                    id="username"
-                                    type="text"
-                                    value={values.username}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    className={classes.loginInput}
-                                    error={touched.username && Boolean(errors.username)}
-                                />
-                                {touched.username && errors.username && (
-                                    <FormHelperText error id="standard-weight-helper-text--register">
-                                        {errors.username}
-                                    </FormHelperText>
-                                )}
+                {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+                    <form  noValidate onSubmit={handleSubmit} {...others}>
+
+
+
+
+
+
+
+
+<grid>
+
+                        <Typography
+                        gutterBottom
+                        variant={matchDownSM ? 'h6' : 'h6'}
+                   align={"center"}  >
+Choise a photo                    </Typography></grid>
+    <FormControl fullWidth  className={classes.root}>
+
+        <input name="file" accept="image/*"
+               onBlur={handleBlur}
+
+               onChange={(event)=>{
+            handleCapture(event);
+                   handleChange(event)
+
+                   setFieldValue("file",event.target.files[0])
+                       setFieldValue("sendtphoto",true)
+
+
+
+               }}
+
+               className={classes.input} id="file" type="file"
+        />
+        <label htmlFor="file">
+            <IconButton color="primary" aria-label="upload picture" component="span">
+                <Avatar src={source} className={classes.large}  />
+
+            </IconButton>
+        </label>
+    </FormControl>
+
+
+    <Stack spacing={3}>
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+
+                            <Grid container spacing={3}>
+                                <Grid item  xs={12} >
+                                    <Grid container spacing={gridSpacing} >
+                                                <Grid item lg={6} md={6} sm={6} xs={12}>
+                                                    <FormControl fullWidth error={Boolean(touched.username && errors.username)} className={classes.loginInput}>
+                                                        <InputLabel htmlFor="outlined-adornment-username-register">Username</InputLabel>
+                                                        <OutlinedInput
+                                                            id="outlined-adornment-username-register"
+                                                            type="text"
+                                                            value={values.username}
+                                                            name="username"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            inputProps={{
+                                                                classes: {
+                                                                    notchedOutline: classes.notchedOutline
+                                                                }
+                                                            }}
+                                                        />
+
+                                                        {touched.username && errors.username && (
+                                                            <FormHelperText error id="standard-weight-helper-text--username">
+                                                                {errors.username}
+                                                            </FormHelperText>
+                                                        )}
+                                                    </FormControl>
+                                                </Grid>
+                                        <Grid item lg={6} md={6} sm={6} xs={12}>
+
+                                            <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
+                                                <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
+                                                <OutlinedInput
+                                                    id="outlined-adornment-email-register"
+                                                    type="email"
+                                                    value={values.email}
+                                                    name="email"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    inputProps={{
+                                                        classes: {
+                                                            notchedOutline: classes.notchedOutline
+                                                        }
+                                                    }}
+                                                />
+                                                {touched.email && errors.email && (
+                                                    <FormHelperText error id="standard-weight-helper-text--register">
+                                                        {' '}
+                                                        {errors.email}{' '}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Grid>
+
+
+                                    </Grid>
+                                </Grid>
+
                             </Grid>
-                        </Grid>
-                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-email-register"
-                                type="email"
-                                value={values.email}
-                                name="email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{
-                                    classes: {
-                                        notchedOutline: classes.notchedOutline
-                                    }
-                                }}
-                            />
-                            {touched.email && errors.email && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {' '}
-                                    {errors.email}{' '}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
 
 
 
-                        <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-phone-register"
-                                type="phone"
-                                value={values.phone}
-                                name="phone"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{
-                                    classes: {
-                                        notchedOutline: classes.notchedOutline
-                                    }
-                                }}
-                            />
-                            {touched.phone && errors.phone && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {' '}
-                                    {errors.phone}{' '}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
+
+                        </Stack>
+
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+
+
+                            <Grid container spacing={3}>
+                                <Grid item  xs={12} >
+                                    <Grid container spacing={gridSpacing} >
+                                        <Grid item lg={6} md={6} sm={6} xs={12}>
+                                            <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} className={classes.loginInput}>
+                                                <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number</InputLabel>
+                                                <OutlinedInput
+                                                    id="outlined-adornment-phone-register"
+                                                    type="phone"
+                                                    value={values.phone}
+                                                    name="phone"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    inputProps={{
+                                                        classes: {
+                                                            notchedOutline: classes.notchedOutline
+                                                        }
+                                                    }}
+                                                />
+                                                {touched.phone && errors.phone && (
+                                                    <FormHelperText error id="standard-weight-helper-text--register">
+                                                        {' '}
+                                                        {errors.phone}{' '}
+                                                    </FormHelperText>
+                                                )}
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item lg={6} md={6} sm={6} xs={12}>
+
+                                            <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
+                                                <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
+                                                <Select
+                                                    sx={{minHeight:63}}
+                                                    labelId="demo-simple-select-helper-label"
+                                                    id="role"
+                                                    name="role"
+
+                                                    value={values.role}
+                                                    label="Role"
+                                                    onBlur={handleBlur}
+                                                    error={touched.role && Boolean(errors.role)}
+
+                                                    onChange={handleChange}    >
+
+                                                    <MenuItem value={"administrateur"}>administrateur</MenuItem>
+
+                                                    <MenuItem value={"Simple Employer"}>Simple Employer</MenuItem>
+                                                    <MenuItem value={"responsable resource humaine"}>responsable resource humaine</MenuItem>
+                                                </Select>
+                                                {touched.role && errors.role && (
+                                                    <FormHelperText error id="standard-weight-helper-text--register">
+                                                        {' '}
+                                                        {errors.role}{' '}
+                                                    </FormHelperText>
+                                                )}
+
+                                            </FormControl>
+                                        </Grid>
+
+
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
 
 
 
-                        <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
-                            <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
-                            <Select
-                                margin="normal"
-                                        sx={{minHeight:63}}
-                                        labelId="demo-simple-select-helper-label"
-                                        id="role"
-                                name="role"
 
-                                value={values.role}
-                                        label="Role"
-                                        onBlur={handleBlur}
-                                        error={touched.role && Boolean(errors.role)}
 
-                                onChange={handleChange}    >
 
-                                <MenuItem value={"administrateur"}>administrateur</MenuItem>
 
-                                <MenuItem value={"Simple Employer"}>Simple Employer</MenuItem>
-                                <MenuItem value={"responsable resource humaine"}>responsable resource humaine</MenuItem>
-                            </Select>
-                            {touched.role && errors.role && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {' '}
-                                    {errors.role}{' '}
-                                </FormHelperText>
-                            )}
 
-                        </FormControl>
+
+
+
+
+
+
+
+
+
+                        </Stack>
 
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
@@ -326,10 +510,13 @@ const RestRegister = ({ ...others }) => {
 
                             )}
                         </FormControl>
+                    </Stack>
+
                         <Grid item>
                             <Typography variant="subtitle1" fontSize="0.75rem">
                                 {level.label}
                             </Typography>
+                            </Grid >
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item>
                                     <Box
@@ -344,7 +531,7 @@ const RestRegister = ({ ...others }) => {
 
                             </Grid>
 
-                        </Grid>
+
 
 
 
@@ -361,6 +548,8 @@ const RestRegister = ({ ...others }) => {
                         )}
 
 
+
+
                         {errors.submit && (
                             <Box
                                 sx={{
@@ -371,7 +560,6 @@ const RestRegister = ({ ...others }) => {
 
                             </Box>
                         )}
-
                         <Box
                             sx={{
                                 mt: 2
@@ -391,9 +579,12 @@ const RestRegister = ({ ...others }) => {
                                 </Button>
                             </AnimateButton>
                         </Box>
+
                     </form>
                 )}
             </Formik>
+                </ThemeConfig>
+
         </React.Fragment>
     );
 };

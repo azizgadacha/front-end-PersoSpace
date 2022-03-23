@@ -7,6 +7,7 @@ const AuthWrapper1 = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.primary.light,
     minHeight: '80vh',
 
+
 }));
 
 export default AuthWrapper1;

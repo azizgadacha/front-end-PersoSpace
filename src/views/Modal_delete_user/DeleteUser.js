@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 import configData from '../../config';
@@ -11,6 +11,7 @@ import {
 
 
 } from '@material-ui/core';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 import axios from 'axios';
@@ -25,7 +26,8 @@ import AnimateButton from './../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, DELETE, DELETE_USER, USER_DELETE} from "../../store/actions";
+import {LoadingButton} from "@material-ui/lab";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -71,29 +73,49 @@ const useStyles = makeStyles((theme) => ({
 const DeleteUser = (props) => {
 
 
-
+    const [isloading, setIsloading] = useState(false);
     const account = useSelector((state) => state.account);
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     const Click = () => {
+        setIsloading(true)
+        console.log("salut")
+        console.log(props.user)
+        console.log(props.user._id)
+
+
         axios
-            .post( configData.API_SERVER + 'users/deleteUser',{
+            .post( configData.API_SERVER + 'api/users/deleteUser',{
                 token:account.token,
-                user_id:props.rows._id,
+                user_id:props.user._id,
             })
             .then(response =>{
                 console.log('Delete Work')
+
+
+
                 console.log(response.data);
+                dispatcher({
+                    type:USER_DELETE,
+                    payload: {user:response.data.user}
+                })
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
+                console.log(response.data.user)
+
+
+
+
+
+
+
+
+
+
                 dispatcher({
-                    type:DELETE,
-                    payload: {work:response.data.workspaceitems}
-                })
-                dispatcher({
-                    type:"Click",
-                    payload: {text:"Workspace Removed successfully",severity:"success"}
+                    type:CLICK,
+                    payload: {text:"User has been deleted",severity:"success"}
                 })
 
 
@@ -117,18 +139,10 @@ const DeleteUser = (props) => {
                             }}
                         >
                             <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    onClick={Click}
-                                    color="error"
+                                {isloading?(<LoadingButton variant="contained" sx={{width:118}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">DELETING</LoadingButton>): <Button sx={{width:118}}disableElevation fullWidth size="large" type="submit" variant="contained" onClick={Click} color="error">Delete</Button>}
 
-                                >
-                                    Delete
-                                </Button>
+
+
                             </AnimateButton>
 
                         </Box>
@@ -139,17 +153,9 @@ const DeleteUser = (props) => {
                             }}
                         >
                             <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    fullWidth
-                                    size="large"
-                                    onClick={props.handleClose}
-                                    variant="contained"
-                                    color="secondary"
-                                >
-                                    Cancel
-                                </Button>
-                            </AnimateButton>
+
+                  <Button disableElevation sx={{width:118}} size="large" onClick={props.handleClose} variant="contained" color="secondary">Cancel</Button>
+                                </AnimateButton>
 
                         </Box>
 

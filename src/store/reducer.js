@@ -9,6 +9,7 @@ import cardReducer from './cardReducer';
 import SnackbarReducer from "./SnackbarReducer";
 import ModalReducer from "./ModalReducer";
 import WorkspaceStore from "./WorkspaceStore";
+import UserReducer from "./UserReducer";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -25,7 +26,8 @@ const reducer = combineReducers({
     card:cardReducer,
     snack:SnackbarReducer,
     modal:ModalReducer,
-    workspace:WorkspaceStore
+    workspace:WorkspaceStore,
+    user:UserReducer,
 
 });
 
