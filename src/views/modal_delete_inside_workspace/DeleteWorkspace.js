@@ -83,7 +83,7 @@ const DeleteWorkspace = (props) => {
     let {id}=useParams()
     const Click = () => {
         axios
-            .post( configData.API_SERVER + 'users/deleteworkspace',{
+            .post( configData.API_SERVER + 'api/users/deleteworkspace',{
                 token:account.token,
 
                 superior_id:id,

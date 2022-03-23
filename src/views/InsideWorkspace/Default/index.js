@@ -55,7 +55,7 @@ const Dashboard = (props, { ...others }) => {
 
 
         axios
-            .post( configData.API_SERVER + 'users/getinsideworkspace',{superior_id:id, token:account.token})
+            .post( configData.API_SERVER + 'api/users/getinsideworkspace',{superior_id:id, token:account.token})
             .then(response =>{
                 console.log('nemchi')
                 console.log(response.data.workspaceitems);

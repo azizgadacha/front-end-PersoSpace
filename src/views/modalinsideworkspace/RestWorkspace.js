@@ -111,7 +111,7 @@ const RestInsideWorkspace = (props) => {
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'users/addinsideworkspace', {
+                            .post( configData.API_SERVER + 'api/users/addinsideworkspace', {
                                 token:account.token,
                                 superior_id:id,
                                 WorkspaceName: values.WorkspaceName,

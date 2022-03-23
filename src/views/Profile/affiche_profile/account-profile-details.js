@@ -12,7 +12,7 @@ import {
 import {useMediaQuery} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
-import {Edit_Information, Edit_Password} from "./../../Button/actionButton"
+import {Edit_Information, Edit_Password} from "../../Button/actionButton"
 
 const AccountProfileDetails = (props) => {
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
