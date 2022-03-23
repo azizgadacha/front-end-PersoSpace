@@ -8,9 +8,9 @@ import ProfileLayout from '../views/Scolette_du_Dashboard/squellete _du_profile/
 
 
 
-const Profile = Preparation_du_page(lazy(() => import('../views/Profile/index')));
+const Profile = Preparation_du_page(lazy(() => import('../views/Profile/affiche_profile')));
 
-
+const ProfileEdit = Preparation_du_page(lazy(() => import('../views/Profile/edit_profile')));
 
 
 //-----------------------|| Second ROUTING ||-----------------------//
@@ -21,8 +21,8 @@ const SecondRoutes = () => {
     return (
         <Route
             path={[
-
-                '/Profile',
+                "/Profile",
+                '/Profileedit',
 
             ]}
         >
@@ -32,6 +32,8 @@ const SecondRoutes = () => {
                     <AuthGuard>
 
                         <Route path="/Profile" component={Profile} />
+                        <Route path="/Profileedit" component={ProfileEdit} />
+
 
                     </AuthGuard>
                 </Switch>

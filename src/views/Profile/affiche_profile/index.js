@@ -7,7 +7,7 @@ import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 // project imports
 
 import AccountProfile from "./account-profile";
-import {AccountProfileDetails} from "./account-profile-details";
+import AccountProfileDetails from "./account-profile-details";
 import {Box, Container} from "@mui/material";
 
 
@@ -44,7 +44,7 @@ const Profile = () => {
                         <Grid
                             item
                             lg={4}
-                            md={6}
+                            md={5}
                             xs={12}
                         >
                             <AccountProfile />
@@ -52,7 +52,7 @@ const Profile = () => {
                         <Grid
                             item
                             lg={8}
-                            md={6}
+                            md={7}
                             xs={12}
                         >
                             <AccountProfileDetails />

@@ -27,7 +27,7 @@ const states = [
   }
 ];
 
-export const AccountProfileDetails = (props) => {
+const AccountProfileDetails = (props) => {
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const account = useSelector((state) => state.account);
@@ -189,3 +189,4 @@ export const AccountProfileDetails = (props) => {
     </form>
   );
 };
+export default AccountProfileDetails;

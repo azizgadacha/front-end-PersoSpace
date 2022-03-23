@@ -8,7 +8,7 @@ import {
   Divider,
   Typography
 } from '@mui/material';
-import configData from "../../config";
+import configData from "../../../config";
 import React, {Fragment} from "react";
 import {useSelector} from "react-redux";
 import Profile from "./index";
@@ -21,12 +21,9 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(15),
         height: theme.spacing(15),
-        margin: theme.spacing(3),
+        margin: theme.spacing(1),
 
     },
-    root: {
-            margin: theme.spacing(4),
-        },
 
 
 }));
@@ -48,12 +45,12 @@ return(
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column'
-        }} spacing={2}
+        }}
       >
           <Avatar src={`${configData.API_SERVER}${account.user.photo}`}  className={classes.large}/>
 
 
-          <Typography className={classes.root}
+          <Typography
           color="textPrimary"
           gutterBottom
           variant={matchDownSM ? 'h3' : 'h2'}  >
