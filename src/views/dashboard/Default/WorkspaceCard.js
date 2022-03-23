@@ -163,7 +163,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                 <SkeletonEarningCard />
             ) : (
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                    <Grid container direction="column">
+                    <Grid container direction="column" >
                         <Grid item>
                             <Grid container justifyContent="space-between">
                                 <Grid item>
@@ -189,11 +189,12 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item>
-                            <Grid  alignItems="center">
-                                <Grid item  align="center">
-                                    <Typography align="center"  className={classes.cardHeading}>{card.WorkspaceName}</Typography>
+                        <Grid item >
+                            <Grid alignItems="center">
+                               <Grid   item  align="center"onClick={click}>
+                                    <Typography   align="center"  className={classes.cardHeading}>{card.WorkspaceName}</Typography>
                                 </Grid>
+
 
                             </Grid>
                         </Grid>

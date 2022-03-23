@@ -193,8 +193,8 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
                         </Grid>
                         <Grid item>
                             <Grid  alignItems="center">
-                                <Grid item  align="center">
-                                    <Typography align="center"  className={classes.cardHeading}>{card1.WorkspaceName}</Typography>
+                                <Grid item  align="center" onClick={click}>
+                                    <Typography   align="center"  className={classes.cardHeading}>{card1.WorkspaceName} </Typography>
                                 </Grid>
 
                             </Grid>
