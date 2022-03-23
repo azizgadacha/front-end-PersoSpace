@@ -19,6 +19,7 @@ import { SET_MENU } from '../../store/actions';
 // assets
 import { IconChevronRight } from '@tabler/icons';
 import {Alert} from "@material-ui/lab";
+import ThemeConfig from "../../themes/theme2";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -144,9 +145,11 @@ const MainLayout = ({ children }) => {
                 {/* </Main> */}
             </main>
 
+
             <Snackbar   anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose} >
                 <Alert onClose={handleClose} severity={open1.severity}>{open1.text}                </Alert>
             </Snackbar>
+
         </div>
     );
 };

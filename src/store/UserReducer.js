@@ -32,6 +32,9 @@ const UserReducer = (state = initialState, action) => {
 
 
             state.users=state.users.concat(action.payload.user)
+
+            console.log('err')
+            console.log(state.users)
             return {
 
                 ...state,

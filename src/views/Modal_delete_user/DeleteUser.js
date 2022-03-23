@@ -91,6 +91,9 @@ const DeleteUser = (props) => {
             })
             .then(response =>{
                 console.log('Delete Work')
+
+
+
                 console.log(response.data);
                 dispatcher({
                     type:USER_DELETE,

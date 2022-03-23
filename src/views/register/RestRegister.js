@@ -40,7 +40,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
-import {CLICK} from "../../store/actions";
+import {ADD_USER, CLICK} from "../../store/actions";
 import ThemeConfig from "../../themes/theme2";
 import {Avatar, Paper, Stack} from "@mui/material";
 import {FileUpload} from "@material-ui/icons";
@@ -96,6 +96,8 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
         display: "none",
+
+
     },
     large: {
         width: theme.spacing(20),
@@ -228,6 +230,8 @@ console.log(target.files[0])
                         fd.append('role',values.role)
                         fd.append('token',account.token)
 
+                        fd.append('sendtphoto',values.sendtphoto)
+
                         axios.post( configData.API_SERVER + 'api/users/register', fd,{ headers: {
                             "Content-Type": "multipart/form-data"
                         }})
@@ -235,12 +239,21 @@ console.log(target.files[0])
 
                                 console.log(response.data)
                                 if (response.data.success) {
+                                     console.log("hani lena")
+                                    console.log(response.data.user)
+
+                                    dispatcher({
+                                        type:ADD_USER,
+                                        payload: {user:response.data.user}
+                                    });
+                                    console.log("hani lena 200")
 
                                     history.push( config.defaultPath);
                                     dispatcher({
                                         type:CLICK,
                                         payload: {text:"User added successfully",severity:"success"}
                                     });
+
                                 } else {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
