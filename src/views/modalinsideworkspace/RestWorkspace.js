@@ -1,5 +1,5 @@
 import React from 'react';
-import {  useHistory } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 import configData from '../../config';
 
@@ -93,6 +93,7 @@ const RestInsideWorkspace = (props) => {
     const workspaces = useSelector((state) => state.workspace);
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
+    let {id}=useParams()
     return (
         <React.Fragment>
             <Formik
@@ -112,7 +113,7 @@ const RestInsideWorkspace = (props) => {
                         axios
                             .post( configData.API_SERVER + 'users/addinsideworkspace', {
                                 token:account.token,
-                                superior_id:workspaces.id.card1._id,
+                                superior_id:id,
                                 WorkspaceName: values.WorkspaceName,
                                 description: values.description
                             })
@@ -137,7 +138,7 @@ const RestInsideWorkspace = (props) => {
                                         type:"Click",
                                         payload: {text:"Workspace added successfully",severity:"success"}
                                     })
-                                    history.push(configData.defaultPath + workspaces.id.card1._id );
+                                    //history.push(configData.defaultPath +'/'+ id );
                                     console.log()
 
 

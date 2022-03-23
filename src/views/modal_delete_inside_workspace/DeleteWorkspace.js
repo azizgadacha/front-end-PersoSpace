@@ -26,6 +26,7 @@ import AnimateButton from './../../animation/AnimateButton';
 import {useDispatch, useSelector} from "react-redux";
 
 import {CLICK, CLOSE_DELETE_MODAL, CLOSE_INSIDE_DELETE_MODAL, DELETE, DELETEINSIDEWORKSPACE} from "../../store/actions";
+import {useParams} from "react-router-dom";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -79,12 +80,13 @@ const DeleteWorkspace = (props) => {
 
 
     const dispatcher = useDispatch();
+    let {id}=useParams()
     const Click = () => {
         axios
             .post( configData.API_SERVER + 'users/deleteworkspace',{
                 token:account.token,
 
-                superior_id:workspaces.id.card1._id,
+                superior_id:id,
                 WorkspaceName:open.card1.WorkspaceName
 
 
