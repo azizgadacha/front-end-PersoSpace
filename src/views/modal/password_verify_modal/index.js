@@ -1,12 +1,11 @@
 import React from 'react';
 
 // material-ui
-import {useTheme} from '@material-ui/core';
-import { Grid,   useMediaQuery } from '@material-ui/core';
 
 // project imports
-import Modal_Delete from "../Modal_delete"
-import DeleteUser from "./DeleteUser";
+import Header from "./Header"
+import RestVerif from "./RestVerif"
+import {Grid} from "@mui/material";
 
 // assets
 
@@ -14,7 +13,7 @@ import DeleteUser from "./DeleteUser";
 const Modal_Styles ={
     position:'fixed',
     top:'50%',
-    left:'50%',
+    left:'45%',
     transform:'translate(-30%,-50%)',
     backgroundColor:'#FFF',
     padding:'50px',
@@ -30,23 +29,21 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const Modal_Delete_User = (props) => {
-    const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+const Passwoed_verify = (props) => {
 
 
     return (
         <div style={OVERLAY_Styles}>
             <div style={Modal_Styles}>
 
-                <Modal_Delete  name={props.user.username} type={"User"} />
-         <Grid container alignItems={"center"}>
-                <DeleteUser handleClose={props.handleClose} user={props.user}  />
-         </Grid>
+                <Header  type={"Workspace"} />
+                <Grid container alignItems={"center"}>
+                    <RestVerif handleClose={props.handleClose} card={props.card}  />
+                </Grid>
             </div>
 
         </div>
     );
 };
 
-export default Modal_Delete_User;
+export default Passwoed_verify;

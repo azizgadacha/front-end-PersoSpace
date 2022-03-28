@@ -13,13 +13,18 @@ import {useMediaQuery} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
 import {Edit_Information, Edit_Password} from "../../Button/actionButton"
+import {useHistory} from "react-router-dom";
 
 const AccountProfileDetails = (props) => {
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const account = useSelector((state) => state.account);
+  let history =useHistory()
 
+  const handleEdit =()=>{
 
+    history.push('/ProfileEdit')
+  }
 
 
   return (
@@ -170,8 +175,10 @@ const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={handleEdit}
           >
             {Edit_Information}          </Button>
+
           <Button
               color="primary"
               variant="contained"

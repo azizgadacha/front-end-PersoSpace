@@ -124,9 +124,7 @@ const ProfileSection = () => {
     const account = useSelector((state) => state.account);
     const dispatcher = useDispatch();
 
-    const [sdm, setSdm] = React.useState(true);
-    const [value, setValue] = React.useState('');
-    const [notification, setNotification] = React.useState(false);
+
     const [selectedIndex, setSelectedIndex] = React.useState(1);
 
     const [open, setOpen] = React.useState(false);

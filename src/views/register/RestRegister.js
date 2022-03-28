@@ -201,8 +201,6 @@ console.log(target.files[0])
                     phone: '',
                     sendtphoto:false,
                     file:null,
-
-
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -453,22 +451,6 @@ Choise a photo                    </Typography></grid>
                                 </Grid>
 
                             </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                         </Stack>
 

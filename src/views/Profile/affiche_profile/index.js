@@ -1,14 +1,36 @@
 import React, {Fragment} from 'react';
 
 // material-ui
-import { useTheme } from '@material-ui/core';
+import {
+    Button,
+    FormControl,
+    FormHelperText,
+    IconButton, InputAdornment,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    useTheme
+} from '@material-ui/core';
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
 
 import AccountProfile from "./account-profile";
 import AccountProfileDetails from "./account-profile-details";
-import {Box, Container} from "@mui/material";
+import {Avatar, Box, Container, Stack} from "@mui/material";
+import ThemeConfig from "../../../themes/theme2";
+import {Formik} from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import configData from "../../../config";
+import {ADD_USER, CLICK} from "../../../store/actions";
+import config from "../../../config";
+import {gridSpacing} from "../../../store/constant";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import {Alert} from "@material-ui/lab";
+import AnimateButton from "../../../animation/AnimateButton";
 
 
 // assets
@@ -60,6 +82,25 @@ const Profile = () => {
                     </Grid>
                 </Container>
             </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </Fragment>
 
     );

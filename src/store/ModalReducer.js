@@ -32,12 +32,14 @@ const ModalReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case OPEN_MODAL:
-
+       console.log("salut")
+            
 
             return {
 
                 ...state,
                 ModalState:true,
+                
 
 
             };
