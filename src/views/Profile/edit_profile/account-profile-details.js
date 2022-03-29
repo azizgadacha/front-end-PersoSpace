@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import {
 
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
+    Grid, TextField,
 } from '@mui/material';
 import {
   FormControl,
@@ -52,11 +52,10 @@ const AccountProfileDetails = (props, { ...others }) => {
 
       <Formik
           initialValues={{
-            username: '',
-            email: '',
-            password: '',
-            role: '',
-            phone: '',
+            username: account.user.username,
+            email: account.user.email,
+            role: account.user.role,
+            phone: account.user.phone,
             submit: null
           }}
           validationSchema={Yup.object().shape({
@@ -118,13 +117,10 @@ console.log("d5alt")
                 >
                   <Grid item xs={12} >
                     <FormControl fullWidth error={Boolean(touched.username && errors.username)} >
-                      <InputLabel htmlFor="outlined-adornment-username-register">Username</InputLabel>
-                      <OutlinedInput
+                      <TextField label="username" variant="outlined"
                           id="outlined-adornment-username-register"
-                          type="text"
+                                 name="username"
                           value={values.username}
-                          name="username"
-                          onBlur={handleBlur}
                           onChange={handleChange}
 
                       />
@@ -144,8 +140,7 @@ console.log("d5alt")
                 >
                   <Grid item xs={12} >
                     <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
-                      <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
-                      <OutlinedInput
+                      <TextField label="Email" variant="outlined"
                           id="outlined-adornment-email-register"
                           type="email"
                           value={values.email}
@@ -171,8 +166,7 @@ console.log("d5alt")
                 >
                   <Grid item xs={12} >
                     <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} >
-                      <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number</InputLabel>
-                      <OutlinedInput
+                        <TextField label="phone" variant="outlined"
                           id="outlined-adornment-phone-register"
                           type="phone"
                           value={values.phone}
@@ -196,9 +190,11 @@ console.log("d5alt")
                     xs={12}
                 >
                   <Grid item xs={12} >
-                    <FormControl fullWidth error={Boolean(touched.role&& errors.role)} >
+
+                      {account.user.role=="administrateur"?(
+                    <FormControl fullWidth   error={Boolean(touched.role&& errors.role)} >
                       <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
-                      <Select
+                      <Select sx={{height:55}}
                           labelId="demo-simple-select-helper-label"
                           id="role"
                           name="role"
@@ -213,7 +209,6 @@ console.log("d5alt")
                         <MenuItem value={"administrateur"}>administrateur</MenuItem>
 
                         <MenuItem value={"Simple Employer"}>Simple Employer</MenuItem>
-                        <MenuItem value={"responsable resource humaine"}>responsable resource humaine</MenuItem>
                       </Select>
                       {touched.role && errors.role && (
                           <FormHelperText error id="standard-weight-helper-text--register">
@@ -222,7 +217,7 @@ console.log("d5alt")
                           </FormHelperText>
                       )}
 
-                    </FormControl>
+                    </FormControl>):null}
                   </Grid>
                 </Grid>
 

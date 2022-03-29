@@ -19,7 +19,6 @@ import {
     Dialog,
     DialogContent,
 } from '@material-ui/core'
-import AvartarText from './AvartarText'
 import React, {Fragment, useRef} from "react";
 import {useSelector} from "react-redux";
 import Profile from "./index";

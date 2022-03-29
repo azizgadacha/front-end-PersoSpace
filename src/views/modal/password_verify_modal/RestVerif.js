@@ -326,40 +326,56 @@ const RestVerif = (props) => {
 
                             </Box>
                         )}
-                        <Box
+                        <Box marginLeft={11}
                             sx={{
-                                mt: 2,
-                                marginRight:2,
-                                marginLeft:9.5
+                                display: 'flex',
+                                justifyContent: 'center',
+
                             }}
                         >
-                            <AnimateButton>
-
-
-                                {isloading?(<LoadingButton variant="contained" sx={{width:118}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">DELETING</LoadingButton>): <Button disableElevation sx={{width:118}} size="large" type="submit" variant="contained" onClick={Click} color="error">Delete</Button>}
-
-                            </AnimateButton>
-
-                        </Box>
-                        <Box
-                            sx={{
-                                mt: 2,
-                                marginLeft:2
-                            }}
-                        >
+                            <Box
+                                sx={{
+                                    mt: 2,
+                                    mr:3
+                                }}
+                            >
                             <AnimateButton>
                                 <Button
                                     disableElevation
-                                    sx={{width:118}}
+                                    disabled={isSubmitting}
+                                    fullWidth
+                                    size="large"
+                                    type="submit"
+                                    variant="contained"
+                                    color="secondary"
+                                    sx={{width:100}}
+
+                                >
+                                    Edit
+                                </Button>
+                            </AnimateButton>
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    mt: 2
+                                }}
+                            >
+                            <AnimateButton>
+                                <Button
+
+                                    disableElevation
+                                    disabled={isSubmitting}
+                                    fullWidth
                                     size="large"
                                     onClick={props.handleClose}
                                     variant="contained"
-                                    color="secondary"
+                                    color="error"
                                 >
                                     Cancel
                                 </Button>
                             </AnimateButton>
-
+                            </Box>
                         </Box>
                     </form>
                 )}
