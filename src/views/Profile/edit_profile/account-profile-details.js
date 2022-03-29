@@ -32,7 +32,17 @@ import Passwoed_verify from "../../modal/password_verify_modal";
 
 const AccountProfileDetails = (props, { ...others }) => {
   const dispatcher = useDispatch();
+    const states = [
+        {
+            value: 'administrateur',
+            label: 'administrateur'
+        },
+        {
+            value: 'simple employer',
+            label: 'simple employer'
+        },
 
+    ];
   const account = useSelector((state) => state.account);
     let open1 = useSelector((state) => state.modal);
 
@@ -193,6 +203,40 @@ console.log("d5alt")
 
                       {account.user.role=="administrateur"?(
                     <FormControl fullWidth   error={Boolean(touched.role&& errors.role)} >
+
+                        <TextField
+                            fullWidth
+                            onChange={handleChange}
+                            required
+                            select
+                            SelectProps={{ native: true }}
+                            variant="outlined"
+                            id="role"
+                            name="role"
+
+                            value={values.role}
+                            label="Role"
+                            onBlur={handleBlur}
+                            error={touched.role && Boolean(errors.role)}
+
+                            onChange={handleChange}
+
+
+                        >
+                            {states.map((option) => (
+                                <option
+                                    key={option.value}
+                                    value={option.value}
+                                >
+                                    {option.label}
+                                </option>
+                            ))}
+                        </TextField>
+
+
+
+                        {/*
+
                       <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
                       <Select sx={{height:55}}
                           labelId="demo-simple-select-helper-label"
@@ -208,7 +252,7 @@ console.log("d5alt")
 
                         <MenuItem value={"administrateur"}>administrateur</MenuItem>
 
-                        <MenuItem value={"Simple Employer"}>Simple Employer</MenuItem>
+                        <MenuItem value={"Simple Employer"}>simple employer</MenuItem>
                       </Select>
                       {touched.role && errors.role && (
                           <FormHelperText error id="standard-weight-helper-text--register">
@@ -216,7 +260,7 @@ console.log("d5alt")
                             {errors.role}{' '}
                           </FormHelperText>
                       )}
-
+*/}
                     </FormControl>):null}
                   </Grid>
                 </Grid>
