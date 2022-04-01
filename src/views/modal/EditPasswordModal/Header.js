@@ -52,14 +52,14 @@ const Header = (props) => {
                                         gutterBottom
                                         variant={matchDownSM ? 'h8' : 'h6'}
                                     >
-                                        To verify that you are the owner of this account
+                                        Please enter your old password
                                     </Typography>
                                     <Typography
                                         color={theme.palette.secondary.main}
                                         gutterBottom
                                         variant={matchDownSM ? 'h8' : 'h6'}
                                     >
-                                        Plesse enter Your password
+                                        then the old one
                                     </Typography>
 
                                 </Stack>
@@ -71,6 +71,7 @@ const Header = (props) => {
                     </Grid>
 
                 </Grid>
+    <Divider />
 </Fragment>
 
     );

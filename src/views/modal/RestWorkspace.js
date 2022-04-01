@@ -166,7 +166,7 @@ const RestWorkspace = (props) => {
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="WorkspaceName"
+                                    label="WorkspaceName*"
                                     margin="normal"
                                     name="WorkspaceName"
                                     id="WorkspaceName"
@@ -185,7 +185,7 @@ const RestWorkspace = (props) => {
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="description"
+                                    label="description*"
                                     margin="normal"
                                     name="description"
                                     id="description"

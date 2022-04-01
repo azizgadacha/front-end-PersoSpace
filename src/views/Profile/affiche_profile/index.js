@@ -9,7 +9,7 @@ import {
     InputLabel,
     MenuItem,
     OutlinedInput,
-    Select,
+    Select, Snackbar,
     useTheme
 } from '@material-ui/core';
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
@@ -31,6 +31,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {Alert} from "@material-ui/lab";
 import AnimateButton from "../../../animation/AnimateButton";
+import {useDispatch, useSelector} from "react-redux";
 
 
 // assets
@@ -38,6 +39,24 @@ import AnimateButton from "../../../animation/AnimateButton";
 //===============================|| AUTH3 - REGISTER ||===============================//
 
 const Profile = () => {
+    let open1 = useSelector((state) => state.snack);
+
+    const dispatcher = useDispatch();
+
+
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        dispatcher({
+            type:"Close"
+        });
+
+    };
+
+
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -90,7 +109,10 @@ const Profile = () => {
 
 
 
-
+            <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={open1.severity} sx={{ width: '100%' }}>
+                    {open1.text}                </Alert>
+            </Snackbar>
 
 
 

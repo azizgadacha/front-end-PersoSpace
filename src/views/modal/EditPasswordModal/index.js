@@ -1,12 +1,11 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 // material-ui
 
 // project imports
 import RestPass from "./RestPass"
 import Header from "./Header"
-import {Divider, Grid} from "@mui/material";
-import FormRange from "react-bootstrap/FormRange";
+import {Grid} from "@mui/material";
 
 // assets
 
@@ -30,21 +29,14 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const Pass = (props) => {
+const PassChange = (props) => {
 
 
     return (
-        <Fragment>
-
-
         <div style={OVERLAY_Styles}>
-
-
             <div style={Modal_Styles}>
+
                 <Header  type={"Workspace"} />
-
-                <Divider />
-
                 <Grid container alignItems={"center"}>
 
                     <RestPass  user={props.user}  />
@@ -52,9 +44,7 @@ const Pass = (props) => {
             </div>
 
         </div>
-        </Fragment>
-
     );
 };
 
-export default Pass;
+export default PassChange;

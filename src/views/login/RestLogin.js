@@ -106,7 +106,8 @@ const RestLogin = (props, { ...others }) => {
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    password:Yup.string().max(100,"must contain only 100 digits").min(6,"password must contain more then 4 digits"). required('Password is required'),
+
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {

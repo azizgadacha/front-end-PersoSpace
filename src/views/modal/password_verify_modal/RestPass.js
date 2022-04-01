@@ -35,9 +35,17 @@ import AnimateButton from '../../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, DELETE, DELETE_USER, USER_DELETE} from "../../../store/actions";
+import {
+    ADD_USER,
+    CLICK,
+    CLOSE_DELETE_MODAL,
+    CLOSE_MODAL,
+    DELETE,
+    DELETE_USER, UPDATE,
+    USER_DELETE
+} from "../../../store/actions";
 import {Alert, LoadingButton} from "@material-ui/lab";
-import {Avatar, Grid, Stack} from "@mui/material";
+import {Avatar, Divider, Grid, Stack} from "@mui/material";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import config from "../../../config";
@@ -47,6 +55,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {useHistory} from "react-router-dom";
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
+import {Cancel, Edit} from "../../Button/actionButton";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -89,10 +98,15 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const RestVerif = (props) => {
+const RestPass = (props, { ...others }) => {
+    const [verifPass, setVerifPass] = useState(false);
 
 
-
+    const handleClose=()=>{
+        dispatcher({
+                       type:CLOSE_MODAL,
+                   });
+    }
     let account = useSelector((state) => state.account);
     const theme = useTheme();
 
@@ -130,140 +144,122 @@ const RestVerif = (props) => {
     const [isloading, setIsloading] = useState(false);
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
-    const Click = () => {
-        setIsloading(true)
-        console.log("salut")
-        console.log(props.user)
-        console.log(props.user._id)
 
-
-        axios
-            .post( configData.API_SERVER + 'api/users/deleteUser',{
-                token:account.token,
-                user_id:props.user._id,
-            })
-            .then(response =>{
-                console.log('Delete Work')
-
-
-
-                console.log(response.data);
-                dispatcher({
-                    type:USER_DELETE,
-                    payload: {user:response.data.user}
-                })
-                dispatcher({
-                    type:CLOSE_DELETE_MODAL,
-                })
-                console.log(response.data.user)
-
-
-
-
-
-
-
-
-
-
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:"User has been deleted",severity:"success"}
-                })
-
-
-            })
-            .catch(function (error) {
-                console.log(' Delete dont work')
-                console.log('error')
-
-            })
-
-
-    };
     return (
         <React.Fragment>
 
             <Formik
                 initialValues={{
-                    username: '',
-                    email: '',
+
                     password: '',
-                    role: '',
-                    phone: '',
-                    sendtphoto:false,
-                    file:null,
-                    submit: null
+
                 }}
                 validationSchema={Yup.object().shape({
 
                     password: Yup.string().max(100,"must contain only 100 digits").required('Password is required'),
 
-
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
-                    try {
 
-
-
-                        let fd = new FormData();
-
-                        fd.append('username',values.username)
-                        fd.append('password',values.password)
-                        fd.append('email',values.email)
-                        fd.append('phone',values.phone)
-                        fd.append('file',values.file)
-                        fd.append('role',values.role)
-                        fd.append('token',account.token)
-
-                        fd.append('sendtphoto',values.sendtphoto)
-
-                        axios.post( configData.API_SERVER + 'api/users/register', fd,{ headers: {
-                                "Content-Type": "multipart/form-data"
-                            }})
+                    try{
+                        axios.post( configData.API_SERVER + 'api/users/edit', {
+                            userID:account.user._id,
+                            password: values.password,
+                            email: props.user.email,
+                            username:props.user.username,
+                            role:props.user.role,
+                            phone:props.user.phone,
+                            token:account.token
+                        })
                             .then(function (response) {
 
                                 console.log(response.data)
                                 if (response.data.success) {
-                                    console.log("hani lena")
+
+
+
+                                    console.log("hani lena 200")
                                     console.log(response.data.user)
 
                                     dispatcher({
-                                        type:ADD_USER,
+                                        type:UPDATE,
                                         payload: {user:response.data.user}
                                     });
-                                    console.log("hani lena 200")
-
-                                    history.push( config.defaultPath);
+                                    console.log("fdfsf")
+                                    console.log(account.user)
                                     dispatcher({
                                         type:CLICK,
-                                        payload: {text:"User added successfully",severity:"success"}
+                                        payload: {text:"information changed successfully",severity:"success"}
                                     });
+                                    history.push("/Profile")
 
                                 } else {
+
+                                    if(response.data.passprob) {
+                                        console.log("455hanui")
+
+                                        console.log(verifPass)
+                                        console.log("i wana try")
+
+                                        setVerifPass(true)
+                                        console.log("i wana try2.0")
+                                        console.log(verifPass)
+
+
+                                        console.log("hanui")
+                                        console.log(verifPass)
+                                        setStatus({ success: false });
+                                        setSubmitting(false);
+
+                                    }
+
+                                        else {
+                                        console.log("loj")
+
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
-                                }
+                                        history.push("/Profile")
+                                        dispatcher({
+                                            type:CLICK,
+                                            payload: {text:"intern probleme please retry later",severity:"error"}
+                                        });
+
+                                    }}
                             })
                             .catch(function (error) {
+                                console.log("loj2")
+
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
-                                setSubmitting(false);
+                                history.push("/Profile")
+                                dispatcher({
+                                    type:CLICK,
+                                    payload: {text:"intern probleme please retry later",severity:"error"}
+                                });
                             });
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
+                            console.log("loj3")
+
                             setStatus({ success: false });
                             setErrors({ submit: err.message });
                             setSubmitting(false);
+                            history.push("/Profile")
+                            dispatcher({
+                                type:CLICK,
+                                payload: {text:"intern probleme please retry later",severity:"error"}
+                            });
                         }
                     }
                 }}
             >
                 {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form  noValidate onSubmit={handleSubmit} >
+
+                    <form  noValidate onSubmit={handleSubmit}  {...others} >
+
                         <Box marginLeft={7}
                             sx={{
                                 display: 'flex',
@@ -272,7 +268,7 @@ const RestVerif = (props) => {
                             }}
                         >
                             <Grid item md={11} xs={12}>
-                            <FormControl fullWidth error={Boolean(touched.password && errors.password)} >
+                            <FormControl fullWidth error={Boolean( touched.password && errors.password  )} >
                                 <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
                                 <OutlinedInput
                                     id="outlined-adornment-password-register"
@@ -282,6 +278,7 @@ const RestVerif = (props) => {
                                     label="Password"
                                     onBlur={handleBlur}
                                     onChange={(e) => {
+                                        setVerifPass(false)
                                         handleChange(e);
                                         changePassword(e.target.value);
                                     }}
@@ -297,7 +294,7 @@ const RestVerif = (props) => {
                                             </IconButton>
                                         </            InputAdornment>
                                     }
-                                    inputProps={{
+                                     inputProps={{
                                         classes: {
                                             notchedOutline: classes.notchedOutline
                                         }
@@ -309,6 +306,13 @@ const RestVerif = (props) => {
                                     </FormHelperText>
 
                                 )}
+                                { !(errors.password) && verifPass && (
+                                    <FormHelperText error id="standard-weight-helper-text-password-register">
+                                        please verify your password
+                                    </FormHelperText>
+
+                                )}
+
                             </FormControl>
 
                             </Grid>
@@ -316,16 +320,7 @@ const RestVerif = (props) => {
                             </Box>
 
 
-                        {errors.submit && (
-                            <Box
-                                sx={{
-                                    mt: 3
-                                }}
-                            >
-                                <Alert severity="error">{errors.submit}</Alert>
 
-                            </Box>
-                        )}
                         <Box marginLeft={11}
                             sx={{
                                 display: 'flex',
@@ -351,7 +346,8 @@ const RestVerif = (props) => {
                                     sx={{width:100}}
 
                                 >
-                                    Edit
+                                    {Edit}
+
                                 </Button>
                             </AnimateButton>
                             </Box>
@@ -361,6 +357,7 @@ const RestVerif = (props) => {
                                     mt: 2
                                 }}
                             >
+
                             <AnimateButton>
                                 <Button
 
@@ -368,11 +365,13 @@ const RestVerif = (props) => {
                                     disabled={isSubmitting}
                                     fullWidth
                                     size="large"
-                                    onClick={props.handleClose}
+
+                                    onClick={handleClose}
                                     variant="contained"
                                     color="error"
                                 >
-                                    Cancel
+                                    {Cancel}
+
                                 </Button>
                             </AnimateButton>
                             </Box>
@@ -385,4 +384,4 @@ const RestVerif = (props) => {
     );
 };
 
-export default RestVerif;
+export default RestPass;

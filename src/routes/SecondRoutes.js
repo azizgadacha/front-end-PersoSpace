@@ -31,7 +31,7 @@ const SecondRoutes = () => {
                     <AuthGuard>
 
                         <Route path="/Profile" component={Profile} />
-                        <Route path="/ProfileEdit" component={ProfileEdit} />
+                        <Route exact ac path="/ProfileEdit" component={ProfileEdit} />
 
 
                     </AuthGuard>

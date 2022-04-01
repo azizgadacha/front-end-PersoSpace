@@ -4,6 +4,7 @@ export const LOGOUT = 'LOGOUT';
 export const CLICK = 'Click';
 export const CLOSE = 'Close';
 export const ADD = 'ADD';
+export const UPDATE = 'UPDATE';
 
 export const DELETE='DELETE'
 export const DELETEINSIDEWORKSPACE='DELETEINSIDEWORKSPACE'

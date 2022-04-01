@@ -19,6 +19,8 @@ const SnackbarReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case CLICK:
+
+            console.log("rani mrigla")
       const  {text}=action.payload
             const  {severity}=action.payload
 

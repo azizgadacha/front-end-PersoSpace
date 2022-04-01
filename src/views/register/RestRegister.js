@@ -199,14 +199,13 @@ console.log(target.files[0])
                     password: '',
                     role: '',
                     phone: '',
-                    sendtphoto:false,
-                    file:null,
+
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
                     username: Yup.string().required('Username is required'),
-                    password: Yup.string().max(100,"must contain only 100 digits").required('Password is required'),
+                    password:Yup.string().max(100,"must contain only 100 digits").min(6,"password must contain more then 4 digits"). required('Password is required'),
                     phone: Yup.number().typeError("Must be a number").required('phone number is required').integer("Must be a valid number").positive(),
 
                     role: Yup.string().required('role is required')
@@ -224,13 +223,12 @@ console.log(target.files[0])
                         fd.append('password',values.password)
                         fd.append('email',values.email)
                         fd.append('phone',values.phone)
-                        fd.append('file',values.file)
+
                         fd.append('role',values.role)
                         fd.append('token',account.token)
 
-                        fd.append('sendtphoto',values.sendtphoto)
 
-                        axios.post( configData.API_SERVER + 'api/users/register', fd,{ headers: {
+                        axios.post( configData.API_SERVER + 'api/users/edit', fd,{ headers: {
                             "Content-Type": "multipart/form-data"
                         }})
                             .then(function (response) {
@@ -325,7 +323,7 @@ Choise a photo                    </Typography></grid>
                                     <Grid container spacing={gridSpacing} >
                                                 <Grid item lg={6} md={6} sm={6} xs={12}>
                                                     <FormControl fullWidth error={Boolean(touched.username && errors.username)} className={classes.loginInput}>
-                                                        <InputLabel htmlFor="outlined-adornment-username-register">Username</InputLabel>
+                                                        <InputLabel htmlFor="outlined-adornment-username-register">Username*</InputLabel>
                                                         <OutlinedInput
                                                             id="outlined-adornment-username-register"
                                                             type="text"
@@ -350,7 +348,7 @@ Choise a photo                    </Typography></grid>
                                         <Grid item lg={6} md={6} sm={6} xs={12}>
 
                                             <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
-                                                <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
+                                                <InputLabel htmlFor="outlined-adornment-email-register">Email*</InputLabel>
                                                 <OutlinedInput
                                                     id="outlined-adornment-email-register"
                                                     type="email"
@@ -392,7 +390,7 @@ Choise a photo                    </Typography></grid>
                                     <Grid container spacing={gridSpacing} >
                                         <Grid item lg={6} md={6} sm={6} xs={12}>
                                             <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} className={classes.loginInput}>
-                                                <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number</InputLabel>
+                                                <InputLabel htmlFor="outlined-adornment-phone-register">Phone Number*</InputLabel>
                                                 <OutlinedInput
                                                     id="outlined-adornment-phone-register"
                                                     type="phone"
@@ -417,7 +415,7 @@ Choise a photo                    </Typography></grid>
                                         <Grid item lg={6} md={6} sm={6} xs={12}>
 
                                             <FormControl fullWidth error={Boolean(touched.role&& errors.role)} className={classes.loginInput}>
-                                                <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
+                                                <InputLabel  htmlFor="demo-simple-select-helper-label">Role*</InputLabel>
                                                 <Select
                                                     sx={{minHeight:63}}
                                                     labelId="demo-simple-select-helper-label"
@@ -455,7 +453,7 @@ Choise a photo                    </Typography></grid>
                         </Stack>
 
                         <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
-                            <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-password-register">Password*</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password-register"
                                 type={showPassword ? 'text' : 'password'}

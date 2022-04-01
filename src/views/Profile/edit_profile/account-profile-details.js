@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+    Alert,
 
     Box,
     Button,
@@ -26,12 +27,18 @@ import { CLOSE_MODAL, OPEN_MODAL} from "../../../store/actions";
 
 import AnimateButton from "../../../animation/AnimateButton";
 
-import Passwoed_verify from "../../modal/password_verify_modal";
+import Password_verify from "../../modal/password_verify_modal";
+import _ from "lodash";
+import {Edit} from "../../Button/actionButton";
 
 
 
 const AccountProfileDetails = (props, { ...others }) => {
+
   const dispatcher = useDispatch();
+    const [changed, setChanged] = useState(false);
+    const [val, setVal] = useState({});
+
     const states = [
         {
             value: 'administrateur',
@@ -78,36 +85,36 @@ const AccountProfileDetails = (props, { ...others }) => {
 
           })}
           onSubmit={(values) => {
+              setChanged(false)
+console.log("hnai")
+              console.log(values)
+              console.log("sahbi")
 
+             if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
+                 setChanged(true)
+              else {
 
 
               console.log("d5alt3.0")
 
 
-              let fd = new FormData();
+setVal(values)
 
-              fd.append('username',values.username)
-              fd.append('email',values.email)
-              fd.append('phone',values.phone)
-              fd.append('file',values.file)
-              fd.append('role',values.role)
-              fd.append('token',account.token)
-
-console.log("d5alt")
                       dispatcher({
                           type:OPEN_MODAL,
 
                       });
-              console.log("d5alt2.0")
 
-          }
+          }}
 
       }
 
       >
         {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
             <form  noValidate onSubmit={handleSubmit} {...others}>
-              <Card>
+
+
+                <Card>
                 <CardHeader
                     subheader="The information can be edited"
                     title="Profile"
@@ -120,6 +127,16 @@ console.log("d5alt")
                   container
                   spacing={3}
               >
+                  { changed&&(
+                  <Grid
+                      item
+                      md={12}
+                      xs={12}
+                  >
+                        <Alert variant="filled" autoHideDuration={4000} severity="error">
+                      You didn't change any things
+                  </Alert>
+                  </Grid>)}
                 <Grid
                     item
                     md={6}
@@ -127,7 +144,7 @@ console.log("d5alt")
                 >
                   <Grid item xs={12} >
                     <FormControl fullWidth error={Boolean(touched.username && errors.username)} >
-                      <TextField label="username" variant="outlined"
+                      <TextField label="username" required variant="outlined"
                           id="outlined-adornment-username-register"
                                  name="username"
                           value={values.username}
@@ -150,7 +167,7 @@ console.log("d5alt")
                 >
                   <Grid item xs={12} >
                     <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
-                      <TextField label="Email" variant="outlined"
+                      <TextField label="Email" required variant="outlined"
                           id="outlined-adornment-email-register"
                           type="email"
                           value={values.email}
@@ -176,7 +193,7 @@ console.log("d5alt")
                 >
                   <Grid item xs={12} >
                     <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} >
-                        <TextField label="phone" variant="outlined"
+                        <TextField label="phone" required variant="outlined"
                           id="outlined-adornment-phone-register"
                           type="phone"
                           value={values.phone}
@@ -278,14 +295,13 @@ console.log("d5alt")
                   <AnimateButton>
                     <Button
                         disableElevation
-                        disabled={isSubmitting}
                         fullWidth
                         size="large"
                         type="submit"
                         variant="contained"
                         color="secondary"
                     >
-                      Edit
+                        {Edit}
                     </Button>
                   </AnimateButton>
 
@@ -304,10 +320,10 @@ console.log("d5alt")
             </form>
         )}
       </Formik>
+        {open1.ModalState && (<Password_verify     user={val}/>)}
         {console.log("wa sahbi")}
         {console.log(open1.ModalState)}
 
-        {open1.ModalState && (<Passwoed_verify/>)}
     </ThemeConfig>
 );
 };
