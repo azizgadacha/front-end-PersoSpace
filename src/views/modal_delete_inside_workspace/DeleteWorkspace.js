@@ -122,50 +122,50 @@ const DeleteWorkspace = (props) => {
         <React.Fragment>
 
             <Box
-                            sx={{
-                                mt: 2,
-                                marginRight:2,
-                                marginLeft:12
-                            }}
-                        >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    onClick={Click}
-                                    color="error"
+                sx={{
+                    mt: 2,
+                    marginRight:2,
+                    marginLeft:12
+                }}
+            >
+                <AnimateButton>
+                    <Button
+                        disableElevation
+                        fullWidth
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        onClick={Click}
+                        color="error"
 
-                                >
-                                    Delete
-                                </Button>
-                            </AnimateButton>
+                    >
+                        Delete
+                    </Button>
+                </AnimateButton>
 
-                        </Box>
-                        <Box
-                            sx={{
-                                mt: 2,
-                                marginLeft:2
-                            }}
-                        >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    fullWidth
-                                    size="large"
-                                    onClick={props.handleClose}
-                                    variant="contained"
-                                    color="secondary"
-                                >
-                                    Cancel
-                                </Button>
-                            </AnimateButton>
+            </Box>
+            <Box
+                sx={{
+                    mt: 2,
+                    marginLeft:2
+                }}
+            >
+                <AnimateButton>
+                    <Button
+                        disableElevation
+                        fullWidth
+                        size="large"
+                        onClick={props.handleClose}
+                        variant="contained"
+                        color="secondary"
+                    >
+                        Cancel
+                    </Button>
+                </AnimateButton>
 
-                        </Box>
+            </Box>
 
-</React.Fragment>
+        </React.Fragment>
     );
 };
 

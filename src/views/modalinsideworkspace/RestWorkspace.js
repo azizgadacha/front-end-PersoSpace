@@ -119,13 +119,13 @@ const RestInsideWorkspace = (props) => {
                             })
                             .then(function (response) {
                                 if (response.data.success) {
-                                   console.log("ena el data")
+                                    console.log("ena el data")
                                     console.log(response.data.WorkspaceID)
                                     dispatcher({
-                                        type:CLOSE_MODAL,
+                                            type:CLOSE_MODAL,
 
 
-                                    }
+                                        }
                                     )
 
                                     dispatcher({
@@ -284,7 +284,7 @@ const RestInsideWorkspace = (props) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                 Cancel
+                                    Cancel
                                 </Button>
                             </AnimateButton>
 

@@ -24,7 +24,7 @@ import {
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import config from "../../../config";
 
 // style constant
@@ -123,6 +123,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
     let history =useHistory()
+    let {id}=useParams()
     const click = () => {
      console.log('im the card  '+card.WorkspaceName)
         let card1=card;
