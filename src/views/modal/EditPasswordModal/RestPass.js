@@ -41,11 +41,11 @@ import {
     CLOSE_DELETE_MODAL,
     CLOSE_MODAL,
     DELETE,
-    DELETE_USER, UPDATE,
+    DELETE_USER, OPEN_MODAL, UPDATE,
     USER_DELETE
 } from "../../../store/actions";
 import {Alert, LoadingButton} from "@material-ui/lab";
-import {Avatar, Divider, Grid, Stack} from "@mui/material";
+import {Avatar, Divider, Grid, Stack, TextField} from "@mui/material";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import config from "../../../config";
@@ -55,6 +55,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {useHistory} from "react-router-dom";
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
+import Iconify from "../../ViewAll/import/customer/Iconify";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -104,8 +105,8 @@ const RestPass = (props, { ...others }) => {
 
     const handleClose=()=>{
         dispatcher({
-                       type:CLOSE_MODAL,
-                   });
+            type:CLOSE_MODAL,
+        });
     }
     let account = useSelector((state) => state.account);
     const theme = useTheme();
@@ -114,19 +115,17 @@ const RestPass = (props, { ...others }) => {
     let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword0, setShowPassword0] = React.useState(false);
+    const [showPassword1, setShowPassword1] = React.useState(false);
+    const [showPassword2, setShowPassword2] = React.useState(false);
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
 
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+
+
 
     const changePassword = (value) => {
         const temp = strengthIndicator(value);
@@ -138,7 +137,36 @@ const RestPass = (props, { ...others }) => {
     useEffect(() => {
         changePassword('123456');
     }, []);
+    function handleShowPassword (num) {
+        console.log("salem sahbi")
+        console.log(num)
+        switch (num) {
+            case 0: {
+                console.log("fil0")
+                setShowPassword0((show) => !show);
+                break;
 
+            }
+                case 1: {
+                    console.log("fil1")
+
+                    setShowPassword1((show1) => !show1);
+                    break;
+
+                }
+                    case 2: {
+                        console.log("fil2")
+
+                        setShowPassword2((show2) => !show2);
+                        break;
+
+                    }
+                        default: {
+                            setShowPassword0((show) => !show);
+                            break;
+
+                        }        }
+    };
 
 
     const [isloading, setIsloading] = useState(false);
@@ -160,117 +188,114 @@ const RestPass = (props, { ...others }) => {
                 }}
                 validationSchema={Yup.object().shape({
 
-                    old: Yup.string().max(100,"must contain only 100 digits").min(6,"password must contain more then 6 digits"). required('old password is required'),
-                    new : Yup.string().max(100,"must contain only 100 digits").min(6,"password must contain more then 6 digits"). required('old password is required'),
-                    confirm : Yup.string().max(100,"must contain only 100 digits").min(6,"password must contain more then 6 digits"). required('old password is required'),
+                    old: Yup.string().max(100,"must contain only 100 digits").min(6,"old password must contain more then 6 digits"). required('old password is required'),
+                    new : Yup.string().max(100,"must contain only 100 digits").min(6,"new password must contain more then 6 digits"). required('new password is required'),
+                    confirm : Yup.string().max(100,"must contain only 100 digits").min(6,"confirm password must contain more then 6 digits"). required('confirm password is required'),
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
 
                     if (values.new!=values.confirm){
-                     setConfirm(true)
-
+                        setConfirm(true)
+                        setStatus({ success: false });
+                        setSubmitting(false);
                     }else{
 
 
+                        try{
+                            axios.post( configData.API_SERVER + 'api/users/editPass', {
+                                userID:account.user._id,
+                                newPassword: values.new,
+                                oldPassword: values.old,
+
+                                token:account.token
+                            })
+                                .then(function (response) {
+
+                                    console.log(response.data)
+                                    if (response.data.success) {
 
 
 
+                                        console.log("hani lena 200")
+                                        console.log(response.data.user)
 
-                    try{
-                        axios.post( configData.API_SERVER + 'api/users/edit', {
-                            userID:account.user._id,
-                            password: values.password,
-                            email: props.user.email,
-                            username:props.user.username,
-                            role:props.user.role,
-                            phone:props.user.phone,
-                            token:account.token
-                        })
-                            .then(function (response) {
-
-                                console.log(response.data)
-                                if (response.data.success) {
-
-
-
-                                    console.log("hani lena 200")
-                                    console.log(response.data.user)
-
-                                    dispatcher({
-                                        type:UPDATE,
-                                        payload: {user:response.data.user}
-                                    });
-                                    console.log("fdfsf")
-                                    console.log(account.user)
-                                    dispatcher({
-                                        type:CLICK,
-                                        payload: {text:"information changed successfully",severity:"success"}
-                                    });
-                                    history.push("/Profile")
-
-                                } else {
-
-                                    if(response.data.passprob) {
-                                        console.log("455hanui")
-
-                                        console.log(verifPass)
-                                        console.log("i wana try")
-
-                                        setVerifPass(true)
-                                        console.log("i wana try2.0")
-                                        console.log(verifPass)
-
-
-                                        console.log("hanui")
-                                        console.log(verifPass)
-                                        setStatus({ success: false });
-                                        setSubmitting(false);
-
-                                    }
-
-                                        else {
-                                        console.log("loj")
-
-                                    setStatus({ success: false });
-                                    setErrors({ submit: response.data.msg });
-                                    setSubmitting(false);
-                                        history.push("/Profile")
+                                        dispatcher({
+                                            type:UPDATE,
+                                            payload: {user:response.data.user}
+                                        });
+                                        console.log("fdfsf")
+                                        console.log(account.user)
                                         dispatcher({
                                             type:CLICK,
-                                            payload: {text:"intern probleme please retry later",severity:"error"}
+                                            payload: {text:"information changed successfully",severity:"success"}
                                         });
+                                        history.push("/Profile")
 
-                                    }}
-                            })
-                            .catch(function (error) {
-                                console.log("loj2")
+                                    } else {
+
+                                        if(response.data.passprob) {
+                                            console.log("455hanui")
+
+                                            console.log(verifPass)
+                                            console.log("i wana try")
+
+                                            setVerifPass(true)
+                                            console.log("i wana try2.0")
+                                            console.log(verifPass)
+
+
+                                            console.log("hanui")
+                                            console.log(verifPass)
+                                            setStatus({ success: false });
+                                            setSubmitting(false);
+
+                                        }
+
+                                        else {
+                                            console.log("loj")
+
+                                            setStatus({ success: false });
+                                            setErrors({ submit: response.data.msg });
+                                            setSubmitting(false);
+                                            history.push("/Profile")
+                                            dispatcher({
+                                                type:CLICK,
+                                                payload: {text:"intern probleme please retry later",severity:"error"}
+                                            });
+
+                                        }}
+                                })
+                                .catch(function (error) {
+                                    console.log("loj2")
+
+                                    setStatus({ success: false });
+                                    setErrors({ submit: error.response.data.msg });
+                                    history.push("/Profile")
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:"intern probleme please retry later",severity:"error"}
+                                    });
+                                });
+                        } catch (err) {
+                            console.error(err);
+                            if (scriptedRef.current) {
+                                console.log("loj3")
 
                                 setStatus({ success: false });
-                                setErrors({ submit: error.response.data.msg });
+                                setErrors({ submit: err.message });
+                                setSubmitting(false);
                                 history.push("/Profile")
                                 dispatcher({
                                     type:CLICK,
                                     payload: {text:"intern probleme please retry later",severity:"error"}
                                 });
-                            });
-                    } catch (err) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            console.log("loj3")
-
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                            history.push("/Profile")
-                            dispatcher({
-                                type:CLICK,
-                                payload: {text:"intern probleme please retry later",severity:"error"}
-                            });
+                            }
                         }
-                    }
-                }}}
+
+
+                    }}}
             >
                 {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form  noValidate onSubmit={handleSubmit}  {...others} >
@@ -284,52 +309,59 @@ const RestPass = (props, { ...others }) => {
                             }}
                         >
                             <Grid item md={12} xs={12}>
-                                <FormControl fullWidth error={Boolean( touched.password && errors.password  )} >
-                                    <InputLabel htmlFor="outlined-adornment-password-register">Old password</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password-register"
-                                        type={showPassword ? 'text' : 'password'}
+                                <FormControl fullWidth error={Boolean(touched.old && errors.old)} >
+
+                                    <TextField
+                                        name="old"
                                         value={values.old}
-                                        name="old" margin="2"
-                                        label="old"
+
                                         onBlur={handleBlur}
+                                        id="outlined-adornment-password-old"
+                                        required
+                                        type={showPassword0 ? 'text' : 'password'}
+                                        label="Password"
                                         onChange={(e) => {
                                             setVerifPass(false)
                                             handleChange(e);
                                             changePassword(e.target.value);
                                         }}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </            InputAdornment>
-                                        }
-                                        inputProps={{
-                                            classes: {
-                                                notchedOutline: classes.notchedOutline
-                                            }
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={(e)=>{handleShowPassword(0)}} edge="end">
+                                                        <Iconify icon={showPassword0 ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
                                         }}
+
                                     />
-                                    {touched.password && errors.password && (
+
+
+
+
+
+
+
+                                    {touched.old && errors.old && (
                                         <FormHelperText error id="standard-weight-helper-text-password-register">
-                                            {errors.password}
+                                            {errors.old}
                                         </FormHelperText>
 
                                     )}
-                                    { !(errors.password) && verifPass && (
+                                    {! (errors.old) &&verifPass&& (
                                         <FormHelperText error id="standard-weight-helper-text-password-register">
-                                            please verify your password
+                                            wrong password
                                         </FormHelperText>
 
                                     )}
 
                                 </FormControl>
+
+
+
+
+
 
                             </Grid>
 
@@ -345,45 +377,46 @@ const RestPass = (props, { ...others }) => {
                             }}
                         >
                             <Grid item md={12} xs={12}>
-                                <FormControl fullWidth error={Boolean( touched.password && errors.password  )} >
-                                    <InputLabel htmlFor="outlined-adornment-password-register">New password</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-password-register"
-                                        type={showPassword ? 'text' : 'password'}
+                                <FormControl fullWidth error={Boolean(touched.new && errors.new)} >
+
+                                    <TextField
+                                        name="new"
+                                        id="outlined-adornment-password-new"
+                                        required
                                         value={values.new}
-                                        name="new" margin="2"
-                                        label="new"
+
                                         onBlur={handleBlur}
+                                        type={showPassword1 ? 'text' : 'password'}
+                                        label="New password"
                                         onChange={(e) => {
-                                            setVerifPass(false)
+                                            setConfirm(false)
                                             handleChange(e);
                                             changePassword(e.target.value);
                                         }}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                >
-                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </            InputAdornment>
-                                        }
-                                        inputProps={{
-                                            classes: {
-                                                notchedOutline: classes.notchedOutline
-                                            }
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={(e)=>{handleShowPassword(1)}} edge="end">
+                                                        <Iconify icon={showPassword1 ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
                                         }}
+
                                     />
-                                    {touched.password && errors.password && (
+
+
+
+
+
+
+
+                                    {touched.new && errors.new && (
                                         <FormHelperText error id="standard-weight-helper-text-password-register">
-                                            {errors.password}
+                                            {errors.new}
                                         </FormHelperText>
 
                                     )}
-
 
                                 </FormControl>
 
@@ -400,47 +433,53 @@ const RestPass = (props, { ...others }) => {
                             }}
                         >
                             <Grid item md={12} xs={12}>
-                            <FormControl fullWidth error={Boolean( touched.password && errors.password  )} >
-                                <InputLabel htmlFor="outlined-adornment-password-register">Confirm Password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password-register"
-                                    type={showPassword ? 'text' : 'password'}
-                                    value={values.confirm}
-                                    name="confirm" margin="2"
-                                    label="confirm"
-                                    onBlur={handleBlur}
-                                    onChange={(e) => {
-                                        setVerifPass(false)
-                                        handleChange(e);
-                                        changePassword(e.target.value);
-                                    }}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
-                                            >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </            InputAdornment>
-                                    }
-                                     inputProps={{
-                                        classes: {
-                                            notchedOutline: classes.notchedOutline
-                                        }
-                                    }}
-                                />
-                                {touched.password && errors.password && (
-                                    <FormHelperText error id="standard-weight-helper-text-password-register">
-                                        {errors.password}
-                                    </FormHelperText>
+                                <FormControl fullWidth error={Boolean(touched.confirm && errors.confirm)} >
 
-                                )}
+                                    <TextField
+                                        name="confirm"
+                                        id="outlined-adornment-password-confirm"
+                                        required
+                                        value={values.confirm}
+
+                                        onBlur={handleBlur}
+                                        type={showPassword2 ? 'text' : 'password'}
+                                        label="Confirm password"
+                                        onChange={(e) => {
+                                            setConfirm(false)
+                                            handleChange(e);
+                                            changePassword(e.target.value);
+                                        }}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={(e)=>{handleShowPassword(2)}} edge="end">
+                                                        <Iconify icon={showPassword2 ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+
+                                    />
 
 
-                            </FormControl>
+
+
+
+
+
+                                    {touched.confirm && errors.confirm && (
+                                        <FormHelperText error id="standard-weight-helper-text-password-register">
+                                            {errors.confirm}
+                                        </FormHelperText>
+
+                                    )}
+                                    { !(errors.new) && confirm && (
+                                        <FormHelperText error id="standard-weight-helper-text-password-register">
+                                            confirm and new password should be the same
+                                        </FormHelperText>
+
+                                    )}
+                                </FormControl>
 
                             </Grid>
 
@@ -461,21 +500,21 @@ const RestPass = (props, { ...others }) => {
                                     mr:3
                                 }}
                             >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
-                                    sx={{width:100}}
+                                <AnimateButton>
+                                    <Button
+                                        disableElevation
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        type="submit"
+                                        variant="contained"
+                                        color="secondary"
+                                        sx={{width:100}}
 
-                                >
-                                    Edit
-                                </Button>
-                            </AnimateButton>
+                                    >
+                                        Edit
+                                    </Button>
+                                </AnimateButton>
                             </Box>
 
                             <Box
@@ -484,28 +523,28 @@ const RestPass = (props, { ...others }) => {
                                 }}
                             >
 
-                            <AnimateButton>
-                                <Button
+                                <AnimateButton>
+                                    <Button
 
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
+                                        disableElevation
+                                        disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
 
-                                    onClick={handleClose}
-                                    variant="contained"
-                                    color="error"
-                                >
-                                    Cancel
-                                </Button>
-                            </AnimateButton>
+                                        onClick={handleClose}
+                                        variant="contained"
+                                        color="error"
+                                    >
+                                        Cancel
+                                    </Button>
+                                </AnimateButton>
                             </Box>
                         </Box>
                     </form>
                 )}
             </Formik>
 
-</React.Fragment>
+        </React.Fragment>
     );
 };
 

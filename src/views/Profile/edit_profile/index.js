@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -9,6 +9,8 @@ import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 import AccountProfile from "./account-profile";
 import AccountProfileDetails from "./account-profile-details";
 import {Box, Container} from "@mui/material";
+import {CLOSE_MODAL} from "../../../store/actions";
+import {useDispatch} from "react-redux";
 
 
 // assets
@@ -17,8 +19,17 @@ import {Box, Container} from "@mui/material";
 
 const Profile = () => {
     const theme = useTheme();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const dispatcher = useDispatch();
 
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
+
+            });
+        }
+    }, [])
     return (
         <Fragment>
 

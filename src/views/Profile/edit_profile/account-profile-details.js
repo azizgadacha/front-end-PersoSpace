@@ -77,7 +77,7 @@ const AccountProfileDetails = (props, { ...others }) => {
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
-            username: Yup.string().required('Username is required'),
+            username: Yup.string().required('Username is required').min(6,"must contain minimum 6 digits  "),
 
             phone: Yup.number().typeError("Must be a number").required('phone number is required').integer("Must be a valid number").positive(),
 

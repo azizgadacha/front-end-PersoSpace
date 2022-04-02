@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // material-ui
 
@@ -6,6 +6,8 @@ import React from 'react';
 import RestPass from "./RestPass"
 import Header from "./Header"
 import {Grid} from "@mui/material";
+import {CLOSE_MODAL} from "../../../store/actions";
+import {useDispatch} from "react-redux";
 
 // assets
 
@@ -30,7 +32,16 @@ const OVERLAY_Styles ={
 
 }
 const PassChange = (props) => {
+    const dispatcher = useDispatch();
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
+
+            });
+        }
+    }, [])
 
     return (
         <div style={OVERLAY_Styles}>

@@ -31,8 +31,10 @@ const AccountProfileDetails = (props) => {
     history.push('/ProfileEdit')
   }
   const handleEditPassword =()=>{
-    history.push('/ProfileEdit2')
+    dispatcher({
+      type:OPEN_MODAL,
 
+    });
 
   }
 
