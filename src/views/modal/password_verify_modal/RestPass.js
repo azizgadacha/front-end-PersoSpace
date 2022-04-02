@@ -55,7 +55,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {useHistory} from "react-router-dom";
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
-import {Cancel, Edit} from "../../Button/actionButton";
+import {Cancel, Edit, Editing} from "../../Button/actionButton";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -161,7 +161,7 @@ const RestPass = (props, { ...others }) => {
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
-
+                    setIsloading(true)
                     try{
                         axios.post( configData.API_SERVER + 'api/users/edit', {
                             userID:account.user._id,
@@ -188,30 +188,24 @@ const RestPass = (props, { ...others }) => {
                                     });
                                     console.log("fdfsf")
                                     console.log(account.user)
+
                                     dispatcher({
                                         type:CLICK,
                                         payload: {text:"information changed successfully",severity:"success"}
                                     });
+                                    setIsloading(false)
                                     history.push("/Profile")
 
                                 } else {
 
                                     if(response.data.passprob) {
-                                        console.log("455hanui")
-
-                                        console.log(verifPass)
-                                        console.log("i wana try")
 
                                         setVerifPass(true)
-                                        console.log("i wana try2.0")
-                                        console.log(verifPass)
 
 
-                                        console.log("hanui")
-                                        console.log(verifPass)
                                         setStatus({ success: false });
                                         setSubmitting(false);
-
+                                        setIsloading(false)
                                     }
 
                                         else {
@@ -220,6 +214,7 @@ const RestPass = (props, { ...others }) => {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
+                                        setIsloading(false)
                                         history.push("/Profile")
                                         dispatcher({
                                             type:CLICK,
@@ -233,6 +228,7 @@ const RestPass = (props, { ...others }) => {
 
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
+                                setIsloading(false)
                                 history.push("/Profile")
                                 dispatcher({
                                     type:CLICK,
@@ -247,6 +243,7 @@ const RestPass = (props, { ...others }) => {
                             setStatus({ success: false });
                             setErrors({ submit: err.message });
                             setSubmitting(false);
+                            setIsloading(false)
                             history.push("/Profile")
                             dispatcher({
                                 type:CLICK,
@@ -334,8 +331,10 @@ const RestPass = (props, { ...others }) => {
                                     mr:3
                                 }}
                             >
+
                             <AnimateButton>
-                                <Button
+
+                                {isloading?(<LoadingButton fullWidth   sx={{width:100}} variant="contained" size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):    <Button
                                     disableElevation
                                     disabled={isSubmitting}
                                     fullWidth
@@ -348,7 +347,11 @@ const RestPass = (props, { ...others }) => {
                                 >
                                     {Edit}
 
-                                </Button>
+                                </Button>}
+
+
+
+
                             </AnimateButton>
                             </Box>
 

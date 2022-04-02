@@ -15,7 +15,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {Edit_Information, Edit_Password} from "../../Button/actionButton"
 import {useHistory} from "react-router-dom";
 import {OPEN_MODAL} from "../../../store/actions";
-import PassChange from "../../modal/EditPasswordModal";
 import ThemeConfig from "../../../themes/theme2";
 
 const AccountProfileDetails = (props) => {
@@ -31,10 +30,12 @@ const AccountProfileDetails = (props) => {
     history.push('/ProfileEdit')
   }
   const handleEditPassword =()=>{
-    dispatcher({
+  /*  dispatcher({
       type:OPEN_MODAL,
 
     });
+*/
+    history.push('/ProfileEdit2')
 
   }
 
@@ -208,7 +209,6 @@ const AccountProfileDetails = (props) => {
     </form>
       <ThemeConfig>
 
-      {open1.ModalState && (<PassChange   />)}
       </ThemeConfig>
 
     </Fragment>
