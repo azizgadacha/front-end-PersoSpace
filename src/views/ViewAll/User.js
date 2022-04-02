@@ -24,6 +24,8 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import SearchNotFound from "./import/customer/SearchNotFound";
 import Modal_Delete_User from "../Modal_delete_user";
 import Cells from "./cells";
+import {Link as RouterLink} from "react-router-dom";
+import Iconify from "./import/customer/Iconify";
 // ----------------------------------------------------------------------
 
 
@@ -188,25 +190,16 @@ console.log("salah2.0")
 
   return (
       success&&(
-      <Container>
-        <ThemeConfig>
+          <ThemeConfig>
 
-          <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                m: -1
-              }}
-          >
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-              <Typography variant="h2" gutterBottom>
+          <Container>
+
+            <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
+              <Typography sx={{ml:1,mb:8,mt:3}} variant="h4" gutterBottom>
                 User Liste
               </Typography>
 
             </Stack>
-          </Box>
 
 
             <Card>
@@ -292,9 +285,10 @@ console.log("salah2.0")
 
             </Card>
 
-        </ThemeConfig>
       </Container>
-))
+          </ThemeConfig>
+
+      ))
   ;
 }
 export default User;

@@ -51,7 +51,7 @@ const UserReducer = (state = initialState, action) => {
 
             let index = 0;
             var filteredObj = state.users.find(function(item, i){
-                if((item._id === deleteUser._id)&&(item.email===deleteUser.email)){
+                if((item.email===deleteUser.email)){
                     index = i;
                     console.log("il index houwa"+i)
                     return i;

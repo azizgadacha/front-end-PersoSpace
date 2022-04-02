@@ -508,17 +508,7 @@ const AccountProfileDetails = (props, { ...others }) => {
                           {Edit}
                       </Button>}
 
-                      <Button
 
-                        disableElevation
-                        fullWidth
-                        size="large"
-                        type="submit"
-                        variant="contained"
-                        color="secondary"
-                    >
-                          {Edit}
-                    </Button>
                   </AnimateButton>
 
 

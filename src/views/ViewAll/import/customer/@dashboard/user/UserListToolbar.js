@@ -7,10 +7,12 @@ import {
   IconButton,
   Typography,
   OutlinedInput,
-  InputAdornment
+  InputAdornment, Button
 } from '@mui/material';
 // component
 import Iconify from '../../Iconify';
+import {Link as RouterLink} from "react-router-dom";
+import React from "react";
 
 // ----------------------------------------------------------------------
 
@@ -76,11 +78,15 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Iconify icon="ic:round-filter-list" />
-          </IconButton>
-        </Tooltip>
+          <Button
+              sx={{height:40 ,width:125,mr:3,mb:2,mt:3}}
+              variant="contained"
+              component={RouterLink}
+              to="#"
+              startIcon={<Iconify icon="eva:plus-fill" />}
+          >
+            New User
+          </Button>
       )}
     </RootStyle>
   );

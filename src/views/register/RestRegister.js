@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
 const RestRegister = ({ ...others }) => {
 
 
-    const [source, setSource] = React.useState("/static/images/avatar_1.jpg");
+    const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
@@ -223,12 +223,13 @@ console.log(target.files[0])
                         fd.append('password',values.password)
                         fd.append('email',values.email)
                         fd.append('phone',values.phone)
-
+                        fd.append('file',values.file)
                         fd.append('role',values.role)
                         fd.append('token',account.token)
+                        fd.append('sendtphoto',values.sendtphoto)
 
 
-                        axios.post( configData.API_SERVER + 'api/users/edit', fd,{ headers: {
+                        axios.post( configData.API_SERVER + 'api/users/register', fd,{ headers: {
                             "Content-Type": "multipart/form-data"
                         }})
                             .then(function (response) {
