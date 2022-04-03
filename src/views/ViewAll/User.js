@@ -48,6 +48,7 @@ import useScriptRef from "../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton/TableSkelton";
+import EditUser from "../modal/EditUser/EditUser";
 
 // ----------------------------------------------------------------------
 
@@ -172,7 +173,7 @@ function applySortFilter(array, comparator, query) {
         return a[1] - b[1];
     });
     if (query) {
-        return filter(array, (_user) => _user.username.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return filter(array, (_user) => (_user.phone).toString().indexOf(query.toLowerCase()) !== -1||_user.username.toLowerCase().indexOf(query.toLowerCase()) !== -1||_user.email.toLowerCase().indexOf(query.toLowerCase()) !== -1||_user.email.toLowerCase().indexOf(query.toLowerCase()) !== -1||_user.role.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
     return stabilizedThis.map((el) => el[0]);
 }
@@ -481,6 +482,7 @@ console.log("salah2.0")
 
 
 <RegistreModal/>
+          <EditUser user={open.objet}/>
 
       </Fragment>
 )

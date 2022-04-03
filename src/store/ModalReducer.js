@@ -4,7 +4,7 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
     OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL,
+    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL,
 } from './actions';
 
 
@@ -15,7 +15,7 @@ export const initialState = {
     ModalDeleteState:false,
 
     ModalInsideDeleteState:false,
-
+ModalEditState:false,
     card1:null,
 
     objet:null
@@ -81,11 +81,14 @@ console.log(state.ModalState)
                 ModalInsideDeleteState:true,
 
             };
-        case CLOSE_INSIDE_DELETE_MODAL:
+        case OPEN_EDIT_MODAL:
+              let {obj}=action.payload
 
             return {
                 ...state,
-                ModalInsideDeleteState:false
+                objet:obj,
+
+                ModalEditState:false
 
 
             };
