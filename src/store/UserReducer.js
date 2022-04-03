@@ -61,6 +61,7 @@ const UserReducer = (state = initialState, action) => {
             });
             state.users.splice(index,1)
             console.log(index, filteredObj);
+            console.log(state.users);
 
 
 

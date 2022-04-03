@@ -36,61 +36,21 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import SearchNotFound from "./import/customer/SearchNotFound";
 import Modal_Delete_User from "../Modal_delete_user";
 import Cells from "./cells";
-import {Link as RouterLink, useHistory} from "react-router-dom";
-import Iconify from "./import/customer/Iconify";
+import { useHistory} from "react-router-dom";
+
 import RegistreModal from "../modal/RegistreModal";
-import {Formik} from "formik";
-import * as Yup from "yup";
-import config from "../../config";
+
 import {
-    FormControl,
-    FormHelperText,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput, useMediaQuery, useTheme
+    useMediaQuery, useTheme
 } from "@material-ui/core";
-import {gridSpacing} from "../../store/constant";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {Alert} from "@material-ui/lab";
-import AnimateButton from "../../animation/AnimateButton";
+
 import useScriptRef from "../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
+import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton/TableSkelton";
 
 // ----------------------------------------------------------------------
 
-const OVERLAY_Styles ={
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right:0,
-    bottom:0,
-    backgroundColor: 'rgba(0,0,0, .2)',
-    zIndex:100
-
-}
-const style = {
-
-    padding:'50px',
-    zIndex:100,
-
-
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-};
 
 // ----------------------------------------------------------------------
 
@@ -243,12 +203,7 @@ const User=  (props) => {
         };
     };
 
-    const theme = useTheme();
 
-    const classes = useStyles();
-    let history = useHistory();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
 
     const [strength, setStrength] = React.useState(0);
@@ -329,7 +284,7 @@ console.log("salah2.0")
         setSucess(true)
         console.log("salah3.0")
 
-    })}, []);
+    })},[] );
 
 
     useEffect(() => {
@@ -355,7 +310,7 @@ console.log("salah2.0")
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = USERLIST.map((n) => n.username);
+            const newSelecteds = userSt.users.map((n) => n.username);
             setSelected(newSelecteds);
             return;
         }
@@ -395,9 +350,9 @@ console.log("salah2.0")
         setFilterName(event.target.value);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.users.length) : 0;
 
-    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+    const filteredUsers = applySortFilter(userSt.users, getComparator(order, orderBy), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
 
@@ -419,25 +374,26 @@ console.log("salah2.0")
 
   return (
       <Fragment>
-    {success&&(
           <ThemeConfig>
 
           <Container>
+              <Card xs={6}  sx={{mb:3}}>
 
             <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
-                <Card>
 
 
-                <Typography sx={{ml:1,mb:8,mt:3}} variant="h4" gutterBottom>
+                <Typography sx={{ml:1,mb:1,mt:1}} variant="h4" gutterBottom>
                 User Liste
               </Typography>
-              </Card>
             </Stack>
 
+              </Card>
 
 
             <Card>
-                <UserListToolbar
+                {success?(
+<Fragment>
+                        <UserListToolbar
                     numSelected={selected.length}
                     filterName={filterName}
                     onFilterName={handleFilterByName}
@@ -450,7 +406,7 @@ console.log("salah2.0")
                                 order={order}
                                 orderBy={orderBy}
                                 headLabel={TABLE_HEAD}
-                                rowCount={USERLIST.length}
+                                rowCount={userSt.users.length}
                                 numSelected={selected.length}
                                 onRequestSort={handleRequestSort}
                                 onSelectAllClick={handleSelectAllClick}
@@ -509,20 +465,21 @@ console.log("salah2.0")
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={USERLIST.length}
+                    count={userSt.users.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-                {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
-
+</Fragment>
+                    ):(<SkeltonTable/>)}
             </Card>
+              {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
 
       </Container>
           </ThemeConfig>
 
-      )}
+
 <RegistreModal/>
 
       </Fragment>

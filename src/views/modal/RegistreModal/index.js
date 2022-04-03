@@ -1,6 +1,8 @@
 import { filter } from 'lodash';
 import React, {Fragment, useEffect, useState} from 'react';
 // material
+import Fade from '@mui/material/Fade';
+
 import {
     Stack,
     Container,
@@ -23,6 +25,7 @@ import {
 import ThemeConfig from "../../../themes/theme2"
 
 
+import Backdrop from '@mui/material/Backdrop';
 
 import axios from "axios";
 import configData from "../../../config";
@@ -71,15 +74,17 @@ const style = {
     padding:'50px',
     zIndex:100,
 
+    borderRadius: 5,
+
 
     position: 'absolute',
     top: '50%',
     left: '50%',
-
+    radius:3,
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '0px solid #000',
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -251,8 +256,7 @@ const User=  (props) => {
     useEffect(() => {
         return () => {
             dispatcher({
-                type:CLOSE_DELETE_MODAL,
-
+                type:CLOSE_MODAL,
             });
         }
     }, [])
@@ -274,15 +278,22 @@ const User=  (props) => {
         <Fragment>
 
             <Modal
-                hideBackdrop
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+
                 open={open1.ModalState}
                 onClose={handleClose}
-                aria-labelledby="child-modal-title"
-                aria-describedby="child-modal-description"
+
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
 
             >
                 <div style={OVERLAY_Styles}>
 
+                    <Fade in={open1.ModalState}>
 
                     <Box sx={{ ...style,  }} className={classes.modal}>
                         <ThemeConfig>
@@ -291,7 +302,6 @@ const User=  (props) => {
                                 initialValues={{
                                     username: '',
                                     email: '',
-                                    password: '',
                                     role: 'administrateur',
                                     phone: '',
 
@@ -300,7 +310,6 @@ const User=  (props) => {
                                 validationSchema={Yup.object().shape({
                                     email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
                                     username: Yup.string().required('Username is required'),
-                                    password:Yup.string().max(100,"must contain only 100 digits").min(6,"password must contain more then 4 digits"). required('Password is required'),
                                     phone: Yup.number().typeError("Must be a number").required('phone is required').integer("Must be a valid number").positive(),
 
                                     role: Yup.string().required('role is required')
@@ -315,7 +324,6 @@ setIsloading(true)
                                         let fd = new FormData();
 
                                         fd.append('username',values.username)
-                                        fd.append('password',values.password)
                                         fd.append('email',values.email)
                                         fd.append('phone',values.phone)
                                         fd.append('file',values.file)
@@ -340,8 +348,9 @@ setIsloading(true)
                                                     });
                                                     console.log("hani lena 200")
                                                     setIsloading(false)
-
-                                                    history.push( config.defaultPath);
+                                                    dispatcher({
+                                                        type:CLOSE_MODAL,
+                                                    });
                                                     dispatcher({
                                                         type:CLICK,
                                                         payload: {text:"User added successfully",severity:"success"}
@@ -386,7 +395,7 @@ setIsloading(true)
 
                                         <grid>
 
-                                            <Typography sx={{mt:2}}
+                                            <Typography sx={{mt:4}} id="child-modal-title"
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h6' : 'h6'}
                                                         align={"center"}  >
@@ -418,7 +427,7 @@ setIsloading(true)
                                         </FormControl>
 
 
-                                        <Stack spacing={2}>
+                                        <Stack spacing={2} id="transition-modal-title">
                                             <Stack direction={{ xs: 'column', sm: 'row' }}  spacing={2}>
 
                                                 <Grid container spacing={2}>
@@ -546,64 +555,10 @@ setIsloading(true)
 
                                             </Stack>
 
-                                            <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
-                                                <InputLabel htmlFor="outlined-adornment-password-register">Password*</InputLabel>
-                                                <OutlinedInput
-                                                    id="outlined-adornment-password-register"
-                                                    type={showPassword ? 'text' : 'password'}
-                                                    value={values.password}
-                                                    name="password"
-                                                    label="Password"
-                                                    onBlur={handleBlur}
-                                                    onChange={(e) => {
-                                                        handleChange(e);
-                                                        changePassword(e.target.value);
-                                                    }}
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={handleClickShowPassword}
-                                                                onMouseDown={handleMouseDownPassword}
-                                                                edge="end"
-                                                            >
-                                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                            </IconButton>
-                                                        </            InputAdornment>
-                                                    }
-                                                    inputProps={{
-                                                        classes: {
-                                                            notchedOutline: classes.notchedOutline
-                                                        }
-                                                    }}
-                                                />
-                                                {touched.password && errors.password && (
-                                                    <FormHelperText error id="standard-weight-helper-text-password-register">
-                                                        {errors.password}
-                                                    </FormHelperText>
 
-                                                )}
-                                            </FormControl>
                                         </Stack>
 
-                                        <Grid item>
-                                            <Typography variant="subtitle1" fontSize="0.75rem">
-                                                {level.label}
-                                            </Typography>
-                                        </Grid >
-                                        <Grid container spacing={2} alignItems="center">
-                                            <Grid item>
-                                                <Box
-                                                    backgroundColor={level.color}
-                                                    sx={{
-                                                        width: 85,
-                                                        height: 8,
-                                                        borderRadius: '7px'
-                                                    }}
-                                                ></Box>
-                                            </Grid>
 
-                                        </Grid>
 
 
 
@@ -681,6 +636,8 @@ setIsloading(true)
                             </Formik>
                         </ThemeConfig>
                     </Box>
+                    </Fade>
+
                 </div>
 
             </Modal>
