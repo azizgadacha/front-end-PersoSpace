@@ -5,7 +5,19 @@ import {
     Stack,
     Container,
     Typography,
-    Box, Card, TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, Avatar, Button, TablePagination,
+    Box,
+    Card,
+    TableContainer,
+    Table,
+    TableBody,
+    TableRow,
+    TableCell,
+    Checkbox,
+    Avatar,
+    Button,
+    TablePagination,
+    Modal,
+    TextField,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../themes/theme2"
@@ -16,7 +28,7 @@ import axios from "axios";
 import configData from "../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {CLOSE_DELETE_MODAL, INISIALIZE_USER, } from "../../store/actions";
+import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -24,12 +36,147 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import SearchNotFound from "./import/customer/SearchNotFound";
 import Modal_Delete_User from "../Modal_delete_user";
 import Cells from "./cells";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useHistory} from "react-router-dom";
 import Iconify from "./import/customer/Iconify";
+import RegistreModal from "../modal/RegistreModal";
+import {Formik} from "formik";
+import * as Yup from "yup";
+import config from "../../config";
+import {
+    FormControl,
+    FormHelperText,
+    Grid,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput, useMediaQuery, useTheme
+} from "@material-ui/core";
+import {gridSpacing} from "../../store/constant";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import {Alert} from "@material-ui/lab";
+import AnimateButton from "../../animation/AnimateButton";
+import useScriptRef from "../../hooks/useScriptRef";
+import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
+import {makeStyles} from "@material-ui/styles";
+
 // ----------------------------------------------------------------------
 
+const OVERLAY_Styles ={
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right:0,
+    bottom:0,
+    backgroundColor: 'rgba(0,0,0, .2)',
+    zIndex:100
+
+}
+const style = {
+
+    padding:'50px',
+    zIndex:100,
+
+
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
 
 // ----------------------------------------------------------------------
+
+const useStyles = makeStyles((theme) => ({
+
+
+    modal:{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+
+
+
+    },
+
+
+    redButton: {
+        fontSize: '1rem',
+        fontWeight: 500,
+        backgroundColor: theme.palette.grey[50],
+        border: '1px solid',
+        borderColor: theme.palette.grey[100],
+        color: theme.palette.grey[700],
+        textTransform: 'none',
+        '&:hover': {
+            backgroundColor: theme.palette.primary.light
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.875rem'
+        }
+    },
+    signDivider: {
+        flexGrow: 1
+    },
+    signText: {
+        cursor: 'unset',
+        margin: theme.spacing(2),
+        padding: '5px 56px',
+        borderColor: theme.palette.grey[100] + ' !important',
+        color: theme.palette.grey[900] + '!important',
+        fontWeight: 500
+    },
+    loginIcon: {
+        marginRight: '16px',
+        [theme.breakpoints.down('sm')]: {
+            marginRight: '8px'
+        }
+    },
+    loginInput: {
+        ...theme.typography.customInput
+    },
+
+    root: {
+        alignSelf: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    input: {
+        display: "none",
+
+
+    },
+    large: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+    },
+
+
+}));
+
+
+
+
 const TABLE_HEAD = [
     { id: 'username', label: 'User name', alignRight: false },
     { id: 'email', label: 'Email', alignRight: false },
@@ -72,7 +219,81 @@ function applySortFilter(array, comparator, query) {
 
 const User=  (props) => {
 
+    const states = [
+        {
+            value: 'administrateur',
+            label: 'administrateur'
+        },
+        {
+            value: 'simple employer',
+            label: 'simple employer'
+        },
 
+    ];
+    const [source, setSource] = React.useState("/static/images/avatar_1.png");
+
+    const handleCapture = ({target}) => {
+        const fileReader = new FileReader();
+        // const name = target.accept.includes('image') ? 'images' : 'videos';
+        console.log(target.files[0])
+
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            setSource(e.target.result);
+        };
+    };
+
+    const theme = useTheme();
+
+    const classes = useStyles();
+    let history = useHistory();
+    const scriptedRef = useScriptRef();
+    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const [strength, setStrength] = React.useState(0);
+    const [level, setLevel] = React.useState('');
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const changePassword = (value) => {
+        const temp = strengthIndicator(value);
+        setStrength(temp);
+        setLevel(strengthColor(temp));
+    };
+
+
+    useEffect(() => {
+        changePassword('123456');
+    }, []);
+
+    const [isloading, setIsloading] = useState(false);
+    //const [openModal,setOpenModal]=useState(false);
+
+
+
+
+
+
+
+
+
+
+
+    const [open5, setOpen5] = React.useState(false);
+    const handleOpen5 = () => {
+        setOpen5(true);
+    };
+    const handleClose5= () => {
+        setOpen5(false);
+    };
 
     const dispatcher = useDispatch();
 
@@ -82,7 +303,14 @@ const User=  (props) => {
     const [success,setSucess]=useState(false)
     const [USERLIST,setUSERLIST]=useState([])
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
 
+            });
+        }
+    }, [])
    useEffect(() => {
 console.log("salah2.0")
     axios
@@ -180,6 +408,7 @@ console.log("salah2.0")
 
         });
     };
+    let open1 = useSelector((state) => state.modal);
 
 
 
@@ -189,7 +418,8 @@ console.log("salah2.0")
 
 
   return (
-      success&&(
+      <Fragment>
+    {success&&(
           <ThemeConfig>
 
           <Container>
@@ -288,7 +518,11 @@ console.log("salah2.0")
       </Container>
           </ThemeConfig>
 
-      ))
+      )}
+<RegistreModal/>
+
+      </Fragment>
+)
   ;
 }
 export default User;

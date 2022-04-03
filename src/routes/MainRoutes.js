@@ -27,11 +27,11 @@ const MainRoutes = () => {
 
         <Route
             path={[
-                '/dashboard/default/:id',
-                '/dashboard/default',
+
                 '/dashboard/registre',
                 '/dashboard/viewAll',
-
+                '/dashboard/default/:id',
+                '/dashboard/default',
 
             ]}
         >
@@ -45,13 +45,13 @@ const MainRoutes = () => {
 
 
 
-                    <Route  path="/dashboard/default/:id" component={InsideWorkspace} />
-                        <Route exact path="/dashboard/default" component={DashboardDefault} />
+                    <Route exact path="/dashboard/default/:id" component={InsideWorkspace} />
 
-                        <Route path="/dashboard/registre" component={registre} />
+                        <Route exact path="/dashboard/registre" component={registre} />
 
 
-                    <Route path='/dashboard/viewAll' component={ViewAll} onLeave={()=>{console.log("hemmmm666llo")}}/>
+                    <Route exact path='/dashboard/viewAll' component={ViewAll} onLeave={()=>{console.log("hemmmm666llo")}}/>
+                    <Route exact path="/dashboard/default" component={DashboardDefault} />
 
 
 

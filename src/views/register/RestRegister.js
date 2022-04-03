@@ -35,6 +35,7 @@ import useScriptRef from '../../hooks/useScriptRef';
 import AnimateButton from './../../animation/AnimateButton';
 import { strengthColor, strengthIndicator } from '../../verification_password/password-strength';
 
+
 // assets
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -46,7 +47,20 @@ import {Avatar, Paper, Stack} from "@mui/material";
 import {FileUpload} from "@material-ui/icons";
 import {gridSpacing} from "../../store/constant";
 import SkeletonEarningCard from "../../composant_de_style/cards/Skeleton/EarningCard";
-
+import Modal from "../modal";
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
 // style constant
 const useStyles = makeStyles((theme) => ({
     redButton: {
@@ -112,7 +126,13 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestRegister = ({ ...others }) => {
-
+    const [open5, setOpen5] = React.useState(false);
+    const handleOpen5 = () => {
+        setOpen5(true);
+    };
+    const handleClose5= () => {
+        setOpen5(false);
+    };
 
     const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
@@ -284,7 +304,7 @@ console.log(target.files[0])
 
 <grid>
 
-                        <Typography
+                        <Typography sx={{mt:2}}
                         gutterBottom
                         variant={matchDownSM ? 'h6' : 'h6'}
                    align={"center"}  >
@@ -564,6 +584,11 @@ Choise a photo                    </Typography></grid>
                     </form>
                 )}
             </Formik>
+
+
+
+
+
                 </ThemeConfig>
 
         </React.Fragment>

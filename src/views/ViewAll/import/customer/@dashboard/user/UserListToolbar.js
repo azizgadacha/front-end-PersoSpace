@@ -12,7 +12,10 @@ import {
 // component
 import Iconify from '../../Iconify';
 import {Link as RouterLink} from "react-router-dom";
-import React from "react";
+import React, {Fragment} from "react";
+import modal_registre from "../../../../../modal/modal_registre";
+import {useDispatch, useSelector} from "react-redux";
+import {OPEN_MODAL} from "../../../../../../store/actions";
 
 // ----------------------------------------------------------------------
 
@@ -44,8 +47,22 @@ UserListToolbar.propTypes = {
   onFilterName: PropTypes.func
 };
 
+
 export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
+
+  const dispatcher = useDispatch();
+  const HandleClick=()=>{
+console.log("sahbi")
+    dispatcher({
+      type:OPEN_MODAL,
+
+    });
+    console.log("sahbi2.0")
+
+  }
+
   return (
+      <Fragment>
     <RootStyle
       sx={{
         ...(numSelected > 0 && {
@@ -81,13 +98,14 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
           <Button
               sx={{height:40 ,width:125,mr:3,mb:2,mt:3}}
               variant="contained"
-              component={RouterLink}
-              to="#"
+              onClick={HandleClick}
+
               startIcon={<Iconify icon="eva:plus-fill" />}
           >
             New User
           </Button>
       )}
     </RootStyle>
-  );
+      </Fragment>
+);
 }
