@@ -12,7 +12,6 @@ const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboa
 const ViewAll = Preparation_du_page(lazy(() => import('../views/ViewAll/User')));
 const InsideWorkspace = Preparation_du_page(lazy(() => import('../views/InsideWorkspace/Default')));
 // Bare_du_cotte routing
-const registre = Preparation_du_page(lazy(() => import('../views/register')));
 
 
 // sample page routing
@@ -28,7 +27,6 @@ const MainRoutes = () => {
         <Route
             path={[
 
-                '/dashboard/registre',
                 '/dashboard/viewAll',
                 '/dashboard/default/:id',
                 '/dashboard/default',
@@ -47,10 +45,9 @@ const MainRoutes = () => {
 
                     <Route exact path="/dashboard/default/:id" component={InsideWorkspace} />
 
-                        <Route exact path="/dashboard/registre" component={registre} />
 
 
-                    <Route exact path='/dashboard/viewAll' component={ViewAll} onLeave={()=>{console.log("hemmmm666llo")}}/>
+                    <Route exact path='/dashboard/viewAll' component={ViewAll} />
                     <Route exact path="/dashboard/default" component={DashboardDefault} />
 
 

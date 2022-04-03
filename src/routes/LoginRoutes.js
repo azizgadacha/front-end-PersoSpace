@@ -12,7 +12,6 @@ import Preparation_du_page from "../animation/Preparation_du_page";
 
 
 // login routing
-const registre = Preparation_du_page(lazy(() => import('../views/register')));
 
     const Authverif = Preparation_du_page(lazy(() => import('../views/verif_password')));
 

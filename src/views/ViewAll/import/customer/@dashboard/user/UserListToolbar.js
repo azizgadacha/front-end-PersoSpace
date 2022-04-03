@@ -13,7 +13,6 @@ import {
 import Iconify from '../../Iconify';
 import {Link as RouterLink} from "react-router-dom";
 import React, {Fragment} from "react";
-import modal_registre from "../../../../../modal/modal_registre";
 import {useDispatch, useSelector} from "react-redux";
 import {OPEN_MODAL} from "../../../../../../store/actions";
 

@@ -307,7 +307,7 @@ const User=  (props) => {
 
                                 })}
                                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-
+setIsloading(true)
                                     try {
 
 
@@ -339,6 +339,7 @@ const User=  (props) => {
                                                         payload: {user:response.data.user}
                                                     });
                                                     console.log("hani lena 200")
+                                                    setIsloading(false)
 
                                                     history.push( config.defaultPath);
                                                     dispatcher({
@@ -350,12 +351,16 @@ const User=  (props) => {
                                                     setStatus({ success: false });
                                                     setErrors({ submit: response.data.msg });
                                                     setSubmitting(false);
+                                                    setIsloading(false)
+
                                                 }
                                             })
                                             .catch(function (error) {
                                                 setStatus({ success: false });
                                                 setErrors({ submit: error.response.data.msg });
                                                 setSubmitting(false);
+                                                setIsloading(false)
+
                                             });
                                     } catch (err) {
                                         console.error(err);
@@ -363,6 +368,8 @@ const User=  (props) => {
                                             setStatus({ success: false });
                                             setErrors({ submit: err.message });
                                             setSubmitting(false);
+                                            setIsloading(false)
+
                                         }
                                     }
                                 }}
@@ -634,21 +641,18 @@ const User=  (props) => {
                                                 </Box>
                                             )}
 
+
+                                            <Grid container alignItems={"center"}>
+
                                             <Box
                                                 sx={{
                                                     mt: 2,
                                                     marginRight:2,
-                                                    marginLeft:5
+                                                    marginLeft:4
                                                 }}
                                             >
                                                 <AnimateButton>
-                                                    {isloading?(<LoadingButton variant="contained" sx={{width:118}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">DELETING</LoadingButton>): <Button sx={{width:118}} disableElevation
-                                                                                                                                                                                                                                                 disabled={isSubmitting}
-                                                                                                                                                                                                                                                 fullWidth
-                                                                                                                                                                                                                                                 size="large"
-                                                                                                                                                                                                                                                 type="submit"
-                                                                                                                                                                                                                                                 variant="contained"
-                                                                                                                                                                                                                                                 color="secondary" color="error">Delete</Button>}
+                                                    {isloading?(<LoadingButton variant="contained" sx={{width:220}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">Adding</LoadingButton>): <Button sx={{width:220}} disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" size="large"  variant="contained" color="secondary">Add User</Button>}
 
 
 
@@ -658,17 +662,17 @@ const User=  (props) => {
                                             <Box
                                                 sx={{
                                                     mt: 2,
-                                                    marginLeft:2
+                                                    marginLeft:1
                                                 }}
                                             >
                                                 <AnimateButton>
 
-                                                    <Button disableElevation sx={{width:118}} size="large" onClick={handleClose} variant="contained" color="secondary">Cancel</Button>
+                                                    <Button disableElevation sx={{width:220}} size="large" onClick={handleClose} variant="contained" color="error">Cancel</Button>
                                                 </AnimateButton>
 
                                             </Box>
 
-
+                                            </Grid>
 
                                         </Box>
 
@@ -676,7 +680,6 @@ const User=  (props) => {
                                 )}
                             </Formik>
                         </ThemeConfig>
-                        <Button onClick={handleClose}>Close Child Modal</Button>
                     </Box>
                 </div>
 
