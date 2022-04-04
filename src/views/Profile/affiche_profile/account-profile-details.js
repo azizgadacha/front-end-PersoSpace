@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   Box,
   Button,
@@ -10,20 +10,40 @@ import {
   TextField, Typography
 } from '@mui/material';
 import {useMediaQuery} from "@material-ui/core";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {Edit_Information, Edit_Password} from "../../Button/actionButton"
+import {useHistory} from "react-router-dom";
+import {OPEN_MODAL} from "../../../store/actions";
+import ThemeConfig from "../../../themes/theme2";
 
 const AccountProfileDetails = (props) => {
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const dispatcher = useDispatch();
+  let open1 = useSelector((state) => state.modal);
 
   const account = useSelector((state) => state.account);
+  let history =useHistory()
 
+  const handleEdit =()=>{
 
+    history.push('/ProfileEdit')
+  }
+  const handleEditPassword =()=>{
+  /*  dispatcher({
+      type:OPEN_MODAL,
 
+    });
+*/
+    history.push('/ProfileEdit2')
+
+  }
 
   return (
-    <form
+
+    <Fragment>
+
+      <form
       autoComplete="off"
       noValidate
       {...props}
@@ -170,11 +190,15 @@ const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={handleEdit}
           >
             {Edit_Information}          </Button>
+
           <Button
               color="primary"
               variant="contained"
+              onClick={handleEditPassword}
+
           >
             {Edit_Password}         </Button>
 
@@ -183,6 +207,11 @@ const AccountProfileDetails = (props) => {
 
       </Card>
     </form>
+      <ThemeConfig>
+
+      </ThemeConfig>
+
+    </Fragment>
   );
 };
 export default AccountProfileDetails;

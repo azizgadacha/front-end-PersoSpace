@@ -5,7 +5,19 @@ import {
     Stack,
     Container,
     Typography,
-    Box, Card, TableContainer, Table, TableBody, TableRow, TableCell, Checkbox, Avatar, Button, TablePagination,
+    Box,
+    Card,
+    TableContainer,
+    Table,
+    TableBody,
+    TableRow,
+    TableCell,
+    Checkbox,
+    Avatar,
+    Button,
+    TablePagination,
+    Modal,
+    TextField,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../themes/theme2"
@@ -16,7 +28,7 @@ import axios from "axios";
 import configData from "../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {CLOSE_DELETE_MODAL, INISIALIZE_USER, } from "../../store/actions";
+import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -24,10 +36,108 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import SearchNotFound from "./import/customer/SearchNotFound";
 import Modal_Delete_User from "../Modal_delete_user";
 import Cells from "./cells";
+import { useHistory} from "react-router-dom";
+
+import RegistreModal from "../modal/RegistreModal";
+
+import {
+    useMediaQuery, useTheme
+} from "@material-ui/core";
+
+import useScriptRef from "../../hooks/useScriptRef";
+import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
+import {makeStyles} from "@material-ui/styles";
+import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton/TableSkelton";
+import EditUser from "../modal/EditUser/EditUser";
+
 // ----------------------------------------------------------------------
 
 
 // ----------------------------------------------------------------------
+
+const useStyles = makeStyles((theme) => ({
+
+
+    modal:{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+
+
+
+    },
+
+
+    redButton: {
+        fontSize: '1rem',
+        fontWeight: 500,
+        backgroundColor: theme.palette.grey[50],
+        border: '1px solid',
+        borderColor: theme.palette.grey[100],
+        color: theme.palette.grey[700],
+        textTransform: 'none',
+        '&:hover': {
+            backgroundColor: theme.palette.primary.light
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.875rem'
+        }
+    },
+    signDivider: {
+        flexGrow: 1
+    },
+    signText: {
+        cursor: 'unset',
+        margin: theme.spacing(2),
+        padding: '5px 56px',
+        borderColor: theme.palette.grey[100] + ' !important',
+        color: theme.palette.grey[900] + '!important',
+        fontWeight: 500
+    },
+    loginIcon: {
+        marginRight: '16px',
+        [theme.breakpoints.down('sm')]: {
+            marginRight: '8px'
+        }
+    },
+    loginInput: {
+        ...theme.typography.customInput
+    },
+
+    root: {
+        alignSelf: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    input: {
+        display: "none",
+
+
+    },
+    large: {
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+    },
+
+
+}));
+
+
+
+
 const TABLE_HEAD = [
     { id: 'username', label: 'User name', alignRight: false },
     { id: 'email', label: 'Email', alignRight: false },
@@ -63,14 +173,83 @@ function applySortFilter(array, comparator, query) {
         return a[1] - b[1];
     });
     if (query) {
-        return filter(array, (_user) => _user.username.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return filter(array, (_user) => (_user.phone).toString().indexOf(query.toLowerCase()) !== -1||_user.username.toLowerCase().indexOf(query.toLowerCase()) !== -1||_user.email.toLowerCase().indexOf(query.toLowerCase()) !== -1||_user.email.toLowerCase().indexOf(query.toLowerCase()) !== -1||_user.role.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
     return stabilizedThis.map((el) => el[0]);
 }
 
 const User=  (props) => {
 
+    const states = [
+        {
+            value: 'administrateur',
+            label: 'administrateur'
+        },
+        {
+            value: 'simple employer',
+            label: 'simple employer'
+        },
 
+    ];
+    const [source, setSource] = React.useState("/static/images/avatar_1.png");
+
+    const handleCapture = ({target}) => {
+        const fileReader = new FileReader();
+        // const name = target.accept.includes('image') ? 'images' : 'videos';
+        console.log(target.files[0])
+
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            setSource(e.target.result);
+        };
+    };
+
+
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const [strength, setStrength] = React.useState(0);
+    const [level, setLevel] = React.useState('');
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const changePassword = (value) => {
+        const temp = strengthIndicator(value);
+        setStrength(temp);
+        setLevel(strengthColor(temp));
+    };
+
+
+    useEffect(() => {
+        changePassword('123456');
+    }, []);
+
+    const [isloading, setIsloading] = useState(false);
+    //const [openModal,setOpenModal]=useState(false);
+
+
+
+
+
+
+
+
+
+
+
+    const [open5, setOpen5] = React.useState(false);
+    const handleOpen5 = () => {
+        setOpen5(true);
+    };
+    const handleClose5= () => {
+        setOpen5(false);
+    };
 
     const dispatcher = useDispatch();
 
@@ -80,7 +259,14 @@ const User=  (props) => {
     const [success,setSucess]=useState(false)
     const [USERLIST,setUSERLIST]=useState([])
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
 
+            });
+        }
+    }, [])
    useEffect(() => {
 console.log("salah2.0")
     axios
@@ -99,7 +285,7 @@ console.log("salah2.0")
         setSucess(true)
         console.log("salah3.0")
 
-    })}, []);
+    })},[] );
 
 
     useEffect(() => {
@@ -125,7 +311,7 @@ console.log("salah2.0")
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = USERLIST.map((n) => n.username);
+            const newSelecteds = userSt.users.map((n) => n.username);
             setSelected(newSelecteds);
             return;
         }
@@ -165,9 +351,9 @@ console.log("salah2.0")
         setFilterName(event.target.value);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.users.length) : 0;
 
-    const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+    const filteredUsers = applySortFilter(userSt.users, getComparator(order, orderBy), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
 
@@ -178,6 +364,7 @@ console.log("salah2.0")
 
         });
     };
+    let open1 = useSelector((state) => state.modal);
 
 
 
@@ -187,30 +374,27 @@ console.log("salah2.0")
 
 
   return (
-      success&&(
-      <Container>
-        <ThemeConfig>
+      <Fragment>
+          <ThemeConfig>
 
-          <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                m: -1
-              }}
-          >
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-              <Typography variant="h2" gutterBottom>
+          <Container>
+              <Card xs={6}  sx={{mb:3}}>
+
+            <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
+
+
+                <Typography sx={{ml:1,mb:1,mt:1}} variant="h4" gutterBottom>
                 User Liste
               </Typography>
-
             </Stack>
-          </Box>
+
+              </Card>
 
 
             <Card>
-                <UserListToolbar
+                {success?(
+<Fragment>
+                        <UserListToolbar
                     numSelected={selected.length}
                     filterName={filterName}
                     onFilterName={handleFilterByName}
@@ -223,7 +407,7 @@ console.log("salah2.0")
                                 order={order}
                                 orderBy={orderBy}
                                 headLabel={TABLE_HEAD}
-                                rowCount={USERLIST.length}
+                                rowCount={userSt.users.length}
                                 numSelected={selected.length}
                                 onRequestSort={handleRequestSort}
                                 onSelectAllClick={handleSelectAllClick}
@@ -282,19 +466,26 @@ console.log("salah2.0")
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={USERLIST.length}
+                    count={userSt.users.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-                {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
-
+</Fragment>
+                    ):(<SkeltonTable/>)}
             </Card>
+              {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
 
-        </ThemeConfig>
       </Container>
-))
+          </ThemeConfig>
+
+
+<RegistreModal/>
+          {/* <EditUser user={open.objet}/>*/}
+
+      </Fragment>
+)
   ;
 }
 export default User;

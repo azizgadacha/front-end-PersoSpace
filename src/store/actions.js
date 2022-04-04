@@ -4,6 +4,7 @@ export const LOGOUT = 'LOGOUT';
 export const CLICK = 'Click';
 export const CLOSE = 'Close';
 export const ADD = 'ADD';
+export const UPDATE = 'UPDATE';
 
 export const DELETE='DELETE'
 export const DELETEINSIDEWORKSPACE='DELETEINSIDEWORKSPACE'
@@ -18,6 +19,8 @@ export const INISIALIZE_USER='INISIALIZE_USSER';
 export const OPEN_MODAL= 'OPEN_MODAL';
 export const CLOSE_MODAL= 'CLOSE_MODAL';
 export const OPEN_DELETE_MODAL='OPEN_DELETE_MODAL';
+export const OPEN_EDIT_MODAL='OPEN_EDIT_MODAL';
+
 export const CLOSE_DELETE_MODAL='CLOSE_DELETE_MODAL';
 export const OPEN_INSIDE_DELETE_MODAL='OPEN_INSIDE_DELETE_MODAL';
 export const CLOSE_INSIDE_DELETE_MODAL='CLOSE_INSIDE_DELETE_MODAL'

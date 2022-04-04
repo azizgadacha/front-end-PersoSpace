@@ -10,7 +10,7 @@ import { AppBar, CssBaseline, Toolbar, useMediaQuery } from '@material-ui/core';
 import clsx from 'clsx';
 
 // project imports
-import Header from './../Header';
+import Header from './Header';
 
 import Customization from './../../../composant_de_style/Customization';
 import { drawerWidth } from '../../../store/constant';

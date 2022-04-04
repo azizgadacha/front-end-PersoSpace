@@ -1,192 +1,330 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField, Typography
+    Alert,
+
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
+    Grid, TextField,
 } from '@mui/material';
-import {useMediaQuery} from "@material-ui/core";
-import {useSelector} from "react-redux";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel, MenuItem,
+  OutlinedInput,
+  Select,
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+import ThemeConfig from "../../../themes/theme2";
+import {Formik} from "formik";
+import * as Yup from "yup";
 
-const AccountProfileDetails = (props) => {
-  const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+import { CLOSE_MODAL, OPEN_MODAL} from "../../../store/actions";
 
+import AnimateButton from "../../../animation/AnimateButton";
+
+import Password_verify from "../../modal/password_verify_modal";
+import _ from "lodash";
+import {Edit} from "../../Button/actionButton";
+
+
+
+const AccountProfileDetails = (props, { ...others }) => {
+
+  const dispatcher = useDispatch();
+    const [changed, setChanged] = useState(false);
+    const [val, setVal] = useState({});
+
+    const states = [
+        {
+            value: 'administrateur',
+            label: 'administrateur'
+        },
+        {
+            value: 'simple employer',
+            label: 'simple employer'
+        },
+
+    ];
   const account = useSelector((state) => state.account);
+    let open1 = useSelector((state) => state.modal);
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
 
+            });
+        }
+    }, [])
 
 
   return (
-    <form
-      autoComplete="off"
-      noValidate
-      {...props}
-    >
-      <Card>
-        <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+
+    <ThemeConfig>
+
+      <Formik
+          initialValues={{
+            username: account.user.username,
+            email: account.user.email,
+            role: account.user.role,
+            phone: account.user.phone,
+            submit: null
+          }}
+          validationSchema={Yup.object().shape({
+            email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
+            username: Yup.string().required('Username is required').min(6,"must contain minimum 6 digits  "),
+
+            phone: Yup.number().typeError("Must be a number").required('phone number is required').integer("Must be a valid number").positive(),
+
+            role: Yup.string().required('role is required')
+
+          })}
+          onSubmit={(values) => {
+              setChanged(false)
+console.log("hnai")
+              console.log(values)
+              console.log("sahbi")
+
+             if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
+                 setChanged(true)
+              else {
 
 
+              console.log("d5alt3.0")
 
 
+setVal(values)
+
+                      dispatcher({
+                          type:OPEN_MODAL,
+
+                      });
+
+          }}
+
+      }
+
+      >
+        {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+            <form  noValidate onSubmit={handleSubmit} {...others}>
 
 
+                <Card>
+                <CardHeader
+                    subheader="The information can be edited"
+                    title="Profile"
+                />
+                <Divider />
+                <CardContent>
 
-                <Grid item xs={12} >
-                    <label> User:      </label>
 
-                    <Typography  fullWidth
-                                 label="First name"
-                                 name="firstName"
-                                 id="username" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                    {account.user.username}
+              <Grid
+                  container
+                  spacing={3}
+              >
+                  { changed&&(
+                  <Grid
+                      item
+                      md={12}
+                      xs={12}
+                  >
+                        <Alert variant="filled" autoHideDuration={4000} severity="error">
+                      You didn't change any things
+                  </Alert>
+                  </Grid>)}
+                <Grid
+                    item
+                    md={6}
+                    xs={12}
+                >
+                  <Grid item xs={12} >
+                    <FormControl fullWidth error={Boolean(touched.username && errors.username)} >
+                      <TextField label="username" required variant="outlined"
+                          id="outlined-adornment-username-register"
+                                 name="username"
+                          value={values.username}
+                          onChange={handleChange}
 
-                    </Typography>
+                      />
+
+                      {touched.username && errors.username && (
+                          <FormHelperText error id="standard-weight-helper-text--username">
+                            {errors.username}
+                          </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid
+                    item
+                    md={6}
+                    xs={12}
+                >
+                  <Grid item xs={12} >
+                    <FormControl fullWidth error={Boolean(touched.email && errors.email)} >
+                      <TextField label="Email" required variant="outlined"
+                          id="outlined-adornment-email-register"
+                          type="email"
+                          value={values.email}
+                          name="email"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+
+                      />
+                      {touched.email && errors.email && (
+                          <FormHelperText error id="standard-weight-helper-text--register">
+                            {' '}
+                            {errors.email}{' '}
+                          </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
                 </Grid>
 
+                <Grid
+                    item
+                    md={6}
+                    xs={12}
+                >
+                  <Grid item xs={12} >
+                    <FormControl fullWidth error={Boolean(touched.phone && errors.phone)} >
+                        <TextField label="phone" required variant="outlined"
+                          id="outlined-adornment-phone-register"
+                          type="phone"
+                          value={values.phone}
+                          name="phone"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+
+                      />
+                      {touched.phone && errors.phone && (
+                          <FormHelperText error id="standard-weight-helper-text--register">
+                            {' '}
+                            {errors.phone}{' '}
+                          </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid
+                    item
+                    md={6}
+                    xs={12}
+                >
+                  <Grid item xs={12} >
+
+                      {account.user.role=="administrateur"?(
+                    <FormControl fullWidth   error={Boolean(touched.role&& errors.role)} >
+
+                        <TextField
+                            fullWidth
+                            onChange={handleChange}
+                            required
+                            select
+                            SelectProps={{ native: true }}
+                            variant="outlined"
+                            id="role"
+                            name="role"
+
+                            value={values.role}
+                            label="Role"
+                            onBlur={handleBlur}
+                            error={touched.role && Boolean(errors.role)}
+
+                            onChange={handleChange}
 
 
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <Grid item xs={12} >
-                <label>Email:      </label>
+                        >
+                            {states.map((option) => (
+                                <option
+                                    key={option.value}
+                                    value={option.value}
+                                >
+                                    {option.label}
+                                </option>
+                            ))}
+                        </TextField>
 
-                <Typography  fullWidth
-                             label="First name"
-                             name="firstName"
-                             id="username" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                  {account.user.email}
-                </Typography>
+
+
+                        {/*
+
+                      <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
+                      <Select sx={{height:55}}
+                          labelId="demo-simple-select-helper-label"
+                          id="role"
+                          name="role"
+
+                          value={values.role}
+                          label="Role"
+                          onBlur={handleBlur}
+                          error={touched.role && Boolean(errors.role)}
+
+                          onChange={handleChange}    >
+
+                        <MenuItem value={"administrateur"}>administrateur</MenuItem>
+
+                        <MenuItem value={"Simple Employer"}>simple employer</MenuItem>
+                      </Select>
+                      {touched.role && errors.role && (
+                          <FormHelperText error id="standard-weight-helper-text--register">
+                            {' '}
+                            {errors.role}{' '}
+                          </FormHelperText>
+                      )}
+*/}
+                    </FormControl>):null}
+                  </Grid>
+                </Grid>
+
               </Grid>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <Grid item xs={12} >
-                <label>Phone:      </label>
+                </CardContent>
+                <Divider />
+                <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      p: 2
+                    }}
+                >
+                  <AnimateButton>
+                    <Button
+                        disableElevation
+                        fullWidth
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                    >
+                        {Edit}
+                    </Button>
+                  </AnimateButton>
 
-                <Typography  fullWidth
-                             label="First name"
-                             name="firstName"
-                             id="username" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                  {account.user.phone}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <Grid item xs={12} >
-                <label>       Role:      </label>
 
-                <Typography  fullWidth
-                             label="First name"
-                             name="firstName"
-                             id="username" color="black"  fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                     {account.user.role}
-                </Typography>
-              </Grid>
-            </Grid>
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>*/}
-          </Grid>
-        </CardContent>
-        <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
-        </Box>
-      </Card>
-    </form>
-  );
+                </Box>
+              </Card>
+
+
+
+
+
+
+
+
+
+            </form>
+        )}
+      </Formik>
+        {open1.ModalState && (<Password_verify     user={val}/>)}
+        {console.log("wa sahbi")}
+        {console.log(open1.ModalState)}
+
+    </ThemeConfig>
+);
 };
 export default AccountProfileDetails;

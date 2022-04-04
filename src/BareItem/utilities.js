@@ -16,21 +16,14 @@ export const utilities = {
     children: [
 
         {
-            id: 'View All user',
-            title: 'View All user',
+            id: 'User',
+            title: 'User',
             type: 'item',
             url: '/dashboard/viewAll',
             icon: icons['IconUserSearch'],
             breadcrumbs: false
         },
-        {
-            id: 'Add new User',
-            title: 'Add new User',
-            type: 'item',
-            url: '/dashboard/registre',
-            icon: icons['IconUserPlus'],
-            breadcrumbs: false
-        },
+
 
     ]
 };

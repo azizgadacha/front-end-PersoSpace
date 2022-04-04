@@ -11,7 +11,7 @@ import {
 import configData from "../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {CLOSE_DELETE_MODAL, DELETE, OPEN_DELETE_MODAL} from "../../store/actions";
+import {CLOSE_DELETE_MODAL, DELETE, OPEN_DELETE_MODAL, OPEN_EDIT_MODAL} from "../../store/actions";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -37,7 +37,12 @@ const Cells=  ({userPar}) => {
 
 
 
+    const handleClickEditModal = () => {
 
+        dispatcher({
+            type:OPEN_EDIT_MODAL,
+            payload: {objet:userPar}
+        })}
 
 
     const handleClickModal = () => {
@@ -76,7 +81,7 @@ const Cells=  ({userPar}) => {
                                                                 <Box sx={{ '& button': { m: 1 } }}>
 
                                                                     <div>
-                                                                        <Button sx={{width:110}} variant="outlined"  color="info" startIcon={<EditIcon />}>
+                                                                        <Button  onClick={handleClickEditModal} sx={{width:110}} variant="outlined"  color="info" startIcon={<EditIcon />}>
                                                                             Edit
                                                                         </Button>
                                                                         <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
