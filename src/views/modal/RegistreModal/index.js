@@ -82,7 +82,7 @@ const style = {
     left: '50%',
     radius:3,
     transform: 'translate(-50%, -50%)',
-    width: 400,
+
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
@@ -96,23 +96,7 @@ const style = {
 const useStyles = makeStyles((theme) => ({
 
 
-    modal:{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
 
-        transform: 'translate(-50%, -50%)',
-        width: 600,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        pt: 2,
-        px: 4,
-        pb: 3,
-
-
-
-    },
 
 
     redButton: {
@@ -395,7 +379,7 @@ setIsloading(true)
 
                                         <grid>
 
-                                            <Typography sx={{mt:4}} id="child-modal-title"
+                                            <Typography sx={{mt:1}} id="child-modal-title"
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h6' : 'h6'}
                                                         align={"center"}  >
@@ -428,7 +412,7 @@ setIsloading(true)
 
 
                                         <Stack spacing={2} id="transition-modal-title">
-                                            <Stack direction={{ xs: 'column', sm: 'row' }}  spacing={2}>
+                                            <Stack direction={{ xs: 'column', sm: 'row' }}  spacing={12}>
 
                                                 <Grid container spacing={2}>
                                                     <Grid item  xs={12} >
@@ -598,34 +582,45 @@ setIsloading(true)
 
 
                                             <Grid container alignItems={"center"}>
+<Grid xs={6}>
+                                                <Box
+                                                    sx={{
+                                                        mr:1,
+                                                        mt: 2,
 
-                                            <Box
-                                                sx={{
-                                                    mt: 2,
-                                                    marginRight:2,
-                                                    marginLeft:4
-                                                }}
-                                            >
-                                                <AnimateButton>
-                                                    {isloading?(<LoadingButton variant="contained" sx={{width:220}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">Adding</LoadingButton>): <Button sx={{width:220}} disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" size="large"  variant="contained" color="secondary">Add User</Button>}
+                                                    }}
+                                                >
+                                                    <AnimateButton>
+                                                        {isloading?(<LoadingButton variant="contained"  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">Adding</LoadingButton>):
+                                                            <Button
+                                                                disabled={isSubmitting}
+                                                                disableElevation
+                                                                fullWidth
+                                                                type="submit" size="large"
+                                                                variant="contained"
+                                                                color="secondary">Add </Button>}
 
 
 
-                                                </AnimateButton>
+                                                    </AnimateButton>
 
-                                            </Box>
-                                            <Box
-                                                sx={{
-                                                    mt: 2,
-                                                    marginLeft:1
-                                                }}
-                                            >
-                                                <AnimateButton>
+                                                </Box>
+</Grid>
+                                                <Grid xs={6}>
 
-                                                    <Button disableElevation sx={{width:220}} size="large" onClick={handleClose} variant="contained" color="error">Cancel</Button>
-                                                </AnimateButton>
+                                                <Box
+                                                    sx={{
+                                                        mt: 2,
+                                                        marginLeft:1
+                                                    }}
+                                                >
+                                                    <AnimateButton>
 
-                                            </Box>
+                                                        <Button disableElevation  disabled={isSubmitting} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">Cancel</Button>
+                                                    </AnimateButton>
+
+                                                </Box>
+                                                </Grid>
 
                                             </Grid>
 

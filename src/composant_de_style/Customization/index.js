@@ -27,7 +27,7 @@ import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from '../../store/actions'; // THE
 import { gridSpacing } from '../../store/constant';
 
 // assets
-import { IconSettings } from '@tabler/icons';
+import { IconPlus } from '@tabler/icons';
 
 // concat 'px'
 function valueText(value) {
@@ -53,48 +53,12 @@ const Customization = () => {
         setBorderRadius(newValue);
     };
 
-    useEffect(() => {
-        dispatch({ type: SET_BORDER_RADIUS, borderRadius: borderRadius });
-    }, [dispatch, borderRadius]);
-
-    let initialFont;
-    switch (customization.fontFamily) {
-        case `'Inter', sans-serif`:
-            initialFont = 'Inter';
-            break;
-        case `'Poppins', sans-serif`:
-            initialFont = 'Poppins';
-            break;
-        case `'Roboto', sans-serif`:
-        default:
-            initialFont = 'Roboto';
-            break;
-    }
-
-    // state - font family
-    const [fontFamily, setFontFamily] = React.useState(initialFont);
-    useEffect(() => {
-        let newFont;
-        switch (fontFamily) {
-            case 'Inter':
-                newFont = `'Inter', sans-serif`;
-                break;
-            case 'Poppins':
-                newFont = `'Poppins', sans-serif`;
-                break;
-            case 'Roboto':
-            default:
-                newFont = `'Roboto', sans-serif`;
-                break;
-        }
-        dispatch({ type: SET_FONT_FAMILY, fontFamily: newFont });
-    }, [dispatch, fontFamily]);
 
     return (
         <React.Fragment>
             {/* toggle button */}
 
-            <Tooltip title="Live Customize">
+            <Tooltip title="Add Widget">
                 <Fab
                     component="div"
                     onClick={handleToggle}
@@ -110,9 +74,9 @@ const Customization = () => {
                         boxShadow: theme.shadows[8]
                     }}
                 >
-                    <AnimateButton type="rotate">
+                    <AnimateButton >
                         <IconButton color="inherit" size="large" disableRipple>
-                            <IconSettings />
+                            <IconPlus />
                         </IconButton>
                     </AnimateButton>
                 </Fab>

@@ -38,7 +38,7 @@ const Dashboard = (props, { ...others }) => {
         }
     }, [])
 
-const load=[1,2,3,4]
+const load=[1,2,3,4,5,6]
     const [succes, setSucces] = useState(false);
     const [isload, setLoad] = useState(true);
 
