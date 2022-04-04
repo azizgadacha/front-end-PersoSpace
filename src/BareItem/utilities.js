@@ -16,8 +16,8 @@ export const utilities = {
     children: [
 
         {
-            id: 'User',
-            title: 'User',
+            id: 'Users',
+            title: 'Users',
             type: 'item',
             url: '/dashboard/viewAll',
             icon: icons['IconUserSearch'],
