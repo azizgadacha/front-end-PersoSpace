@@ -482,7 +482,7 @@ console.log("salah2.0")
 
 
 <RegistreModal/>
-          <EditUser user={open.objet}/>
+          {/* <EditUser user={open.objet}/>*/}
 
       </Fragment>
 )
