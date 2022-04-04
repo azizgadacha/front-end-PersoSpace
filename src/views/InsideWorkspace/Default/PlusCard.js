@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { OPEN_MODAL, CLOSE_MODAL,  } from '../../../store/actions';
 
 // material-ui
@@ -31,6 +31,15 @@ const PlusCard = () => {
     let open1 = useSelector((state) => state.modal);
 
     const dispatcher = useDispatch();
+
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
+
+            });
+        }
+    }, [])
 
     const handleClick = () => {
         dispatcher({

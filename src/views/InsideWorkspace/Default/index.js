@@ -34,6 +34,15 @@ import Modal_Inside_Delete_Workspace from "../../modal_delete_inside_workspace";
 
 const Dashboard = (props, { ...others }) => {
 
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_INSIDE_DELETE_MODAL,
+
+            });
+        }
+    }, [])
+
     const [succes, setSucces] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
