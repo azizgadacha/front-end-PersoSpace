@@ -86,12 +86,14 @@ const DeleteWorkspace = (props) => {
             .post( configData.API_SERVER + 'api/users/deleteworkspace',{
                 token:account.token,
 
-                superior_id:id,
+                superior_id:props.card1._id,
                 WorkspaceName:open.card1.WorkspaceName
+
 
 
             })
             .then(response =>{
+                console.log('bbbbbbbbbbbbbbbbbbbbbbbb')
                 console.log('1'+workspaces.id.card1._id)
                 console.log('2'+props.card1)
                 console.log('Delete Work')
@@ -99,14 +101,17 @@ const DeleteWorkspace = (props) => {
                 dispatcher({
                     type:CLOSE_INSIDE_DELETE_MODAL,
                 })
+                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaa')
                 dispatcher({
                     type:DELETEINSIDEWORKSPACE,
                     payload: {work:response.data.workspaceitems}
                 })
+                console.log('cccccccccccccccccccccccccc')
                 dispatcher({
                     type:CLICK,
                     payload: {text:"Workspace Removed successfully",severity:"success"}
                 })
+                console.log('dddddddddddddddddddddddddddddddddd')
 
 
             })

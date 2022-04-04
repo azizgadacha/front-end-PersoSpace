@@ -78,6 +78,7 @@ const DeleteWorkspace = (props) => {
     const account = useSelector((state) => state.account);
     //const [openModal,setOpenModal]=useState(false);
     let open = useSelector((state) => state.modal);
+    const workspaces = useSelector((state) => state.workspace);
 
     const dispatcher = useDispatch();
     const Click = () => {
@@ -86,10 +87,9 @@ const DeleteWorkspace = (props) => {
         axios
             .post( configData.API_SERVER + 'api/users/deleteworkspace',{
                 token:account.token,
+                superior_id:props.card._id,
+                WorkspaceName:props.card.WorkspaceName,
 
-
-                superior_id:account.user._id,
-                WorkspaceName:props.card.WorkspaceName
 
 
 
