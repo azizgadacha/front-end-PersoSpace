@@ -399,7 +399,7 @@ setIsloading(true)
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h6' : 'h6'}
                                                         align={"center"}  >
-                                                Choise a photo                    </Typography></grid>
+                                                choose a photo                </Typography></grid>
                                         <FormControl fullWidth  className={classes.root}>
 
                                             <input name="file" accept="image/*"

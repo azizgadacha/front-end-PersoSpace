@@ -214,24 +214,13 @@ const RestLogin = (props, { ...others }) => {
                             )}
                         </FormControl>
                         <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={checked}
-                                        onChange={(event) => setChecked(event.target.checked)}
-                                        name="checked"
-                                        color="primary"
-                                    />
-                                }
-                                label="Remember me"
-                            />
                             <Typography
                                 component={RouterLink}
                                 to='/forget'
                                 variant="subtitle1"
 
                                 color="secondary"
-                                sx={{ textDecoration: 'none' }}
+                                sx={{ ml:33,mb:2,textDecoration: 'none' }}
                             >
                                 Forgot Password?
                             </Typography>
