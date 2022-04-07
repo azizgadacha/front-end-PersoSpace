@@ -4,12 +4,11 @@ import {OPEN_MODAL, CLOSE_MODAL, CLOSE_DELETE_MODAL,} from '../../../store/actio
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import { Avatar, Card, CardContent, Grid, Skeleton } from '@material-ui/core';
-import EarningIcon from '../../../assets/images/icons/earning.svg';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { MENU_OPEN } from '../../../store/actions';
 //
-import Modal from '../../modal/index'
+import ModalAdd from '../../modal/Add_Workspace_Modal'
 
 // style constant
 const useStyles = makeStyles({
@@ -73,7 +72,7 @@ const PlusCard = () => {
             </CardContent>
         </Card>
 
-    {open1.ModalState && (<Modal  handleClose={handleClose} />)}
+    {open1.ModalState && (<ModalAdd  handleClose={handleClose} />)}
 
 
 

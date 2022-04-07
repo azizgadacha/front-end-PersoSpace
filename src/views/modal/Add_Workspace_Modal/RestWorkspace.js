@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {  useHistory } from 'react-router-dom';
 
-import configData from '../../config';
-
+import configData from '../../../config';
+import {Cancel, Add, Adding} from './../../Button/actionButton'
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -30,15 +30,16 @@ import axios from 'axios';
 // project imports
 
 //use ref ta3mil ref  lil objet   min il react
-import useScriptRef from '../../hooks/useScriptRef';
-import AnimateButton from './../../animation/AnimateButton';
+import useScriptRef from '../../../hooks/useScriptRef';
+import AnimateButton from '../../../animation/AnimateButton';
 
 // assets
 
-import {Alert} from "@material-ui/lab";
+import {Alert, LoadingButton} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 
-import {ADD, CLOSE_MODAL} from "../../store/actions";
+import {ADD, CLOSE_MODAL} from "../../../store/actions";
+import SaveIcon from "@mui/icons-material/Save";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestWorkspace = (props) => {
+    const [isloading, setIsloading] = useState(false);
 
     let history = useHistory();
     const scriptedRef = useScriptRef();
@@ -107,6 +109,7 @@ const RestWorkspace = (props) => {
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+setIsloading(true)
                     try {
                         axios
                             .post( configData.API_SERVER + 'api/users/addworkspace', {
@@ -117,6 +120,7 @@ const RestWorkspace = (props) => {
                             })
                             .then(function (response) {
                                 if (response.data.success) {
+                                    setIsloading(false)
 
                                     dispatcher({
                                         type:CLOSE_MODAL,
@@ -125,10 +129,10 @@ const RestWorkspace = (props) => {
                                     }
                                     )
 
+
                                     dispatcher({
                                         type:ADD,
                                         payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID}]}
-
 
                                     })
                                     dispatcher({
@@ -143,12 +147,16 @@ const RestWorkspace = (props) => {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
+                                    setIsloading(false)
+
                                 }
                             })
                             .catch(function (error) {
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
                                 setSubmitting(false);
+                                setIsloading(false)
+
                             });
                     } catch (err) {
                         console.error(err);
@@ -156,6 +164,8 @@ const RestWorkspace = (props) => {
                             setStatus({ success: false });
                             setErrors({ submit: err.message });
                             setSubmitting(false);
+                            setIsloading(false)
+
                         }
                     }
                 }}
@@ -245,47 +255,69 @@ const RestWorkspace = (props) => {
                             </Box>
                         )}
 
-                        <Box
-                            sx={{
-                                mt: 2
-                            }}
-                        >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
 
+
+
+
+                        <Grid container alignItems={"center"}>
+                            <Grid xs={6}>
+                                <Box
+                                    sx={
+
+
+                                        {
+                                            ml:0,
+                                            mr:2,
+                                            mt: 2,
+
+                                        }}
                                 >
-                                    Add Workspace
-                                </Button>
-                            </AnimateButton>
+                                    <AnimateButton>
 
-                        </Box>
-                        <Box
-                            sx={{
-                                mt: 2
-                            }}
-                        >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    onClick={props.handleClose}
-                                    variant="contained"
-                                    color="secondary"
+
+
+
+                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
+                                            <Button
+                                                disableElevation
+                                                disabled={isSubmitting}
+                                                disableElevation
+                                                fullWidth
+                                                type="submit"
+                                                size="large"
+                                                variant="contained"
+                                                color="secondary">{Add} </Button>}
+
+
+
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+                            <Grid xs={6}>
+
+                                <Box
+                                    sx={{
+                                        mt: 2,
+                                        marginLeft:1
+                                    }}
                                 >
-                                 Cancel
-                                </Button>
-                            </AnimateButton>
+                                    <AnimateButton>
 
-                        </Box>
+                                        <Button disableElevation disabled={isSubmitting} size="large"  onClick={props.handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+
+                        </Grid>
+
+
+
+
+
+
+
 
                     </form>
                 )}

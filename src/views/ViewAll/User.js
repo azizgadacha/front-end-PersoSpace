@@ -34,7 +34,7 @@ import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import SearchNotFound from "./import/customer/SearchNotFound";
-import Modal_Delete_User from "../Modal_delete_user";
+import Modal_Delete_User from "../modal/Modal_delete_user";
 import Cells from "./cells";
 import { useHistory} from "react-router-dom";
 
@@ -475,10 +475,10 @@ console.log("salah2.0")
 </Fragment>
                     ):(<SkeltonTable/>)}
             </Card>
-              {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
 
       </Container>
           </ThemeConfig>
+          {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
 
 
 <RegistreModal/>

@@ -31,7 +31,7 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
+import {ADD, ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
 
 import { useHistory} from "react-router-dom";
 
@@ -56,6 +56,7 @@ import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
+import {Add, Adding, Cancel} from "../../Button/actionButton";
 
 // ----------------------------------------------------------------------
 
@@ -176,7 +177,7 @@ const User=  (props) => {
         },
 
     ];
-    const [source, setSource] = React.useState("/static/images/avatar_1.png");
+    let [source, setSource] = React.useState("/static/images/avatar_1.png");
 
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
@@ -190,33 +191,8 @@ const User=  (props) => {
     };
 
     const classes = useStyles();
-    let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
 
@@ -227,7 +203,9 @@ const User=  (props) => {
 
 
 
-    const [open5, setOpen5] = React.useState(false);
+
+
+
 
 
 
@@ -250,6 +228,10 @@ const User=  (props) => {
     let open1 = useSelector((state) => state.modal);
 
     const handleClose=()=>{
+
+
+
+        setSource("/static/images/avatar_1.png")
         dispatcher({
             type:CLOSE_MODAL,
         });
@@ -335,6 +317,8 @@ setIsloading(true)
                                                     dispatcher({
                                                         type:CLOSE_MODAL,
                                                     });
+                                                    setSource("/static/images/avatar_1.png")
+
                                                     dispatcher({
                                                         type:CLICK,
                                                         payload: {text:"User added successfully",severity:"success"}
@@ -548,17 +532,7 @@ setIsloading(true)
 
 
 
-                                        {strength !== 0 && (
-                                            <FormControl fullWidth>
-                                                <Box
-                                                    sx={{
-                                                        mb: 2
-                                                    }}
-                                                >
 
-                                                </Box>
-                                            </FormControl>
-                                        )}
 
 
 
@@ -591,14 +565,14 @@ setIsloading(true)
                                                     }}
                                                 >
                                                     <AnimateButton>
-                                                        {isloading?(<LoadingButton variant="contained"  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">Adding</LoadingButton>):
+                                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
                                                             <Button
                                                                 disabled={isSubmitting}
                                                                 disableElevation
                                                                 fullWidth
                                                                 type="submit" size="large"
                                                                 variant="contained"
-                                                                color="secondary">Add </Button>}
+                                                                color="secondary">{Add}</Button>}
 
 
 
@@ -616,7 +590,7 @@ setIsloading(true)
                                                 >
                                                     <AnimateButton>
 
-                                                        <Button disableElevation  disabled={isSubmitting} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">Cancel</Button>
+                                                        <Button disableElevation  disabled={isSubmitting} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
                                                     </AnimateButton>
 
                                                 </Box>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 // material-ui
 import {Grid} from '@material-ui/core';
 
@@ -21,6 +21,7 @@ import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
+import Customization from "../../Customization";
 
 
 
@@ -102,8 +103,8 @@ const load=[1,2,3,4,5,6]
 
         )})
     return (
-
-        isload?  (<Grid container spacing={3}>
+<Fragment>
+    {isload?  (<Grid container spacing={3}>
             <Grid item xs={12} >
                 <Grid container spacing={gridSpacing}>
 
@@ -145,8 +146,14 @@ const load=[1,2,3,4,5,6]
             <Grid item xs={12} lg={4}>
                 <TotalGrowthBarChart isLoading={isLoading} />
             </Grid>
-        </Grid>
+        </Grid>)}
+    <Customization />
 
-    ))
+
+
+
+</Fragment>
+
+    )
 }
 export default Dashboard;
