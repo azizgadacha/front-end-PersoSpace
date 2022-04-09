@@ -144,6 +144,10 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(1),
         },
+
+        '&:hover .AvatarBackdrop': {
+            opacity: 0.5,
+        },
     },
     input: {
         display: "none",
@@ -153,6 +157,9 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(20),
         height: theme.spacing(20),
+        '&:hover .imageBackdrop': {
+            opacity: 0.5,
+        },
     },
 
 
@@ -182,7 +189,6 @@ const User=  (props) => {
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
@@ -276,7 +282,7 @@ const User=  (props) => {
                                 validationSchema={Yup.object().shape({
                                     email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
                                     username: Yup.string().required('Username is required'),
-                                    phone: Yup.number().typeError("Must be a number").required('phone is required').integer("Must be a valid number").positive(),
+                                    phone: Yup.string().matches(new RegExp('[1-9][1-9]{7}'),"phone should containe 8 digits"),
 
                                     role: Yup.string().required('role is required')
 
@@ -291,7 +297,7 @@ setIsloading(true)
 
                                         fd.append('username',values.username)
                                         fd.append('email',values.email)
-                                        fd.append('phone',values.phone)
+                                        fd.append('phone',parseInt(values.phone))
                                         fd.append('file',values.file)
                                         fd.append('role',values.role)
                                         fd.append('token',account.token)
@@ -303,16 +309,12 @@ setIsloading(true)
                                             }})
                                             .then(function (response) {
 
-                                                console.log(response.data)
                                                 if (response.data.success) {
-                                                    console.log("hani lena")
-                                                    console.log(response.data.user)
 
                                                     dispatcher({
                                                         type:ADD_USER,
                                                         payload: {user:response.data.user}
                                                     });
-                                                    console.log("hani lena 200")
                                                     setIsloading(false)
                                                     dispatcher({
                                                         type:CLOSE_MODAL,
@@ -340,7 +342,6 @@ setIsloading(true)
 
                                             });
                                     } catch (err) {
-                                        console.error(err);
                                         if (scriptedRef.current) {
                                             setStatus({ success: false });
                                             setErrors({ submit: err.message });

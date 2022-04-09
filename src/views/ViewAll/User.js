@@ -196,7 +196,6 @@ const User=  (props) => {
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
@@ -268,22 +267,18 @@ const User=  (props) => {
         }
     }, [])
    useEffect(() => {
-console.log("salah2.0")
     axios
         .post(configData.API_SERVER + 'api/users/all', {
             id:account.user._id,
 
           token: account.token
         }).then((result) => {
-      console.log("im gere")
-      console.log(result.data.users)
         dispatcher({
             type:INISIALIZE_USER,
             payload: {users:result.data.users},
         })
         setUSERLIST(userSt.users)
         setSucess(true)
-        console.log("salah3.0")
 
     })},[] );
 

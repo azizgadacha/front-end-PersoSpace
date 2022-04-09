@@ -30,7 +30,6 @@ const WorkspaceStore = (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE:
 
-console.log("rani fi workspace store fil inizialize")
 
             state.Workspace=action.payload.work
             return {
@@ -51,7 +50,6 @@ console.log("rani fi workspace store fil inizialize")
         case ADD:
 
 
-            console.log("rani fi workspace store fil add")
 
             state.Workspace=state.Workspace.concat(action.payload.work)
             return {
@@ -71,12 +69,9 @@ console.log("rani fi workspace store fil inizialize")
             };
 
         case DELETE:
-            console.log("rani fi workspace store fil delete")
 
             const deleteWork=action.payload.work
-            console.log("Store Delete")
-            console.log(deleteWork[0].WorkspaceName)
-            console.log(state.Workspace)
+
         let index = 0;
             var filteredObj = state.Workspace.find(function(item, i){
                 if((item.WorkspaceName === deleteWork[0].WorkspaceName)&&(item.description===deleteWork[0].description)){
@@ -87,16 +82,13 @@ console.log("rani fi workspace store fil inizialize")
                 }
             });
             state.Workspace.splice(index,1)
-            console.log(index, filteredObj);
 
             return {
                 ...state
             }
         case DELETEINSIDEWORKSPACE:
             const deleteinsideWork=action.payload.work
-            console.log("Store Delete")
-            console.log(deleteinsideWork[0].WorkspaceName)
-            console.log(state.Workspace)
+
             let index1 = 0;
             var filteredObj = state.InsideWorkspace.find(function(item, i){
                 if((item.WorkspaceName === deleteinsideWork[0].WorkspaceName)&&(item.description===deleteinsideWork[0].description)){
@@ -107,7 +99,6 @@ console.log("rani fi workspace store fil inizialize")
                 }
             });
             state.InsideWorkspace.splice(index1,1)
-            console.log(index1, filteredObj);
 
             return {
 
@@ -124,7 +115,6 @@ console.log("rani fi workspace store fil inizialize")
 
 
         default:
-            console.log("rani fi workspace store fil return")
 
             return {...state};
 

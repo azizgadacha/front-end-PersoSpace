@@ -20,7 +20,6 @@ const SnackbarReducer = (state = initialState, action) => {
     switch (action.type) {
         case CLICK:
 
-            console.log("rani mrigla")
       const  {text}=action.payload
             const  {severity}=action.payload
 
@@ -38,17 +37,7 @@ text,severity
 
 
             };
-  /*      case "supprimer":
-            const index = state.cards.indexOf({id:1});
-            console.log("index is "+index)
-            state.cards.splice(index, 1);
 
-
-            return {
-                ...state
-
-            };
-*/
         default:
             return {...state};
 

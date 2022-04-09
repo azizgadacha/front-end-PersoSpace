@@ -95,10 +95,7 @@ const DeleteWorkspace = (props) => {
 
             })
             .then(response =>{
-                console.log('1'+account.user._id)
-                console.log('2'+props.card.WorkspaceName)
-                console.log('Delete Work')
-                console.log(response.data.workspaceitems);
+
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
@@ -114,8 +111,7 @@ const DeleteWorkspace = (props) => {
 
             })
             .catch(function (error) {
-                console.log(' Delete dont work')
-                console.log('error')
+
 
             })
 

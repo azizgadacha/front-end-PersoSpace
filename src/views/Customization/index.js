@@ -20,14 +20,28 @@ import AnimateButton from '../../animation/AnimateButton';
 
 // assets
 import { IconPlus } from '@tabler/icons';
-import {Avatar, Box, Button, Modal, Stack, TextField, Typography, useMediaQuery} from "@mui/material";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import {Box, Button, Modal, Stack, Typography, useMediaQuery} from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import ThemeConfig from "../../themes/theme2";
-import Chose from "./Chose";
+import Chose from "./Chose/Chose";
+import {Edit_Information, Edit_Password} from "../Button/actionButton";
+import Import from "./Import/import";
 
 
 // concat 'px'
+
+const useStyles = (theme) => ({
+
+
+    stepper: {
+        padding: "3px 5px"
+    },
+});
+
 
 const OVERLAY_Styles ={
     position: 'fixed',
@@ -45,7 +59,6 @@ const style = {
     zIndex:100,
 
     borderRadius: 5,
-width:900,
 
     position: 'absolute',
     top: '50%',
@@ -64,13 +77,41 @@ width:900,
 //-----------------------|| LIVE CUSTOMIZATION ||-----------------------//
 
 const Customization = () => {
+    const [activeStep, setactiveStep] = React.useState(0);
+    const classes = useStyles();
+
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
     const dispatch = useDispatch();
 
     // drawer on/off
+    const steps = ["chose the widget", "chose data source"];
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <Chose/> ;
+            case 1:
+                return <Import />;
+
+            default:
+                throw new Error("Unknown step");
+        }
+    }
+    const handleNext = () => {
+        setactiveStep(activeStep + 1)
 
 
+
+    };
+    const handleBack = () => {
+            setactiveStep(activeStep - 1)
+        };
+
+    const handleReset = () => {
+        this.setState({
+            activeStep: 0
+        });
+    };
     // state - border radius
     const [open, setOpen] = React.useState(false);
     const handleToggle = () => {
@@ -112,7 +153,7 @@ const Customization = () => {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open='true'
+                open={true}
                 onClick={handleToggle}
 
                 closeAfterTransition
@@ -124,7 +165,8 @@ const Customization = () => {
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in="true">
+                    <Fade in={true}>
+
 
                         <Box sx={{ ...style,  }}>
                             <ThemeConfig>
@@ -137,9 +179,10 @@ const Customization = () => {
                                             alignItems="center"
                                             justifyContent="center"
                                         >
-                                            <Grid item>
+                                            <Grid item mt={3} mb={5}>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
+
                                                         color={theme.palette.secondary.main}
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
@@ -154,9 +197,55 @@ const Customization = () => {
 
                                     </Grid>
                                 </Grid>
-                                <Chose/>
+                                <Stepper activeStep={activeStep} className={classes.stepper}>
+                                    {steps.map((label) => (
+                                        <Step key={label}>
+                                            <StepLabel>{label}</StepLabel>
+                                        </Step>
+                                    ))}
+
+                                </Stepper>
+
+                            {getStepContent(activeStep)}
+
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-end',
+                                        p: 2
+                                    }}
+                                >
+                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+
+
+
+                                        {activeStep !== 0 && (
+                                            <Button
+                                                onClick={handleBack}
+                                            >
+                                                Back
+                                            </Button>
+                                        )}
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleNext}
+                                        >
+                                            {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                                        </Button>
+
+
+
+
+                                    </Stack>
+                                </Box>
+
+
+
+
 
                             </ThemeConfig>
+
                         </Box>
                     </Fade>
 

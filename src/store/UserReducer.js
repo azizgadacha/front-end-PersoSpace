@@ -33,8 +33,6 @@ const UserReducer = (state = initialState, action) => {
 
             state.users=state.users.concat(action.payload.user)
 
-            console.log('err')
-            console.log(state.users)
             return {
 
                 ...state,
@@ -44,24 +42,18 @@ const UserReducer = (state = initialState, action) => {
         case USER_DELETE:
             const deleteUser=action.payload.user
 
-            console.log(deleteUser)
 
-            console.log(deleteUser.username)
-            console.log(state.users)
 
             let index = 0;
             var filteredObj = state.users.find(function(item, i){
                 if((item.email===deleteUser.email)){
                     index = i;
-                    console.log("il index houwa"+i)
                     return i;
-                    //console.log(i)
 
                 }
             });
             state.users.splice(index,1)
-            console.log(index, filteredObj);
-            console.log(state.users);
+
 
 
 

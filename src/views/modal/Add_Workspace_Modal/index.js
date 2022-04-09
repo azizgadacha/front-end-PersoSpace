@@ -88,7 +88,7 @@ const style = {
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
-    
+
 };
 
 // ----------------------------------------------------------------------
@@ -181,7 +181,6 @@ const ModalAdd=  (props) => {
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
