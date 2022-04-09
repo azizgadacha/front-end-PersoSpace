@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch, } from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector,} from 'react-redux';
 
 // material-ui
-import { useTheme } from '@material-ui/styles';
+import {makeStyles, useTheme} from '@material-ui/styles';
 import {
     Fab, Grid,
 
@@ -30,17 +30,11 @@ import ThemeConfig from "../../themes/theme2";
 import Chose from "./Chose/Chose";
 import {Edit_Information, Edit_Password} from "../Button/actionButton";
 import Import from "./Import/import";
+import {CLOSE_MODAL, CLOSE_WIDGET_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL, OPEN_WIDGET_MODAL} from "../../store/actions";
 
 
 // concat 'px'
 
-const useStyles = (theme) => ({
-
-
-    stepper: {
-        padding: "3px 5px"
-    },
-});
 
 
 const OVERLAY_Styles ={
@@ -65,7 +59,6 @@ const style = {
     left: '50%',
     radius:3,
     transform: 'translate(-50%, -50%)',
-
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
@@ -77,8 +70,18 @@ const style = {
 //-----------------------|| LIVE CUSTOMIZATION ||-----------------------//
 
 const Customization = () => {
+
+    const dispatcher = useDispatch();
+
+    const handleClose=()=>{
+
+
+
+        dispatcher({
+            type:CLOSE_WIDGET_MODAL,
+        });
+    }
     const [activeStep, setactiveStep] = React.useState(0);
-    const classes = useStyles();
 
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -93,6 +96,8 @@ const Customization = () => {
             case 1:
                 return <Import />;
 
+
+
             default:
                 throw new Error("Unknown step");
         }
@@ -103,6 +108,8 @@ const Customization = () => {
 
 
     };
+    let open1 = useSelector((state) => state.modal);
+
     const handleBack = () => {
             setactiveStep(activeStep - 1)
         };
@@ -115,8 +122,10 @@ const Customization = () => {
     // state - border radius
     const [open, setOpen] = React.useState(false);
     const handleToggle = () => {
-        setOpen(!open);
-    };
+        dispatcher({
+            type:OPEN_WIDGET_MODAL,
+
+        });    };
 
     return (
         <React.Fragment>
@@ -147,14 +156,14 @@ const Customization = () => {
                 </Fab>
             </Tooltip>
 
-
-            {true&&(
+            {console.log("salem")}
+            {open1.ModalWidget&&(
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={true}
-                onClick={handleToggle}
+                open={open1.ModalWidget}
+                onClose={handleClose}
 
                 closeAfterTransition
                 BackdropComponent={Backdrop}
@@ -165,11 +174,12 @@ const Customization = () => {
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in={true}>
+                    <Fade in={open1.ModalWidget}>
 
 
                         <Box sx={{ ...style,  }}>
                             <ThemeConfig>
+                                {console.log("salem2.0")}
 
                                 <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
                                     <Grid item xs={12}>
@@ -179,7 +189,7 @@ const Customization = () => {
                                             alignItems="center"
                                             justifyContent="center"
                                         >
-                                            <Grid item mt={3} mb={5}>
+                                            <Grid item sx={{mt: 3, mb:3}}>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
 
@@ -197,7 +207,8 @@ const Customization = () => {
 
                                     </Grid>
                                 </Grid>
-                                <Stepper activeStep={activeStep} className={classes.stepper}>
+                                <Grid xs={{padding: "3px 5px",mb:8}}>
+                                <Stepper activeStep={activeStep} xs={{padding: "3px 5px"}}>
                                     {steps.map((label) => (
                                         <Step key={label}>
                                             <StepLabel>{label}</StepLabel>
@@ -205,6 +216,7 @@ const Customization = () => {
                                     ))}
 
                                 </Stepper>
+                                </Grid>
 
                             {getStepContent(activeStep)}
 
@@ -239,7 +251,36 @@ const Customization = () => {
 
                                     </Stack>
                                 </Box>
+                                <Box
+                                    sx={{
+                                        display: 'block',
+                                        p: 2
+                                    }}
+                                >
+                                    <Stack direction={{ xs: 'row', sm: 'row' }} spacing={2}>
 
+
+
+                                        {activeStep !== 0 && (
+                                            <Button
+                                                onClick={handleBack}
+                                            >
+                                                Back
+                                            </Button>
+                                        )}
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={handleNext}
+                                        >
+                                            {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                                        </Button>
+
+
+
+
+                                    </Stack>
+                                </Box>
 
 
 

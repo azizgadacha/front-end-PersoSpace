@@ -84,7 +84,7 @@ const images = [
 export default function Chose() {
     return (
 
-        <Container component="section" sx={{ mt: 1, mb: 4 }}>
+        <Container component="section" sx={{ mt: 0, mb: 4 }}>
 
             <Box sx={{ mt: 8, display: 'flex', flexWrap: 'wrap' }}>
                 {images.map((image) => (
@@ -105,9 +105,9 @@ export default function Chose() {
                                 backgroundPosition: 'center 40%',
                             }}
                         />
-
                         {image.ahba}
-                        <ImageBackdrop className="imageBackdrop" />
+
+                        <ImageBackdrop className="imageBackdrop" ></ImageBackdrop>
                         <Box
                             sx={{
                                 position: 'absolute',

@@ -174,20 +174,15 @@ const RestPass = (props, { ...others }) => {
                         })
                             .then(function (response) {
 
-                                console.log(response.data)
                                 if (response.data.success) {
 
 
 
-                                    console.log("hani lena 200")
-                                    console.log(response.data.user)
 
                                     dispatcher({
                                         type:UPDATE,
                                         payload: {user:response.data.user}
                                     });
-                                    console.log("fdfsf")
-                                    console.log(account.user)
 
                                     dispatcher({
                                         type:CLICK,
@@ -209,7 +204,6 @@ const RestPass = (props, { ...others }) => {
                                     }
 
                                         else {
-                                        console.log("loj")
 
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
@@ -224,7 +218,6 @@ const RestPass = (props, { ...others }) => {
                                     }}
                             })
                             .catch(function (error) {
-                                console.log("loj2")
 
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
@@ -238,7 +231,6 @@ const RestPass = (props, { ...others }) => {
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
-                            console.log("loj3")
 
                             setStatus({ success: false });
                             setErrors({ submit: err.message });

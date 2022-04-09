@@ -326,16 +326,12 @@ const EditUser=  (props) => {
                                                 }})
                                                 .then(function (response) {
 
-                                                    console.log(response.data)
                                                     if (response.data.success) {
-                                                        console.log("hani lena")
-                                                        console.log(response.data.user)
 
                                                         dispatcher({
                                                             type:ADD_USER,
                                                             payload: {user:response.data.user}
                                                         });
-                                                        console.log("hani lena 200")
                                                         setIsloading(false)
                                                         dispatcher({
                                                             type:CLOSE_MODAL,

@@ -226,7 +226,9 @@ export default function BaseOptionChart() {
             value: LABEL_VALUE,
             total: LABEL_TOTAL
           }
-        }
+        },
+
+
       },
       // Radialbar
       radialBar: {
@@ -241,8 +243,11 @@ export default function BaseOptionChart() {
         },
         dataLabels: {
 
-          value: LABEL_VALUE,
-          total: LABEL_TOTAL
+
+            show: false,
+            value: LABEL_VALUE,
+            total: LABEL_TOTAL
+
         }
       },
       // Radar

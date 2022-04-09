@@ -58,18 +58,15 @@ const load=[1,2,3,4,5,6]
 
     useEffect(() => {
 
-        console.log("wa " +account.token)
         axios
             .post( configData.API_SERVER + 'api/users/getworkspace',{id:account.user._id, token:account.token})
             .then(response =>{
-                console.log('nemchi')
-                console.log(response.data.workspaceitems);
+
                 dispatcher({
                         type:INISIALIZE,
                     payload: {work:response.data.workspaceitems}
                 }
                 )
-                console.log(workspaces.Workspace)
 
 
                 setLoading(false);
@@ -77,8 +74,7 @@ const load=[1,2,3,4,5,6]
                 setLoad(false)
             })
             .catch(function (error) {
-                console.log('le menemchich zeda')
-                console.log('error')
+
 
             })
     },[]);

@@ -38,59 +38,22 @@ import AnimateButton from './../../animation/AnimateButton';
 import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 
-import {ADD, ADDINSIDEWORKSPACE, CLOSE_MODAL} from "../../store/actions";
+import { ADDINSIDEWORKSPACE, CLOSE_MODAL} from "../../store/actions";
 
 // style constant
-const useStyles = makeStyles((theme) => ({
-    redButton: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        backgroundColor: theme.palette.grey[50],
-        border: '1px solid',
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[700],
-        textTransform: 'none',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '0.875rem'
-        }
-    },
-    signDivider: {
-        flexGrow: 1
-    },
-    signText: {
-        cursor: 'unset',
-        margin: theme.spacing(2),
-        padding: '5px 56px',
-        borderColor: theme.palette.grey[100] + ' !important',
-        color: theme.palette.grey[900] + '!important',
-        fontWeight: 500
-    },
-    loginIcon: {
-        marginRight: '16px',
-        [theme.breakpoints.down('sm')]: {
-            marginRight: '8px'
-        }
-    },
-    loginInput: {
-        ...theme.typography.customInput
-    }
-}));
+
+
 
 //===========================|| API JWT - REGISTER ||===========================//
 
 const RestInsideWorkspace = (props) => {
 
-    let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
     const account = useSelector((state) => state.account);
-    const workspaces = useSelector((state) => state.workspace);
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     let {id}=useParams()
@@ -215,23 +178,7 @@ const RestInsideWorkspace = (props) => {
                                         mb: 2
                                     }}
                                 >
-                                    <Grid container spacing={2} alignItems="center">
-                                        <Grid item>
-                                            <Box
-                                                backgroundColor={level.color}
-                                                sx={{
-                                                    width: 85,
-                                                    height: 8,
-                                                    borderRadius: '7px'
-                                                }}
-                                            ></Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="subtitle1" fontSize="0.75rem">
-                                                {level.label}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
+
                                 </Box>
                             </FormControl>
                         )}

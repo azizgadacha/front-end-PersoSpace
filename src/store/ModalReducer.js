@@ -4,7 +4,7 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
     OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL,
+    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL,
 } from './actions';
 
 
@@ -15,7 +15,7 @@ export const initialState = {
     ModalDeleteState:false,
 
     ModalInsideDeleteState:false,
-ModalEditState:false,
+ModalWidget:false,
     card1:null,
 
     objet:null
@@ -79,14 +79,20 @@ const ModalReducer = (state = initialState, action) => {
                 ModalInsideDeleteState:true,
 
             };
-        case OPEN_EDIT_MODAL:
-              let {obj}=action.payload
+        case OPEN_WIDGET_MODAL:
 
             return {
                 ...state,
-                objet:obj,
 
-                ModalEditState:false
+                ModalWidget:true
+
+
+            };
+        case CLOSE_WIDGET_MODAL:
+
+            return {
+                ...state,
+                ModalWidget:false
 
 
             };

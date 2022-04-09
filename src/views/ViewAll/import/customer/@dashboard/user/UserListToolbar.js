@@ -51,12 +51,10 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
 
   const dispatcher = useDispatch();
   const HandleClick=()=>{
-console.log("sahbi")
     dispatcher({
       type:OPEN_MODAL,
 
     });
-    console.log("sahbi2.0")
 
   }
 
