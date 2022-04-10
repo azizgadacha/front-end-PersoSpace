@@ -10,6 +10,7 @@ import SnackbarReducer from "./SnackbarReducer";
 import ModalReducer from "./ModalReducer";
 import WorkspaceStore from "./WorkspaceStore";
 import UserReducer from "./UserReducer";
+import Widget_transition_Reducer from "./Widget_transition_Reducer";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -28,6 +29,7 @@ const reducer = combineReducers({
     modal:ModalReducer,
     workspace:WorkspaceStore,
     user:UserReducer,
+    widget:Widget_transition_Reducer,
 
 });
 

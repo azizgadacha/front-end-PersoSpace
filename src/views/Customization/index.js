@@ -28,9 +28,17 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import ThemeConfig from "../../themes/theme2";
 import Chose from "./Chose/Chose";
-import {Edit_Information, Edit_Password} from "../Button/actionButton";
+import {Cancel, Edit_Information, Edit_Password} from "../Button/actionButton";
 import Import from "./Import/import";
-import {CLOSE_MODAL, CLOSE_WIDGET_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL, OPEN_WIDGET_MODAL} from "../../store/actions";
+import {
+    CHANGE_PLACE,
+    CLOSE_DELETE_MODAL,
+    CLOSE_MODAL,
+    CLOSE_WIDGET_MODAL,
+    OPEN_EDIT_MODAL,
+    OPEN_MODAL,
+    OPEN_WIDGET_MODAL
+} from "../../store/actions";
 
 
 // concat 'px'
@@ -70,16 +78,16 @@ const style = {
 //-----------------------|| LIVE CUSTOMIZATION ||-----------------------//
 
 const Customization = () => {
+    const [open, setOpen] = React.useState(false);
 
     const dispatcher = useDispatch();
-
+    const handleCloseback = (event, reason) => {
+        if (reason && reason == "backdropClick")
+       setOpen(false)
+    }
     const handleClose=()=>{
 
-
-
-        dispatcher({
-            type:CLOSE_WIDGET_MODAL,
-        });
+setOpen(false)
     }
     const [activeStep, setactiveStep] = React.useState(0);
 
@@ -111,21 +119,17 @@ const Customization = () => {
     let open1 = useSelector((state) => state.modal);
 
     const handleBack = () => {
-            setactiveStep(activeStep - 1)
+        dispatcher({
+            type:CHANGE_PLACE,
+
+        });
         };
 
-    const handleReset = () => {
-        this.setState({
-            activeStep: 0
-        });
-    };
-    // state - border radius
-    const [open, setOpen] = React.useState(false);
-    const handleToggle = () => {
-        dispatcher({
-            type:OPEN_WIDGET_MODAL,
 
-        });    };
+    // state - border radius
+    const handleToggle = () => {
+       setOpen(true)    };
+    let widget = useSelector((state) => state.widget);
 
     return (
         <React.Fragment>
@@ -157,15 +161,15 @@ const Customization = () => {
             </Tooltip>
 
             {console.log("salem")}
-            {open1.ModalWidget&&(
+            {open&&(
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalWidget}
-                onClose={handleClose}
+                open={open}
+                onClose={handleCloseback}
 
-                closeAfterTransition
+
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
@@ -174,7 +178,7 @@ const Customization = () => {
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in={open1.ModalWidget}>
+                    <Fade in={open}>
 
 
                         <Box sx={{ ...style,  }}>
@@ -208,7 +212,7 @@ const Customization = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid xs={{padding: "3px 5px",mb:8}}>
-                                <Stepper activeStep={activeStep} xs={{padding: "3px 5px"}}>
+                                <Stepper activeStep={widget.Place} xs={{padding: "3px 5px"}}>
                                     {steps.map((label) => (
                                         <Step key={label}>
                                             <StepLabel>{label}</StepLabel>
@@ -218,33 +222,31 @@ const Customization = () => {
                                 </Stepper>
                                 </Grid>
 
-                            {getStepContent(activeStep)}
+                            {getStepContent(widget.Place)}
+
+
+
 
                                 <Box
                                     sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        p: 2
+
                                     }}
                                 >
                                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
 
 
 
-                                        {activeStep !== 0 && (
+                                        {widget.Place !== 0 && (
                                             <Button
                                                 onClick={handleBack}
-                                            >
+                                             xs={3}>
+
                                                 Back
                                             </Button>
                                         )}
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleNext}
-                                        >
-                                            {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                                        </Button>
+
 
 
 
@@ -254,32 +256,18 @@ const Customization = () => {
                                 <Box
                                     sx={{
                                         display: 'block',
-                                        p: 2
+                                        justifyContent: 'block-end',
                                     }}
                                 >
-                                    <Stack direction={{ xs: 'row', sm: 'row' }} spacing={2}>
-
-
-
-                                        {activeStep !== 0 && (
-                                            <Button
-                                                onClick={handleBack}
-                                            >
-                                                Back
-                                            </Button>
-                                        )}
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleNext}
-                                        >
-                                            {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                                        </Button>
 
 
 
 
-                                    </Stack>
+                                    <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
+
+
+
+
                                 </Box>
 
 

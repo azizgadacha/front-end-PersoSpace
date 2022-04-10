@@ -8,6 +8,8 @@ import {Button} from "@mui/material";
 import AppCurrentVisits from "../AppCurrentVisits";
 import AppWebsiteVisits from "../barChart/AppWebsiteVisits";
 import AppCurrentSubject from "../AppCurrentSubject";
+import {CHANGE_PLACE, CHANGE_SUCCESS, CLOSE_DELETE_MODAL} from "../../../store/actions";
+import {useDispatch} from "react-redux";
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
     position: 'absolute',
@@ -82,6 +84,18 @@ const images = [
 ];
 
 export default function Chose() {
+    const dispatcher = useDispatch();
+
+
+    const handleChange=()=>{
+
+            dispatcher({
+                type:CHANGE_PLACE,
+                payload: {Type:1}
+
+            });
+
+    }
     return (
 
         <Container component="section" sx={{ mt: 0, mb: 4 }}>
@@ -126,6 +140,7 @@ export default function Chose() {
                                 variant="h6"
                                 color="inherit"
                                 className="imageTitle"
+                                onClick={handleChange}
                             >
                                 {image.title}
                                 <div className="imageMarked" />
