@@ -21,6 +21,8 @@ import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
+import Modal from "../../modal";
+import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
 
 
 
@@ -130,9 +132,11 @@ const load=[1,2,3,4]
 
                     {lc}
                     <ThemeConfig>
-
-                    {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
+                        {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
+
+                    <ShareWorkspaceModal/>
+
 
                     <Grid item xs={12} md={6} xl={3}>
 

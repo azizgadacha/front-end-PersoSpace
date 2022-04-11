@@ -17,9 +17,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
 
-    CLOSE_DELETE_MODAL, IDWORKSPACE,
+    CLOSE_DELETE_MODAL, IDWORKSPACE, INISIALIZE_USER,
 
-    OPEN_DELETE_MODAL,
+    OPEN_DELETE_MODAL, OPEN_MODAL, OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
@@ -121,6 +121,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
     let open = useSelector((state) => state.modal);
+    let userSt= useSelector((state) => state.user);
     const dispatcher = useDispatch();
     let history =useHistory()
     let {id}=useParams()
@@ -135,6 +136,15 @@ const WorkspaceCard = ({ isLoading,card }) => {
         });
         history.push(config.defaultPath+'/'+ card._id)
     }
+    const shareWorkspaces = () => {
+        console.log("rani el shareWorkspaces ")
+        console.log(userSt.users)
+        dispatcher(  {
+            type:OPEN_MODAL_SHARE,
+        })
+
+
+    };
     const handleClick = () => {
 
         dispatcher({
@@ -169,7 +179,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                             <Grid container justifyContent="space-between">
                                 <Grid item>
                                     <Avatar variant="rounded" className={classes.avatar}
-                                    onClick={click}
+                                    onClick={shareWorkspaces}
                                     >
                                         <img src={EarningIcon} alt="Notification" />
                                     </Avatar>

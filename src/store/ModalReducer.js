@@ -4,7 +4,7 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
     OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL,
+    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_SHARE, CLOSE_MODAL_SHARE,
 } from './actions';
 
 
@@ -12,10 +12,10 @@ import {
 
 export const initialState = {
     ModalState:false,
+    ModalStateShare:false,
     ModalDeleteState:false,
-
     ModalInsideDeleteState:false,
-ModalEditState:false,
+    ModalEditState:false,
     card1:null,
 
     objet:null
@@ -43,11 +43,31 @@ console.log(state.ModalState)
 
 
             };
+        case OPEN_MODAL_SHARE:
+            console.log("salut")
+
+            console.log(state.ModalStateShare)
+            return {
+
+                ...state,
+                ModalStateShare:true,
+
+
+
+            };
         case CLOSE_MODAL:
 
             return {
                 ...state,
                 ModalState:false
+
+
+            };
+        case CLOSE_MODAL_SHARE:
+
+            return {
+                ...state,
+                ModalStateShare:false
 
 
             };
