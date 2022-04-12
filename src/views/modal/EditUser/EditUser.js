@@ -1,23 +1,12 @@
-import { filter } from 'lodash';
 import React, {Fragment, useEffect, useState} from 'react';
 // material
 import Fade from '@mui/material/Fade';
 
 import {
-    Stack,
-    Container,
-    Typography,
+
     Box,
-    Card,
-    TableContainer,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
-    Checkbox,
-    Avatar,
+
     Button,
-    TablePagination,
     Modal,
     TextField,
 } from '@mui/material';
@@ -31,13 +20,12 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
+import {ADD_USER, CLICK, CLOSE_MODAL} from "../../../store/actions";
 
 import { useHistory} from "react-router-dom";
 
 import {Formik} from "formik";
 import * as Yup from "yup";
-import config from "../../../config";
 import {
     FormControl,
     FormHelperText,
@@ -196,33 +184,9 @@ const EditUser=  (props) => {
 
 
     const classes = useStyles();
-    let history = useHistory();
     const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
 
     const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
 
@@ -233,7 +197,12 @@ const EditUser=  (props) => {
 
 
 
-    const [open5, setOpen5] = React.useState(false);
+
+
+
+
+
+
 
 
 
@@ -424,17 +393,6 @@ const EditUser=  (props) => {
 
 
 
-                                            {strength !== 0 && (
-                                                <FormControl fullWidth>
-                                                    <Box
-                                                        sx={{
-                                                            mb: 2
-                                                        }}
-                                                    >
-
-                                                    </Box>
-                                                </FormControl>
-                                            )}
 
 
 

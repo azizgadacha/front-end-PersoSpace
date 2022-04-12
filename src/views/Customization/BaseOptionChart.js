@@ -59,7 +59,7 @@ export default function BaseOptionChart() {
   const theme = useTheme();
 
   const LABEL_TOTAL = {
-    show: true,
+    show: false,
     label: 'Total',
     color: theme.palette.text.secondary,
     ...theme.typography.subtitle2

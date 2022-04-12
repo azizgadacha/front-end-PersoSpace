@@ -2,11 +2,11 @@ import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
 import { useTheme, styled } from '@mui/material/styles';
-import { Card, CardHeader } from '@mui/material';
+import {Card, CardHeader, Grid} from '@mui/material';
 // utils
-import { fNumber } from './formatNumber';
+import { fNumber } from '../formatNumber';
 //
-import  BaseOptionChart  from './BaseOptionChart';
+import  BaseOptionChart  from '../BaseOptionChart';
 
 // ----------------------------------------------------------------------
 
@@ -60,8 +60,10 @@ export default function AppCurrentVisits() {
   });
 
   return (
+<Grid   xs={{ml:2}}>
+        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height="100%"  width="100%"/>
+  </Grid>
 
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={240} />
 
   );
 }

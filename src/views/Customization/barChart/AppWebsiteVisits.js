@@ -45,7 +45,7 @@ export default function AppWebsiteVisits() {
     ],
     xaxis: { type: 'datetime' },
     tooltip: {
-      shared: true,
+      shared: false,
       intersect: false,
       y: {
         formatter: (y) => {
@@ -59,6 +59,6 @@ export default function AppWebsiteVisits() {
   });
 
   return (
-        <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={186} />
+        <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} hheight="100%"  width="100%"/>
   );
 }

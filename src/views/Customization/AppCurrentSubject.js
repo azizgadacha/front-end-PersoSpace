@@ -2,7 +2,7 @@ import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
 import { useTheme, styled } from '@mui/material/styles';
-import { Card, CardHeader } from '@mui/material';
+import {Card, CardHeader, Grid} from '@mui/material';
 //
 import BaseOptionChart  from './BaseOptionChart';
 
@@ -63,8 +63,8 @@ export default function AppCurrentSubject() {
 
   return (
 
-
-        <ReactApexChart type="radar" series={CHART_DATA} options={chartOptions} height={240} />
-
+<Grid sx={{mt:3,mr:3}}>
+        <ReactApexChart  type="radar" series={CHART_DATA} options={chartOptions} height="100%"  width="100%" />
+</Grid>
   );
 }

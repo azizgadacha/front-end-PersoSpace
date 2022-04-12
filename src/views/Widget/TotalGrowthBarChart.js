@@ -7,12 +7,12 @@ import { Grid, MenuItem, TextField, Typography, useTheme } from '@material-ui/co
 // third-party
 
 // project imports
-import { gridSpacing } from '../../../store/constant';
+import { gridSpacing } from '../../store/constant';
 
 // chart data
-import chartData from './chart-data/total-growth-bar-chart';
-import BarChart from "../Chart/BarChart";
-import MainCard from "../../../composant_de_style/cards/MainCard";
+import chartData from '../dashboard/Default/chart-data/total-growth-bar-chart';
+import BarChart from "../dashboard/Chart/BarChart";
+import MainCard from "../../composant_de_style/cards/MainCard";
 
 const status = [
     {

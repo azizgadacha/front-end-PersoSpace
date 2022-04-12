@@ -1,16 +1,8 @@
 import {
-    OPEN_MODAL,
-    CLOSE_MODAL,
-    OPEN_DELETE_MODAL,
-    CLOSE_DELETE_MODAL,
-    OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL,
-    OPEN_EDIT_MODAL,
-    OPEN_WIDGET_MODAL,
-    CLOSE_WIDGET_MODAL,
-    CHANGE_TYPE,
-    CHANGE_PLACE,
-    CHANGE_SUCCESS,
+
+    CHANGE_TYPE
+    ,
+    CHANGE_SUCCESS, INIZIALIZE_STEPS, RETURN_BACK, IMPORT_DATA,
 } from './actions';
 
 
@@ -18,8 +10,8 @@ import {
 
 export const initialState = {
   Type:null,
-    Place:0
-
+    Place:0,
+Data:null
 
 };
 
@@ -31,12 +23,28 @@ const Widget_transition_Reducer = (state = initialState, action) => {
     //const [listecard, addcart] = useState({cards:});
 
     switch (action.type) {
-        case CHANGE_PLACE:
-            let newPlacce=state.Place-1
+
+
+        case RETURN_BACK:
+            state.Place=state.Place-1
+
+
             return {
 
                 ...state,
-                Place:newPlacce,
+
+
+
+
+            }
+        case INIZIALIZE_STEPS:
+            state.Place=0
+            state.Type=null
+
+            return {
+
+                ...state,
+
 
 
 
@@ -54,14 +62,24 @@ const Widget_transition_Reducer = (state = initialState, action) => {
         case CHANGE_SUCCESS:
 
 console.log("test "+state.Place)
-             newPlacce=state.Place+1
-            Type=action.payload.Type
+            state.Place=state.Place+1
+            state.Type=action.payload.Type
 
             return {
 
                 ...state,
-                Type,
-                Place:newPlacce,
+
+
+            };
+        case IMPORT_DATA:
+
+console.log(action.payload.Data)
+         let {Data}=action.payload
+
+            return {
+
+                ...state,
+Data
 
             };
 

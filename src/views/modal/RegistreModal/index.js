@@ -1,23 +1,14 @@
-import { filter } from 'lodash';
 import React, {Fragment, useEffect, useState} from 'react';
 // material
 import Fade from '@mui/material/Fade';
 
 import {
     Stack,
-    Container,
     Typography,
     Box,
-    Card,
-    TableContainer,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
-    Checkbox,
+
     Avatar,
     Button,
-    TablePagination,
     Modal,
     TextField,
 } from '@mui/material';
@@ -31,29 +22,22 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD, ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
+import { ADD_USER, CLICK, CLOSE_MODAL} from "../../../store/actions";
 
-import { useHistory} from "react-router-dom";
 
 import {Formik} from "formik";
 import * as Yup from "yup";
-import config from "../../../config";
 import {
     FormControl,
     FormHelperText,
     Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput, useMediaQuery, useTheme
+    IconButton, useMediaQuery,
 } from "@material-ui/core";
 import {gridSpacing} from "../../../store/constant";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
 import {Alert, LoadingButton} from "@material-ui/lab";
 import AnimateButton from "../../../animation/AnimateButton";
 import useScriptRef from "../../../hooks/useScriptRef";
-import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel} from "../../Button/actionButton";

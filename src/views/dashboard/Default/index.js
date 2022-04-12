@@ -12,7 +12,7 @@ import axios from "axios";
 import configData from "../../../config";
 
 
-import TotalGrowthBarChart from "./TotalGrowthBarChart";
+import TotalGrowthBarChart from "../../Widget/TotalGrowthBarChart";
 
 import {Workspaces} from "@material-ui/icons";
 import {ADD, CLOSE_DELETE_MODAL, INISIALIZE} from "../../../store/actions";
@@ -91,7 +91,7 @@ const load=[1,2,3,4,5,6]
             </Grid>
 
 */
-            <Grid item xs={12} md={6} xl={3}>
+            <Grid item lg={4} md={6} sm={6} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}/>
 
             </Grid>
@@ -120,18 +120,19 @@ const load=[1,2,3,4,5,6]
             </Grid>
 
         </Grid>):(<Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-                <Grid container spacing={3}>
+        <Grid item xs={12} >
+            <Grid container spacing={gridSpacing}>
 
 
 
                     {lc}
-                    <ThemeConfig>
+
+                <ThemeConfig>
 
                     {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
 
-                    <Grid item xs={12} md={6} xl={3}>
+                <Grid item lg={4} md={6} sm={6} xs={12}>
 
                         <PlusCard/>
 
@@ -139,9 +140,7 @@ const load=[1,2,3,4,5,6]
 
                 </Grid>
             </Grid>
-            <Grid item xs={12} lg={4}>
-                <TotalGrowthBarChart isLoading={isLoading} />
-            </Grid>
+
         </Grid>)}
     <Customization />
 

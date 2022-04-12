@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {Avatar,  Grid, Typography} from '@material-ui/core';
+import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
+import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
+import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
+import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
+
 
 // project imports
 import MainCard from './../../../composant_de_style/cards/MainCard';
@@ -26,21 +31,31 @@ import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
 import {useHistory, useParams} from "react-router-dom";
 import config from "../../../config";
+import {Box, Button, Menu, MenuItem} from "@mui/material";
+import AnimateButton from "../../../animation/AnimateButton";
+import {LoadingButton} from "@material-ui/lab";
+import SaveIcon from "@mui/icons-material/Save";
+import {Cancel, Delete, Deleting, Widget, Workspaces} from "../../Button/actionButton";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
     card: {
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.dark,
         color: '#fff',
         overflow: 'hidden',
         position: 'relative',
+        '&>div': {
+            position: 'relative',
+            zIndex: 5
+        },
         '&:after': {
             content: '""',
             position: 'absolute',
             width: '210px',
             height: '210px',
-            background: theme.palette.secondary[800],
+            background: theme.palette.primary[800],
             borderRadius: '50%',
+            zIndex: 1,
             top: '-85px',
             right: '-95px',
             [theme.breakpoints.down('xs')]: {
@@ -51,9 +66,10 @@ const useStyles = makeStyles((theme) => ({
         '&:before': {
             content: '""',
             position: 'absolute',
+            zIndex: 1,
             width: '210px',
             height: '210px',
-            background: theme.palette.secondary[800],
+            background: theme.palette.primary[800],
             borderRadius: '50%',
             top: '-125px',
             right: '-15px',
@@ -70,15 +86,9 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         ...theme.typography.commonAvatar,
         ...theme.typography.largeAvatar,
-        backgroundColor: theme.palette.secondary[800],
+        backgroundColor: theme.palette.primary[800],
+        color: '#fff',
         marginTop: '8px'
-    },
-    avatarRight: {
-        ...theme.typography.commonAvatar,
-        ...theme.typography.mediumAvatar,
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary[200],
-        zIndex: 1
     },
     cardHeading: {
         fontSize: '2.125rem',
@@ -90,20 +100,16 @@ const useStyles = makeStyles((theme) => ({
     subHeading: {
         fontSize: '1rem',
         fontWeight: 500,
-        color: theme.palette.secondary[200]
+        color: theme.palette.primary[200]
     },
     avatarCircle: {
-        cursor: 'pointer',
         ...theme.typography.smallAvatar,
-        backgroundColor: theme.palette.secondary[200],
-        color: theme.palette.secondary.dark
+        cursor: 'pointer',
+        backgroundColor: theme.palette.primary[200],
+        color: theme.palette.primary.dark
     },
     circleIcon: {
         transform: 'rotate3d(1, 1, 1, 45deg)'
-    },
-    menuItem: {
-        marginRight: '14px',
-        fontSize: '1.25rem'
     }
 }));
 
@@ -113,12 +119,16 @@ const WorkspaceCard = ({ isLoading,card }) => {
     const classes = useStyles();
 
 
-   /* const handleClick = (event) => {
+   
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClickMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    */
-
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+        console.log(anchorEl)
+    };
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
@@ -181,26 +191,111 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                         aria-controls="menu-earning-card"
                                         aria-haspopup="true"
 
-                                        onClick={handleClick}
+                                        onClick={handleClickMenu}
                                     >
-
                                         <MoreHorizIcon fontSize="inherit" />
+
                                     </Avatar>
+
+                                    {console.log("helle"+ Boolean(anchorEl) )}
+                                        <Menu
+                                            id="menu-earning-card"
+                                            anchorEl={anchorEl}
+                                            keepMounted
+                                            open={Boolean(anchorEl)}
+                                            onClose={handleCloseMenu}
+                                            variant="selectedMenu"
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'right'
+                                            }}
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right'
+                                            }}
+                                        >
+                                            <MenuItem onClick={handleCloseMenu}>
+                                                <GetAppTwoToneIcon  fontSize="inherit" className={classes.menuItem} /> Import Card
+                                            </MenuItem>
+                                            <MenuItem onClick={handleCloseMenu}>
+                                                <FileCopyTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Copy Data
+                                            </MenuItem>
+                                            <MenuItem onClick={handleCloseMenu}>
+                                                <PictureAsPdfTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Export
+                                            </MenuItem>
+                                            <MenuItem onClick={handleCloseMenu}>
+                                                <ArchiveTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Archive File
+                                            </MenuItem>
+                                        </Menu>
 
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item >
                             <Grid alignItems="center">
-                               <Grid   item  align="center"onClick={click}>
+<Grid item  align="center">
                                     <Typography   align="center"  className={classes.cardHeading}>{card.WorkspaceName}</Typography>
-                                </Grid>
 
 
+</Grid>
                             </Grid>
                         </Grid>
-                        <Grid item sx={{ mb: 1.25 }}>
+                        <Grid item
+
+                              sx={{ mb:0.25 }}>
                             <Typography align="center" className={classes.subHeading}>{card.description}</Typography>
+                        </Grid>
+                        <Grid container alignItems={"center"}>
+
+                            <Grid xs={6}>
+                                <Box
+                                    sx={
+
+
+                                        {
+                                            ml:0,
+                                            mr:3,
+                                            mt: 2,
+
+                                        }}
+                                >
+
+                                    <AnimateButton>
+
+
+
+
+
+                                            <Button
+                                                disableElevation
+                                                fullWidth
+
+                                                type="submit" size="large"
+                                                variant="contained"
+                                                color="warning">{Widget} </Button>
+
+
+
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+                            <Grid xs={6}>
+
+                                <Box
+                                    sx={{
+                                        mt: 2,
+                                        marginLeft:1
+                                    }}
+                                >
+                                    <AnimateButton>
+
+                                        <Button disableElevation size="large" onClick={click}  fullWidth variant="contained" color="warning">{Workspaces}</Button>
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+
                         </Grid>
                     </Grid>
                 </MainCard>

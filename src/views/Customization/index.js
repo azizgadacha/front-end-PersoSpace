@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector,} from 'react-redux';
-
+import CloseIcon from '@mui/icons-material/Close';
 // material-ui
 import {makeStyles, useTheme} from '@material-ui/styles';
 import {
@@ -28,21 +28,21 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import ThemeConfig from "../../themes/theme2";
 import Chose from "./Chose/Chose";
-import {Cancel, Edit_Information, Edit_Password} from "../Button/actionButton";
-import Import from "./Import/import";
+import {Cancel} from "../Button/actionButton";
+import Import from "./Import/Import";
 import {
-    CHANGE_PLACE,
-    CLOSE_DELETE_MODAL,
-    CLOSE_MODAL,
-    CLOSE_WIDGET_MODAL,
-    OPEN_EDIT_MODAL,
-    OPEN_MODAL,
-    OPEN_WIDGET_MODAL
+     INIZIALIZE_STEPS,
+     RETURN_BACK
 } from "../../store/actions";
 
 
 // concat 'px'
+const buttons = {
 
+
+    display: "flex",
+        justifyContent: "flex-end"
+}
 
 
 const OVERLAY_Styles ={
@@ -55,6 +55,7 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
+
 const style = {
 
     padding:'50px',
@@ -88,6 +89,11 @@ const Customization = () => {
     const handleClose=()=>{
 
 setOpen(false)
+        dispatcher({
+            type:INIZIALIZE_STEPS,
+
+        })
+
     }
     const [activeStep, setactiveStep] = React.useState(0);
 
@@ -120,7 +126,7 @@ setOpen(false)
 
     const handleBack = () => {
         dispatcher({
-            type:CHANGE_PLACE,
+            type:RETURN_BACK,
 
         });
         };
@@ -134,6 +140,7 @@ setOpen(false)
     return (
         <React.Fragment>
             {/* toggle button */}
+            {console.log("im testing"+widget.Place)}
 
             <Tooltip title="Add Widget">
                 <Fab
@@ -160,7 +167,6 @@ setOpen(false)
                 </Fab>
             </Tooltip>
 
-            {console.log("salem")}
             {open&&(
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -182,10 +188,12 @@ setOpen(false)
 
 
                         <Box sx={{ ...style,  }}>
+                            <IconButton sx={{float:'right'}}               aria-label="close">
+                                <CloseIcon onClick={handleClose}  color="disabled"      />
+                            </IconButton>
                             <ThemeConfig>
-                                {console.log("salem2.0")}
 
-                                <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+                                <Grid container spacing={0} alignItems="center" justifyContent="center" stroke-linecap="round">
                                     <Grid item xs={12}>
                                         <Grid
                                             container
@@ -193,7 +201,7 @@ setOpen(false)
                                             alignItems="center"
                                             justifyContent="center"
                                         >
-                                            <Grid item sx={{mt: 3, mb:3}}>
+                                            <Grid item sx={{mt: 1, mb:3}}>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
 
@@ -221,13 +229,35 @@ setOpen(false)
 
                                 </Stepper>
                                 </Grid>
-
+                                {console.log('to test 2'+widget.Place)}
                             {getStepContent(widget.Place)}
 
 
 
+                                <Stack sx={{mt:4}} direction="row" alignItems="center" justifyContent="space-between" >
+                                    <Box
+                                        sx={{
+                                            display: 'block',
+                                            justifyContent: 'block-end',
+                                        }}
+                                    >
 
+
+
+
+                                        <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
+
+
+
+
+                                    </Box>
                                 <Box
+
+                                    sx={{
+                                        display: 'block',
+                                        justifyContent: 'block-end',
+                                    }}
+
                                     sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
@@ -241,7 +271,7 @@ setOpen(false)
                                         {widget.Place !== 0 && (
                                             <Button
                                                 onClick={handleBack}
-                                             xs={3}>
+                                             sx={{mr:3}}>
 
                                                 Back
                                             </Button>
@@ -253,24 +283,9 @@ setOpen(false)
 
                                     </Stack>
                                 </Box>
-                                <Box
-                                    sx={{
-                                        display: 'block',
-                                        justifyContent: 'block-end',
-                                    }}
-                                >
 
 
-
-
-                                    <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
-
-
-
-
-                                </Box>
-
-
+                                </Stack>
 
 
                             </ThemeConfig>

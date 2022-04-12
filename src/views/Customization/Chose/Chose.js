@@ -5,7 +5,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import Typography from '../Typography';
 import {Button} from "@mui/material";
-import AppCurrentVisits from "../AppCurrentVisits";
+import AppCurrentVisits from "../donuts/AppCurrentVisits";
 import AppWebsiteVisits from "../barChart/AppWebsiteVisits";
 import AppCurrentSubject from "../AppCurrentSubject";
 import {CHANGE_PLACE, CHANGE_SUCCESS, CLOSE_DELETE_MODAL} from "../../../store/actions";
@@ -63,7 +63,8 @@ const images = [
     {
         title: 'Donuts',
         width: '32.5%',
-        ahba:<AppCurrentVisits/>
+        ahba:<AppCurrentVisits/>,
+
     },
     {
         title: 'Bar',
@@ -87,11 +88,11 @@ export default function Chose() {
     const dispatcher = useDispatch();
 
 
-    const handleChange=()=>{
-
+    const handleChange=(name)=>{
+console.log("see me")
             dispatcher({
-                type:CHANGE_PLACE,
-                payload: {Type:1}
+                type:CHANGE_SUCCESS,
+                payload: {Type:name}
 
             });
 
@@ -100,17 +101,19 @@ export default function Chose() {
 
         <Container component="section" sx={{ mt: 0, mb: 4 }}>
 
-            <Box sx={{ mt: 8, display: 'flex', flexWrap: 'wrap' }}>
+            <Box sx={{ mt: 8, display: 'flex' }}>
                 {images.map((image) => (
                     <ImageIconButton
                         key={image.title}
                         style={{
                             width: image.width,
                         }}
+                        onClick={()=> {
+                            handleChange(image.title)
+                        }}
                     >
                         <Box
                             sx={{
-                                position: 'absolute',
                                 left: 0,
                                 right: 0,
                                 top: 0,
@@ -119,8 +122,10 @@ export default function Chose() {
                                 backgroundPosition: 'center 40%',
                             }}
                         />
+
                         {image.ahba}
 
+                        <Box>
                         <ImageBackdrop className="imageBackdrop" ></ImageBackdrop>
                         <Box
                             sx={{
@@ -140,11 +145,12 @@ export default function Chose() {
                                 variant="h6"
                                 color="inherit"
                                 className="imageTitle"
-                                onClick={handleChange}
+
                             >
                                 {image.title}
                                 <div className="imageMarked" />
                             </Typography>
+                        </Box>
                         </Box>
                     </ImageIconButton>
                 ))}
