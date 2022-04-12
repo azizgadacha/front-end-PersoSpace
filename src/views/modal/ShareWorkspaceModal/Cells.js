@@ -10,7 +10,13 @@ import {
 
 
 import {useDispatch, useSelector} from "react-redux";
-import {CLOSE_DELETE_MODAL, DELETE, OPEN_DELETE_MODAL, OPEN_EDIT_MODAL} from "../../../store/actions";
+import {
+    CLOSE_DELETE_MODAL,
+    Confirm_Share_Workspace_MODAL,
+    DELETE,
+    OPEN_DELETE_MODAL,
+    OPEN_EDIT_MODAL
+} from "../../../store/actions";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import configData from "../../../config";
@@ -35,20 +41,10 @@ const Cells=  ({userPar}) => {
 
     const dispatcher = useDispatch();
 
-
-
-    const handleClickEditModal = () => {
-
-        dispatcher({
-            type:OPEN_EDIT_MODAL,
-            payload: {objet:userPar}
-        })}
-
-
     const handleClickModal = () => {
 
         dispatcher({
-            type:OPEN_DELETE_MODAL,
+            type:Confirm_Share_Workspace_MODAL,
             payload: {objet:userPar}
         })}
 
@@ -81,7 +77,7 @@ const Cells=  ({userPar}) => {
                 <Box sx={{ '& button': { m: 1 } }}>
 
                     <div>
-                        <Button  sx={{width:180}} variant="outlined"  color="info" startIcon={<EditIcon />}>
+                        <Button onClick={handleClickModal} sx={{width:180}} variant="outlined"  color="info" startIcon={<EditIcon />}>
                             Share Workspace
                         </Button>
                     </div>

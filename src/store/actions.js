@@ -30,6 +30,8 @@ export const INISIALIZEINSIDEWORKSPACE='INISIALIZEINSIDEWORKSPACE';
 export const OPEN_MODAL_SHARE='OPEN_MODAL_SHARE';
 export const CLOSE_MODAL_SHARE='CLOSE_MODAL_SHARE';
 
+export const Confirm_Share_Workspace_MODAL='Confirm_Share_Workspace_MODAL';
+export const CLOSE_Confirm_Share_Workspace_MODAL='CLOSE_Confirm_Share_Workspace_MODAL';
 
 export const ACCOUNT_INITIALIZE = 'ACCOUNT_INITIALIZE';
 

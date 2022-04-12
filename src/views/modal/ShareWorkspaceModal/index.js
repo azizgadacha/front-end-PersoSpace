@@ -31,7 +31,14 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
+import {
+    ADD_USER,
+    CLICK,
+    CLOSE_Confirm_Share_Workspace_MODAL,
+    CLOSE_DELETE_MODAL,
+    CLOSE_MODAL,
+    INISIALIZE_USER,
+} from "../../../store/actions";
 
 import { useHistory} from "react-router-dom";
 
@@ -61,6 +68,9 @@ import {UserListHead} from "../../ViewAll/import/customer/@dashboard/user";
 import SearchNotFound from "../../ViewAll/import/customer/SearchNotFound";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Cells from "./Cells";
+import Modal_Delete_User from "../../Modal_delete_user";
+import Modal_confirm from "../ConfirmShareWorkspaceModal/Modal_confirm";
+import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
 
 // ----------------------------------------------------------------------
 
@@ -340,7 +350,7 @@ const ShareWorkspaceModal=  (props) => {
     let open = useSelector((state) => state.modal);
     function handleCloseModal  () {
         dispatcher({
-            type:CLOSE_DELETE_MODAL,
+            type:CLOSE_Confirm_Share_Workspace_MODAL,
 
         });
     };
@@ -479,6 +489,8 @@ const ShareWorkspaceModal=  (props) => {
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
+                                {open.ModalConfirmShare && (<ConfirmShareWorkspaceModal  handleClose={handleCloseModal} user={open.objet} />)}
+
                             </ThemeConfig>
                         </Box>
                     </Fade>

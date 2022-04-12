@@ -4,7 +4,12 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
     OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_SHARE, CLOSE_MODAL_SHARE,
+    CLOSE_INSIDE_DELETE_MODAL,
+    OPEN_EDIT_MODAL,
+    OPEN_MODAL_SHARE,
+    CLOSE_MODAL_SHARE,
+    Confirm_Share_Workspace_MODAL,
+    CLOSE_Confirm_Share_Workspace_MODAL,
 } from './actions';
 
 
@@ -13,12 +18,14 @@ import {
 export const initialState = {
     ModalState:false,
     ModalStateShare:false,
+    ModalConfirmShare:false,
     ModalDeleteState:false,
     ModalInsideDeleteState:false,
     ModalEditState:false,
     card1:null,
+    objet:null,
+    objet1:null
 
-    objet:null
 
 
 };
@@ -32,9 +39,9 @@ const ModalReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case OPEN_MODAL:
-       console.log("salut")
+        console.log("salut")
             
-console.log(state.ModalState)
+           console.log(state.ModalState)
             return {
 
                 ...state,
@@ -71,15 +78,28 @@ console.log(state.ModalState)
 
 
             };
-        case OPEN_DELETE_MODAL:
-
+        case Confirm_Share_Workspace_MODAL:
             const  {objet}=action.payload
-
-
             return {
 
                 ...state,
-               objet,
+                objet,
+                ModalConfirmShare:true,
+
+            };
+        case CLOSE_Confirm_Share_Workspace_MODAL:
+            return {
+
+                ...state,
+                ModalConfirmShare:false
+
+            };
+        case OPEN_DELETE_MODAL:
+            const  {objet1}=action.payload
+            return {
+
+                ...state,
+                objet1,
                 ModalDeleteState:true,
 
             };
