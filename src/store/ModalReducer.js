@@ -79,11 +79,11 @@ const ModalReducer = (state = initialState, action) => {
 
             };
         case Confirm_Share_Workspace_MODAL:
-            const  {objet}=action.payload
+            const  {objet1}=action.payload
             return {
 
                 ...state,
-                objet,
+                objet1,
                 ModalConfirmShare:true,
 
             };
@@ -95,11 +95,11 @@ const ModalReducer = (state = initialState, action) => {
 
             };
         case OPEN_DELETE_MODAL:
-            const  {objet1}=action.payload
+            const  {objet}=action.payload
             return {
 
                 ...state,
-                objet1,
+                objet,
                 ModalDeleteState:true,
 
             };
