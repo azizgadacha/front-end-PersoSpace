@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {Avatar,  Grid, Typography} from '@material-ui/core';
+import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
+import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
+import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
+import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
+
 
 // project imports
 import MainCard from './../../../composant_de_style/cards/MainCard';
@@ -19,13 +24,19 @@ import {
 
     CLOSE_DELETE_MODAL, CLOSE_INSIDE_DELETE_MODAL, IDWORKSPACE,
 
-    OPEN_DELETE_MODAL, OPEN_INSIDE_DELETE_MODAL,
+    OPEN_DELETE_MODAL, OPEN_INSIDE_DELETE_MODAL, OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
 import {useHistory, useParams} from "react-router-dom";
 import config from "../../../config";
+import {Box, Button, Menu, MenuItem} from "@mui/material";
+import AnimateButton from "../../../animation/AnimateButton";
+import {LoadingButton} from "@material-ui/lab";
+import SaveIcon from "@mui/icons-material/Save";
+import {Cancel, Delete, Deleting, Widget, Workspaces} from "../../Button/actionButton";
+import {initialState as userSt} from "../../../store/UserReducer";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -84,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '2.125rem',
         fontWeight: 500,
         marginRight: '8px',
-        marginTop: '14px',
-        marginBottom: '6px'
+        marginTop: '0px',
+        marginBottom: '0px'
     },
     subHeading: {
         fontSize: '1rem',
@@ -113,12 +124,16 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
     const classes = useStyles();
 
 
-    /* const handleClick = (event) => {
-         setAnchorEl(event.currentTarget);
-     };
 
-     */
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClickMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+        console.log(anchorEl)
+    };
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
@@ -135,17 +150,27 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
         });
         history.push( config.defaultPath+'/'+ card1._id)
     }
+    const shareWorkspaces = () => {
+        console.log("rani el shareWorkspaces ")
+        console.log(userSt.users)
+        dispatcher(  {
+            type:OPEN_MODAL_SHARE,
+        })
+        handleCloseMenu()
+
+
+    };
     const handleClick = () => {
 
         dispatcher({
             type:OPEN_INSIDE_DELETE_MODAL,
-
             payload: {card1}
 
 
         });
-    };
+        handleCloseMenu()
 
+    };
     function handleClose  () {
         dispatcher({
             type:CLOSE_INSIDE_DELETE_MODAL,
@@ -165,7 +190,7 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
                 <SkeletonEarningCard />
             ) : (
                 <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                    <Grid container direction="column">
+                    <Grid container direction="column" >
                         <Grid item>
                             <Grid container justifyContent="space-between">
                                 <Grid item>
@@ -182,25 +207,109 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
                                         aria-controls="menu-earning-card"
                                         aria-haspopup="true"
 
-                                        onClick={handleClick}
+                                        onClick={handleClickMenu}
                                     >
-
                                         <MoreHorizIcon fontSize="inherit" />
+
                                     </Avatar>
 
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Grid  alignItems="center">
-                                <Grid item  align="center" onClick={click}>
-                                    <Typography   align="center"  className={classes.cardHeading}>{card1.WorkspaceName} </Typography>
-                                </Grid>
+                                    {console.log("helle"+ Boolean(anchorEl) )}
+                                    <Menu
+                                        id="menu-earning-card"
+                                        anchorEl={anchorEl}
+                                        keepMounted
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleCloseMenu}
+                                        variant="selectedMenu"
+                                        anchorOrigin={{
+                                            vertical: 'bottom',
+                                            horizontal: 'right'
+                                        }}
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right'
+                                        }}
+                                    >
+                                        <MenuItem onClick={shareWorkspaces}>
+                                            <GetAppTwoToneIcon  fontSize="inherit" className={classes.menuItem} /> Share Workspace
+                                        </MenuItem>
+                                        <MenuItem onClick={handleClick}>
+                                            <FileCopyTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMenu}>
+                                            <PictureAsPdfTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Edit Workspace
+                                        </MenuItem>
 
+                                    </Menu>
+
+                                </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item sx={{ mb: 1.25 }}>
+                        <Grid item >
+                            <Grid alignItems="center">
+                                <Grid item  align="center">
+                                    <Typography   align="center"  className={classes.cardHeading}>{card1.WorkspaceName}</Typography>
+
+
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item
+
+                              sx={{ mb:0.25 }}>
                             <Typography align="center" className={classes.subHeading}>{card1.description}</Typography>
+                        </Grid>
+                        <Grid container alignItems={"center"}>
+
+                            <Grid xs={6}>
+                                <Box
+                                    sx={
+
+
+                                        {
+                                            ml:0,
+                                            mr:3,
+                                            mt: 2,
+
+                                        }}
+                                >
+
+                                    <AnimateButton>
+
+
+
+
+
+                                        <Button
+                                            disableElevation
+                                            fullWidth
+
+                                            type="submit" size="large"
+                                            variant="contained"
+                                            color="secondary">Widget </Button>
+
+
+
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+                            <Grid xs={6}>
+
+                                <Box
+                                    sx={{
+                                        mt: 2,
+                                        marginLeft:1
+                                    }}
+                                >
+                                    <AnimateButton>
+
+                                        <Button disableElevation size="large" onClick={click}  fullWidth variant="contained" color="secondary">Workspaces</Button>
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+
                         </Grid>
                     </Grid>
                 </MainCard>

@@ -36,7 +36,7 @@ export const initialState = {
 const ModalReducer = (state = initialState, action) => {
 
     //const [listecard, addcart] = useState({cards:});
-
+let objet;
     switch (action.type) {
         case OPEN_MODAL:
         console.log("salut")
@@ -79,11 +79,11 @@ const ModalReducer = (state = initialState, action) => {
 
             };
         case Confirm_Share_Workspace_MODAL:
-            const  {objet1}=action.payload
+             objet=action.payload.objet
             return {
 
                 ...state,
-                objet1,
+                objet,
                 ModalConfirmShare:true,
 
             };
@@ -95,7 +95,7 @@ const ModalReducer = (state = initialState, action) => {
 
             };
         case OPEN_DELETE_MODAL:
-            const  {objet}=action.payload
+        objet=action.payload.objet
             return {
 
                 ...state,
@@ -121,6 +121,15 @@ const ModalReducer = (state = initialState, action) => {
                 ModalInsideDeleteState:true,
 
             };
+        case CLOSE_INSIDE_DELETE_MODAL:
+
+            return {
+                ...state,
+                ModalInsideDeleteState:false
+
+
+            };
+
         case OPEN_EDIT_MODAL:
               let {obj}=action.payload
 

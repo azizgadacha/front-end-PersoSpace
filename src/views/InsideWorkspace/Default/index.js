@@ -18,8 +18,8 @@ import {Workspaces} from "@material-ui/icons";
 import {
     ADD,
     CLOSE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL,
-    INISIALIZE,
+    CLOSE_INSIDE_DELETE_MODAL, CLOSE_MODAL_SHARE,
+    INISIALIZE, INISIALIZE_USER,
     INISIALIZEINSIDEWORKSPACE
 } from "../../../store/actions";
 import {Route, useParams} from "react-router-dom";
@@ -27,6 +27,7 @@ import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
 import Modal_Inside_Delete_Workspace from "../../modal_delete_inside_workspace";
+import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
 
 
 
@@ -42,11 +43,23 @@ const Dashboard = (props, { ...others }) => {
             });
         }
     }, [])
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL_SHARE,
+
+            });
+        }
+    }, [])
 
     const [succes, setSucces] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
     const account = useSelector((state) => state.account);
+    let userSt= useSelector((state) => state.user);
+
+    const [success,setSucess]=useState(false)
+    const [USERLIST,setUSERLIST]=useState([])
     const workspaces = useSelector((state) => state.workspace);
 
     const dispatcher = useDispatch();
@@ -58,6 +71,26 @@ const Dashboard = (props, { ...others }) => {
         });
     };
     let {id}=useParams()
+    useEffect(() => {
+        console.log("salah2.0")
+        axios
+            .post(configData.API_SERVER + 'api/users/all', {
+                id:account.user._id,
+
+                token: account.token
+            }).then((result) => {
+            console.log("im gere")
+            console.log(result.data.users)
+            dispatcher({
+                type:INISIALIZE_USER,
+                payload: {users:result.data.users},
+            })
+            setUSERLIST(userSt.users)
+            setSucess(true)
+            console.log("salah3.0")
+
+        })},[] );
+
     useEffect(() => {
 
         console.log("wa " +account.token)
@@ -125,7 +158,7 @@ const Dashboard = (props, { ...others }) => {
 
                     {open.ModalInsideDeleteState && (<Modal_Inside_Delete_Workspace  handleClose={handleClose} card1={open.card1}/>)}
                         </ThemeConfig>
-
+                    <ShareWorkspaceModal/>
                     <Grid item xs={12} md={6} xl={3}>
 
                         <PlusCard/>

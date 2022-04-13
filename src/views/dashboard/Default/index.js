@@ -15,7 +15,7 @@ import configData from "../../../config";
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 
 import {Workspaces} from "@material-ui/icons";
-import {ADD, CLOSE_DELETE_MODAL, INISIALIZE} from "../../../store/actions";
+import {ADD, CLOSE_DELETE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_USER} from "../../../store/actions";
 import {Route} from "react-router-dom";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
@@ -39,6 +39,14 @@ const Dashboard = (props, { ...others }) => {
             });
         }
     }, [])
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL_SHARE,
+
+            });
+        }
+    }, [])
 
 const load=[1,2,3,4]
     const [succes, setSucces] = useState(false);
@@ -46,6 +54,10 @@ const load=[1,2,3,4]
 
     const [isLoading, setLoading] = useState(true);
     const account = useSelector((state) => state.account);
+    let userSt= useSelector((state) => state.user);
+
+    const [success,setSucess]=useState(false)
+    const [USERLIST,setUSERLIST]=useState([])
     const workspaces = useSelector((state) => state.workspace);
 
     let open = useSelector((state) => state.modal);
@@ -55,6 +67,25 @@ const load=[1,2,3,4]
 
         });
     };
+    useEffect(() => {
+        console.log("salah2.0")
+        axios
+            .post(configData.API_SERVER + 'api/users/all', {
+                id:account.user._id,
+
+                token: account.token
+            }).then((result) => {
+            console.log("im gere")
+            console.log(result.data.users)
+            dispatcher({
+                type:INISIALIZE_USER,
+                payload: {users:result.data.users},
+            })
+            setUSERLIST(userSt.users)
+            setSucess(true)
+            console.log("salah3.0")
+
+        })},[] );
 
 
     useEffect(() => {
