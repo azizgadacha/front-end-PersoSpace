@@ -10,7 +10,9 @@ import { IconDatabaseExport } from '@tabler/icons';
 import {useRef, useState} from "react";
 import Papa from "papaparse";
 import {useDispatch} from "react-redux";
-import {CLOSE_DELETE_MODAL, IMPORT_DATA} from "../../../store/actions";
+import {CLOSE_DELETE_MODAL, IMPORT_DATA, INISIALIZE} from "../../../store/actions";
+import axios from "axios";
+import configData from "../../../config";
 const useStyles = makeStyles((theme) => ({
 
 
@@ -99,30 +101,19 @@ const Import = ()=> {
 
                  Papa.parse(e.target.files[0],{
                      complete:(results)=>{
+                         console.log("test4 "+results.data)
 
                          dispatcher({
                              type:IMPORT_DATA,
                              payload: {Data:results.data}
 
-                         });
-
-
-                     }
-
+                         });}
                  })
 
             }else{
 setchanged(true)
-                }
-
-
-            }
-
-            }
-
+                }}}
             />
-
-
             {console.log("ahla shb")}
             {console.log(csvFile)}
 

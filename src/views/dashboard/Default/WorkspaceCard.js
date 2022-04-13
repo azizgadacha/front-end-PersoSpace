@@ -116,8 +116,14 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const WorkspaceCard = ({ isLoading,card }) => {
-    const classes = useStyles();
+    let history =useHistory()
 
+    const classes = useStyles();
+    const  OpenWidget=()=>{
+
+        history.push(config.defaultPath+'/widget/'+ card._id)
+
+    }
 
    
     const [anchorEl, setAnchorEl] = useState(null);
@@ -132,7 +138,6 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
-    let history =useHistory()
     let {id}=useParams()
     const click = () => {
      console.log('im the card  '+card.WorkspaceName)
@@ -269,7 +274,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                             <Button
                                                 disableElevation
                                                 fullWidth
-
+                                                  onClick={OpenWidget}
                                                 type="submit" size="large"
                                                 variant="contained"
                                                 color="warning">{Widget} </Button>

@@ -9,6 +9,9 @@ export const Delete = 'Delete';
 export const Deleting = 'Deleting';
 export const Workspaces = 'Workspaces';
 export const Widget = 'Widget';
+export const AddWidget = 'AddWidget';
+export const Back = 'Back';
+
 
 
 export const Edit_Password = 'Edit Password';

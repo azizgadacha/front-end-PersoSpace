@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 
 const BarChart = () => {
 
-    const widget = useSelector((state) => state.widget);
+    let widget = useSelector((state) => state.widget);
 return(
     <Fragment>
         {console.log(widget)}
@@ -14,10 +14,10 @@ return(
 
         <Bar
                  data={{
-                     labels: widget.Data==null?null:widget.Data[0],
+                     labels:widget.label,
                      datasets: [{
-                         label: '# of Votes',
-                         data:  widget.Data==null?null:widget.Data[1],
+                         label: widget.WidgetNamee,
+                         data: widget.Data,
                          backgroundColor: [
                              'rgba(255, 99, 132, 0.2)',
                              'rgba(54, 162, 235, 0.2)',

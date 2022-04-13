@@ -11,7 +11,7 @@ import { gridSpacing } from '../../store/constant';
 
 // chart data
 import chartData from '../dashboard/Default/chart-data/total-growth-bar-chart';
-import BarChart from "../dashboard/Chart/BarChart";
+import BarChart from "./Chart/BarChart";
 import MainCard from "../../composant_de_style/cards/MainCard";
 
 const status = [

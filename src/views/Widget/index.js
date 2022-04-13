@@ -17,12 +17,14 @@ import Modal_Delete_Workspace from "../modal_delete_workspace";
 import ThemeConfig from "../../themes/theme2";
 import {gridSpacing} from "../../store/constant";
 import Customization from "../Customization";
+import {useHistory} from "react-router-dom";
 
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Widget = (props, { ...others }) => {
+
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -51,7 +53,7 @@ const Widget = (props, { ...others }) => {
     };
 
 
-   /* useEffect(() => {
+   useEffect(() => {
 
         axios
             .post( configData.API_SERVER + 'api/users/getworkspace',{id:account.user._id, token:account.token})
@@ -73,8 +75,7 @@ const Widget = (props, { ...others }) => {
 
             })
     },[]);
-
-*/
+   
     let lc =   workspaces.Workspace.map((card)  => {
 
         return(
@@ -94,10 +95,14 @@ const Widget = (props, { ...others }) => {
         )})
     return (
         <Fragment>
-        <Grid container spacing={3}>
+            <Grid container spacing={3}>
+                <Grid item xs={12} >
+                    <Grid container spacing={gridSpacing}>
+                        <Grid item lg={4} md={6} sm={6} xs={12}>
 
-                <Grid item xs={12} lg={4}>
-                    <TotalGrowthBarChart isLoading={isLoading} />
+                        <TotalGrowthBarChart isLoading={isLoading} />
+                      </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
             <Customization />

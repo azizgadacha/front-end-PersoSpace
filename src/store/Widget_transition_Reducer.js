@@ -2,7 +2,7 @@ import {
 
     CHANGE_TYPE
     ,
-    CHANGE_SUCCESS, INIZIALIZE_STEPS, RETURN_BACK, IMPORT_DATA,
+    CHANGE_SUCCESS, INIZIALIZE_STEPS, RETURN_BACK, IMPORT_DATA, CHANGE_NAME,
 } from './actions';
 
 
@@ -11,7 +11,9 @@ import {
 export const initialState = {
   Type:null,
     Place:0,
-Data:null
+    label:null,
+    Data:null,
+    WidgetNamee:''
 
 };
 
@@ -41,6 +43,10 @@ const Widget_transition_Reducer = (state = initialState, action) => {
             state.Place=0
             state.Type=null
 
+            state.label=null
+            state.Data=null
+            state.WidgetNamee=''
+
             return {
 
                 ...state,
@@ -64,6 +70,8 @@ const Widget_transition_Reducer = (state = initialState, action) => {
 console.log("test "+state.Place)
             state.Place=state.Place+1
             state.Type=action.payload.Type
+            console.log("test2 "+state.Place)
+            console.log("test3 "+state.Type)
 
             return {
 
@@ -75,13 +83,45 @@ console.log("test "+state.Place)
 
 console.log(action.payload.Data)
          let {Data}=action.payload
+            state.Place=state.Place+1;
+            console.log("test4 "+state.Type);
+            state.label=action.payload.Data[0];
+            state.Data=action.payload.Data[1];
+            return {
+
+                ...state,
+
+
+            };
+            case CHANGE_NAME:
+
+            let {WidgetNamee}=action.payload
 
             return {
 
                 ...state,
-Data
+                WidgetNamee
 
             };
+
+        case IMPORT_DATA:
+
+            state.Place=state.Place+1;
+            console.log("test4 "+state.Type);
+            state.label=action.payload.Data[0];
+            state.Data=action.payload.Data[1];
+            return {
+
+                ...state,
+
+
+            };
+
+
+
+
+
+
 
 
         default:

@@ -4,7 +4,7 @@ import {
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
     OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL,
+    CLOSE_INSIDE_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE,
 } from './actions';
 
 
@@ -13,7 +13,7 @@ import {
 export const initialState = {
     ModalState:false,
     ModalDeleteState:false,
-
+    isSubmitting:false,
     ModalInsideDeleteState:false,
 ModalWidget:false,
     card1:null,
@@ -96,6 +96,12 @@ const ModalReducer = (state = initialState, action) => {
 
 
             };
+        case IS_LOADING_CHANGE:
+                return{
+            ...state,
+                    isSubmitting:!state.isSubmitting
+
+            }
 
 
         default:

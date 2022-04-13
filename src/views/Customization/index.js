@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector,} from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 // material-ui
@@ -28,12 +28,17 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import ThemeConfig from "../../themes/theme2";
 import Chose from "./Chose/Chose";
-import {Cancel} from "../Button/actionButton";
+import {AddWidget, Back, Cancel, Deleting} from "../Button/actionButton";
 import Import from "./Import/Import";
+import WidgetName from "./WidgetName";
+
 import {
-     INIZIALIZE_STEPS,
-     RETURN_BACK
+    CLOSE_WIDGET_MODAL,
+    INIZIALIZE_STEPS, OPEN_WIDGET_MODAL,
+    RETURN_BACK
 } from "../../store/actions";
+import {LoadingButton} from "@material-ui/lab";
+import SaveIcon from "@mui/icons-material/Save";
 
 
 // concat 'px'
@@ -79,20 +84,28 @@ const style = {
 //-----------------------|| LIVE CUSTOMIZATION ||-----------------------//
 
 const Customization = () => {
+    let modal = useSelector((state) => state.modal);
+
     const [open, setOpen] = React.useState(false);
 
     const dispatcher = useDispatch();
     const handleCloseback = (event, reason) => {
         if (reason && reason == "backdropClick")
-       setOpen(false)
+            dispatcher({
+                type:OPEN_WIDGET_MODAL,
+
+            });
     }
     const handleClose=()=>{
 
-setOpen(false)
         dispatcher({
             type:INIZIALIZE_STEPS,
 
         })
+        dispatcher({
+            type:CLOSE_WIDGET_MODAL,
+
+        });
 
     }
     const [activeStep, setactiveStep] = React.useState(0);
@@ -100,15 +113,18 @@ setOpen(false)
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
     const dispatch = useDispatch();
+    const buttonRef = useRef();
 
     // drawer on/off
-    const steps = ["chose the widget", "chose data source"];
+    const steps = ["chose the widget", "chose data source","chose a name"];
     function getStepContent(step) {
         switch (step) {
             case 0:
                 return <Chose/> ;
             case 1:
                 return <Import />;
+            case 2:
+                return <WidgetName buttonRef={buttonRef} />;
 
 
 
@@ -122,7 +138,6 @@ setOpen(false)
 
 
     };
-    let open1 = useSelector((state) => state.modal);
 
     const handleBack = () => {
         dispatcher({
@@ -134,7 +149,10 @@ setOpen(false)
 
     // state - border radius
     const handleToggle = () => {
-       setOpen(true)    };
+        dispatcher({
+            type:OPEN_WIDGET_MODAL,
+
+        });    };
     let widget = useSelector((state) => state.widget);
 
     return (
@@ -167,12 +185,12 @@ setOpen(false)
                 </Fab>
             </Tooltip>
 
-            {open&&(
+            {modal.ModalWidget&&(
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open}
+                open={modal.ModalWidget}
                 onClose={handleCloseback}
 
 
@@ -184,7 +202,7 @@ setOpen(false)
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in={open}>
+                    <Fade in={modal.ModalWidget}>
 
 
                         <Box sx={{ ...style,  }}>
@@ -270,12 +288,36 @@ setOpen(false)
 
                                         {widget.Place !== 0 && (
                                             <Button
+                                                disabled={modal.isSubmitting}
                                                 onClick={handleBack}
                                              sx={{mr:3}}>
 
-                                                Back
+                                                {Back}
                                             </Button>
                                         )}
+                                        {console.log("salut")}
+                                        {console.log(buttonRef.current)}
+
+                                        {console.log(modal.isSubmitting)}
+                                        {(widget.Place === steps.length - 1)&&(
+                                    (modal.isSubmitting)?(<LoadingButton
+                                                variant="contained"
+                                                loading loadingPosition="start"
+                                                startIcon={<SaveIcon />}
+                                                variant="outlined">{AddWidget}</LoadingButton>):
+
+
+                                                    <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={()=>buttonRef.current.click()}
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "flex-end"
+                                            }}
+                                        >
+                                                        {AddWidget}
+                                        </Button>)}
 
 
 
