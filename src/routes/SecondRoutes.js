@@ -24,7 +24,7 @@ const SecondRoutes = () => {
             path={[
                 "/Profile",
                 '/ProfileEdit',
-                '/ProfileEdit2',
+                '/ProfileEditPass',
 
             ]}>
 
@@ -34,7 +34,7 @@ const SecondRoutes = () => {
 
                         <Route path="/Profile" component={Profile} />
                         <Route exact path="/ProfileEdit" component={ProfileEdit} />
-                        <Route exact path="/ProfileEdit2" component={ProfileEdit2} />
+                        <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
 
 
                     </AuthGuard>

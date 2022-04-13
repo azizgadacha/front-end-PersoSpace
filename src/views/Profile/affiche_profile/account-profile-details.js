@@ -35,7 +35,7 @@ const AccountProfileDetails = (props) => {
 
     });
 */
-    history.push('/ProfileEdit2')
+    history.push('/ProfileEditPass')
 
   }
 

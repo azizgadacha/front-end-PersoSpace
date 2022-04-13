@@ -4,7 +4,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 
 // project imports
-import Modal_Delete from "../Modal_delete"
+import Modal_Delete from "../modal/Modal_delete"
 import DeleteWorkspace from "./DeleteWorkspace";
 
 // assets

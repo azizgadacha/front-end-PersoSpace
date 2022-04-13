@@ -5,11 +5,12 @@ import {
     CLOSE_DELETE_MODAL,
     OPEN_INSIDE_DELETE_MODAL,
     CLOSE_INSIDE_DELETE_MODAL,
-    OPEN_EDIT_MODAL,
     OPEN_MODAL_SHARE,
     CLOSE_MODAL_SHARE,
     Confirm_Share_Workspace_MODAL,
-    CLOSE_Confirm_Share_Workspace_MODAL,
+    CLOSE_Confirm_Share_Workspace_MODAL
+
+    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE,
 } from './actions';
 
 
@@ -20,8 +21,11 @@ export const initialState = {
     ModalStateShare:false,
     ModalConfirmShare:false,
     ModalDeleteState:false,
-    ModalInsideDeleteState:false,
     ModalEditState:false,
+
+    isSubmitting:false,
+    ModalInsideDeleteState:false,
+ModalWidget:false,
     card1:null,
     objet:null,
     objet1:null
@@ -39,9 +43,7 @@ const ModalReducer = (state = initialState, action) => {
 let objet;
     switch (action.type) {
         case OPEN_MODAL:
-        console.log("salut")
-            
-           console.log(state.ModalState)
+
             return {
 
                 ...state,
@@ -121,6 +123,7 @@ let objet;
                 ModalInsideDeleteState:true,
 
             };
+
         case CLOSE_INSIDE_DELETE_MODAL:
 
             return {
@@ -130,17 +133,29 @@ let objet;
 
             };
 
-        case OPEN_EDIT_MODAL:
-              let {obj}=action.payload
+        case OPEN_WIDGET_MODAL:
 
             return {
                 ...state,
-                objet:obj,
 
-                ModalEditState:false
+                ModalWidget:true
 
 
             };
+        case CLOSE_WIDGET_MODAL:
+
+            return {
+                ...state,
+                ModalWidget:false
+
+
+            };
+        case IS_LOADING_CHANGE:
+                return{
+            ...state,
+                    isSubmitting:!state.isSubmitting
+
+            }
 
 
         default:

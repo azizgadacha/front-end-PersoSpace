@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 
 
-import configData from '../../config';
+import configData from '../../../config';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
     Box,
-    Button,
+    Button, Grid, useMediaQuery, useTheme,
 
 
 } from '@material-ui/core';
@@ -20,14 +20,15 @@ import axios from 'axios';
 
 //use ref ta3mil ref  lil objet   min il react
 
-import AnimateButton from './../../animation/AnimateButton';
+import AnimateButton from '../../../animation/AnimateButton';
 
 
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLICK, CLOSE_DELETE_MODAL, DELETE, DELETE_USER, USER_DELETE} from "../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, DELETE, DELETE_USER, USER_DELETE} from "../../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
+import {Cancel, Delete, Deleting} from "../../Button/actionButton";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -79,9 +80,6 @@ const DeleteUser = (props) => {
     const dispatcher = useDispatch();
     const Click = () => {
         setIsloading(true)
-        console.log("salut")
-        console.log(props.user)
-        console.log(props.user._id)
 
 
         axios
@@ -90,11 +88,10 @@ const DeleteUser = (props) => {
                 user_id:props.user._id,
             })
             .then(response =>{
-                console.log('Delete Work')
 
 
 
-                console.log(response.data);
+
                 dispatcher({
                     type:USER_DELETE,
                     payload: {user:response.data.user}
@@ -102,7 +99,6 @@ const DeleteUser = (props) => {
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
-                console.log(response.data.user)
 
 
 
@@ -121,43 +117,73 @@ const DeleteUser = (props) => {
 
             })
             .catch(function (error) {
-                console.log(' Delete dont work')
-                console.log('error')
+
 
             })
 
 
     };
+
+
     return (
         <React.Fragment>
 
-            <Box
-                            sx={{
-                                mt: 2,
-                                marginRight:2,
-                                marginLeft:5
-                            }}
-                        >
-                            <AnimateButton>
-                                {isloading?(<LoadingButton variant="contained" sx={{width:118}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">DELETING</LoadingButton>): <Button sx={{width:118}}disableElevation fullWidth size="large" type="submit" variant="contained" onClick={Click} color="error">Delete</Button>}
+
+
+            <Grid container alignItems={"center"}>
+                <Grid xs={6}>
+                    <Box
+                        sx={
+
+
+                        {
+                            ml:0,
+                            mr:3,
+                            mt: 2,
+
+                        }}
+                    >
+                        <AnimateButton>
 
 
 
-                            </AnimateButton>
 
-                        </Box>
-                        <Box
-                            sx={{
-                                mt: 2,
-                                marginLeft:2
-                            }}
-                        >
-                            <AnimateButton>
+                            {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Deleting}</LoadingButton>):
+                                <Button
+                                    disableElevation
+                                    fullWidth
+                                    onClick={Click}
+                                    type="submit" size="large"
+                                    variant="contained"
+                                    color="error">{Delete} </Button>}
 
-                  <Button disableElevation sx={{width:118}} size="large" onClick={props.handleClose} variant="contained" color="secondary">Cancel</Button>
-                                </AnimateButton>
 
-                        </Box>
+
+                        </AnimateButton>
+
+                    </Box>
+                </Grid>
+                <Grid xs={6}>
+
+                    <Box
+                        sx={{
+                            mt: 2,
+                            marginLeft:1
+                        }}
+                    >
+                        <AnimateButton>
+
+                            <Button disableElevation size="large"  onClick={props.handleClose} fullWidth variant="contained" color="secondary">{Cancel}</Button>
+                        </AnimateButton>
+
+                    </Box>
+                </Grid>
+
+            </Grid>
+
+
+
+
 
 </React.Fragment>
     );

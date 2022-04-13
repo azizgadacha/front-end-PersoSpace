@@ -15,15 +15,12 @@ const cardReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case "ajout":
-            console.log(state.cards.push(action.card))
-console.log(state)
             return {
              ...state
 
             };
         case "supprimer":
             const index = state.cards.indexOf({id:1});
-console.log("index is "+index)
                 state.cards.splice(index, 1);
 
 

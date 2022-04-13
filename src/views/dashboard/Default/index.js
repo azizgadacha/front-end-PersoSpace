@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 // material-ui
 import {Grid} from '@material-ui/core';
 
@@ -12,16 +12,13 @@ import axios from "axios";
 import configData from "../../../config";
 
 
-import TotalGrowthBarChart from "./TotalGrowthBarChart";
+import TotalGrowthBarChart from "../../Widget/TotalGrowthBarChart";
 
-import {Workspaces} from "@material-ui/icons";
-import {ADD, CLOSE_DELETE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_USER} from "../../../store/actions";
-import {Route} from "react-router-dom";
+import { CLOSE_DELETE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_USER} from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
-import Modal from "../../modal";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
 
 
@@ -48,7 +45,7 @@ const Dashboard = (props, { ...others }) => {
         }
     }, [])
 
-const load=[1,2,3,4]
+const load=[1,2,3,4,5,6]
     const [succes, setSucces] = useState(false);
     const [isload, setLoad] = useState(true);
 
@@ -90,18 +87,15 @@ const load=[1,2,3,4]
 
     useEffect(() => {
 
-        console.log("wa " +account.token)
         axios
             .post( configData.API_SERVER + 'api/users/getworkspace',{id:account.user._id, token:account.token})
             .then(response =>{
-                console.log('nemchi')
-                console.log(response.data.workspaceitems);
+
                 dispatcher({
                         type:INISIALIZE,
                     payload: {work:response.data.workspaceitems}
                 }
                 )
-                console.log(workspaces.Workspace)
 
 
                 setLoading(false);
@@ -109,8 +103,7 @@ const load=[1,2,3,4]
                 setLoad(false)
             })
             .catch(function (error) {
-                console.log('le menemchich zeda')
-                console.log('error')
+
 
             })
     },[]);
@@ -121,13 +114,8 @@ const load=[1,2,3,4]
         return(
 
 
-           /* <Grid item lg={4} md={6} sm={6} xs={12}>
 
-                <WorkspaceCard isLoading={isLoading} card={card}      />
-            </Grid>
-
-*/
-            <Grid item xs={12} md={6} xl={3}>
+            <Grid item lg={4} md={6} sm={6} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}/>
 
             </Grid>
@@ -135,8 +123,8 @@ const load=[1,2,3,4]
 
         )})
     return (
-
-        isload?  (<Grid container spacing={3}>
+<Fragment>
+    {isload?  (<Grid container spacing={3}>
             <Grid item xs={12} >
                 <Grid container spacing={gridSpacing}>
 
@@ -156,8 +144,8 @@ const load=[1,2,3,4]
             </Grid>
 
         </Grid>):(<Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-                <Grid container spacing={3}>
+        <Grid item xs={12} >
+            <Grid container spacing={gridSpacing}>
 
 
 
@@ -169,7 +157,8 @@ const load=[1,2,3,4]
                     <ShareWorkspaceModal/>
 
 
-                    <Grid item xs={12} md={6} xl={3}>
+
+                <Grid item lg={4} md={6} sm={6} xs={12}>
 
                         <PlusCard/>
 
@@ -177,11 +166,14 @@ const load=[1,2,3,4]
 
                 </Grid>
             </Grid>
-            <Grid item xs={12} lg={4}>
-                <TotalGrowthBarChart isLoading={isLoading} />
-            </Grid>
-        </Grid>
 
-    ))
+        </Grid>)}
+
+
+
+
+</Fragment>
+
+    )
 }
 export default Dashboard;

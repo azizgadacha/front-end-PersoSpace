@@ -86,16 +86,13 @@ const AccountProfileDetails = (props, { ...others }) => {
           })}
           onSubmit={(values) => {
               setChanged(false)
-console.log("hnai")
-              console.log(values)
-              console.log("sahbi")
+
 
              if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
                  setChanged(true)
               else {
 
 
-              console.log("d5alt3.0")
 
 
 setVal(values)
@@ -321,8 +318,6 @@ setVal(values)
         )}
       </Formik>
         {open1.ModalState && (<Password_verify     user={val}/>)}
-        {console.log("wa sahbi")}
-        {console.log(open1.ModalState)}
 
     </ThemeConfig>
 );

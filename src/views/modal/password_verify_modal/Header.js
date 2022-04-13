@@ -3,7 +3,6 @@ import React, {Fragment} from 'react';
 // material-ui
 import {useTheme} from '@material-ui/core';
 import { Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
-import {Divider} from "@mui/material";
 
 // project imports
 

@@ -14,7 +14,6 @@ import configData from "../../../config";
 
 
 
-import {Workspaces} from "@material-ui/icons";
 import {
     ADD,
     CLOSE_DELETE_MODAL,
@@ -23,8 +22,7 @@ import {
     INISIALIZEINSIDEWORKSPACE
 } from "../../../store/actions";
 import {Route, useParams} from "react-router-dom";
-import Modal_Delete_Workspace from "../../modal_delete_workspace";
-import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
+
 import ThemeConfig from "../../../themes/theme2";
 import Modal_Inside_Delete_Workspace from "../../modal_delete_inside_workspace";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";

@@ -84,8 +84,6 @@ const RestForget = ({ ...others }) => {
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
 
 
 
@@ -182,33 +180,7 @@ const RestForget = ({ ...others }) => {
 
 
 
-                        {strength !== 0 && (
-                            <FormControl fullWidth>
-                                <Box
-                                    sx={{
-                                        mb: 2
-                                    }}
-                                >
-                                    <Grid container spacing={2} alignItems="center">
-                                        <Grid item>
-                                            <Box
-                                                backgroundColor={level.color}
-                                                sx={{
-                                                    width: 85,
-                                                    height: 8,
-                                                    borderRadius: '7px'
-                                                }}
-                                            ></Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography variant="subtitle1" fontSize="0.75rem">
-                                                {level.label}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-                            </FormControl>
-                        )}
+
 
                         <Grid container alignItems="center" justifyContent="space-between">
 

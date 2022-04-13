@@ -36,20 +36,19 @@ import AnimateButton from '../../../animation/AnimateButton';
 import {useDispatch, useSelector} from "react-redux";
 
 import {
-    ADD_USER,
+
     CLICK,
-    CLOSE_DELETE_MODAL,
+
     CLOSE_MODAL,
-    DELETE,
-    DELETE_USER, UPDATE,
-    USER_DELETE
+
+    UPDATE,
+
 } from "../../../store/actions";
-import {Alert, LoadingButton} from "@material-ui/lab";
-import {Avatar, Divider, Grid, Stack} from "@mui/material";
+import { LoadingButton} from "@material-ui/lab";
+import {Grid} from "@mui/material";
 import {Formik} from "formik";
 import * as Yup from "yup";
-import config from "../../../config";
-import {gridSpacing} from "../../../store/constant";
+
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {useHistory} from "react-router-dom";
@@ -108,16 +107,13 @@ const RestPass = (props, { ...others }) => {
                    });
     }
     let account = useSelector((state) => state.account);
-    const theme = useTheme();
 
     const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = React.useState(false);
 
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
+
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -128,21 +124,13 @@ const RestPass = (props, { ...others }) => {
         event.preventDefault();
     };
 
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
 
 
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
+
 
 
 
     const [isloading, setIsloading] = useState(false);
-    //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
 
     return (
@@ -174,20 +162,15 @@ const RestPass = (props, { ...others }) => {
                         })
                             .then(function (response) {
 
-                                console.log(response.data)
                                 if (response.data.success) {
 
 
 
-                                    console.log("hani lena 200")
-                                    console.log(response.data.user)
 
                                     dispatcher({
                                         type:UPDATE,
                                         payload: {user:response.data.user}
                                     });
-                                    console.log("fdfsf")
-                                    console.log(account.user)
 
                                     dispatcher({
                                         type:CLICK,
@@ -209,7 +192,6 @@ const RestPass = (props, { ...others }) => {
                                     }
 
                                         else {
-                                        console.log("loj")
 
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
@@ -224,7 +206,6 @@ const RestPass = (props, { ...others }) => {
                                     }}
                             })
                             .catch(function (error) {
-                                console.log("loj2")
 
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
@@ -238,7 +219,6 @@ const RestPass = (props, { ...others }) => {
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
-                            console.log("loj3")
 
                             setStatus({ success: false });
                             setErrors({ submit: err.message });
@@ -277,7 +257,6 @@ const RestPass = (props, { ...others }) => {
                                     onChange={(e) => {
                                         setVerifPass(false)
                                         handleChange(e);
-                                        changePassword(e.target.value);
                                     }}
                                     endAdornment={
                                         <InputAdornment position="end">

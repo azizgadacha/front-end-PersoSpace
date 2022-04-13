@@ -6,7 +6,6 @@ import React, {Fragment} from 'react';
 import RestPass from "./RestPass"
 import Header from "./Header"
 import {Divider, Grid} from "@mui/material";
-import FormRange from "react-bootstrap/FormRange";
 
 // assets
 

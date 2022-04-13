@@ -108,24 +108,20 @@ const AccountProfileDetails = (props, { ...others }) => {
         changePassword('123456');
     }, []);
     function handleShowPassword (num) {
-        console.log("salem sahbi")
-        console.log(num)
+
         switch (num) {
             case 0: {
-                console.log("fil0")
                 setShowPassword0((show) => !show);
                 break;
 
             }
             case 1: {
-                console.log("fil1")
 
                 setShowPassword1((show1) => !show1);
                 break;
 
             }
             case 2: {
-                console.log("fil2")
 
                 setShowPassword2((show2) => !show2);
                 break;
@@ -208,20 +204,17 @@ const AccountProfileDetails = (props, { ...others }) => {
                       })
                           .then(function (response) {
 
-                              console.log(response.data)
                               if (response.data.success) {
 
 
 
-                                  console.log("hani lena 200")
-                                  console.log(response.data.user)
+
 
                                   dispatcher({
                                       type:UPDATE,
                                       payload: {user:response.data.user}
                                   });
-                                  console.log("fdfsf")
-                                  console.log(account.user)
+
                                   dispatcher({
                                       type:CLICK,
                                       payload: {text:"information changed successfully",severity:"success"}
@@ -247,7 +240,7 @@ const AccountProfileDetails = (props, { ...others }) => {
                                   }
 
                                   else {
-                                      console.log("loj")
+
 
                                       setStatus({ success: false });
                                       setErrors({ submit: response.data.msg });
@@ -262,7 +255,6 @@ const AccountProfileDetails = (props, { ...others }) => {
                                   }}
                           })
                           .catch(function (error) {
-                              console.log("loj2")
 
                               setStatus({ success: false });
                               setErrors({ submit: error.response.data.msg });
@@ -273,9 +265,7 @@ const AccountProfileDetails = (props, { ...others }) => {
                               });
                           });
                   } catch (err) {
-                      console.error(err);
                       if (scriptedRef.current) {
-                          console.log("loj3")
 
                           setStatus({ success: false });
                           setErrors({ submit: err.message });

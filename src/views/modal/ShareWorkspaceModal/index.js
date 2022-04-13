@@ -4,22 +4,17 @@ import React, {Fragment, useEffect, useState} from 'react';
 import Fade from '@mui/material/Fade';
 
 import {
-    Stack,
-    Container,
-    Typography,
+
     Box,
-    Card,
     TableContainer,
     Table,
     TableBody,
     TableRow,
     TableCell,
     Checkbox,
-    Avatar,
-    Button,
+
     TablePagination,
     Modal,
-    TextField,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -27,49 +22,31 @@ import ThemeConfig from "../../../themes/theme2"
 
 import Backdrop from '@mui/material/Backdrop';
 
-import axios from "axios";
-import configData from "../../../config";
+
 
 import {useDispatch, useSelector} from "react-redux";
 import {
-    ADD_USER,
-    CLICK,
+
     CLOSE_Confirm_Share_Workspace_MODAL,
-    CLOSE_DELETE_MODAL,
-    CLOSE_MODAL,
-    INISIALIZE_USER,
+    CLOSE_MODAL
+    ,
 } from "../../../store/actions";
 
 import { useHistory} from "react-router-dom";
 
-import {Formik} from "formik";
-import * as Yup from "yup";
-import config from "../../../config";
+
 import {
-    FormControl,
-    FormHelperText,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput, useMediaQuery, useTheme
+    useMediaQuery,
 } from "@material-ui/core";
-import {gridSpacing} from "../../../store/constant";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {Alert, LoadingButton} from "@material-ui/lab";
-import AnimateButton from "../../../animation/AnimateButton";
+
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
-import SaveIcon from "@mui/icons-material/Save";
 import {UserListHead} from "../../ViewAll/import/customer/@dashboard/user";
 
 import SearchNotFound from "../../ViewAll/import/customer/SearchNotFound";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Cells from "./Cells";
-import Modal_Delete_User from "../../Modal_delete_user";
-import Modal_confirm from "../ConfirmShareWorkspaceModal/Modal_confirm";
 import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
 
 // ----------------------------------------------------------------------

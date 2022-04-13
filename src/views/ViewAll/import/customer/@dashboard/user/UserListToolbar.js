@@ -7,7 +7,7 @@ import {
   IconButton,
   Typography,
   OutlinedInput,
-  InputAdornment, Button
+  InputAdornment, Button, Grid
 } from '@mui/material';
 // component
 import Iconify from '../../Iconify';
@@ -51,12 +51,10 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
 
   const dispatcher = useDispatch();
   const HandleClick=()=>{
-console.log("sahbi")
     dispatcher({
       type:OPEN_MODAL,
 
     });
-    console.log("sahbi2.0")
 
   }
 
@@ -75,7 +73,7 @@ console.log("sahbi")
           {numSelected} selected
         </Typography>
       ) : (
-        <SearchStyle
+        <SearchStyle sx={{mr:2 ,ml:0}}
           value={filterName}
           onChange={onFilterName}
           placeholder="Search user..."
@@ -94,8 +92,8 @@ console.log("sahbi")
           </IconButton>
         </Tooltip>
       ) : (
-          <Button
-              sx={{height:40 ,width:125,mr:3,mb:2,mt:3}}
+          <Grid >
+          <Button sx={{width:125,mr:0,mb:2,mt:3}}
               variant="contained"
               onClick={HandleClick}
 
@@ -103,6 +101,7 @@ console.log("sahbi")
           >
             New User
           </Button>
+          </Grid>
       )}
     </RootStyle>
       </Fragment>

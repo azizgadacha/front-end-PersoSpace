@@ -4,9 +4,14 @@ import React, {useState} from 'react';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {Avatar,  Grid, Typography} from '@material-ui/core';
+
 import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
+import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
+import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
+
 import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
 
 
@@ -27,8 +32,7 @@ import {
     OPEN_DELETE_MODAL, OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
-import Modal_Delete_Workspace from "../../modal_delete_workspace";
-import ThemeConfig from "../../../themes/theme2";
+
 import {useHistory, useParams} from "react-router-dom";
 import config from "../../../config";
 import {Box, Button, Menu, MenuItem} from "@mui/material";
@@ -38,20 +42,26 @@ import SaveIcon from "@mui/icons-material/Save";
 import {Cancel, Delete, Deleting, Widget, Workspaces} from "../../Button/actionButton";
 import {initialState as userSt} from "../../../store/UserReducer";
 
+
 // style constant
 const useStyles = makeStyles((theme) => ({
     card: {
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.dark,
         color: '#fff',
         overflow: 'hidden',
         position: 'relative',
+        '&>div': {
+            position: 'relative',
+            zIndex: 5
+        },
         '&:after': {
             content: '""',
             position: 'absolute',
             width: '210px',
             height: '210px',
-            background: theme.palette.secondary[800],
+            background: theme.palette.primary[800],
             borderRadius: '50%',
+            zIndex: 1,
             top: '-85px',
             right: '-95px',
             [theme.breakpoints.down('xs')]: {
@@ -62,9 +72,10 @@ const useStyles = makeStyles((theme) => ({
         '&:before': {
             content: '""',
             position: 'absolute',
+            zIndex: 1,
             width: '210px',
             height: '210px',
-            background: theme.palette.secondary[800],
+            background: theme.palette.primary[800],
             borderRadius: '50%',
             top: '-125px',
             right: '-15px',
@@ -81,15 +92,9 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         ...theme.typography.commonAvatar,
         ...theme.typography.largeAvatar,
-        backgroundColor: theme.palette.secondary[800],
+        backgroundColor: theme.palette.primary[800],
+        color: '#fff',
         marginTop: '8px'
-    },
-    avatarRight: {
-        ...theme.typography.commonAvatar,
-        ...theme.typography.mediumAvatar,
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary[200],
-        zIndex: 1
     },
     cardHeading: {
         fontSize: '2.125rem',
@@ -101,30 +106,33 @@ const useStyles = makeStyles((theme) => ({
     subHeading: {
         fontSize: '1rem',
         fontWeight: 500,
-        color: theme.palette.secondary[200]
+        color: theme.palette.primary[200]
     },
     avatarCircle: {
-        cursor: 'pointer',
         ...theme.typography.smallAvatar,
-        backgroundColor: theme.palette.secondary[200],
-        color: theme.palette.secondary.dark
+        cursor: 'pointer',
+        backgroundColor: theme.palette.primary[200],
+        color: theme.palette.primary.dark
     },
     circleIcon: {
         transform: 'rotate3d(1, 1, 1, 45deg)'
-    },
-    menuItem: {
-        marginRight: '14px',
-        fontSize: '1.25rem'
     }
 }));
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const WorkspaceCard = ({ isLoading,card }) => {
+    let history =useHistory()
+
     const classes = useStyles();
+    const  OpenWidget=()=>{
+
+        history.push(config.defaultPath+'/widget/'+ card._id)
 
 
+    }
 
+   
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClickMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -137,7 +145,6 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
-    let history =useHistory()
     let {id}=useParams()
     const click = () => {
         console.log('im the card  '+card.WorkspaceName)
@@ -242,6 +249,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
                                     </Menu>
 
+
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -252,6 +260,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
                                 </Grid>
+
                             </Grid>
                         </Grid>
                         <Grid item
@@ -280,13 +289,14 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
 
-                                        <Button
-                                            disableElevation
-                                            fullWidth
 
-                                            type="submit" size="large"
-                                            variant="contained"
-                                            color="secondary">Widget </Button>
+                                            <Button
+                                                disableElevation
+                                                fullWidth
+                                                  onClick={OpenWidget}
+                                                type="submit" size="large"
+                                                variant="contained"
+                                                color="warning">{Widget} </Button>
 
 
 
@@ -304,7 +314,8 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                 >
                                     <AnimateButton>
 
-                                        <Button disableElevation size="large" onClick={click}  fullWidth variant="contained" color="secondary">Workspaces</Button>
+
+                                        <Button disableElevation size="large" onClick={click}  fullWidth variant="contained" color="warning">{Workspaces}</Button>
                                     </AnimateButton>
 
                                 </Box>

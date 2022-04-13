@@ -11,14 +11,11 @@ import {
 
 import {useDispatch, useSelector} from "react-redux";
 import {
-    CLOSE_DELETE_MODAL,
+
     Confirm_Share_Workspace_MODAL,
-    DELETE,
-    OPEN_DELETE_MODAL,
-    OPEN_EDIT_MODAL
+
 } from "../../../store/actions";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import configData from "../../../config";
 
 // ----------------------------------------------------------------------

@@ -29,6 +29,7 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 
     margin: theme.spacing(8.5, 3, 17.5, 25)
 
+
 }));
 // assets
 

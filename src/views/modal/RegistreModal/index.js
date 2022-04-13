@@ -1,23 +1,14 @@
-import { filter } from 'lodash';
 import React, {Fragment, useEffect, useState} from 'react';
 // material
 import Fade from '@mui/material/Fade';
 
 import {
     Stack,
-    Container,
     Typography,
     Box,
-    Card,
-    TableContainer,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
-    Checkbox,
+
     Avatar,
     Button,
-    TablePagination,
     Modal,
     TextField,
 } from '@mui/material';
@@ -31,31 +22,25 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
+import { ADD_USER, CLICK, CLOSE_MODAL} from "../../../store/actions";
 
-import { useHistory} from "react-router-dom";
 
 import {Formik} from "formik";
 import * as Yup from "yup";
-import config from "../../../config";
 import {
     FormControl,
     FormHelperText,
     Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    OutlinedInput, useMediaQuery, useTheme
+    IconButton, useMediaQuery,
 } from "@material-ui/core";
 import {gridSpacing} from "../../../store/constant";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+
 import {Alert, LoadingButton} from "@material-ui/lab";
 import AnimateButton from "../../../animation/AnimateButton";
 import useScriptRef from "../../../hooks/useScriptRef";
-import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
+import {Add, Adding, Cancel} from "../../Button/actionButton";
 
 // ----------------------------------------------------------------------
 
@@ -82,7 +67,7 @@ const style = {
     left: '50%',
     radius:3,
     transform: 'translate(-50%, -50%)',
-    width: 400,
+
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
@@ -96,23 +81,7 @@ const style = {
 const useStyles = makeStyles((theme) => ({
 
 
-    modal:{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
 
-        transform: 'translate(-50%, -50%)',
-        width: 600,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        pt: 2,
-        px: 4,
-        pb: 3,
-
-
-
-    },
 
 
     redButton: {
@@ -159,6 +128,10 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(1),
         },
+
+        '&:hover .AvatarBackdrop': {
+            opacity: 0.5,
+        },
     },
     input: {
         display: "none",
@@ -168,6 +141,9 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(20),
         height: theme.spacing(20),
+        '&:hover .imageBackdrop': {
+            opacity: 0.5,
+        },
     },
 
 
@@ -192,12 +168,11 @@ const User=  (props) => {
         },
 
     ];
-    const [source, setSource] = React.useState("/static/images/avatar_1.png");
+    let [source, setSource] = React.useState("/static/images/avatar_1.png");
 
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
@@ -206,33 +181,8 @@ const User=  (props) => {
     };
 
     const classes = useStyles();
-    let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
 
@@ -243,7 +193,9 @@ const User=  (props) => {
 
 
 
-    const [open5, setOpen5] = React.useState(false);
+
+
+
 
 
 
@@ -266,6 +218,10 @@ const User=  (props) => {
     let open1 = useSelector((state) => state.modal);
 
     const handleClose=()=>{
+
+
+
+        setSource("/static/images/avatar_1.png")
         dispatcher({
             type:CLOSE_MODAL,
         });
@@ -310,7 +266,7 @@ const User=  (props) => {
                                 validationSchema={Yup.object().shape({
                                     email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
                                     username: Yup.string().required('Username is required'),
-                                    phone: Yup.number().typeError("Must be a number").required('phone is required').integer("Must be a valid number").positive(),
+                                    phone: Yup.string().matches(new RegExp('[1-9][1-9]{7}'),"phone should containe 8 digits"),
 
                                     role: Yup.string().required('role is required')
 
@@ -325,7 +281,7 @@ setIsloading(true)
 
                                         fd.append('username',values.username)
                                         fd.append('email',values.email)
-                                        fd.append('phone',values.phone)
+                                        fd.append('phone',parseInt(values.phone))
                                         fd.append('file',values.file)
                                         fd.append('role',values.role)
                                         fd.append('token',account.token)
@@ -337,20 +293,18 @@ setIsloading(true)
                                             }})
                                             .then(function (response) {
 
-                                                console.log(response.data)
                                                 if (response.data.success) {
-                                                    console.log("hani lena")
-                                                    console.log(response.data.user)
 
                                                     dispatcher({
                                                         type:ADD_USER,
                                                         payload: {user:response.data.user}
                                                     });
-                                                    console.log("hani lena 200")
                                                     setIsloading(false)
                                                     dispatcher({
                                                         type:CLOSE_MODAL,
                                                     });
+                                                    setSource("/static/images/avatar_1.png")
+
                                                     dispatcher({
                                                         type:CLICK,
                                                         payload: {text:"User added successfully",severity:"success"}
@@ -372,7 +326,6 @@ setIsloading(true)
 
                                             });
                                     } catch (err) {
-                                        console.error(err);
                                         if (scriptedRef.current) {
                                             setStatus({ success: false });
                                             setErrors({ submit: err.message });
@@ -395,7 +348,7 @@ setIsloading(true)
 
                                         <grid>
 
-                                            <Typography sx={{mt:4}} id="child-modal-title"
+                                            <Typography sx={{mt:1}} id="child-modal-title"
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h6' : 'h6'}
                                                         align={"center"}  >
@@ -428,7 +381,7 @@ setIsloading(true)
 
 
                                         <Stack spacing={2} id="transition-modal-title">
-                                            <Stack direction={{ xs: 'column', sm: 'row' }}  spacing={2}>
+                                            <Stack direction={{ xs: 'column', sm: 'row' }}  spacing={12}>
 
                                                 <Grid container spacing={2}>
                                                     <Grid item  xs={12} >
@@ -564,17 +517,7 @@ setIsloading(true)
 
 
 
-                                        {strength !== 0 && (
-                                            <FormControl fullWidth>
-                                                <Box
-                                                    sx={{
-                                                        mb: 2
-                                                    }}
-                                                >
 
-                                                </Box>
-                                            </FormControl>
-                                        )}
 
 
 
@@ -598,34 +541,45 @@ setIsloading(true)
 
 
                                             <Grid container alignItems={"center"}>
+<Grid xs={6}>
+                                                <Box
+                                                    sx={{
+                                                        mr:1,
+                                                        mt: 2,
 
-                                            <Box
-                                                sx={{
-                                                    mt: 2,
-                                                    marginRight:2,
-                                                    marginLeft:4
-                                                }}
-                                            >
-                                                <AnimateButton>
-                                                    {isloading?(<LoadingButton variant="contained" sx={{width:220}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">Adding</LoadingButton>): <Button sx={{width:220}} disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" size="large"  variant="contained" color="secondary">Add User</Button>}
+                                                    }}
+                                                >
+                                                    <AnimateButton>
+                                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
+                                                            <Button
+                                                                disabled={isSubmitting}
+                                                                disableElevation
+                                                                fullWidth
+                                                                type="submit" size="large"
+                                                                variant="contained"
+                                                                color="secondary">{Add}</Button>}
 
 
 
-                                                </AnimateButton>
+                                                    </AnimateButton>
 
-                                            </Box>
-                                            <Box
-                                                sx={{
-                                                    mt: 2,
-                                                    marginLeft:1
-                                                }}
-                                            >
-                                                <AnimateButton>
+                                                </Box>
+</Grid>
+                                                <Grid xs={6}>
 
-                                                    <Button disableElevation sx={{width:220}} size="large" onClick={handleClose} variant="contained" color="error">Cancel</Button>
-                                                </AnimateButton>
+                                                <Box
+                                                    sx={{
+                                                        mt: 2,
+                                                        marginLeft:1
+                                                    }}
+                                                >
+                                                    <AnimateButton>
 
-                                            </Box>
+                                                        <Button disableElevation  disabled={isSubmitting} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                                    </AnimateButton>
+
+                                                </Box>
+                                                </Grid>
 
                                             </Grid>
 

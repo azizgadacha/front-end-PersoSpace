@@ -27,7 +27,6 @@ import {
     OPEN_DELETE_MODAL, OPEN_INSIDE_DELETE_MODAL, OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
-import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import ThemeConfig from "../../../themes/theme2";
 import {useHistory, useParams} from "react-router-dom";
 import config from "../../../config";

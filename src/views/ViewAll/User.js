@@ -34,7 +34,7 @@ import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import SearchNotFound from "./import/customer/SearchNotFound";
-import Modal_Delete_User from "../Modal_delete_user";
+import Modal_Delete_User from "../modal/Modal_delete_user";
 import Cells from "./cells";
 import { useHistory} from "react-router-dom";
 
@@ -44,11 +44,9 @@ import {
     useMediaQuery, useTheme
 } from "@material-ui/core";
 
-import useScriptRef from "../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton/TableSkelton";
-import EditUser from "../modal/EditUser/EditUser";
 
 // ----------------------------------------------------------------------
 
@@ -196,7 +194,6 @@ const User=  (props) => {
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
@@ -268,22 +265,18 @@ const User=  (props) => {
         }
     }, [])
    useEffect(() => {
-console.log("salah2.0")
     axios
         .post(configData.API_SERVER + 'api/users/all', {
             id:account.user._id,
 
           token: account.token
         }).then((result) => {
-      console.log("im gere")
-      console.log(result.data.users)
         dispatcher({
             type:INISIALIZE_USER,
             payload: {users:result.data.users},
         })
         setUSERLIST(userSt.users)
         setSucess(true)
-        console.log("salah3.0")
 
     })},[] );
 
@@ -412,7 +405,7 @@ console.log("salah2.0")
                                 onRequestSort={handleRequestSort}
                                 onSelectAllClick={handleSelectAllClick}
                             />
-                            <TableBody>
+                            <TableBody >
                                 {filteredUsers
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
@@ -475,10 +468,10 @@ console.log("salah2.0")
 </Fragment>
                     ):(<SkeltonTable/>)}
             </Card>
-              {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
 
       </Container>
           </ThemeConfig>
+          {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
 
 
 <RegistreModal/>

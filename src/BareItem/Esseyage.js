@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 //     const account = useSelector((state) => state.account);
 const Essayage=()=>{
     const account = useSelector((state) => state.account);
-    console.log(account)
 if (!account.user){
 
    return { items: [dashboard, utilities]}

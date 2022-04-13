@@ -5,7 +5,6 @@ import {useTheme} from '@material-ui/core';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
 
 // project imports
-import RestWorkspace from '../modal/RestWorkspace'
 import RestInsideWorkspace from "./RestWorkspace";
 
 // assets
