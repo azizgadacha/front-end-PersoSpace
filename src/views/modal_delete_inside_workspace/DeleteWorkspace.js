@@ -97,7 +97,6 @@ const DeleteWorkspace = (props) => {
             })
             .then(response =>{
                 console.log('bbbbbbbbbbbbbbbbbbbbbbbb')
-
                 console.log('Delete Work')
                 console.log(response.data.workspaceitems);
                 dispatcher({

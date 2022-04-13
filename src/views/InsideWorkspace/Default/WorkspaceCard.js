@@ -4,9 +4,9 @@ import React, {useState} from 'react';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {Avatar,  Grid, Typography} from '@material-ui/core';
-import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
-import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
-import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
+import ShareIcon from '@mui/icons-material/Share';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
 
 
@@ -231,13 +231,13 @@ const WorkspaceCard = ({ isLoading,card1 }) => {
                                         }}
                                     >
                                         <MenuItem onClick={shareWorkspaces}>
-                                            <GetAppTwoToneIcon  fontSize="inherit" className={classes.menuItem} /> Share Workspace
+                                            <ShareIcon  fontSize="inherit" className={classes.menuItem} /> Share Workspace
                                         </MenuItem>
                                         <MenuItem onClick={handleClick}>
-                                            <FileCopyTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
+                                            <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
                                         </MenuItem>
                                         <MenuItem onClick={handleCloseMenu}>
-                                            <PictureAsPdfTwoToneIcon fontSize="inherit"  className={classes.menuItem} /> Edit Workspace
+                                            <EditIcon fontSize="inherit"  className={classes.menuItem} /> Edit Workspace
                                         </MenuItem>
 
                                     </Menu>
