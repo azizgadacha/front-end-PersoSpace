@@ -12,8 +12,8 @@ export const initialState = {
   Type:null,
     Place:0,
     label:null,
-    Data:null,
-    WidgetNamee:''
+    dataWidget:null,
+    WidgetName:''
 
 };
 
@@ -44,7 +44,7 @@ const Widget_transition_Reducer = (state = initialState, action) => {
             state.Type=null
 
             state.label=null
-            state.Data=null
+            state.dataWidget=null
             state.WidgetNamee=''
 
             return {
@@ -79,37 +79,26 @@ console.log("test "+state.Place)
 
 
             };
-        case IMPORT_DATA:
 
-console.log(action.payload.Data)
-         let {Data}=action.payload
-            state.Place=state.Place+1;
-            console.log("test4 "+state.Type);
-            state.label=action.payload.Data[0];
-            state.Data=action.payload.Data[1];
-            return {
-
-                ...state,
-
-
-            };
             case CHANGE_NAME:
 
-            let {WidgetNamee}=action.payload
+            let {WidgetName}=action.payload
 
             return {
 
                 ...state,
-                WidgetNamee
+                WidgetName
 
             };
 
         case IMPORT_DATA:
 
             state.Place=state.Place+1;
-            console.log("test4 "+state.Type);
             state.label=action.payload.Data[0];
-            state.Data=action.payload.Data[1];
+            console.log("bb")
+            state.dataWidget=action.payload.Data[1];
+            console.log(state.dataWidget)
+
             return {
 
                 ...state,

@@ -16,7 +16,6 @@ import {
 
 export const initialState = {
    Workspace:[],
-    InsideWorkspace:[],
     id:null
 
 };
@@ -37,16 +36,7 @@ const WorkspaceStore = (state = initialState, action) => {
                 ...state,
 
             };
-        case INISIALIZEINSIDEWORKSPACE:
 
-
-
-            state.InsideWorkspace=action.payload.work
-            return {
-
-                ...state,
-
-            };
         case ADD:
 
 
@@ -57,16 +47,7 @@ const WorkspaceStore = (state = initialState, action) => {
                 ...state,
 
             };
-        case ADDINSIDEWORKSPACE:
 
-
-
-            state.InsideWorkspace=state.InsideWorkspace.concat(action.payload.work)
-            return {
-
-                ...state,
-
-            };
 
         case DELETE:
 

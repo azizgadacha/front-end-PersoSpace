@@ -4,20 +4,20 @@ import {Bar} from 'react-chartjs-2'
 import {Chart as ChartJS} from "chart.js/auto";
 import {useSelector} from "react-redux";
 
-const BarChart = () => {
+const BarChart = (data) => {
 
-    let widget = useSelector((state) => state.widget);
 return(
     <Fragment>
-        {console.log(widget)}
-        {console.log(widget.Data)}
+        {console.log("mori")}
+        {console.log(data)}
+
 
         <Bar
                  data={{
-                     labels:widget.label,
+                     labels:data.data.label,
                      datasets: [{
-                         label: widget.WidgetNamee,
-                         data: widget.Data,
+                         label: data.data.WidgetName,
+                         data: data.data.dataWidget,
                          backgroundColor: [
                              'rgba(255, 99, 132, 0.2)',
                              'rgba(54, 162, 235, 0.2)',

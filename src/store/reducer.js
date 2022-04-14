@@ -11,6 +11,7 @@ import ModalReducer from "./ModalReducer";
 import WorkspaceStore from "./WorkspaceStore";
 import UserReducer from "./UserReducer";
 import Widget_transition_Reducer from "./Widget_transition_Reducer";
+import WidgetStore from "./WidgetStore";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -30,7 +31,7 @@ const reducer = combineReducers({
     workspace:WorkspaceStore,
     user:UserReducer,
     widget:Widget_transition_Reducer,
-
+widgetstore:WidgetStore
 });
 
 export default reducer;

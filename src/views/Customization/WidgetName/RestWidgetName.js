@@ -36,11 +36,12 @@ import AnimateButton from '../../../animation/AnimateButton';
 import {useDispatch, useSelector} from "react-redux";
 
 import {
+    ADD_WIDGET,
     CHANGE_NAME,
 
     CLICK,
 
-    CLOSE_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE,
+    CLOSE_MODAL, CLOSE_WIDGET_MODAL, INISIALIZE_STORE, INIZIALIZE_STEPS, IS_LOADING_CHANGE,
 
     UPDATE,
 
@@ -160,10 +161,10 @@ const RestWidgetName = ( { buttonRef }) => {
                     try{
                         axios.post( configData.API_SERVER + 'api/users/addWidget', {
                             superior_id:id,
-                            widgetName: values.WidgetName,
+                            WidgetName: values.WidgetName,
                              type: widget.Type,
                             label:widget.label,
-                            data:widget.Data,
+                            dataWidget:widget.dataWidget,
                             token:account.token
                         })
                             .then(function (response) {
@@ -177,16 +178,29 @@ console.log("test1")
                                     })
                                     dispatcher({
                                         type:CHANGE_NAME,
-                                        payload: {WidgetNamee:values.widgetName}
+                                        payload: {WidgetName:values.WidgetName}
 
                                     })
-                                    console.log("test3")
+                                    console.log("mehrez")
+                                    console.log(widget)
+                                    dispatcher({
+                                        type:ADD_WIDGET,
+                                        payload: {widget:widget}
 
+                                    })
+
+                                    console.log("test3")
+                                    dispatcher({
+                                        type:INIZIALIZE_STEPS
+
+                                    })
                                     dispatcher({
                                         type:CLOSE_WIDGET_MODAL,
 
                                     })
                                     console.log("test3")
+
+
 
                                     dispatcher({
                                         type:CLICK,

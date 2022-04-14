@@ -12,11 +12,11 @@ import configData from "../../config";
 
 import TotalGrowthBarChart from "./TotalGrowthBarChart";
 
-import { CLOSE_DELETE_MODAL, INISIALIZE} from "../../store/actions";
+import {CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZE_STORE} from "../../store/actions";
 
 import {gridSpacing} from "../../store/constant";
 import Customization from "../Customization";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 
 
@@ -41,7 +41,7 @@ const Widget = (props, { ...others }) => {
 
     const [isLoading, setLoading] = useState(true);
     const account = useSelector((state) => state.account);
-    const workspaces = useSelector((state) => state.workspace);
+    const widget = useSelector((state) => state.widgetstore);
 
     let open = useSelector((state) => state.modal);
     function handleClose  () {
@@ -51,19 +51,23 @@ const Widget = (props, { ...others }) => {
         });
     };
 
+    let {id}=useParams()
 
    useEffect(() => {
-
+console.log("heello les ami")
         axios
-            .post( configData.API_SERVER + 'api/users/getworkspace',{id:account.user._id, token:account.token})
+            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
             .then(response =>{
+                console.log("heello les ami2.0")
 
                 dispatcher({
-                        type:INISIALIZE,
-                        payload: {work:response.data.workspaceitems}
+                        type:INISIALIZE_STORE,
+                        payload: {widget:response.data.Widgetitems}
                     }
                 )
-
+                console.log("heello les ami3..0")
+console.log(widget.widget)
+                setLoading(false);
 
                 setLoading(false);
                 setSucces(true)
@@ -75,42 +79,43 @@ const Widget = (props, { ...others }) => {
             })
     },[]);
    
-    let lc =   workspaces.Workspace.map((card)  => {
+    let lc =   widget.widget.map((data)  => {
 
         return(
-
-
-            /* <Grid item lg={4} md={6} sm={6} xs={12}>
-
-                 <WorkspaceCard isLoading={isLoading} card={card}      />
+             <Grid item lg={4} md={6} sm={6} xs={12}>
+                 {console.log('g')}
+                 {console.log(data)}
+                 <TotalGrowthBarChart isLoading={isLoading} data={data}      />
              </Grid>
 
- */
-            <Grid item xs={12} md={6} xl={3}>
 
-            </Grid>
+
 
 
         )})
     return (
-        <Fragment>
-            <Grid container spacing={3}>
-                <Grid item xs={12} >
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item lg={4} md={6} sm={6} xs={12}>
 
-                        <TotalGrowthBarChart isLoading={isLoading} />
-                      </Grid>
+
+<React.Fragment>
+    {console.log("heello les ami5.6")}
+
+    <Grid container spacing={3}>
+        {console.log("heello les ami5.6")}
+
+        {   (isload )? (
+               null): <Grid item xs={12} >
+                    {console.log("sahbi")}
+                    <Grid container spacing={gridSpacing}>
+                        {lc}
                     </Grid>
-                </Grid>
+                </Grid>}
             </Grid>
             <Customization />
 
+</React.Fragment>
 
 
 
-        </Fragment>
 
-    )
-}
+)}
 export default Widget;

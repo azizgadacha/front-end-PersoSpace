@@ -31,7 +31,7 @@ const status = [
 
 //-----------------------|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||-----------------------//
 
-const TotalGrowthBarChart = ({ isLoading }) => {
+const TotalGrowthBarChart = ({ isLoading ,data}) => {
     const [value, setValue] = React.useState('today');
     const theme = useTheme();
 
@@ -115,7 +115,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
-                            <BarChart {...chartData} />
+                            <BarChart {...chartData}  data={data} />
                         </Grid>
                     </Grid>
                 </MainCard>

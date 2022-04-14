@@ -3,8 +3,7 @@ import {
     CLOSE_MODAL,
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
-    OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL,
+
     OPEN_MODAL_SHARE,
     CLOSE_MODAL_SHARE,
     Confirm_Share_Workspace_MODAL,
@@ -113,25 +112,7 @@ let objet;
 
 
             };
-        case OPEN_INSIDE_DELETE_MODAL:
-            const  {card1}=action.payload
 
-            return {
-
-                ...state,
-                card1,
-                ModalInsideDeleteState:true,
-
-            };
-
-        case CLOSE_INSIDE_DELETE_MODAL:
-
-            return {
-                ...state,
-                ModalInsideDeleteState:false
-
-
-            };
 
         case OPEN_WIDGET_MODAL:
 
