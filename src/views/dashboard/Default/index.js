@@ -20,6 +20,7 @@ import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/Earn
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
+import {useParams} from "react-router-dom";
 
 
 
@@ -84,11 +85,26 @@ const load=[1,2,3,4,5,6]
 
         })},[] );
 
+    let {id}=useParams()
+    let link
+let id1
 
     useEffect(() => {
+        if (id) {
+            link = 'api/users/getinsideworkspace'
+id1=id
+        } else {
+            link = 'api/users/getworkspace'
+            id1=account.user._id
+        }
+
+
+console.log(link)
+        console.log(id)
+        console.log(id1)
 
         axios
-            .post( configData.API_SERVER + 'api/users/getworkspace',{id:account.user._id, token:account.token})
+            .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
             .then(response =>{
 
                 dispatcher({

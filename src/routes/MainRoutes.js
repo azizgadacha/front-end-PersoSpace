@@ -10,7 +10,6 @@ import AuthGuard from './../guard_root/AuthGuard';
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
 const ViewAll = Preparation_du_page(lazy(() => import('../views/ViewAll/User')));
-const InsideWorkspace = Preparation_du_page(lazy(() => import('../views/InsideWorkspace/Default')));
 const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 
 // Bare_du_cotte routing
@@ -48,7 +47,7 @@ const MainRoutes = () => {
 
                     <Route exact path="/dashboard/default/widget/:id" component={widget} />
 
-                    <Route exact path="/dashboard/default/:id" component={InsideWorkspace} />
+                    <Route exact path="/dashboard/default/:id" component={DashboardDefault} />
 
 
 

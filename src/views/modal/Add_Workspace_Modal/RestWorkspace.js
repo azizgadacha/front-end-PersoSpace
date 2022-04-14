@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {  useHistory } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 import configData from '../../../config';
 // material-ui
@@ -94,6 +94,10 @@ const RestWorkspace = (props) => {
     const account = useSelector((state) => state.account);
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
+    let link
+    let id1
+    let {id}=useParams()
+
     return (
         <React.Fragment>
             <Formik
@@ -110,11 +114,19 @@ const RestWorkspace = (props) => {
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 setIsloading(true)
+                    if (id) {
+                        link = 'api/users/addinsideworkspace'
+                        id1=id
+                    } else {
+                        link = 'api/users/addworkspace'
+                        id1=account.user._id
+                    }
+
                     try {
                         axios
-                            .post( configData.API_SERVER + 'api/users/addworkspace', {
+                            .post( configData.API_SERVER + link, {
                                 token:account.token,
-                                id:account.user._id,
+                                superior_id:id1,
                                 WorkspaceName: values.WorkspaceName,
                                 description: values.description
                             })
@@ -139,7 +151,6 @@ setIsloading(true)
                                         type:"Click",
                                         payload: {text:"Workspace added successfully",severity:"success"}
                                     })
-                                    history.push(configData.defaultPath);
                                     console.log()
 
 
