@@ -59,7 +59,7 @@ const PlusCard = () => {
         <React.Fragment>
             <Card>
                 <CardContent>
-                    <Grid container  sx={{mt:3.75 ,mb:4.45,ml:12}} onClick={handleClick} alignItems="center" >
+                    <Grid container  sx={{mt:3.75 ,mb:3.30,ml:12}} onClick={handleClick} alignItems="center" >
                         <IconButton     aria-label="close"  >
 
                         <IconPlus size={100.5}    />

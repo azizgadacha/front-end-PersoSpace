@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         marginTop: '8px'
     },
+
     cardHeading: {
         fontSize: '2.125rem',
         fontWeight: 500,

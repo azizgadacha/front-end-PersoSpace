@@ -29,9 +29,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, DELETE, DELETE_USER, USER_DELETE} from "../../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import Backdrop from "@mui/material/Backdrop";
-import {Fade} from "@mui/material";
+import {Fade, Modal} from "@mui/material";
 import ThemeConfig from "../../../themes/theme2";
-import Modal from "../index";
 
 // style constant
 const OVERLAY_Styles ={

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 
-import configData from '../../config';
-
+import configData from '../../../config';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -30,32 +29,72 @@ import axios from 'axios';
 // project imports
 
 //use ref ta3mil ref  lil objet   min il react
-import useScriptRef from '../../hooks/useScriptRef';
-import AnimateButton from './../../animation/AnimateButton';
+import useScriptRef from '../../../hooks/useScriptRef';
+import AnimateButton from '../../../animation/AnimateButton';
 
 // assets
 
-import {Alert} from "@material-ui/lab";
+import {Alert, LoadingButton} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 
-import { ADDINSIDEWORKSPACE, CLOSE_MODAL} from "../../store/actions";
+import {ADD, ADDINSIDEWORKSPACE, CLOSE_MODAL} from "../../../store/actions";
+import SaveIcon from "@mui/icons-material/Save";
+import {Add, Adding, Cancel} from "../../Button/actionButton";
 
 // style constant
-
-
+const useStyles = makeStyles((theme) => ({
+    redButton: {
+        fontSize: '1rem',
+        fontWeight: 500,
+        backgroundColor: theme.palette.grey[50],
+        border: '1px solid',
+        borderColor: theme.palette.grey[100],
+        color: theme.palette.grey[700],
+        textTransform: 'none',
+        '&:hover': {
+            backgroundColor: theme.palette.primary.light
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.875rem'
+        }
+    },
+    signDivider: {
+        flexGrow: 1
+    },
+    signText: {
+        cursor: 'unset',
+        margin: theme.spacing(2),
+        padding: '5px 56px',
+        borderColor: theme.palette.grey[100] + ' !important',
+        color: theme.palette.grey[900] + '!important',
+        fontWeight: 500
+    },
+    loginIcon: {
+        marginRight: '16px',
+        [theme.breakpoints.down('sm')]: {
+            marginRight: '8px'
+        }
+    },
+    loginInput: {
+        ...theme.typography.customInput
+    }
+}));
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const RestInsideWorkspace = (props) => {
+const RestWorkspace = (props) => {
+    const [isloading, setIsloading] = useState(false);
+    let {id}=useParams()
 
+    let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
     const account = useSelector((state) => state.account);
+    //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
-    let {id}=useParams()
     return (
         <React.Fragment>
             <Formik
@@ -71,6 +110,7 @@ const RestInsideWorkspace = (props) => {
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+setIsloading(true)
                     try {
                         axios
                             .post( configData.API_SERVER + 'api/users/addinsideworkspace', {
@@ -81,14 +121,15 @@ const RestInsideWorkspace = (props) => {
                             })
                             .then(function (response) {
                                 if (response.data.success) {
-                                    console.log("ena el data")
-                                    console.log(response.data.WorkspaceID)
+                                    setIsloading(false)
+
                                     dispatcher({
-                                            type:CLOSE_MODAL,
+                                        type:CLOSE_MODAL,
 
 
-                                        }
+                                    }
                                     )
+
 
                                     dispatcher({
                                         type:ADDINSIDEWORKSPACE,
@@ -100,7 +141,6 @@ const RestInsideWorkspace = (props) => {
                                         type:"Click",
                                         payload: {text:"Workspace added successfully",severity:"success"}
                                     })
-                                    //history.push(configData.defaultPath +'/'+ id );
                                     console.log()
 
 
@@ -108,12 +148,16 @@ const RestInsideWorkspace = (props) => {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
+                                    setIsloading(false)
+
                                 }
                             })
                             .catch(function (error) {
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
                                 setSubmitting(false);
+                                setIsloading(false)
+
                             });
                     } catch (err) {
                         console.error(err);
@@ -121,6 +165,8 @@ const RestInsideWorkspace = (props) => {
                             setStatus({ success: false });
                             setErrors({ submit: err.message });
                             setSubmitting(false);
+                            setIsloading(false)
+
                         }
                     }
                 }}
@@ -131,7 +177,7 @@ const RestInsideWorkspace = (props) => {
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="WorkspaceName"
+                                    label="WorkspaceName*"
                                     margin="normal"
                                     name="WorkspaceName"
                                     id="WorkspaceName"
@@ -150,7 +196,7 @@ const RestInsideWorkspace = (props) => {
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="description"
+                                    label="description*"
                                     margin="normal"
                                     name="description"
                                     id="description"
@@ -177,7 +223,23 @@ const RestInsideWorkspace = (props) => {
                                         mb: 2
                                     }}
                                 >
-
+                                    <Grid container spacing={2} alignItems="center">
+                                        <Grid item>
+                                            <Box
+                                                backgroundColor={level.color}
+                                                sx={{
+                                                    width: 85,
+                                                    height: 8,
+                                                    borderRadius: '7px'
+                                                }}
+                                            ></Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Typography variant="subtitle1" fontSize="0.75rem">
+                                                {level.label}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
                                 </Box>
                             </FormControl>
                         )}
@@ -194,47 +256,69 @@ const RestInsideWorkspace = (props) => {
                             </Box>
                         )}
 
-                        <Box
-                            sx={{
-                                mt: 2
-                            }}
-                        >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
 
+
+
+
+                        <Grid container alignItems={"center"}>
+                            <Grid xs={6}>
+                                <Box
+                                    sx={
+
+
+                                        {
+                                            ml:0,
+                                            mr:2,
+                                            mt: 2,
+
+                                        }}
                                 >
-                                    Add Workspace
-                                </Button>
-                            </AnimateButton>
+                                    <AnimateButton>
 
-                        </Box>
-                        <Box
-                            sx={{
-                                mt: 2
-                            }}
-                        >
-                            <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    onClick={props.handleClose}
-                                    variant="contained"
-                                    color="secondary"
+
+
+
+                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
+                                            <Button
+                                                disableElevation
+                                                disabled={isSubmitting}
+                                                disableElevation
+                                                fullWidth
+                                                type="submit"
+                                                size="large"
+                                                variant="contained"
+                                                color="secondary">{Add} </Button>}
+
+
+
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+                            <Grid xs={6}>
+
+                                <Box
+                                    sx={{
+                                        mt: 2,
+                                        marginLeft:1
+                                    }}
                                 >
-                                    Cancel
-                                </Button>
-                            </AnimateButton>
+                                    <AnimateButton>
 
-                        </Box>
+                                        <Button disableElevation disabled={isSubmitting} size="large"  onClick={props.handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                    </AnimateButton>
+
+                                </Box>
+                            </Grid>
+
+                        </Grid>
+
+
+
+
+
+
+
 
                     </form>
                 )}
@@ -243,4 +327,4 @@ const RestInsideWorkspace = (props) => {
     );
 };
 
-export default RestInsideWorkspace;
+export default RestWorkspace;
