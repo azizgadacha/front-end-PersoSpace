@@ -356,6 +356,7 @@ const ShareWorkspaceModal=  (props) => {
             dispatcher({
                 type:CLOSE_MODAL,
             });
+
         }
     }, [])
 
@@ -466,7 +467,7 @@ const ShareWorkspaceModal=  (props) => {
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
-                                {open.ModalConfirmShare && (<ConfirmShareWorkspaceModal  handleClose={handleCloseModal} user={open.objet} />)}
+                                {open.ModalConfirmShare && (<ConfirmShareWorkspaceModal  handleClose={handleCloseModal} user={open.objet} card={props.card}/>)}
 
                             </ThemeConfig>
                         </Box>

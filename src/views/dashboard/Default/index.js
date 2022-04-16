@@ -170,7 +170,7 @@ console.log(link)
                         {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
 
-                    <ShareWorkspaceModal/>
+                    <ShareWorkspaceModal card= {open.card}/>
 
 
 

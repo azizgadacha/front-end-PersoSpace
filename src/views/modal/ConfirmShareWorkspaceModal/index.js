@@ -41,7 +41,7 @@ const Modal_Delete_User = (props) => {
     return (
         <div style={OVERLAY_Styles}>
             {/*<div style={Modal_Styles}>*/}
-                <Modal_confirm name={props.user.username} type={"User"} />
+                <Modal_confirm name={props.user.username} type={"User"} user={props.user} card={props.card} />
 
                 {/*<Grid container alignItems={"center"}>
                 <ConfirmShareWorkspace handleClose={props.handleClose} user={props.user}  />

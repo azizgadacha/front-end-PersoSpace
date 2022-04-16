@@ -264,7 +264,8 @@ console.log("test1")
                         >
                             <Grid item md={12} lg={12} xs={12}>
 
-                                <Stack alignItems="center" justifyContent="center" >
+                                <Stack  alignItems="center" ml={4} justifyContent="center" >
+
 
                                 <FormControl fullWidth error={Boolean(touched.WidgetName && errors.WidgetName)} >
 

@@ -161,8 +161,10 @@ const WorkspaceCard = ({ isLoading,card }) => {
     const shareWorkspaces = () => {
         console.log("rani el shareWorkspaces ")
         console.log(userSt.users)
+        console.log(card)
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
+            payload:{card:card}
         })
         handleCloseMenu()
 

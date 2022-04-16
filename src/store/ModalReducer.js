@@ -26,6 +26,7 @@ export const initialState = {
     isSubmitting:false,
     ModalInsideDeleteState:false,
 ModalWidget:false,
+    card:null,
     card1:null,
     objet:null,
     objet1:null
@@ -54,11 +55,12 @@ let objet;
             };
         case OPEN_MODAL_SHARE:
             console.log("salut")
-
+            const card=action.payload.card
             console.log(state.ModalStateShare)
             return {
 
                 ...state,
+                card,
                 ModalStateShare:true,
 
 
