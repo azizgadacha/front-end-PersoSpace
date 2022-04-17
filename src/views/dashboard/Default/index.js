@@ -79,7 +79,7 @@ const load=[1,2,3,4,5,6]
                 type:INISIALIZE_USER,
                 payload: {users:result.data.users},
             })
-            setUSERLIST(userSt.users)
+            console.log(userSt)
             setSucess(true)
             console.log("salah3.0")
 
@@ -164,8 +164,8 @@ console.log(link)
             <Grid container spacing={gridSpacing}>
 
 
-
                     {lc}
+                {console.log(workspaces.Workspace)}
                     <ThemeConfig>
                         {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>

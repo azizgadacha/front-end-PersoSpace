@@ -22,7 +22,7 @@ import {
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
     CLOSE_MODAL,
-    INISIALIZE_USER,
+    INISIALIZE_USER, USER_DELETE,
 } from "../../../../store/actions";
 
 import { useHistory} from "react-router-dom";
@@ -38,6 +38,8 @@ import {makeStyles} from "@material-ui/styles";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
 import AnimateButton from "../../../../animation/AnimateButton";
+import axios from "axios";
+import configData from "../../../../config";
 
 
 // ----------------------------------------------------------------------
@@ -234,7 +236,39 @@ const Modal_confirm=  (props) => {
     const Click=()=>{
     console.log("1    "   +  props.user._id)
         console.log("2   "   +  props.card._id)
-    }
+        setIsloading(true)
+
+
+        axios
+            .post( configData.API_SERVER + 'api/users/shareWorkspace',{
+                token:account.token,
+                card_id:props.card._id,
+                user_id:props.user._id,
+            })
+            .then(response =>{
+
+                {/*dispatcher({
+                    type:USER_DELETE,
+                    payload: {user:response.data.user}
+                })
+                */}
+                dispatcher({
+                    type:CLOSE_Confirm_Share_Workspace_MODAL,
+
+                })
+                dispatcher({
+                    type:CLICK,
+                    payload: {text:"Workspace has been shared successfully",severity:"success"}
+                })
+
+
+            })
+            .catch(function (error) {
+
+
+            })
+
+    };
 
 
 

@@ -1,12 +1,12 @@
-
-import {ADD_USER, DELETE_USER, INISIALIZE_USER, USER_DELETE} from './actions';
+import {ADD_USER, DELETE_USER, INISIALIZE_FILTRED_USER, INISIALIZE_USER, USER_DELETE} from './actions';
 
 
 
 
 
 export const initialState = {
-    users:[]
+    users:[],
+    filtred:[]
 
 };
 
@@ -17,10 +17,26 @@ const UserReducer = (state = initialState, action) => {
 
 
     switch (action.type) {
+        case INISIALIZE_FILTRED_USER:
+            let share=action.payload.card
+            state.filtred=[]
+            for(let item of state.users){
+                console.log("kkkkkkkkkkk")
+                console.log(item)
+
+                if(!share.includes(item._id)){
+                    state.filtred.push(item)
+                }
+
+            }
+
+            return {
+
+                ...state,
+
+            };
+
         case INISIALIZE_USER:
-
-
-
             state.users=action.payload.users
             return {
 

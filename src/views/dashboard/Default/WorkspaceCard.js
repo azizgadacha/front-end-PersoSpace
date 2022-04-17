@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
 
-    CLOSE_DELETE_MODAL, IDWORKSPACE,
+    CLOSE_DELETE_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER,
 
     OPEN_DELETE_MODAL, OPEN_MODAL_SHARE,
 
@@ -124,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 
 const WorkspaceCard = ({ isLoading,card }) => {
     let history =useHistory()
+    let userSt= useSelector((state) => state.user);
 
     const classes = useStyles();
     const  OpenWidget=()=>{
@@ -159,9 +160,15 @@ const WorkspaceCard = ({ isLoading,card }) => {
         history.push(config.defaultPath+'/'+ card._id)
     }
     const shareWorkspaces = () => {
-        console.log("rani el shareWorkspaces ")
-        console.log(userSt.users)
-        console.log(card)
+console.log(card.Share)
+        dispatcher({
+            type:INISIALIZE_FILTRED_USER,
+            payload:{card:card.Share}
+        })
+        console.log(userSt.filtred)
+        //console.log("rani el shareWorkspaces ")
+       // console.log(userSt.users)
+        //console.log(card)
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
             payload:{card:card}

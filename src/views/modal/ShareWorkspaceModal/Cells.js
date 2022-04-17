@@ -15,7 +15,7 @@ import {
     Confirm_Share_Workspace_MODAL,
 
 } from "../../../store/actions";
-import EditIcon from "@mui/icons-material/Edit";
+import ShareIcon from "@mui/icons-material/Share";
 import configData from "../../../config";
 
 // ----------------------------------------------------------------------
@@ -74,7 +74,7 @@ const Cells=  ({userPar}) => {
                 <Box sx={{ '& button': { m: 1 } }}>
 
                     <div>
-                        <Button onClick={handleClickModal} sx={{width:180}} variant="outlined"  color="info" startIcon={<EditIcon />}>
+                        <Button onClick={handleClickModal} sx={{width:180}} variant="outlined"  color="info" startIcon={<ShareIcon />}>
                             Share Workspace
                         </Button>
                     </div>

@@ -14,7 +14,7 @@ import {
     Checkbox,
 
     TablePagination,
-    Modal,
+    Modal, Grid,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -36,6 +36,7 @@ import { useHistory} from "react-router-dom";
 
 
 import {
+    IconButton,
     useMediaQuery,
 } from "@material-ui/core";
 
@@ -48,6 +49,7 @@ import SearchNotFound from "../../ViewAll/import/customer/SearchNotFound";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Cells from "./Cells";
 import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
+import CloseIcon from "@mui/icons-material/Close";
 
 // ----------------------------------------------------------------------
 
@@ -277,7 +279,7 @@ const ShareWorkspaceModal=  (props) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = userSt.users.map((n) => n.username);
+            const newSelecteds = userSt.filtred.map((n) => n.username);
             setSelected(newSelecteds);
             return;
         }
@@ -318,9 +320,9 @@ const ShareWorkspaceModal=  (props) => {
     };
     let userSt= useSelector((state) => state.user);
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.users.length) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.filtred.length) : 0;
 
-    const filteredUsers = applySortFilter(userSt.users, getComparator(order, orderBy), filterName);
+    const filteredUsers = applySortFilter(userSt.filtred, getComparator(order, orderBy), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
 
@@ -375,8 +377,7 @@ const ShareWorkspaceModal=  (props) => {
 
     return (
         <Fragment>
-
-            <Modal
+   <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
@@ -391,10 +392,18 @@ const ShareWorkspaceModal=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
-
                     <Fade in={open1.ModalStateShare}>
 
                         <Box sx={{ ...style,  }} className={classes.modal}>
+                            <IconButton sx={{float:'right'}}               aria-label="close">
+                                <CloseIcon onClick={handleClose}  color="disabled"      />
+                            </IconButton>
+                            <Grid container alignItems={"center"}>
+                            <Grid xs={6}>
+                                <h1>Share Workspaces</h1>
+                            </Grid>
+
+                            </Grid>
                             <ThemeConfig>
                                 <PerfectScrollbar>
                                     <TableContainer sx={{minWidth: 800}}>
@@ -403,7 +412,7 @@ const ShareWorkspaceModal=  (props) => {
                                                 order={order}
                                                 orderBy={orderBy}
                                                 headLabel={TABLE_HEAD}
-                                                rowCount={userSt.users.length}
+                                                rowCount={userSt.filtred.length}
                                                 numSelected={selected.length}
                                                 onRequestSort={handleRequestSort}
                                                 onSelectAllClick={handleSelectAllClick}
@@ -428,10 +437,7 @@ const ShareWorkspaceModal=  (props) => {
                                                                     aria-checked={isItemSelected}
                                                                 >
                                                                     <TableCell padding="checkbox">
-                                                                        <Checkbox
-                                                                            checked={isItemSelected}
-                                                                            onChange={(event) => handleClick(event,username)}
-                                                                        />
+
                                                                     </TableCell>
                                                                     <Cells    userPar={{_id,username,phone,role,photo,email}}/>
                                                                 </TableRow>
@@ -461,7 +467,7 @@ const ShareWorkspaceModal=  (props) => {
                                 <TablePagination
                                     rowsPerPageOptions={[5, 10, 25]}
                                     component="div"
-                                    count={userSt.users.length}
+                                    count={userSt.filtred.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onPageChange={handleChangePage}
@@ -471,6 +477,7 @@ const ShareWorkspaceModal=  (props) => {
 
                             </ThemeConfig>
                         </Box>
+
                     </Fade>
 
                 </div>
