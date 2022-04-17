@@ -136,15 +136,12 @@ setIsloading(true)
 
                                     dispatcher({
                                         type:CLOSE_MODAL,
-
-
-                                    }
+                                        }
                                     )
-
 
                                     dispatcher({
                                         type:ADD,
-                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID}]}
+                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID,Share:[]}]}
 
                                     })
                                     dispatcher({

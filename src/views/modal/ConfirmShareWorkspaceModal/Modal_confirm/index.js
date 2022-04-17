@@ -21,8 +21,8 @@ import {
     CLICK,
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
-    CLOSE_MODAL,
-    INISIALIZE_USER, USER_DELETE,
+    CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE_FILTRED_USER,
+    INISIALIZE_USER, OPEN_MODAL_SHARE, USER_DELETE,
 } from "../../../../store/actions";
 
 import { useHistory} from "react-router-dom";
@@ -256,10 +256,18 @@ const Modal_confirm=  (props) => {
                     type:CLOSE_Confirm_Share_Workspace_MODAL,
 
                 })
+
+                dispatcher(  {
+                    type:CLOSE_MODAL_SHARE,
+
+                })
+
                 dispatcher({
                     type:CLICK,
                     payload: {text:"Workspace has been shared successfully",severity:"success"}
                 })
+
+
 
 
             })

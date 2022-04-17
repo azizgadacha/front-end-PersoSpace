@@ -28,7 +28,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
 
     CLOSE_Confirm_Share_Workspace_MODAL,
-    CLOSE_MODAL
+    CLOSE_MODAL, CLOSE_MODAL_SHARE, OPEN_MODAL_SHARE
     ,
 } from "../../../store/actions";
 
@@ -367,8 +367,8 @@ const ShareWorkspaceModal=  (props) => {
     let open1 = useSelector((state) => state.modal);
 
     const handleClose=()=>{
-        dispatcher({
-            type:CLOSE_MODAL,
+        dispatcher(  {
+            type:CLOSE_MODAL_SHARE,
         });
     }
 

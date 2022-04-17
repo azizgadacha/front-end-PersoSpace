@@ -163,7 +163,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 console.log(card.Share)
         dispatcher({
             type:INISIALIZE_FILTRED_USER,
-            payload:{card:card.Share}
+            payload:{card:card}
         })
         console.log(userSt.filtred)
         //console.log("rani el shareWorkspaces ")
