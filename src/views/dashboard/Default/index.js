@@ -88,29 +88,49 @@ const load=[1,2,3,4,5,6]
     let {id}=useParams()
     let link
 let id1
+    console.log('aaaaaaa')
+    console.log(window.location.pathname)
 
     useEffect(() => {
-        if (id) {
-            link = 'api/users/getinsideworkspace'
-id1=id
-        } else {
-            link = 'api/users/getworkspace'
-            id1=account.user._id
+        if((window.location.pathname==='/dashboard/default')||(window.location.pathname==='/dashboard/default')) {
+            if (id) {
+                link = 'api/users/getinsideworkspace'
+                id1 = id
+            } else {
+                link = 'api/users/getworkspace'
+                id1 = account.user._id
+            }
+            console.log(link)
+            console.log(id)
+            console.log(id1)
+
+            axios
+                .post(configData.API_SERVER + link, {superior_id: id1, token: account.token})
+                .then(response => {
+
+                    dispatcher({
+                            type: INISIALIZE,
+                            payload: {work: response.data.workspaceitems}
+                        }
+                    )
+
+
+                    setLoading(false);
+                    setSucces(true)
+                    setLoad(false)
+                })
+                .catch(function (error) {
+
+
+                })
         }
-
-
-console.log(link)
-        console.log(id)
-        console.log(id1)
-
-        axios
-            .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
-            .then(response =>{
-
+        else { axios
+            .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {user_id: account.user._id, token: account.token})
+            .then(response => {
                 dispatcher({
-                        type:INISIALIZE,
-                    payload: {work:response.data.workspaceitems}
-                }
+                        type: INISIALIZE,
+                        payload: {work: response.data.workspaceitems}
+                    }
                 )
 
 
@@ -122,7 +142,9 @@ console.log(link)
 
 
             })
-    },[]);
+
+        }}, []);
+
 
 
     let lc =   workspaces.Workspace.map((card)  => {
@@ -138,6 +160,14 @@ console.log(link)
 
 
         )})
+    let Url;
+    if((window.location.pathname)===('/dashboard/default')){
+        Url=true
+    }
+    else {
+        Url=false
+    }
+
     return (
 <Fragment>
     {isload?  (<Grid container spacing={3}>
@@ -171,14 +201,18 @@ console.log(link)
                         </ThemeConfig>
 
                     <ShareWorkspaceModal card= {open.card}/>
-
-
-
+                {Url ?(
                 <Grid item lg={4} md={6} sm={6} xs={12}>
 
                         <PlusCard/>
 
                     </Grid>
+                    ):(
+                    <Grid item lg={4} md={6} sm={6} xs={12}>
+
+
+                    </Grid>
+                    )}
 
                 </Grid>
             </Grid>

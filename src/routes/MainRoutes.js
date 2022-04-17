@@ -9,6 +9,7 @@ import AuthGuard from './../guard_root/AuthGuard';
 
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
+const SharedWorkspaces = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
 const ViewAll = Preparation_du_page(lazy(() => import('../views/ViewAll/User')));
 const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 
@@ -33,6 +34,7 @@ const MainRoutes = () => {
 
                 '/dashboard/default/:id',
                 '/dashboard/default',
+                '/dashboard/SharedWorkspaces',
 
             ]}
         >
@@ -49,7 +51,7 @@ const MainRoutes = () => {
 
                     <Route exact path="/dashboard/default/:id" component={DashboardDefault} />
 
-
+                    <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
 
                     <Route exact path='/dashboard/viewAll' component={ViewAll} />
                     <Route exact path="/dashboard/default" component={DashboardDefault} />

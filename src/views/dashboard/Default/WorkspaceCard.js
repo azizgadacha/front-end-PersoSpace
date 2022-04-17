@@ -201,143 +201,213 @@ console.log(card.Share)
 
 
      */
-    return (
-        <React.Fragment>
-            {isLoading ? (
-                <SkeletonEarningCard />
-            ) : (
-                <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                    <Grid container direction="column" >
-                        <Grid item>
-                            <Grid container justifyContent="space-between">
-                                <Grid item>
-                                    <Avatar variant="rounded" className={classes.avatar}
-                                            onClick={click}
-                                    >
-                                        <img src={EarningIcon} alt="Notification" />
-                                    </Avatar>
+    if((window.location.pathname==='/dashboard/default')||(window.location.pathname==='/dashboard/default')) {
+        return (
+            <React.Fragment>
+                {isLoading ? (
+                    <SkeletonEarningCard/>
+                ) : (
+                    <MainCard border={false} className={classes.card} contentClass={classes.content}>
+                        <Grid container direction="column">
+                            <Grid item>
+                                <Grid container justifyContent="space-between">
+                                    <Grid item>
+                                        <Avatar variant="rounded" className={classes.avatar}
+                                                onClick={click}
+                                        >
+                                            <img src={EarningIcon} alt="Notification"/>
+                                        </Avatar>
+                                    </Grid>
+                                    <Grid item>
+                                        <Avatar
+                                            variant="rounded"
+                                            className={classes.avatarRight}
+                                            aria-controls="menu-earning-card"
+                                            aria-haspopup="true"
+
+                                            onClick={handleClickMenu}
+                                        >
+                                            <MoreHorizIcon fontSize="inherit"/>
+
+                                        </Avatar>
+
+                                        {console.log("helle" + Boolean(anchorEl))}
+                                        <Menu
+                                            id="menu-earning-card"
+                                            anchorEl={anchorEl}
+                                            keepMounted
+                                            open={Boolean(anchorEl)}
+                                            onClose={handleCloseMenu}
+                                            variant="selectedMenu"
+                                            anchorOrigin={{
+                                                vertical: 'bottom',
+                                                horizontal: 'right'
+                                            }}
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right'
+                                            }}
+                                        >
+                                            <MenuItem onClick={shareWorkspaces}>
+                                                <ShareIcon fontSize="inherit" className={classes.menuItem}/> Share
+                                                Workspace
+                                            </MenuItem>
+                                            <MenuItem onClick={handleClick}>
+                                                <DeleteIcon fontSize="inherit" className={classes.menuItem}/> Delete
+                                                Workspace
+                                            </MenuItem>
+                                            <MenuItem onClick={handleCloseMenu}>
+                                                <EditIcon fontSize="inherit" className={classes.menuItem}/> Edit
+                                                Workspace
+                                            </MenuItem>
+
+                                        </Menu>
+
+
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <Avatar
-                                        variant="rounded"
-                                        className={classes.avatarRight}
-                                        aria-controls="menu-earning-card"
-                                        aria-haspopup="true"
+                            </Grid>
+                            <Grid item>
+                                <Grid alignItems="center">
+                                    <Grid item align="center">
+                                        <Typography align="center"
+                                                    className={classes.cardHeading}>{card.WorkspaceName}</Typography>
 
-                                        onClick={handleClickMenu}
-                                    >
-                                        <MoreHorizIcon fontSize="inherit" />
 
-                                    </Avatar>
-
-                                    {console.log("helle"+ Boolean(anchorEl) )}
-                                    <Menu
-                                        id="menu-earning-card"
-                                        anchorEl={anchorEl}
-                                        keepMounted
-                                        open={Boolean(anchorEl)}
-                                        onClose={handleCloseMenu}
-                                        variant="selectedMenu"
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'right'
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right'
-                                        }}
-                                    >
-                                        <MenuItem onClick={shareWorkspaces}>
-                                            <ShareIcon  fontSize="inherit" className={classes.menuItem} /> Share Workspace
-                                        </MenuItem>
-                                        <MenuItem onClick={handleClick}>
-                                            <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
-                                        </MenuItem>
-                                        <MenuItem onClick={handleCloseMenu}>
-                                            <EditIcon fontSize="inherit"  className={classes.menuItem} /> Edit Workspace
-                                        </MenuItem>
-
-                                    </Menu>
-
+                                    </Grid>
 
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item >
-                            <Grid alignItems="center">
-                                <Grid item  align="center">
-                                    <Typography   align="center"  className={classes.cardHeading}>{card.WorkspaceName}</Typography>
+                            <Grid item
 
-
-                                </Grid>
-
+                                  sx={{mb: 0.25}}>
+                                <Typography align="center"
+                                            className={classes.subHeading}>{card.description}</Typography>
                             </Grid>
-                        </Grid>
-                        <Grid item
+                            <Grid container alignItems={"center"}>
 
-                              sx={{ mb:0.25 }}>
-                            <Typography align="center" className={classes.subHeading}>{card.description}</Typography>
-                        </Grid>
-                        <Grid container alignItems={"center"}>
-
-                            <Grid xs={6}>
-                                <Box
-                                    sx={
+                                <Grid xs={6}>
+                                    <Box
+                                        sx={
 
 
-                                        {
-                                            ml:0,
-                                            mr:3,
-                                            mt: 2,
+                                            {
+                                                ml: 0,
+                                                mr: 3,
+                                                mt: 2,
 
-                                        }}
-                                >
+                                            }}
+                                    >
 
-                                    <AnimateButton>
-
-
-
-
+                                        <AnimateButton>
 
 
                                             <Button
                                                 disableElevation
                                                 fullWidth
-                                                  onClick={OpenWidget}
+                                                onClick={OpenWidget}
                                                 type="submit" size="large"
                                                 variant="contained"
                                                 color="warning">{Widget} </Button>
 
 
+                                        </AnimateButton>
 
-                                    </AnimateButton>
+                                    </Box>
+                                </Grid>
+                                <Grid xs={6}>
 
-                                </Box>
+                                    <Box
+                                        sx={{
+                                            mt: 2,
+                                            marginLeft: 1
+                                        }}
+                                    >
+                                        <AnimateButton>
+
+
+                                            <Button disableElevation size="large" onClick={click} fullWidth
+                                                    variant="contained" color="warning">{Workspaces}</Button>
+                                        </AnimateButton>
+
+                                    </Box>
+                                </Grid>
+
                             </Grid>
-                            <Grid xs={6}>
-
-                                <Box
-                                    sx={{
-                                        mt: 2,
-                                        marginLeft:1
-                                    }}
-                                >
-                                    <AnimateButton>
-
-
-                                        <Button disableElevation size="large" onClick={click}  fullWidth variant="contained" color="warning">{Workspaces}</Button>
-                                    </AnimateButton>
-
-                                </Box>
-                            </Grid>
-
                         </Grid>
-                    </Grid>
-                </MainCard>
-            )}
+                    </MainCard>
+                )}
 
-        </React.Fragment>
-    );
+            </React.Fragment>
+        );
+    }
+    else {
+        return (
+            <React.Fragment>
+                {isLoading ? (
+                    <SkeletonEarningCard/>
+                ) : (
+                    <MainCard border={false} className={classes.card} contentClass={classes.content}>
+                        <Grid container direction="column">
+                            <Grid item>
+                                <Grid container justifyContent="space-between">
+                                    <Box sx={{mt: 6}}></Box>
+                                </Grid>
+                            </Grid>
+
+                            <Grid item>
+                                <Grid alignItems="center">
+                                    <Grid item align="center">
+                                        <Typography align="center"
+                                                    className={classes.cardHeading}>{card.WorkspaceName}</Typography>
+                                    </Grid>
+
+                                </Grid>
+                            </Grid>
+                            <Grid item
+
+                                  sx={{mb: 0.25}}>
+                                <Typography align="center"
+                                            className={classes.subHeading}>{card.description}</Typography>
+                            </Grid>
+                            <Grid container alignItems={"center"}>
+
+                                <Grid xs={6}>
+                                    <Box
+                                        sx={
+
+
+                                            {
+                                                ml: 17,
+                                                mr: 10,
+                                                mt: 2,
+
+                                            }}
+                                    >
+
+                                        <AnimateButton>
+                                            <Button
+                                                disableElevation
+                                                fullWidth
+                                                onClick={OpenWidget}
+                                                type="submit" size="large"
+                                                variant="contained"
+                                                color="warning">{Widget} </Button>
+
+
+                                        </AnimateButton>
+
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </MainCard>
+                )}
+
+            </React.Fragment>
+        );
+
+    }
 };
 
 WorkspaceCard.propTypes = {

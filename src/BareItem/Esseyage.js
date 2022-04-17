@@ -16,7 +16,7 @@ if (!account.user){
 }else
 {    if (account.user.role==="administrateur")
     return {
-    items: [dashboard, utilities,ShareWorkspace]
+    items: [dashboard, utilities]
 }
 else
     return {
