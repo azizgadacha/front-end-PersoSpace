@@ -189,6 +189,7 @@ const Modal_confirm=  (props) => {
     const [level, setLevel] = React.useState('');
 
 
+
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -237,16 +238,19 @@ const Modal_confirm=  (props) => {
     let {id}=useParams()
 
     const Click=()=>{
-    console.log("1    "   +  props.user._id)
-        console.log("2   "   +  props.card._id)
+          console.log("1    "   +  props.user._id)
+          console.log("2   "   +  props.card._id)
+
         setIsloading(true)
 
-
+console.log('3     ')
+        console.log(account.user.username)
         axios
             .post( configData.API_SERVER + 'api/users/shareWorkspace',{
                 token:account.token,
                 card_id:props.card._id,
                 user_id:props.user._id,
+                user_username:account.user.username
             })
             .then(response =>{
 
