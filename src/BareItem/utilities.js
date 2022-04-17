@@ -1,17 +1,17 @@
 // assets
-import { IconUserPlus, IconWindmill,IconUserSearch } from '@tabler/icons';
+import { IconUserPlus, IconWindmill,IconUserSearch} from '@tabler/icons';
 // constant
 const icons = {
     IconUserPlus: IconUserPlus,
     IconWindmill: IconWindmill,
-    IconUserSearch:IconUserSearch
+    IconUserSearch:IconUserSearch,
 };
 
 //-----------------------|| UTILITIES MENU ITEMS ||-----------------------//
 
 export const utilities = {
     id: 'utilities',
-    title: 'Utilities',
+    //title: 'Utilities',
     type: 'group',
     children: [
 
@@ -22,7 +22,7 @@ export const utilities = {
             url: '/dashboard/viewAll',
             icon: icons['IconUserSearch'],
             breadcrumbs: false
-        },
+        }
 
 
     ]

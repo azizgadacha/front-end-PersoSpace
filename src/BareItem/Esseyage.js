@@ -1,6 +1,7 @@
 import {dashboard} from './dashboard';
 import {utilities} from './utilities';
 import {useSelector} from "react-redux";
+import {ShareWorkspace} from "./ShareWorkspace";
 
 
 //-----------------------|| MENU ITEMS ||-----------------------//
@@ -15,10 +16,10 @@ if (!account.user){
 }else
 {    if (account.user.role==="administrateur")
     return {
-    items: [dashboard, utilities]
+    items: [dashboard, utilities,ShareWorkspace]
 }
 else
     return {
-        items: [dashboard]
+        items: [dashboard,ShareWorkspace]
 }}}
 export default Essayage
