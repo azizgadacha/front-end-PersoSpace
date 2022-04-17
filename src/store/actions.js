@@ -1,4 +1,10 @@
 // action - account reducer
+
+
+export const CLICKED = 'CLICKED';
+export const CLICKED_INISIALIZE = 'CLICKED_INISIALIZE';
+
+
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const CLICK = 'Click';

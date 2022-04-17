@@ -26,6 +26,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
+    CLICKED,
 
     CLOSE_DELETE_MODAL, IDWORKSPACE,
 
@@ -168,9 +169,11 @@ const WorkspaceCard = ({ isLoading,card }) => {
         dispatcher({
             type:IDWORKSPACE,
             payload: {card1}
-
-
         });
+        dispatcher({
+            type:CLICKED
+        });
+
         history.push(`${config.defaultPath}/${link==""?"":link+"/"}${card._id}`)
     }
     const shareWorkspaces = () => {

@@ -21,7 +21,7 @@ const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
-
+// [][dashbord][default]/id/id2/4
     const location = useLocation();
     console.log(location.pathname)
     let loc=location.pathname
@@ -33,6 +33,7 @@ const MainRoutes = () => {
     console.log(ar2)
 
     let link=ar2.join('/')
+
     console.log(link)
     return (
 

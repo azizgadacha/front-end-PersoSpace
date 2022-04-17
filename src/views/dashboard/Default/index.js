@@ -28,6 +28,7 @@ import {Card, Stack, Typography} from "@mui/material";
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
+
     const { url, path } = useRouteMatch();
 
     const dispatcher = useDispatch();
@@ -68,6 +69,44 @@ const load=[1,2,3,4,5,6]
 
         });
     };
+    let {id}=useParams()
+    let link
+    let id1
+
+    useEffect(() => {
+        if (id) {
+            link = 'api/users/getinsideworkspace'
+            id1=id
+        } else {
+            link = 'api/users/getworkspace'
+            id1=account.user._id
+        }
+
+
+
+
+        axios
+            .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
+            .then(response =>{
+
+                dispatcher({
+                        type:INISIALIZE,
+                        payload: {work:response.data.workspaceitems}
+                    }
+                )
+
+
+                setLoading(false);
+                setSucces(true)
+                setLoad(false)
+            })
+            .catch(function (error) {
+
+
+            })
+    },[]);
+
+
     useEffect(() => {
         axios
             .post(configData.API_SERVER + 'api/users/all', {
@@ -85,42 +124,7 @@ const load=[1,2,3,4,5,6]
 
         })},[] );
 
-    let {id}=useParams()
-    let link
-let id1
 
-    useEffect(() => {
-        if (id) {
-            link = 'api/users/getinsideworkspace'
-id1=id
-        } else {
-            link = 'api/users/getworkspace'
-            id1=account.user._id
-        }
-
-
-
-
-        axios
-            .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
-            .then(response =>{
-
-                dispatcher({
-                        type:INISIALIZE,
-                    payload: {work:response.data.workspaceitems}
-                }
-                )
-
-
-                setLoading(false);
-                setSucces(true)
-                setLoad(false)
-            })
-            .catch(function (error) {
-
-
-            })
-    },[]);
 
 
     let lc =   workspaces.Workspace.map((card)  => {

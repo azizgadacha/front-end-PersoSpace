@@ -2,7 +2,7 @@
 import {
     ADD,
     ADDINSIDEWORKSPACE,
-    CLICK,
+    CLICK, CLICKED, CLICKED_INISIALIZE,
     CLOSE,
     DELETE, DELETEINSIDEWORKSPACE,
     IDWORKSPACE,
@@ -16,7 +16,8 @@ import {
 
 export const initialState = {
    Workspace:[],
-    id:null
+    id:null,
+    clicked:false
 
 };
 
@@ -27,6 +28,22 @@ const WorkspaceStore = (state = initialState, action) => {
     //const [listecard, addcart] = useState({cards:});
 
     switch (action.type) {
+
+        case CLICKED:
+            state.clicked =true
+
+
+            return{
+            ...state
+
+        };
+        case CLICKED_INISIALIZE:
+            state.clicked =false
+            return{
+                ...state
+
+            };
+
         case INISIALIZE:
 
 
