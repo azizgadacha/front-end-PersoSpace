@@ -1,5 +1,6 @@
 import { filter } from 'lodash';
 import React, {Fragment, useEffect, useState} from 'react';
+
 // material
 import Fade from '@mui/material/Fade';
 
@@ -21,11 +22,11 @@ import {
     CLICK,
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
-    CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE_FILTRED_USER,
+    CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
     INISIALIZE_USER, OPEN_MODAL_SHARE, USER_DELETE,
 } from "../../../../store/actions";
 
-import { useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 
 import {
@@ -233,6 +234,8 @@ const Modal_confirm=  (props) => {
             type:CLOSE_Confirm_Share_Workspace_MODAL,
         });
     }
+    let {id}=useParams()
+
     const Click=()=>{
     console.log("1    "   +  props.user._id)
         console.log("2   "   +  props.card._id)
@@ -261,6 +264,24 @@ const Modal_confirm=  (props) => {
                     type:CLOSE_MODAL_SHARE,
 
                 })
+                let link
+                let id1
+                if (id) {
+                    link = 'api/users/getinsideworkspace'
+                    id1=id
+                } else {
+                    link = 'api/users/getworkspace'
+                    id1=account.user._id
+                }
+                axios
+                    .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
+                    .then(response =>{
+                        dispatcher({
+                                type:INISIALIZE,
+                                payload: {work:response.data.workspaceitems}
+                            })})
+                    .catch(function (error) {
+                    })
 
                 dispatcher({
                     type:CLICK,

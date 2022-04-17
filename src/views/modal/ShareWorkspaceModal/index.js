@@ -14,7 +14,7 @@ import {
     Checkbox,
 
     TablePagination,
-    Modal, Grid,
+    Modal, Grid, Button,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -50,6 +50,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import Cells from "./Cells";
 import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
 import CloseIcon from "@mui/icons-material/Close";
+import {Cancel} from "../../Button/actionButton";
 
 // ----------------------------------------------------------------------
 
@@ -476,6 +477,7 @@ const ShareWorkspaceModal=  (props) => {
                                 {open.ModalConfirmShare && (<ConfirmShareWorkspaceModal  handleClose={handleCloseModal} user={open.objet} card={props.card}/>)}
 
                             </ThemeConfig>
+                            <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
                         </Box>
 
                     </Fade>
