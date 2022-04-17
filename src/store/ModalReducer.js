@@ -52,9 +52,7 @@ let objet;
 
             };
         case OPEN_MODAL_SHARE:
-            console.log("salut")
 
-            console.log(state.ModalStateShare)
             return {
 
                 ...state,

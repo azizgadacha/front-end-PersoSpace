@@ -34,7 +34,7 @@ import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import SearchNotFound from "./import/customer/SearchNotFound";
-import Modal_Delete_User from "../modal/Modal_delete_user";
+import Modal_Delete_User from "../modal/ModalDelete";
 import Cells from "./cells";
 import { useHistory} from "react-router-dom";
 
@@ -425,10 +425,7 @@ const User=  (props) => {
                                                     aria-checked={isItemSelected}
                                                 >
                                                     <TableCell padding="checkbox">
-                                                        <Checkbox
-                                                            checked={isItemSelected}
-                                                            onChange={(event) => handleClick(event,username)}
-                                                        />
+
                                                     </TableCell>
                                                    <Cells    userPar={{_id,username,phone,role,photo,email}}/>
                                                 </TableRow>
@@ -471,7 +468,7 @@ const User=  (props) => {
 
       </Container>
           </ThemeConfig>
-          {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} user={open.objet} />)}
+          {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} type={"User"}/>)}
 
 
 <RegistreModal/>

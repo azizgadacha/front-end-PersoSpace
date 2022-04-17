@@ -109,7 +109,6 @@ const EarningCard = ({ isLoading }) => {
     const listecard = useSelector((state) => state.card);
 
     const Click = () => {
-console.log("hello")
         dispatch({ type: "supprimer", card:{id:1}} )
 
     };

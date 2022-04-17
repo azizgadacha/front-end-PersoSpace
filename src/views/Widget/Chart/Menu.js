@@ -1,22 +1,25 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
-import {Box, Button, Card, CardHeader, IconButton, } from '@mui/material';
-import {makeStyles} from "@material-ui/styles";
-import {useTheme} from "@mui/material/styles";
-
+import {Box, Button, Card, CardHeader, IconButton, Menu} from '@mui/material';
 // utils
 import { fNumber } from '../../Customization/formatNumber';
 //
-import Menu from "./Menu"
-
 import BaseOptionChart  from './BaseOptionChart';
 import {Avatar, Grid, MenuItem, TextField} from "@material-ui/core";
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import {gridSpacing} from "../../../store/constant";
 import chartData from "../../dashboard/Default/chart-data/total-growth-bar-chart";
 import MainCard from "../../../composant_de_style/cards/MainCard";
-
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import ShareIcon from "@mui/icons-material/Share";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import {makeStyles} from "@material-ui/styles";
+import ThemeConfig from "../../../themes/theme2";
+import {useTheme} from "@mui/material/styles";
+import {useDispatch} from "react-redux";
+import {OPEN_DELETE_MODAL} from "../../../store/actions";
 
 
 
@@ -129,7 +132,22 @@ const status = [
     }
 ];
 
-export default function BarChart(data) {
+export default function MenuList({data}) {
+
+
+    const dispatcher = useDispatch();
+
+    const handleClickDelete = () => {
+        handleCloseMenu()
+
+        dispatcher({
+            type:OPEN_DELETE_MODAL,
+            payload: {objet:data}
+
+
+        });
+    };
+
     const theme = useTheme();
 
     const classes = useStyles();
@@ -142,70 +160,55 @@ export default function BarChart(data) {
     const handleCloseMenu = () => {
         setAnchorEl(null);
     };
-    const CHART_DATA = [{ data: data.data.dataWidget}];
 
-    const chartOptions = merge(BaseOptionChart(), {
-        tooltip: {
-            marker: { show: false },
-            y: {
-                formatter: (seriesName) => fNumber(seriesName),
-                title: {
-                    formatter: (seriesName) => `#${seriesName}`
-                }
-            }
-        },
-        colors: [
-            'rgba(255, 99, 132)',
-            'rgba(54, 162, 235)',
-            'rgba(255, 206, 86)',
-            'rgba(75, 192, 192)',
-            'rgba(153, 102, 255)',
-            'rgba(255, 159, 64)'
-        ],
-        plotOptions: {
-            bar: { horizontal: false, barHeight: '30%', borderRadius: 2 ,distributed: true}
-        },
-        xaxis: {
-            categories: data.data.label
-        }
-    });
-    const [value, setValue] = React.useState('today');
 
     return (
 
 
+<Fragment>
+                                <IconButton
+                                    variant="rounded"
+                                    className={classes.avatarRight}
+                                    aria-controls="menu-earning-card"
+                                    aria-haspopup="true"
+                                    onClick={handleClickMenu}
+                                >
+                                    <MoreHorizIcon  />
 
-        <MainCard>
+                                </IconButton>
+                                <Menu
+                                    id="menu-earning-card"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleCloseMenu}
+                                    variant="selectedMenu"
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'right'
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right'
+                                    }}
+                                >
 
-            <Grid container spacing={gridSpacing}>
-                <Grid item xs={12}>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                        <Grid item>
-                            <Grid container direction="column" >
-                                <Grid item>
-                                    <CardHeader title={data.data.WidgetName} />
-                                </Grid>
+                                    <MenuItem onClick={handleClickDelete}>
+                                        <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
+                                    </MenuItem>
+                                    <MenuItem >
+                                        <EditIcon fontSize="inherit"  className={classes.menuItem} /> Edit Workspace
+                                    </MenuItem>
 
-                            </Grid>
-                        </Grid>
-                        <Grid item >
-                            <Grid item >
-                                <Menu data={data.data}/>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                    <Grid item xs={12}>
-                        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={330} />
-                    </Grid>
-
-            </Grid>
-        </MainCard>
-
-
+                                </Menu>
 
 
 
+
+
+
+
+</Fragment>
 
 
     );

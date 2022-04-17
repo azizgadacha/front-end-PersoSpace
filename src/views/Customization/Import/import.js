@@ -9,8 +9,11 @@ import {makeStyles,} from '@material-ui/styles';
 import { IconDatabaseExport } from '@tabler/icons';
 import {useRef, useState} from "react";
 import Papa from "papaparse";
-import {useDispatch} from "react-redux";
-import { IMPORT_DATA, } from "../../../store/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {IMPORT_DATA, OPEN_MODAL,} from "../../../store/actions";
+import {useParams} from "react-router-dom";
+import Import_Data_From_DB from "../../modal/Import_Data_From_DB";
+import Password_verify from "../../modal/password_verify_modal";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -48,12 +51,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Import = ()=> {
+    let open1 = useSelector((state) => state.modal);
+
     const fileInput = useRef();
     const dispatcher = useDispatch();
 
     const classes = useStyles();
     const[csvFile,setCsvFile]=useState(null);
     const[changed,setchanged]=useState(null);
+    let {id}=useParams()
 
     return (
 <Grid sx={{mt:3}}>
@@ -100,11 +106,10 @@ const Import = ()=> {
 
                  Papa.parse(e.target.files[0],{
                      complete:(results)=>{
-                         console.log("test4 "+results.data)
 
                          dispatcher({
                              type:IMPORT_DATA,
-                             payload: {Data:results.data}
+                             payload: {Data:results.data,superior_id:id}
 
                          });}
                  })
@@ -113,8 +118,6 @@ const Import = ()=> {
 setchanged(true)
                 }}}
             />
-            {console.log("ahla shb")}
-            {console.log(csvFile)}
 
         <Button
             sx={{ flexDirection: 'column' ,ml:4,mr:6 }}
@@ -152,6 +155,12 @@ Import from CSV
         variant="raised"
         color="primary"
         disableRipple={true}
+        onClick={()=>
+            dispatcher({
+                type:OPEN_MODAL,
+
+            })
+        }
 
 
     >
@@ -163,6 +172,8 @@ Import from Data Base
         </Box>
 
     </Stack>
+    {open1.ModalState && ( <Import_Data_From_DB/>)}
+
 </Grid>
     );
 }

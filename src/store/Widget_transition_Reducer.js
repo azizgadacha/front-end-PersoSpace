@@ -4,6 +4,7 @@ import {
     ,
     CHANGE_SUCCESS, INIZIALIZE_STEPS, RETURN_BACK, IMPORT_DATA, CHANGE_NAME,
 } from './actions';
+import {useParams} from "react-router-dom";
 
 
 
@@ -13,7 +14,9 @@ export const initialState = {
     Place:0,
     label:null,
     dataWidget:null,
-    WidgetName:''
+    WidgetName:'',
+    superior_id:null
+
 
 };
 
@@ -67,11 +70,9 @@ const Widget_transition_Reducer = (state = initialState, action) => {
             };
         case CHANGE_SUCCESS:
 
-console.log("test "+state.Place)
             state.Place=state.Place+1
             state.Type=action.payload.Type
-            console.log("test2 "+state.Place)
-            console.log("test3 "+state.Type)
+
 
             return {
 
@@ -81,7 +82,7 @@ console.log("test "+state.Place)
             };
 
             case CHANGE_NAME:
-
+                console.log('hroo')
             let {WidgetName}=action.payload
 
             return {
@@ -95,9 +96,16 @@ console.log("test "+state.Place)
 
             state.Place=state.Place+1;
             state.label=action.payload.Data[0];
-            console.log("bb")
-            state.dataWidget=action.payload.Data[1];
-            console.log(state.dataWidget)
+            let numberArray = [];
+            let length = (action.payload.Data[1]).length;
+
+            for (let i = 0; i < length; i++)
+                numberArray.push(parseInt((action.payload.Data[1])[i]));
+
+            state.dataWidget=numberArray;
+            state.superior_id=action.payload.superior_id
+
+
 
             return {
 

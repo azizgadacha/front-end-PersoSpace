@@ -129,7 +129,6 @@ const Login = () => {
         </AuthWrapper1>
 
 
-        {console.log(open1)}
     <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={open1.severity} sx={{ width: '100%' }}>
             {open1.text}                </Alert>

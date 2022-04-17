@@ -10,19 +10,26 @@ import axios from "axios";
 import configData from "../../config";
 
 
-import TotalGrowthBarChart from "./TotalGrowthBarChart";
 
-import {CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZE_STORE} from "../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZE_STORE} from "../../store/actions";
 
 import {gridSpacing} from "../../store/constant";
 import Customization from "../Customization";
 import {useHistory, useParams} from "react-router-dom";
+import AppCurrentVisits from "./Chart/AppCurrentVisits";
+import ThemeConfig from "../../themes/theme2";
+import AppConversionRates from "./Chart/AppConversionRates";
+import BarChart from "./Chart/BarChart";
+import Modal_Delete from "../modal/ModalDelete";
+import TotalGrowthBarChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
+import Import_Data_From_DB from "../modal/Import_Data_From_DB";
 
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Widget = (props, { ...others }) => {
+    let [isLoading, setIsLoading] = useState(true);
 
     const dispatcher = useDispatch();
 
@@ -35,14 +42,18 @@ const Widget = (props, { ...others }) => {
         }
     }, [])
 
+    function handleCloseModal  () {
+        dispatcher({
+            type:CLOSE_DELETE_MODAL,
+
+        });
+    };
     const load=[1,2,3,4,5,6]
     const [succes, setSucces] = useState(false);
-    const [isload, setLoad] = useState(true);
 
-    const [isLoading, setLoading] = useState(true);
     const account = useSelector((state) => state.account);
     const widget = useSelector((state) => state.widgetstore);
-
+const [importing,setImporting]=useState(true)
     let open = useSelector((state) => state.modal);
     function handleClose  () {
         dispatcher({
@@ -54,63 +65,67 @@ const Widget = (props, { ...others }) => {
     let {id}=useParams()
 
    useEffect(() => {
-console.log("heello les ami")
         axios
             .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
             .then(response =>{
-                console.log("heello les ami2.0")
 
                 dispatcher({
                         type:INISIALIZE_STORE,
                         payload: {widget:response.data.Widgetitems}
                     }
                 )
-                console.log("heello les ami3..0")
-console.log(widget.widget)
-                setLoading(false);
 
-                setLoading(false);
+                setImporting(false)
                 setSucces(true)
-                setLoad(false)
+
             })
             .catch(function (error) {
+console.log(error)
 
 
             })
     },[]);
    
     let lc =   widget.widget.map((data)  => {
+let element
+        if (data.type==='Bar'){
+           element=<ThemeConfig><BarChart isLoading={isLoading} data={data}/></ThemeConfig>
+        } else if(data.type==='Donuts') {
+            element = <ThemeConfig><AppCurrentVisits data={data}/></ThemeConfig>
+        }else {
+            element = <ThemeConfig><AppConversionRates data={data}/></ThemeConfig>
 
+        }
         return(
              <Grid item lg={4} md={6} sm={6} xs={12}>
-                 {console.log('g')}
-                 {console.log(data)}
-                 <TotalGrowthBarChart isLoading={isLoading} data={data}      />
-             </Grid>
+                 {element}
+
+                 </Grid>
 
 
 
 
 
         )})
+
     return (
 
 
 <React.Fragment>
-    {console.log("heello les ami5.6")}
 
     <Grid container spacing={3}>
-        {console.log("heello les ami5.6")}
 
-        {   (isload )? (
-               null): <Grid item xs={12} >
-                    {console.log("sahbi")}
+         <Grid item xs={12} >
                     <Grid container spacing={gridSpacing}>
-                        {lc}
+                      {   importing==true ? load.map((i) => (<Grid item lg={4} md={6} sm={6} xs={12}><TotalGrowthBarChart/></Grid>)):lc}
+
                     </Grid>
+
                 </Grid>}
             </Grid>
             <Customization />
+    {open.ModalDeleteState && (<Modal_Delete   type={"Widget"}/>)}
+    {true && ( <Import_Data_From_DB/>)}
 
 </React.Fragment>
 

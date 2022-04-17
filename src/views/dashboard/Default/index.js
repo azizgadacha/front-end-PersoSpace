@@ -12,7 +12,6 @@ import axios from "axios";
 import configData from "../../../config";
 
 
-import TotalGrowthBarChart from "../../Widget/TotalGrowthBarChart";
 
 import { CLOSE_DELETE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_USER} from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
@@ -20,13 +19,17 @@ import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/Earn
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
+import {useRouteMatch} from "react-router";
+import {Card, Stack, Typography} from "@mui/material";
 
 
 
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
+    const { url, path } = useRouteMatch();
+
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -66,22 +69,19 @@ const load=[1,2,3,4,5,6]
         });
     };
     useEffect(() => {
-        console.log("salah2.0")
         axios
             .post(configData.API_SERVER + 'api/users/all', {
                 id:account.user._id,
 
                 token: account.token
             }).then((result) => {
-            console.log("im gere")
-            console.log(result.data.users)
+
             dispatcher({
                 type:INISIALIZE_USER,
                 payload: {users:result.data.users},
             })
             setUSERLIST(userSt.users)
             setSucess(true)
-            console.log("salah3.0")
 
         })},[] );
 
@@ -99,9 +99,7 @@ id1=id
         }
 
 
-console.log(link)
-        console.log(id)
-        console.log(id1)
+
 
         axios
             .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
@@ -138,6 +136,19 @@ console.log(link)
 
 
         )})
+
+    const location = useLocation();
+    console.log(location.pathname)
+    let loc=location.pathname
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+
+    const ar2 = array.slice(3, (array.length));
+    console.log(ar2)
+
+    let link1=ar2.join('/')
+    console.log(link1)
     return (
 <Fragment>
     {isload?  (<Grid container spacing={3}>
@@ -152,14 +163,31 @@ console.log(link)
                             </Grid>
                             ))
                     }
+                    {console.log(url.split("/"))}
+                    {console.log('mrigla')}
+                    {console.log(path)}
+                    {console.log('mrigla2.0')}
 
-
-
+                    {console.log(url)}
 
                 </Grid>
             </Grid>
 
-        </Grid>):(<Grid container spacing={3}>
+        </Grid>):(
+        <Fragment>
+        <Card xs={12}  sx={{mb:3}}>
+
+            <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
+
+
+                <Typography sx={{ml:1,mb:1,mt:1}} variant="h4" gutterBottom>
+                    User Liste
+                </Typography>
+            </Stack>
+
+        </Card>
+
+            <Grid container spacing={3}>
         <Grid item xs={12} >
             <Grid container spacing={gridSpacing}>
 
@@ -183,7 +211,11 @@ console.log(link)
                 </Grid>
             </Grid>
 
-        </Grid>)}
+        </Grid>
+        </Fragment>
+
+
+            )}
 
 
 

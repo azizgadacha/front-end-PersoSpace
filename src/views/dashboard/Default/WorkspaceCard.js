@@ -33,7 +33,7 @@ import {
 
 } from "../../../store/actions";
 
-import {useHistory, useParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 import config from "../../../config";
 import {Box, Button, Menu, MenuItem} from "@mui/material";
 import AnimateButton from "../../../animation/AnimateButton";
@@ -41,6 +41,7 @@ import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
 import {Cancel, Delete, Deleting, Widget, Workspaces} from "../../Button/actionButton";
 import {initialState as userSt} from "../../../store/UserReducer";
+import {useRouteMatch} from "react-router";
 
 
 // style constant
@@ -133,6 +134,22 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     }
 
+
+
+    const location = useLocation();
+    console.log(location.pathname)
+    let loc=location.pathname
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+
+    const ar2 = array.slice(3, (array.length));
+    console.log(ar2)
+
+    let link=ar2.join('/')
+    console.log(link)
+
+
    
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClickMenu = (event) => {
@@ -141,14 +158,12 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
     const handleCloseMenu = () => {
         setAnchorEl(null);
-        console.log(anchorEl)
     };
 
     let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
     let {id}=useParams()
     const click = () => {
-        console.log('im the card  '+card.WorkspaceName)
         let card1=card;
         dispatcher({
             type:IDWORKSPACE,
@@ -156,11 +171,14 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
         });
-        history.push(config.defaultPath+'/'+ card._id)
+        history.push(`${config.defaultPath}/${link==""?"":link+"/"}${card._id}`)
     }
     const shareWorkspaces = () => {
-        console.log("rani el shareWorkspaces ")
-        console.log(userSt.users)
+
+
+
+
+
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
         })
@@ -221,7 +239,6 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
                                     </Avatar>
 
-                                    {console.log("helle"+ Boolean(anchorEl) )}
                                     <Menu
                                         id="menu-earning-card"
                                         anchorEl={anchorEl}
@@ -240,6 +257,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                     >
                                         <MenuItem onClick={shareWorkspaces}>
                                             <ShareIcon  fontSize="inherit" className={classes.menuItem} /> Share Workspace
+
                                         </MenuItem>
                                         <MenuItem onClick={handleClick}>
                                             <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace

@@ -24,7 +24,6 @@ const WidgetStore= (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE_STORE:
 
-
             state.widget=action.payload.widget
             return {
 
@@ -45,18 +44,24 @@ const WidgetStore= (state = initialState, action) => {
 
 
         case DELETE_WIDGET:
-
             const deleteWidget=action.payload.widget
 
+
             let index = 0;
+
             var filteredObj = state.widget.find(function(item, i){
-                if((item.WidgetName === deleteWidget[0].WidgetName)&&(item._id===deleteWidget[0]._id)){
+
+                if((item.WidgetName === deleteWidget.WidgetName)&&(item.superior_id===deleteWidget.superior_id)){
+
+
+
+
                     index = i;
                     return i;
-                    //console.log(i)
 
                 }
             });
+
             state.widget.splice(index,1)
 
             return {

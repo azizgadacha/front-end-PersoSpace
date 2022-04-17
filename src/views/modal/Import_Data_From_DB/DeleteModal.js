@@ -170,31 +170,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const ShareWorkspaceModal=  (props) => {
-    const [isloading, setIsloading] = useState(false);
+const DeleteModal=  (props) => {
 
-    const states = [
-        {
-            value: 'administrateur',
-            label: 'administrateur'
-        },
-        {
-            value: 'simple employer',
-            label: 'simple employer'
-        },
 
-    ];
-    const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
-    const handleCapture = ({target}) => {
-        const fileReader = new FileReader();
-        // const name = target.accept.includes('image') ? 'images' : 'videos';
-
-        fileReader.readAsDataURL(target.files[0]);
-        fileReader.onload = (e) => {
-            setSource(e.target.result);
-        };
-    };
 
     const classes = useStyles();
     let history = useHistory();
@@ -210,29 +189,12 @@ const ShareWorkspaceModal=  (props) => {
     };
 
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
 
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
     const TABLE_HEAD = [
-        { id: 'username', label: 'User name', alignRight: false },
-        { id: 'email', label: 'Email', alignRight: false },
-        { id: 'phone', label: 'Phone', alignRight: false },
-        { id: 'role', label: 'Role', alignRight: false },
+        { id: 'name', label: 'Name', alignRight: false },
 
-        {  id: 'action', label: '           Activites', alignLeft: true }
     ];
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {
@@ -315,6 +277,21 @@ const ShareWorkspaceModal=  (props) => {
     const handleFilterByName = (event) => {
         setFilterName(event.target.value);
     };
+
+
+    useEffect(() => {
+
+    }, [])
+
+
+
+
+
+
+
+
+
+
     let userSt= useSelector((state) => state.user);
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.users.length) : 0;
@@ -373,26 +350,9 @@ const ShareWorkspaceModal=  (props) => {
 
     return (
         <Fragment>
+            {console.log("koli")}
 
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
 
-                open={open1.ModalStateShare}
-                onClose={handleClose}
-
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-
-            >
-                <div style={OVERLAY_Styles}>
-
-                    <Fade in={open1.ModalStateShare}>
-
-                        <Box sx={{ ...style,  }} className={classes.modal}>
                             <ThemeConfig>
                                 <PerfectScrollbar>
                                     <TableContainer sx={{minWidth: 800}}>
@@ -426,10 +386,7 @@ const ShareWorkspaceModal=  (props) => {
                                                                     aria-checked={isItemSelected}
                                                                 >
                                                                     <TableCell padding="checkbox">
-                                                                        <Checkbox
-                                                                            checked={isItemSelected}
-                                                                            onChange={(event) => handleClick(event,username)}
-                                                                        />
+
                                                                     </TableCell>
                                                                     <Cells    userPar={{_id,username,phone,role,photo,email}}/>
                                                                 </TableRow>
@@ -465,19 +422,13 @@ const ShareWorkspaceModal=  (props) => {
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
-                                {open.ModalConfirmShare && (<ConfirmShareWorkspaceModal  handleClose={handleCloseModal} user={open.objet} />)}
 
                             </ThemeConfig>
-                        </Box>
-                    </Fade>
 
-                </div>
-
-            </Modal>
 
 
         </Fragment>
     )
         ;
 }
-export default ShareWorkspaceModal;
+export default DeleteModal;

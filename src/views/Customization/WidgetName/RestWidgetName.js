@@ -168,28 +168,25 @@ const RestWidgetName = ( { buttonRef }) => {
                             token:account.token
                         })
                             .then(function (response) {
-console.log("test1")
                                 if (response.data.success) {
-                                    console.log("test2")
 
                                     dispatcher({
                                         type:IS_LOADING_CHANGE,
 
                                     })
+
                                     dispatcher({
                                         type:CHANGE_NAME,
                                         payload: {WidgetName:values.WidgetName}
 
                                     })
-                                    console.log("mehrez")
-                                    console.log(widget)
+
                                     dispatcher({
                                         type:ADD_WIDGET,
-                                        payload: {widget:widget}
+                                        payload: {widget:{WidgetName:values.WidgetName,superior_id:widget.superior_id,type:widget.Type,label:widget.label,dataWidget:widget.dataWidget,}}
 
                                     })
 
-                                    console.log("test3")
                                     dispatcher({
                                         type:INIZIALIZE_STEPS
 
@@ -198,7 +195,6 @@ console.log("test1")
                                         type:CLOSE_WIDGET_MODAL,
 
                                     })
-                                    console.log("test3")
 
 
 
@@ -209,7 +205,6 @@ console.log("test1")
 
 
 
-                                    console.log("test4")
 
 
 
@@ -218,7 +213,6 @@ console.log("test1")
 
 
 
-                                    console.log("test5")
 
                                         setStatus({ success: false });
                                         setSubmitting(false);
@@ -235,7 +229,6 @@ console.log("test1")
                                     }
                             })
                             .catch(function (error) {
-                                console.log("test6")
 
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
@@ -249,9 +242,7 @@ console.log("test1")
                                 });
                             });
                     } catch (err) {
-                        console.log("7")
 
-                        console.error(err);
                         if (scriptedRef.current) {
 
                             setStatus({ success: false });

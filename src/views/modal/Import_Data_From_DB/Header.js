@@ -29,7 +29,7 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const Modal_Delete = (props) => {
+const Header = (props) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -54,7 +54,7 @@ const Modal_Delete = (props) => {
                                 Delete {props.type}
                             </Typography>
                             <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                Are you sure to delete {props.type=="User"?props.obj.username:props.obj.WidgetName} ?
+                                Shoose A source
                             </Typography>
                         </Stack>
                     </Grid>
@@ -65,4 +65,4 @@ const Modal_Delete = (props) => {
     );
 };
 
-export default Modal_Delete;
+export default Header;

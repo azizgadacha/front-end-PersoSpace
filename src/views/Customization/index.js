@@ -158,7 +158,6 @@ const Customization = () => {
     return (
         <React.Fragment>
             {/* toggle button */}
-            {console.log("im testing"+widget.Place)}
 
             <Tooltip title="Add Widget">
                 <Fab
@@ -247,7 +246,6 @@ const Customization = () => {
 
                                 </Stepper>
                                 </Grid>
-                                {console.log('to test 2'+widget.Place)}
                             {getStepContent(widget.Place)}
 
 
@@ -295,10 +293,7 @@ const Customization = () => {
                                                 {Back}
                                             </Button>
                                         )}
-                                        {console.log("salut")}
-                                        {console.log(buttonRef.current)}
 
-                                        {console.log(modal.isSubmitting)}
                                         {(widget.Place === steps.length - 1)&&(
                                     (modal.isSubmitting)?(<LoadingButton
                                                 variant="contained"

@@ -24,9 +24,8 @@ export function theme(customization) {
         darkTextPrimary: color.grey700,
         darkTextSecondary: color.grey500,
         textDark: color.grey900,
-        menuSelected: color.secondaryDark,
-        menuSelectedBack: color.secondaryLight,
-        divider: color.grey200,
+
+
         customization: customization
     };
 
@@ -45,7 +44,7 @@ export function theme(customization) {
         breakpoints: {
             values: {
                 xs: 0,
-                sm: 600,
+                sm: 300,
                 md: 960,
                 lg: 1280,
                 xl: 1920

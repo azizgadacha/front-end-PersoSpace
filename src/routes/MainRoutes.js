@@ -6,6 +6,7 @@ import MainLayout from '../views/Scolette_du_Dashboard';
 import Preparation_du_page from "./../animation/Preparation_du_page";
 
 import AuthGuard from './../guard_root/AuthGuard';
+import {useRouteMatch} from "react-router";
 
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
@@ -20,22 +21,21 @@ const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
-   
-    const location = useLocation();
 
+    const location = useLocation();
+    console.log(location.pathname)
+    let loc=location.pathname
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+
+    const ar2 = array.slice(3, (array.length)-1);
+    console.log(ar2)
+
+    let link=ar2.join('/')
+    console.log(link)
     return (
 
-        <Route
-            path={[
-
-                '/dashboard/viewAll',
-                '/dashboard/default/widget/:id',
-
-                '/dashboard/default/:id',
-                '/dashboard/default',
-
-            ]}
-        >
 
 
         <MainLayout>
@@ -47,12 +47,14 @@ const MainRoutes = () => {
 
                     <Route exact path="/dashboard/default/widget/:id" component={widget} />
 
-                    <Route exact path="/dashboard/default/:id" component={DashboardDefault} />
+                    <Route exact path={`/dashboard/default/${link==""?'':link+'/'}:id`} component={DashboardDefault} />:
 
 
 
                     <Route exact path='/dashboard/viewAll' component={ViewAll} />
-                    <Route exact path="/dashboard/default" component={DashboardDefault} />
+
+
+                   <Route exact path="/dashboard/default" component={DashboardDefault} />
 
 
 
@@ -60,7 +62,6 @@ const MainRoutes = () => {
                 </AuthGuard>
                 </Switch>
         </MainLayout>
-        </Route>
     );
 };
 

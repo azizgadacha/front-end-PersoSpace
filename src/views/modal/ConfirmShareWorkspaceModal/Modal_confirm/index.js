@@ -232,7 +232,6 @@ const Modal_confirm=  (props) => {
         });
     }
     const Click=()=>{
-     console.log("wje3a")
     }
 
 
