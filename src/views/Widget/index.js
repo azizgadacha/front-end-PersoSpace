@@ -20,7 +20,7 @@ import AppCurrentVisits from "./Chart/AppCurrentVisits";
 import ThemeConfig from "../../themes/theme2";
 import AppConversionRates from "./Chart/AppConversionRates";
 import BarChart from "./Chart/BarChart";
-import Modal_Delete from "../modal/ModalDelete";
+import ModalDelete from "../modal/ModalDelete";
 import TotalGrowthBarChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
 import Import_Data_From_DB from "../modal/Import_Data_From_DB";
 
@@ -124,7 +124,7 @@ let element
                 </Grid>}
             </Grid>
             <Customization />
-    {open.ModalDeleteState && (<Modal_Delete   type={"Widget"}/>)}
+    {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {true && ( <Import_Data_From_DB/>)}
 
 </React.Fragment>

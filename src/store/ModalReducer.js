@@ -9,7 +9,7 @@ import {
     Confirm_Share_Workspace_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL
 
-    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE,
+    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE, OPEN_DELETE_WIDGET_MODAL, CLOSE_DELETE_WIDGET_MODAL,
 } from './actions';
 
 
@@ -20,6 +20,7 @@ export const initialState = {
     ModalStateShare:false,
     ModalConfirmShare:false,
     ModalDeleteState:false,
+    ModalDeleteWidget:false,
     ModalEditState:false,
 
     isSubmitting:false,
@@ -129,6 +130,7 @@ let objet;
 
 
             };
+
         case IS_LOADING_CHANGE:
                 return{
             ...state,

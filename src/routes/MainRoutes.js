@@ -28,6 +28,7 @@ const MainRoutes = () => {
     let array=loc.split("/")
     console.log(array)
     console.log(array.length)
+    console.log(array.slice(3, (array.length)));
 
     const ar2 = array.slice(3, (array.length)-1);
     console.log(ar2)
@@ -35,6 +36,7 @@ const MainRoutes = () => {
     let link=ar2.join('/')
 
     console.log(link)
+    console.log(ar2[0])
     return (
 
 
@@ -48,7 +50,7 @@ const MainRoutes = () => {
 
                     <Route exact path="/dashboard/default/widget/:id" component={widget} />
 
-                    <Route exact path={`/dashboard/default/${link==""?'':link+'/'}:id`} component={DashboardDefault} />:
+                    <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />:
 
 
 

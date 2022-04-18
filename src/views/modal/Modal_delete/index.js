@@ -54,7 +54,7 @@ const Modal_Delete = (props) => {
                                 Delete {props.type}
                             </Typography>
                             <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                Are you sure to delete {props.type=="User"?props.obj.username:props.obj.WidgetName} ?
+                                Are you sure to delete {props.type=="User"?props.obj.username: props.type=="Widget"?props.obj.WidgetName:props.name} ?
                             </Typography>
                         </Stack>
                     </Grid>

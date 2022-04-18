@@ -13,7 +13,14 @@ import configData from "../../../config";
 
 
 
-import { CLOSE_DELETE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_USER} from "../../../store/actions";
+import {
+    CLICKED,
+    CLICKED_INISIALIZE,
+    CLOSE_DELETE_MODAL,
+    CLOSE_MODAL_SHARE,
+    INISIALIZE,
+    INISIALIZE_USER
+} from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
@@ -60,7 +67,7 @@ const load=[1,2,3,4,5,6]
 
     const [success,setSucess]=useState(false)
     const [USERLIST,setUSERLIST]=useState([])
-    const workspaces = useSelector((state) => state.workspace);
+    let workspaces = useSelector((state) => state.workspace);
 
     let open = useSelector((state) => state.modal);
     function handleClose  () {
@@ -72,21 +79,52 @@ const load=[1,2,3,4,5,6]
     let {id}=useParams()
     let link
     let id1
+let datasend
 
     useEffect(() => {
+        console.log(location.pathname)
+        let loc=location.pathname
+        let array=loc.split("/")
+        console.log(array)
+        console.log(array.length)
+
+        const ar2 = array.slice(3, (array.length));
+        console.log(ar2)
+
+        let link2=ar2.join('/')
+
+        console.log(link2)
+
+
         if (id) {
+            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
+
             link = 'api/users/getinsideworkspace'
             id1=id
+            console.log('mrigggggggggggggggggggggggggggg')
+            console.log(ar2)
+            let clicked
+            if(workspaces.clicked)
+                clicked=true
+            else
+                clicked=false
+
+            datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token}
+            dispatcher({
+                type:CLICKED_INISIALIZE
+            })
+
         } else {
+            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
             link = 'api/users/getworkspace'
-            id1=account.user._id
+         datasend= {superior_id:account.user._id, token:account.token}
+
         }
 
 
 
-
         axios
-            .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
+            .post( configData.API_SERVER + link,datasend)
             .then(response =>{
 
                 dispatcher({
@@ -117,8 +155,9 @@ const load=[1,2,3,4,5,6]
 
             dispatcher({
                 type:INISIALIZE_USER,
-                payload: {users:result.data.users},
+              payload: {users:result.data.users},
             })
+
             setUSERLIST(userSt.users)
             setSucess(true)
 

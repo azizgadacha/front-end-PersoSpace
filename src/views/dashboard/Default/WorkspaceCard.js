@@ -180,16 +180,17 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
 
+        handleCloseMenu()
 
 
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
         })
-        handleCloseMenu()
 
 
     };
     const handleClick = () => {
+        handleCloseMenu()
 
         dispatcher({
             type:OPEN_DELETE_MODAL,
@@ -197,7 +198,6 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
         });
-        handleCloseMenu()
     };
 
     function handleClose  () {
