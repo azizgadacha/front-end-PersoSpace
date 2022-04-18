@@ -250,7 +250,7 @@ console.log('3     ')
                 token:account.token,
                 card_id:props.card._id,
                 user_id:props.user._id,
-                user_username:account.user.username
+                user_username:account.user._id
             })
             .then(response =>{
 

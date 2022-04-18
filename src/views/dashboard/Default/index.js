@@ -132,7 +132,8 @@ let id1
                         payload: {work: response.data.workspaceitems}
                     }
                 )
-
+                console.log("HAHAHAHAHAA")
+                console.log(response.data.workspaceitems)
 
                 setLoading(false);
                 setSucces(true)
@@ -145,16 +146,13 @@ let id1
 
         }}, []);
 
-
-
+    let j=-1
     let lc =   workspaces.Workspace.map((card)  => {
-
+        j++
         return(
 
-
-
             <Grid item lg={4} md={6} sm={6} xs={12}>
-                <WorkspaceCard isLoading={isLoading} card={card}/>
+                <WorkspaceCard isLoading={isLoading} card={card} username={workspaces.username[j]} />
 
             </Grid>
 

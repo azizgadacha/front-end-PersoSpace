@@ -41,6 +41,7 @@ import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
 import {Cancel, Delete, Deleting, Widget, Workspaces} from "../../Button/actionButton";
 import {initialState as userSt} from "../../../store/UserReducer";
+import {useLocation} from "react-router";
 
 
 // style constant
@@ -122,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
-const WorkspaceCard = ({ isLoading,card }) => {
+const WorkspaceCard = ({ isLoading,card,username }) => {
     let history =useHistory()
     let userSt= useSelector((state) => state.user);
 
@@ -177,6 +178,7 @@ console.log(card.Share)
 
 
     };
+    const location = useLocation();
     const handleClick = () => {
 
         dispatcher({
@@ -201,8 +203,7 @@ console.log(card.Share)
 
 
      */
-    if((window.location.pathname==='/dashboard/default')||(window.location.pathname==='/dashboard/default')) {
-        return (
+    return (
             <React.Fragment>
                 {isLoading ? (
                     <SkeletonEarningCard/>
@@ -210,6 +211,9 @@ console.log(card.Share)
                     <MainCard border={false} className={classes.card} contentClass={classes.content}>
                         <Grid container direction="column">
                             <Grid item>
+                                {!(location.pathname.includes('Shared')) ?
+                                    (
+
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Avatar variant="rounded" className={classes.avatar}
@@ -266,16 +270,14 @@ console.log(card.Share)
 
                                     </Grid>
                                 </Grid>
+                                    ):null}
                             </Grid>
                             <Grid item>
                                 <Grid alignItems="center">
                                     <Grid item align="center">
                                         <Typography align="center"
                                                     className={classes.cardHeading}>{card.WorkspaceName}</Typography>
-
-
                                     </Grid>
-
                                 </Grid>
                             </Grid>
                             <Grid item
@@ -340,74 +342,7 @@ console.log(card.Share)
 
             </React.Fragment>
         );
-    }
-    else {
-        return (
-            <React.Fragment>
-                {isLoading ? (
-                    <SkeletonEarningCard/>
-                ) : (
-                    <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                        <Grid container direction="column">
-                            <Grid item>
-                                <Grid container justifyContent="space-between">
-                                    <Box sx={{mt: 6}}></Box>
-                                </Grid>
-                            </Grid>
 
-                            <Grid item>
-                                <Grid alignItems="center">
-                                    <Grid item align="center">
-                                        <Typography align="center"
-                                                    className={classes.cardHeading}>{card.WorkspaceName}</Typography>
-                                    </Grid>
-
-                                </Grid>
-                            </Grid>
-                            <Grid item
-
-                                  sx={{mb: 0.25}}>
-                                <Typography align="center"
-                                            className={classes.subHeading}>{card.description}</Typography>
-                            </Grid>
-                            <Grid container alignItems={"center"}>
-
-                                <Grid xs={6}>
-                                    <Box
-                                        sx={
-
-
-                                            {
-                                                ml: 17,
-                                                mr: 10,
-                                                mt: 2,
-
-                                            }}
-                                    >
-
-                                        <AnimateButton>
-                                            <Button
-                                                disableElevation
-                                                fullWidth
-                                                onClick={OpenWidget}
-                                                type="submit" size="large"
-                                                variant="contained"
-                                                color="warning">{Widget} </Button>
-
-
-                                        </AnimateButton>
-
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </MainCard>
-                )}
-
-            </React.Fragment>
-        );
-
-    }
 };
 
 WorkspaceCard.propTypes = {
