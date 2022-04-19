@@ -21,6 +21,7 @@ import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
 import {useParams} from "react-router-dom";
+import {useLocation} from "react-router";
 
 
 
@@ -88,6 +89,9 @@ const load=[1,2,3,4,5,6]
     let {id}=useParams()
     let link
 let id1
+
+    const location = useLocation();
+
     console.log('aaaaaaa')
     console.log(window.location.pathname)
 
@@ -107,10 +111,12 @@ let id1
             axios
                 .post(configData.API_SERVER + link, {superior_id: id1, token: account.token})
                 .then(response => {
+                    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+                    console.log(response.data.workspaceitems)
 
                     dispatcher({
                             type: INISIALIZE,
-                            payload: {work: response.data.workspaceitems}
+                            payload: {work: response.data.workspaceitems,  }
                         }
                     )
 
@@ -127,9 +133,11 @@ let id1
         else { axios
             .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {user_id: account.user._id, token: account.token})
             .then(response => {
+                console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+
                 dispatcher({
                         type: INISIALIZE,
-                        payload: {work: response.data.workspaceitems}
+                        payload: {work: response.data.workspaceitems, location :'shared'}
                     }
                 )
                 console.log("HAHAHAHAHAA")
@@ -148,11 +156,12 @@ let id1
 
     let j=-1
     let lc =   workspaces.Workspace.map((card)  => {
+
         j++
         return(
 
             <Grid item lg={4} md={6} sm={6} xs={12}>
-                <WorkspaceCard isLoading={isLoading} card={card} username={workspaces.username[j]} />
+                <WorkspaceCard isLoading={isLoading} card={card}   username={(location.pathname).includes('Shared')?workspaces.username[j]:null} />
 
             </Grid>
 
@@ -189,6 +198,9 @@ let id1
 
         </Grid>):(<Grid container spacing={3}>
         <Grid item xs={12} >
+
+            {console.log(workspaces.Workspace)}
+
             <Grid container spacing={gridSpacing}>
 
 

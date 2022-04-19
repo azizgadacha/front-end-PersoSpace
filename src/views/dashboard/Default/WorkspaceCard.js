@@ -203,12 +203,20 @@ console.log(card.Share)
 
 
      */
+
+    const workspaces = useSelector((state) => state.workspace);
+
     return (
             <React.Fragment>
+
                 {isLoading ? (
                     <SkeletonEarningCard/>
                 ) : (
+
+
                     <MainCard border={false} className={classes.card} contentClass={classes.content}>
+                        {console.log(workspaces.Workspace)}
+
                         <Grid container direction="column">
                             <Grid item>
                                 {!(location.pathname.includes('Shared')) ?
@@ -295,21 +303,22 @@ console.log(card.Share)
 
                                 <Grid xs={6}>
                                     <Box
+                                          marginLeft={(location.pathname).includes('Shared')?17:0}
                                         sx={
 
-
                                             {
-                                                ml: 0,
                                                 mr: 3,
                                                 mt: 2,
 
                                             }}
                                     >
+                                        <Grid item align="center">
 
                                         <AnimateButton>
 
 
                                             <Button
+                                                align="center"
                                                 disableElevation
                                                 fullWidth
                                                 onClick={OpenWidget}
@@ -319,7 +328,7 @@ console.log(card.Share)
 
 
                                         </AnimateButton>
-
+                                        </Grid>
                                     </Box>
                                 </Grid>
                                 {!(location.pathname.includes('Shared')) &&(

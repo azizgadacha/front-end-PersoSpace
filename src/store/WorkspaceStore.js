@@ -31,17 +31,21 @@ const WorkspaceStore = (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE:
             console.log("gggggggggggggggggg")
+
             state.Workspace=action.payload.work
-            var workspace=[]
-            var username=[]
-            for(let item of state.Workspace){
-                workspace.push(item[0])
-                username.push(item[1])
+
+            if(action.payload.location=="shared") {
+                var workspace = []
+                var username = []
+                for (let item of state.Workspace) {
+                    workspace.push(item[0])
+                    username.push(item[1])
+                }
+                state.Workspace = workspace
+                state.username = username
+                console.log(state.Workspace)
+                console.log(username)
             }
-            state.Workspace=workspace
-            state.username=username
-            console.log(state.Workspace)
-            console.log(username)
             return {
 
                 ...state,
