@@ -3,27 +3,32 @@ import { motion } from 'framer-motion';
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Button, Typography, Container } from '@mui/material';
+import {Box, Button, Typography, Container, Grid} from '@mui/material';
 // components
 import { MotionContainer, varBounceIn } from './animate';
-import Page from './Page';
 import ThemeConfig from "../../themes/theme2";
 import config from "../../config";
 import {Fragment} from "react";
+import {makeStyles} from "@material-ui/styles";
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled(Fragment)(({ theme }) => ({
-    display: 'flex',
-    minHeight: '100%',
-    alignItems: 'center',
-    paddingTop: theme.spacing(15),
-    paddingBottom: theme.spacing(10)
+
+const useStyles = makeStyles((theme) => ({
+    red: {
+        display: 'flex',
+        minHeight: '100%',
+        alignItems: 'center',
+        paddingTop: theme.spacing(9),
+        paddingBottom: theme.spacing(6)
+    },
+
 }));
 
 // ----------------------------------------------------------------------
 
 export default function Page404() {
+    const classes = useStyles();
 
     let history =useHistory()
 
@@ -32,13 +37,12 @@ export default function Page404() {
         history.push(config.defaultPath)
     }
     return (
-        <ThemeConfig>
-        <RootStyle >
+        <Grid  className={classes.red} >
             <Container>
                 <MotionContainer initial="initial" open>
                     <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
                         <motion.div variants={varBounceIn}>
-                            <Typography variant="h3" paragraph>
+                            <Typography variant="h1" paragraph>
                                 Sorry, page not found!
                             </Typography>
                         </motion.div>
@@ -55,14 +59,13 @@ export default function Page404() {
                             />
                         </motion.div>
 
-                        <Button  onClick={handleClick} size="large" variant="contained" >
+                        <Button  onClick={handleClick} size="large" variant="contained" color={"secondary"} >
                             Go to Home
                         </Button>
                     </Box>
                 </MotionContainer>
             </Container>
-        </RootStyle>
-        </ThemeConfig>
+        </Grid>
     );
 }
 
