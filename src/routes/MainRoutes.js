@@ -40,7 +40,6 @@ const MainRoutes = () => {
     return (
 
 
-
         <MainLayout>
             <Switch location={location} key={location.pathname}>
                 <AuthGuard>

@@ -126,7 +126,8 @@ let datasend
         axios
             .post( configData.API_SERVER + link,datasend)
             .then(response =>{
-
+console.log("llllllllllllllllllllllllll")
+                console.log(response.data.listeName)
                 dispatcher({
                         type:INISIALIZE,
                         payload: {work:response.data.workspaceitems}
