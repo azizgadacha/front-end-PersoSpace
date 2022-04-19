@@ -270,7 +270,12 @@ console.log(card.Share)
 
                                     </Grid>
                                 </Grid>
-                                    ):null}
+                                    ):(
+                                        <Grid item align="center">
+                                            <Typography align="center"
+                                                        className={classes.cardHeading}>{username}</Typography>
+                                        </Grid>
+                                    )}
                             </Grid>
                             <Grid item>
                                 <Grid alignItems="center">
@@ -317,7 +322,9 @@ console.log(card.Share)
 
                                     </Box>
                                 </Grid>
-                                <Grid xs={6}>
+                                {!(location.pathname.includes('Shared')) &&(
+
+                                    <Grid xs={6}>
 
                                     <Box
                                         sx={{
@@ -327,14 +334,13 @@ console.log(card.Share)
                                     >
                                         <AnimateButton>
 
-
-                                            <Button disableElevation size="large" onClick={click} fullWidth
+                                                <Button disableElevation size="large" onClick={click} fullWidth
                                                     variant="contained" color="warning">{Workspaces}</Button>
                                         </AnimateButton>
 
                                     </Box>
                                 </Grid>
-
+                                    )}
                             </Grid>
                         </Grid>
                     </MainCard>
