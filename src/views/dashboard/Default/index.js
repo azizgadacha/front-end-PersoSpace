@@ -88,15 +88,15 @@ const load=[1,2,3,4,5,6]
 
     let {id}=useParams()
     let link
-let id1
-
+    let id1
     const location = useLocation();
 
     console.log('aaaaaaa')
     console.log(window.location.pathname)
+    console.log('/dashboard/default/id')
 
     useEffect(() => {
-        if((window.location.pathname==='/dashboard/default')||(window.location.pathname==='/dashboard/default')) {
+        if((window.location.pathname=='/dashboard/default')||(window.location.pathname=='/dashboard/default/'+id)) {
             if (id) {
                 link = 'api/users/getinsideworkspace'
                 id1 = id
@@ -168,7 +168,11 @@ let id1
 
         )})
     let Url;
-    if((window.location.pathname)===('/dashboard/default')){
+    console.log("wje3a")
+    console.log(id)
+    console.log('/dashboard/default/:id')
+    console.log(window.location.pathname)
+    if(((window.location.pathname)==('/dashboard/default'))||((window.location.pathname)==('/dashboard/default/'+id))){
         Url=true
     }
     else {
