@@ -10,7 +10,7 @@ import {
     Confirm_Share_Workspace_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL
 
-    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE,
+    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE, OPEN_EDIT_MODAL, ClOSE_EDIT_MODAL,
 } from './actions';
 
 
@@ -96,6 +96,23 @@ let objet;
 
                 ...state,
                 ModalConfirmShare:false
+
+            };
+        case OPEN_EDIT_MODAL:
+            objet=action.payload.objet
+            return {
+
+                ...state,
+                objet,
+                ModalEditState:true,
+
+            };
+        case ClOSE_EDIT_MODAL:
+
+            return {
+                ...state,
+                ModalDeleteState:false
+
 
             };
         case OPEN_DELETE_MODAL:

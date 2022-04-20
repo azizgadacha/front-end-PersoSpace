@@ -29,7 +29,7 @@ import {
 
     CLOSE_DELETE_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER,
 
-    OPEN_DELETE_MODAL, OPEN_MODAL_SHARE,
+    OPEN_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
 
@@ -178,6 +178,17 @@ console.log(card.Share)
 
 
     };
+    const EditSpace=()=>{
+        console.log("ena el edit space")
+        dispatcher({
+            type:OPEN_EDIT_MODAL,
+            payload: {objet:card}
+
+
+        });
+        handleCloseMenu()
+
+    }
     const location = useLocation();
     const handleClick = () => {
 
@@ -268,7 +279,7 @@ console.log(card.Share)
                                                 <DeleteIcon fontSize="inherit" className={classes.menuItem}/> Delete
                                                 Workspace
                                             </MenuItem>
-                                            <MenuItem onClick={handleCloseMenu}>
+                                            <MenuItem onClick={EditSpace}>
                                                 <EditIcon fontSize="inherit" className={classes.menuItem}/> Edit
                                                 Workspace
                                             </MenuItem>

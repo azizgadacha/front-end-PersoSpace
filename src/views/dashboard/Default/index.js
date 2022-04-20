@@ -22,6 +22,8 @@ import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
 import {useParams} from "react-router-dom";
 import {useLocation} from "react-router";
+import Add_Workspace_Modal from "../../modal/Add_Workspace_Modal";
+import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
 
 
 
@@ -60,6 +62,7 @@ const load=[1,2,3,4,5,6]
     const workspaces = useSelector((state) => state.workspace);
 
     let open = useSelector((state) => state.modal);
+    let open1 = useSelector((state) => state.modal);
     function handleClose  () {
         dispatcher({
             type:CLOSE_DELETE_MODAL,
@@ -67,7 +70,7 @@ const load=[1,2,3,4,5,6]
         });
     };
     useEffect(() => {
-        console.log("salah2.0")
+
         axios
             .post(configData.API_SERVER + 'api/users/all', {
                 id:account.user._id,
@@ -91,10 +94,6 @@ const load=[1,2,3,4,5,6]
     let id1
     const location = useLocation();
 
-    console.log('aaaaaaa')
-    console.log(window.location.pathname)
-    console.log('/dashboard/default/id')
-
     useEffect(() => {
         if((window.location.pathname=='/dashboard/default')||(window.location.pathname=='/dashboard/default/'+id)) {
             if (id) {
@@ -111,7 +110,7 @@ const load=[1,2,3,4,5,6]
             axios
                 .post(configData.API_SERVER + link, {superior_id: id1, token: account.token})
                 .then(response => {
-                    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+
                     console.log(response.data.workspaceitems)
 
                     dispatcher({
@@ -133,14 +132,13 @@ const load=[1,2,3,4,5,6]
         else { axios
             .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {user_id: account.user._id, token: account.token})
             .then(response => {
-                console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+
 
                 dispatcher({
                         type: INISIALIZE,
                         payload: {work: response.data.workspaceitems, location :'shared'}
                     }
                 )
-                console.log("HAHAHAHAHAA")
                 console.log(response.data.workspaceitems)
 
                 setLoading(false);
@@ -168,9 +166,6 @@ const load=[1,2,3,4,5,6]
 
         )})
     let Url;
-    console.log("wje3a")
-    console.log(id)
-    console.log('/dashboard/default/:id')
     console.log(window.location.pathname)
     if(((window.location.pathname)==('/dashboard/default'))||((window.location.pathname)==('/dashboard/default/'+id))){
         Url=true
@@ -203,17 +198,17 @@ const load=[1,2,3,4,5,6]
         </Grid>):(<Grid container spacing={3}>
         <Grid item xs={12} >
 
-            {console.log(workspaces.Workspace)}
 
             <Grid container spacing={gridSpacing}>
 
 
                     {lc}
-                {console.log(workspaces.Workspace)}
                     <ThemeConfig>
                         {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
-
+                <ThemeConfig>
+                    {open1.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleClose} card={open.objet}  />)}
+                </ThemeConfig>
                     <ShareWorkspaceModal card= {open.card}/>
                 {Url ?(
                 <Grid item lg={4} md={6} sm={6} xs={12}>
