@@ -13,6 +13,7 @@ import NotificationSection from './NotificationSection';
 
 // assets
 import { IconMenu2 } from '@tabler/icons';
+import {useLocation} from "react-router-dom";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ handleLeftDrawerToggle }) => {
     const classes = useStyles();
+    const location = useLocation();
 
     return (
         <React.Fragment>
@@ -51,15 +53,19 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
                     <LogoSection />
                 </Box>
-                <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
+                {location.pathname.includes("dashboard")&&
+
+                    <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
                     <Avatar variant="rounded" className={classes.headerAvatar} onClick={handleLeftDrawerToggle} color="inherit">
                         <IconMenu2 stroke={1.5} size="1.3rem" />
                     </Avatar>
-                </ButtonBase>
+                </ButtonBase>}
             </div>
 
             {/* header search */}
-            <SearchSection theme="light" />
+            {location.pathname.includes("dashboard")&&
+
+            <SearchSection theme="light" />}
             <div className={classes.grow} />
             <div className={classes.grow} />
 

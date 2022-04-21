@@ -17,7 +17,8 @@ import {
 export const initialState = {
    Workspace:[],
     id:null,
-    clicked:false
+    clicked:false,
+    listeName:[]
 
 };
 
@@ -48,6 +49,7 @@ const WorkspaceStore = (state = initialState, action) => {
 
 
             state.Workspace=action.payload.work
+            state. listeName=action.payload.listeName
             return {
 
                 ...state,

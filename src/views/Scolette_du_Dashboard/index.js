@@ -20,6 +20,7 @@ import { SET_MENU } from '../../store/actions';
 import { IconChevronRight } from '@tabler/icons';
 import {Alert} from "@material-ui/lab";
 import ThemeConfig from "../../themes/theme2";
+import {useLocation} from "react-router-dom";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -98,6 +99,7 @@ const MainLayout = ({ children }) => {
     const classes = useStyles();
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
+    const location = useLocation();
 
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state.customization.opened);
@@ -130,7 +132,8 @@ const MainLayout = ({ children }) => {
 
             {/* drawer */}
 
-            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
+            {location.pathname.includes("dashboard")&&
+            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />}
             {/* main content */}
             <main
                 className={clsx([

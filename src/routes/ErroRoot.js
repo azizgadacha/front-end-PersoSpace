@@ -27,13 +27,13 @@ const ErrorRoutes = () => {
 
 
         <React.Fragment>
-            <Route path={['/page404']}>
+            <Route path={['*']}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
 
 
-                            <Route path="/page404" component={page404} />
+                            <Route path='*' component={page404} />
 
 
                     </Animation_entre_page>

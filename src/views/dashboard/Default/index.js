@@ -3,15 +3,14 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Grid} from '@material-ui/core';
 
 // project imports
-
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import PlusCard from './PlusCard';
 import {useDispatch, useSelector} from 'react-redux';
 
 import WorkspaceCard from "./WorkspaceCard";
 import axios from "axios";
 import configData from "../../../config";
-
-
+import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
 import {
     CLICKED,
@@ -26,9 +25,12 @@ import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/Earn
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
-import {useLocation, useParams} from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 import {useRouteMatch} from "react-router";
-import {Card, Stack, Typography} from "@mui/material";
+import {Box, Card, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, Typography} from "@mui/material";
+import ListItemButton from "@material-ui/core/ListItemButton";
+import config from "../../../config";
+import Item from "./Item";
 
 
 
@@ -58,6 +60,8 @@ const Dashboard = (props, { ...others }) => {
     }, [])
 
 const load=[1,2,3,4,5,6]
+    const load2=[1,2,3,4]
+
     const [succes, setSucces] = useState(false);
     const [isload, setLoad] = useState(true);
 
@@ -76,10 +80,14 @@ const load=[1,2,3,4,5,6]
 
         });
     };
+    let history =useHistory()
+
     let {id}=useParams()
     let link
     let id1
 let datasend
+
+
 
     useEffect(() => {
         console.log(location.pathname)
@@ -95,7 +103,6 @@ let datasend
 
         console.log(link2)
 
-
         if (id) {
             console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
 
@@ -104,12 +111,14 @@ let datasend
             console.log('mrigggggggggggggggggggggggggggg')
             console.log(ar2)
             let clicked
-            if(workspaces.clicked)
+            if(workspaces.clicked){
                 clicked=true
+
+            }
             else
                 clicked=false
 
-            datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token}
+            datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token,listeNameReceive:workspaces.listeName}
             dispatcher({
                 type:CLICKED_INISIALIZE
             })
@@ -130,7 +139,7 @@ console.log("llllllllllllllllllllllllll")
                 console.log(response.data.listeName)
                 dispatcher({
                         type:INISIALIZE,
-                        payload: {work:response.data.workspaceitems}
+                        payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
                     }
                 )
 
@@ -167,6 +176,16 @@ console.log("llllllllllllllllllllllllll")
 
 
 
+    let listOfBar =   workspaces.listeName.map((item)  => {
+
+        return(
+
+
+
+            <Item item={item}/>
+
+
+        )})
     let lc =   workspaces.Workspace.map((card)  => {
 
         return(
@@ -180,7 +199,11 @@ console.log("llllllllllllllllllllllllll")
 
 
         )})
-
+    const flexContainer = {
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 0,
+    };
     const location = useLocation();
     console.log(location.pathname)
     let loc=location.pathname
@@ -194,78 +217,117 @@ console.log("llllllllllllllllllllllllll")
     let link1=ar2.join('/')
     console.log(link1)
     return (
+
+
+            <Fragment>
+                <Card xs={12}  sx={{mb:3}}>
+
+                    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                        <List component={Stack} direction="row">
+                        {isload?
 <Fragment>
-    {isload?  (<Grid container spacing={3}>
+                            <ListItem   sx={{minHeight:"100%",
+                                minWidth: "30%",marginLeft:2
+                            }} key={1} disablePadding>
+
+                                <ListItemButton style={{ backgroundColor: 'transparent' }}>
+                                    <ListItemIcon>
+
+
+                                        <HomeRoundedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText  sx={{ whiteSpace: "normal"  }} />
+                                    <Skeleton width="80%" height={"100%"} />
+                                </ListItemButton>
+                            </ListItem>
+                            { load2.map((i) => (
+
+                                <ListItem
+                                    sx={{minHeight:"100%",
+                                        minWidth: "30%"
+                                    }}
+                                 disablePadding>
+                                    <ListItemButton  style={{ backgroundColor: 'transparent' }}>
+                                        <ListItemIcon>
+
+
+                                            <NavigateNextRoundedIcon />
+                                        </ListItemIcon>
+                                    <ListItemText  sx={{ whiteSpace: "normal"  }} />
+                                    <Skeleton width="80%" height={"100%"} />
+                                    </ListItemButton>
+
+                                </ListItem>
+                                ))
+
+                        }
+</Fragment>
+                                :
+                            <Fragment>
+                            <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
+                                <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
+                                    history.push(config.defaultPath)
+                                }}>
+                                    <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
+                                        <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
+                                    </ListItemIcon>
+                                    <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
+                                </ListItemButton>
+                            </ListItem>
+
+                            {listOfBar}
+                            </Fragment>}
+                        </List>
+                    </Box>
+
+                </Card>
+
+
+
+                <Grid container spacing={3}>
             <Grid item xs={12} >
                 <Grid container spacing={gridSpacing}>
 
-                    {
+                    {isload?  (
+
+
+
                         load.map((i) => (
                             <Grid item lg={4} md={6} sm={6} xs={12}>
 
                             <SkeletonEarningCard />
                             </Grid>
-                            ))
-                    }
-                    {console.log(url.split("/"))}
-                    {console.log('mrigla')}
-                    {console.log(path)}
-                    {console.log('mrigla2.0')}
-
-                    {console.log(url)}
-
-                </Grid>
-            </Grid>
-
-        </Grid>):(
-        <Fragment>
-        <Card xs={12}  sx={{mb:3}}>
-
-            <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
-
-
-                <Typography sx={{ml:1,mb:1,mt:1}} variant="h4" gutterBottom>
-                    User Liste
-                </Typography>
-            </Stack>
-
-        </Card>
-
-            <Grid container spacing={3}>
-        <Grid item xs={12} >
-            <Grid container spacing={gridSpacing}>
+                            ))) :(<Fragment>
 
 
 
-                    {lc}
-                    <ThemeConfig>
-                        {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
+
+
+
+
+
+
+                                   {lc}
+                        <ThemeConfig>
+                            {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
 
-                    <ShareWorkspaceModal/>
+                        <ShareWorkspaceModal/>
 
 
 
-                <Grid item lg={4} md={6} sm={6} xs={12}>
+                        <Grid item lg={4} md={6} sm={6} xs={12}>
 
                         <PlusCard/>
 
-                    </Grid>
+                        </Grid>
+                        </Fragment>)}
 
                 </Grid>
             </Grid>
 
         </Grid>
-        </Fragment>
+            </Fragment>)
 
-
-            )}
-
-
-
-
-</Fragment>
-
-    )
 }
 export default Dashboard;

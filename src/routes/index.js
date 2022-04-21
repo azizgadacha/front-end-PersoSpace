@@ -8,10 +8,10 @@ import LoginRoutes from './LoginRoutes';
 // project imports
 import config from './../config';
 
-import SecondRoutes from "./SecondRoutes";
 import Preparation_du_page from "../animation/Preparation_du_page";
 import ErrorRoutes from "./ErroRoot";
 const error = Preparation_du_page(lazy(() => import('../views/404page')));
+const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 
 
 //-----------------------|| ROUTING RENDER ||-----------------------//
@@ -26,12 +26,11 @@ const Routes = () => {
 
             <Redirect exact from="/" to={config.defaultPath} />
             <React.Fragment>
-                 <ErrorRoutes/>
+
                 {/* Route for login */}
                 <LoginRoutes />
                 {/* Routes for main layouts */}
                 <MainRoutes />
-                <SecondRoutes/>
 
             </React.Fragment>
 

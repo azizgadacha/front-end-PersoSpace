@@ -13,6 +13,10 @@ const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboa
 const ViewAll = Preparation_du_page(lazy(() => import('../views/ViewAll/User')));
 const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 
+const Profile = Preparation_du_page(lazy(() => import('../views/Profile/affiche_profile')));
+
+const ProfileEdit = Preparation_du_page(lazy(() => import('../views/Profile/edit_profile')));
+const ProfileEdit2 = Preparation_du_page(lazy(() => import('../views/Profile/edit_profilePassword')));
 // Bare_du_cotte routing
 
 
@@ -37,8 +41,23 @@ const MainRoutes = () => {
 
     console.log(link)
     console.log(ar2[0])
+    const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
+
+    let linkName=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
     return (
 
+        <Route
+            path={[
+                "/Profile",
+                '/ProfileEdit',
+                '/ProfileEditPass',
+
+                "/dashboard/default/widget/:id",
+                linkName,
+                '/dashboard/viewAll',
+                "/dashboard/default",
+
+            ]}>
 
         <MainLayout>
             <Switch location={location} key={location.pathname}>
@@ -58,13 +77,22 @@ const MainRoutes = () => {
 
                    <Route exact path="/dashboard/default" component={DashboardDefault} />
 
+                    <Route path="/Profile" component={Profile} />
+                    <Route exact path="/ProfileEdit" component={ProfileEdit} />
+                    <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
+
 
 
 
                 </AuthGuard>
                 </Switch>
         </MainLayout>
-    );
+                <Route path='*' component={page404} />
+
+
+
+        </Route>
+            );
 };
 
 export default MainRoutes;
