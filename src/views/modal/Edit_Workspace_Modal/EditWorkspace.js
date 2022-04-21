@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 
 import configData from '../../../config';
@@ -100,12 +100,12 @@ const EditWorkspace = (props) => {
     let link
     let id1
     let {id}=useParams()
-
     return (
         <React.Fragment>
+
             <Formik
                 initialValues={{
-                    user_id:'',
+                    card_id:props.card._id,
                     WorkspaceName: props.card.WorkspaceName,
                     description: props.card.description,
                     submit: null
@@ -116,104 +116,100 @@ const EditWorkspace = (props) => {
 
                 })}
 
-                /*onSubmit={(values) => {
-                    setChanged(false)
-
-
-                    if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
-                        setChanged(true)
-
-                 */
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-                    setChanged(false)
-                    if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null}))
-                    {
-                        setChanged(true)
-                    }
-                    setIsloading(true)
+                      setChanged(false)
+                        if((!(props.card.WorkspaceName==values.WorkspaceName))||((!(props.card.description==values.description)))){
 
-                    try {
-                        axios
-                            .post( configData.API_SERVER + 'api/users/editworkspace', {
-                                token:account.token,
-                                card_id:props.card._id,
-                                WorkspaceName: values.WorkspaceName,
-                                description: values.description
-                            })
-                            .then(function (response) {
-                                if (response.data.success) {
-                                    setIsloading(false)
-
-                                    dispatcher({
-                                            type:ClOSE_EDIT_MODAL,
-                                        }
-                                    )
-                                    let link
-                                    let id1
-                                    if (id) {
-                                        link = 'api/users/getinsideworkspace'
-                                        id1=id
-                                    } else {
-                                        link = 'api/users/getworkspace'
-                                        id1=account.user._id
-                                    }
-                                    axios
-                                        .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
-                                        .then(response =>{
-                                            dispatcher({
-                                                type:INISIALIZE,
-                                                payload: {work:response.data.workspaceitems}
-                                            })})
-                                        .catch(function (error) {
-                                        })
-                                    dispatcher({
-                                        type:"Click",
-                                        payload: {text:"Workspace Edited successfully",severity:"success"}
-                                    })
-                                    console.log()
-
-
-                                } else {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: response.data.msg });
-                                    setSubmitting(false);
-                                    setIsloading(false)
-
-                                }
-                            })
-                            .catch(function (error) {
-                                setStatus({ success: false });
-                                setErrors({ submit: error.response.data.msg });
-                                setSubmitting(false);
-                                setIsloading(false)
-
-                            });
-
-                    } catch (err) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                            setIsloading(false)
-
+                            setChanged(true)
                         }
-                    }
+                        else {
+                            setChanged(false)
+                        }
+
+                        setIsloading(true)
+
+                    console.log("mansour")
+                    {console.log("cardid:"+props.card._id)}
+                    {console.log("WorkspaceName:"+props.card.WorkspaceName)}
+                    {console.log("description:"+props.card.description)}
+                    console.log(changed)
+
+                    if(changed==true) {
+                  try {
+                      axios
+                          .post(configData.API_SERVER + 'api/users/editworkspace', {
+                              token: account.token,
+                              card_id: props.card._id,
+                              WorkspaceName: values.WorkspaceName,
+                              description: values.description
+                          })
+                          .then(function (response) {
+                              if (response.data.success) {
+                                  setIsloading(false)
+                                  let link
+                                  let id1
+                                  if (id) {
+                                      link = 'api/users/getinsideworkspace'
+                                      id1 = id
+                                  } else {
+                                      link = 'api/users/getworkspace'
+                                      id1 = account.user._id
+                                  }
+                                  axios
+                                      .post(configData.API_SERVER + link, {superior_id: id1, token: account.token})
+                                      .then(response => {
+                                          dispatcher({
+                                              type: INISIALIZE,
+                                              payload: {work: response.data.workspaceitems}
+                                          })
+                                      })
+                                      .catch(function (error) {
+                                      })
+                                  dispatcher({
+                                          type: ClOSE_EDIT_MODAL,
+                                      }
+                                  )
+                                  dispatcher({
+                                      type: "Click",
+                                      payload: {text: "Workspace Edited successfully", severity: "success"}
+                                  })
+                                  console.log()
+
+
+                              } else {
+                                  setStatus({success: false});
+                                  setErrors({submit: response.data.msg});
+                                  setSubmitting(false);
+                                  setIsloading(false)
+
+                              }
+                          })
+                          .catch(function (error) {
+                              setStatus({success: false});
+                              setErrors({submit: error.response.data.msg});
+                              setSubmitting(false);
+                              setIsloading(false)
+
+                          });
+
+                  } catch (err) {
+                      console.error(err);
+                      if (scriptedRef.current) {
+                          setStatus({success: false});
+                          setErrors({submit: err.message});
+                          setSubmitting(false);
+                          setIsloading(false)
+
+                      }
+                  }
+              }
                 }}
+
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
-                            { changed&&(
-                                <Grid
-                                    item
-                                    md={12}
-                                    xs={12}
-                                >
-                                    <Alert variant="filled" autoHideDuration={4000} severity="error">
-                                        You didn't change any things
-                                    </Alert>
-                                </Grid>)}
+
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
@@ -295,7 +291,16 @@ const EditWorkspace = (props) => {
 
                             </Box>
                         )}
-
+                        { !(changed) &&(
+                            <Grid
+                                item
+                                md={12}
+                                xs={12}
+                            >
+                                <Alert variant="filled" autoHideDuration={4000} severity="error">
+                                    You didn't change any things
+                                </Alert>
+                            </Grid>)}
 
 
 
@@ -312,26 +317,30 @@ const EditWorkspace = (props) => {
                                             mt: 2,
 
                                         }}
-                                >
-                                    <AnimateButton>
+                                > { !(changed) &&(
+                                                <Button
+                                                    fullWidth
+                                                    type="submit"
+                                                    size="large"
+                                                    variant="contained"
+                                                    color="secondary">{Edit} </Button>)}
+
+
+                                     { changed &&(
+                                                <AnimateButton>
+                                                    {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):
+                                                        <Button
+                                                            fullWidth
+                                                            type="submit"
+                                                            size="large"
+                                                            variant="contained"
+                                                            color="secondary">{Edit} </Button>}
 
 
 
-
-                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):
-                                            <Button
-                                                disableElevation
-                                                disabled={isSubmitting}
-                                                disableElevation
-                                                fullWidth
-                                                type="submit"
-                                                size="large"
-                                                variant="contained"
-                                                color="secondary">{Edit} </Button>}
+                                                </AnimateButton>)}
 
 
-
-                                    </AnimateButton>
 
                                 </Box>
                             </Grid>
@@ -345,7 +354,7 @@ const EditWorkspace = (props) => {
                                 >
                                     <AnimateButton>
 
-                                        <Button disableElevation disabled={isSubmitting} size="large"  onClick={props.handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                        <Button disableElevation  size="large"  onClick={props.handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
                                     </AnimateButton>
 
                                 </Box>
