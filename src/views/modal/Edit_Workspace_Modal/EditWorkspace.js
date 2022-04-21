@@ -78,8 +78,10 @@ let {id}=useParams()
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    WorkspaceName: Yup.string().required('WorkspaceName is required'),
-                    description:Yup.string().required('Description is required')
+                    WorkspaceName: Yup.string().min(4).max(13)
+                        .optional().required("WorkspaceName is required"),
+                    description: Yup.string().min(4).max(25)
+                        .optional().required("description is required")
 
                 })}
                 onSubmit={(values) => {
