@@ -146,16 +146,7 @@ let {id}=useParams()
                                     container
                                     spacing={3}
                                 >
-                                    { changed&&(
-                                        <Grid
-                                            item
-                                            md={12}
-                                            xs={12}
-                                        >
-                                            <Alert variant="filled" autoHideDuration={4000} severity="error">
-                                                You didn't change any things
-                                            </Alert>
-                                        </Grid>)}
+
                                     <Grid item xs={12}>
                                         <TextField
                                             fullWidth
@@ -195,6 +186,16 @@ let {id}=useParams()
                                         )}
                                     </Grid>
                                 </Grid>
+                        { changed&&(
+                            <Grid
+                                item
+                                md={12}
+                                xs={12}
+                            >
+                                <Alert variant="filled" autoHideDuration={4000} severity="error">
+                                    You didn't change any things
+                                </Alert>
+                            </Grid>)}
                         <Grid container alignItems={"center"}>
                             <Grid xs={6}>
                                 <Box
