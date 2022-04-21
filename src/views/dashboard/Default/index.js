@@ -14,7 +14,13 @@ import configData from "../../../config";
 
 import TotalGrowthBarChart from "../../Widget/TotalGrowthBarChart";
 
-import { CLOSE_DELETE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_USER} from "../../../store/actions";
+import {
+    CLOSE_DELETE_MODAL,
+    ClOSE_EDIT_MODAL,
+    CLOSE_MODAL_SHARE,
+    INISIALIZE,
+    INISIALIZE_USER
+} from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
@@ -36,6 +42,14 @@ const Dashboard = (props, { ...others }) => {
         return () => {
             dispatcher({
                 type:CLOSE_DELETE_MODAL,
+
+            });
+        }
+    }, [])
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:ClOSE_EDIT_MODAL,
 
             });
         }
@@ -66,6 +80,13 @@ const load=[1,2,3,4,5,6]
     function handleClose  () {
         dispatcher({
             type:CLOSE_DELETE_MODAL,
+
+        });
+    };
+
+    function handleCloseEdit  () {
+        dispatcher({
+            type:ClOSE_EDIT_MODAL,
 
         });
     };
@@ -207,7 +228,7 @@ const load=[1,2,3,4,5,6]
                         {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                         </ThemeConfig>
                 <ThemeConfig>
-                    {open1.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleClose} card={open.objet}  />)}
+                    {open1.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
                 </ThemeConfig>
                     <ShareWorkspaceModal card= {open.card}/>
                 {Url ?(

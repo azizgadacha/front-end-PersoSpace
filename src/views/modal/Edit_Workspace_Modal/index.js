@@ -270,6 +270,7 @@ const ModalEdit=  (props) => {
                     <Fade in={open1.ModalEditState}>
 
                         <Box sx={{ ...style,  }} className={classes.modal}>
+
                             <ThemeConfig>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
                                     <Grid item xs={6}>
@@ -296,7 +297,7 @@ const ModalEdit=  (props) => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <EditWorkspace handleClose={props.handleClose}  />
+                                        <EditWorkspace handleClose={props.handleClose} card={props.card} />
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Divider />

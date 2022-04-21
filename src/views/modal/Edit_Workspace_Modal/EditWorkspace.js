@@ -39,7 +39,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {ADD, CLOSE_MODAL} from "../../../store/actions";
 import SaveIcon from "@mui/icons-material/Save";
-import {Add, Adding, Cancel} from "../../Button/actionButton";
+import {Add, Adding, Cancel, Edit, Editing} from "../../Button/actionButton";
+import _ from "lodash";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -92,6 +93,8 @@ const EditWorkspace = (props) => {
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
     const account = useSelector((state) => state.account);
+    const [changed, setChanged] = useState(false);
+
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     let link
@@ -103,8 +106,8 @@ const EditWorkspace = (props) => {
             <Formik
                 initialValues={{
                     user_id:'',
-                    WorkspaceName: '',
-                    description: '',
+                    WorkspaceName: props.card.WorkspaceName,
+                    description: props.card.description,
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
@@ -112,8 +115,22 @@ const EditWorkspace = (props) => {
                     description:Yup.string().required('Description is required')
 
                 })}
+
+                /*onSubmit={(values) => {
+                    setChanged(false)
+
+
+                    if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
+                        setChanged(true)
+
+                 */
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-setIsloading(true)
+                    setChanged(false)
+                    if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null}))
+                    {
+                        setChanged(true)
+                    }
+                    setIsloading(true)
                     if (id) {
                         link = 'api/users/addinsideworkspace'
                         id1=id
@@ -135,7 +152,7 @@ setIsloading(true)
                                     setIsloading(false)
 
                                     dispatcher({
-                                        type:CLOSE_MODAL,
+                                            type:CLOSE_MODAL,
                                         }
                                     )
 
@@ -166,6 +183,7 @@ setIsloading(true)
                                 setIsloading(false)
 
                             });
+
                     } catch (err) {
                         console.error(err);
                         if (scriptedRef.current) {
@@ -181,6 +199,16 @@ setIsloading(true)
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit}>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
+                            { changed&&(
+                                <Grid
+                                    item
+                                    md={12}
+                                    xs={12}
+                                >
+                                    <Alert variant="filled" autoHideDuration={4000} severity="error">
+                                        You didn't change any things
+                                    </Alert>
+                                </Grid>)}
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
@@ -285,7 +313,7 @@ setIsloading(true)
 
 
 
-                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
+                                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):
                                             <Button
                                                 disableElevation
                                                 disabled={isSubmitting}
@@ -294,7 +322,7 @@ setIsloading(true)
                                                 type="submit"
                                                 size="large"
                                                 variant="contained"
-                                                color="secondary">{Add} </Button>}
+                                                color="secondary">{Edit} </Button>}
 
 
 

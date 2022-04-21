@@ -111,7 +111,7 @@ let objet;
 
             return {
                 ...state,
-                ModalDeleteState:false
+                ModalEditState:false
 
 
             };
