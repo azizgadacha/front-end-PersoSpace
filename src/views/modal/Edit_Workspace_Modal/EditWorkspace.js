@@ -37,7 +37,7 @@ import AnimateButton from '../../../animation/AnimateButton';
 import {Alert, LoadingButton} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 
-import {ADD, CLOSE_MODAL} from "../../../store/actions";
+import {ADD, ClOSE_EDIT_MODAL, CLOSE_MODAL, INISIALIZE} from "../../../store/actions";
 import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel, Edit, Editing} from "../../Button/actionButton";
 import _ from "lodash";
@@ -131,19 +131,12 @@ const EditWorkspace = (props) => {
                         setChanged(true)
                     }
                     setIsloading(true)
-                    if (id) {
-                        link = 'api/users/addinsideworkspace'
-                        id1=id
-                    } else {
-                        link = 'api/users/addworkspace'
-                        id1=account.user._id
-                    }
 
                     try {
                         axios
-                            .post( configData.API_SERVER + link, {
+                            .post( configData.API_SERVER + 'api/users/editworkspace', {
                                 token:account.token,
-                                superior_id:id1,
+                                card_id:props.card._id,
                                 WorkspaceName: values.WorkspaceName,
                                 description: values.description
                             })
@@ -152,18 +145,30 @@ const EditWorkspace = (props) => {
                                     setIsloading(false)
 
                                     dispatcher({
-                                            type:CLOSE_MODAL,
+                                            type:ClOSE_EDIT_MODAL,
                                         }
                                     )
-
-                                    dispatcher({
-                                        type:ADD,
-                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID,Share:[]}]}
-
-                                    })
+                                    let link
+                                    let id1
+                                    if (id) {
+                                        link = 'api/users/getinsideworkspace'
+                                        id1=id
+                                    } else {
+                                        link = 'api/users/getworkspace'
+                                        id1=account.user._id
+                                    }
+                                    axios
+                                        .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
+                                        .then(response =>{
+                                            dispatcher({
+                                                type:INISIALIZE,
+                                                payload: {work:response.data.workspaceitems}
+                                            })})
+                                        .catch(function (error) {
+                                        })
                                     dispatcher({
                                         type:"Click",
-                                        payload: {text:"Workspace added successfully",severity:"success"}
+                                        payload: {text:"Workspace Edited successfully",severity:"success"}
                                     })
                                     console.log()
 
