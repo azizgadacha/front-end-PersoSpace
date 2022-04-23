@@ -31,6 +31,8 @@ const Routes = () => {
                 {/* Routes for main layouts */}
                 <MainRoutes />
                 <LoginRoutes />
+                <Redirect  to="/404page" />
+
                 <ErrorRoutes/>
             </React.Fragment>
 
