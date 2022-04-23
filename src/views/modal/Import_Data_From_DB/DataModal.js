@@ -47,14 +47,13 @@ import UserListHead from "./TableContent/UserListHead";
 import SearchNotFound from "../../ViewAll/import/customer/SearchNotFound";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Cells from "./Cells";
-import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
 import axios from "axios";
 import configData from "../../../config";
 import SkeltonTable from "../../../composant_de_style/cards/Skeleton/tableSkelton/dataSkelton";
-import {withStyles} from "@mui/styles";
-import {Add, Adding, AddWidget, Back, Cancel} from "../../Button/actionButton";
+import {Add, Adding , Cancel} from "../../Button/actionButton";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import AnimateButton from "../../../animation/AnimateButton";
 
 // ----------------------------------------------------------------------
 
@@ -176,18 +175,6 @@ const useStyles = makeStyles((theme) => ({
 const DataModal=  (props) => {
 
 
-    const classes = useStyles();
-    let history = useHistory();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
 
 
@@ -223,6 +210,8 @@ const DataModal=  (props) => {
         }
         return stabilizedThis.map((el) => el[0]);
     }
+    const [isLoading,setIsLoading]=useState(false)
+
     const [success,setSucess]=useState(false)
     const [chosed,setChosed]=useState(false)
 
@@ -289,8 +278,13 @@ const DataModal=  (props) => {
     const handleSubmit=()=>{
   /*
 */
+
+        setIsLoading(true)
+
         if(selected.length==0){
 setChosed(true)
+            setIsLoading(false)
+
         }
         else {
     console.log(selected)
@@ -300,13 +294,15 @@ setChosed(true)
     })
 
     console.log(get)
+            setIsLoading(true)
 
         dispatcher({
             type:IMPORT_DATA,
             payload: {Data:get[0],superior_id:id,sourceDB:true}
 
         })
-        dispatcher({
+
+            dispatcher({
             type:CLOSE_MODAL,
 
         });}
@@ -330,15 +326,6 @@ setChosed(true)
 
 
 
-
-
-
-
-
-    let modal = useSelector((state) => state.modal);
-    let widget = useSelector((state) => state.widget);
-
-
     let dataStore= useSelector((state) => state.data);
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dataStore.data.length) : 0;
@@ -350,16 +337,6 @@ setChosed(true)
 
 
 
-  const  HandleAdd=()=>{
-
-      dispatcher({
-          type:IMPORT_DATA,
-
-      })
-
-
-
-  }
 
   const handleClose=()=>{
 
@@ -390,7 +367,7 @@ setChosed(true)
 
                             <Fragment>
 
-                                <Box  >
+                                <Box lg={12} xl={12} sm={12}  >
                                         <PerfectScrollbar>
                                             <TableContainer sx={{borderTopRightRadius:8,borderTopLeftRadius:8}} >
                                                 <Table sx={{borderRadius :3}}  sx={{border:'2px solid #c5c5c5',}}
@@ -481,62 +458,51 @@ setChosed(true)
                     </Alert>
                 </Grid>
             }
-                <Stack sx={{mt:4}} direction="row" alignItems="center" justifyContent="space-between" >
-                <Box
-                    sx={{
-                        display: 'block',
-                        justifyContent: 'block-end',
-                    }}
-                >
+            <Stack direction="row" sx={{mt:3}} alignItems="center" justifyContent="space-between" >
 
+                <Grid lg={6}>
 
+                    <Box
 
+                        sx={{
+                            display: 'block',
+                            justifyContent: 'block-end',
+                        }}
+                    >
+                        <AnimateButton>
 
-                    <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
+                            <Button disableElevation size="large" disabled={isLoading}  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                        </AnimateButton>
 
+                    </Box>
+                </Grid>
+                <Grid xs={5}>
+                    <Box
+                        sx={
+                            {
+                                ml:0,
+                                mr:3,
+                                mt: 2,
+                            }}
 
-
-
-                </Box>
-                <Box
-
-                    sx={{
-                        display: 'block',
-                        justifyContent: 'block-end',
-                    }}
-
-
-                >
-
-
-
-                        {
-                            (modal.isSubmitting)?(<LoadingButton
-                                    variant="contained"
-                                    loading loadingPosition="start"
-                                    startIcon={<SaveIcon />}
-                                    variant="outlined">{Adding}</LoadingButton>):
-
-
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                        }}
+                    >
+                        <AnimateButton>
+                            {isLoading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
                                 <Button
-                                    variant="contained"
-                                    color="primary"
-                                    handleSubmit
+                                    disableElevation
+                                    fullWidth
                                     onClick={handleSubmit}
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "flex-end"
-                                    }}
-                                >
-                                    {Add}
-                                </Button>}
-                </Box>
-
-
+                                    type="submit" size="large"
+                                    variant="contained"
+                                >{Add}</Button>}
+                        </AnimateButton>
+                    </Box>
+                </Grid>
             </Stack>
-
-
-
         </Fragment>
     )
         ;

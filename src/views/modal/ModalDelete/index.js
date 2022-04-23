@@ -196,7 +196,7 @@ const User=  (props) => {
 
                     <Fade in={open1.ModalDeleteState}>
 
-                        <Box sx={matchDownSM? {width:300,...style}:{width:400,...style} } >
+                        <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
                         <ThemeConfig>
 
                                 <Modal_Delete  obj={open1.objet} type={props.type} />

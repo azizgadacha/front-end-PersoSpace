@@ -118,11 +118,9 @@ const Import=  (props) => {
                         <ThemeConfig>
 
                                 <Header />
-                                <Grid container alignItems={"center"}>
 
 
                                     <DataModal />
-                                </Grid>
                         </ThemeConfig>
 
 
