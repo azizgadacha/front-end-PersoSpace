@@ -28,10 +28,10 @@ const Routes = () => {
             <React.Fragment>
 
                 {/* Route for login */}
-                <LoginRoutes />
                 {/* Routes for main layouts */}
                 <MainRoutes />
-
+                <LoginRoutes />
+                <ErrorRoutes/>
             </React.Fragment>
 
 

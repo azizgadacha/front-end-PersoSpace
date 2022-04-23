@@ -11,6 +11,8 @@ export const CLICK = 'Click';
 export const CLOSE = 'Close';
 export const ADD = 'ADD';
 export const UPDATE = 'UPDATE';
+export const INISIALIZE_DATA = 'INISIALIZE_DATA';
+
 
 export const DELETE='DELETE'
 export const DELETEINSIDEWORKSPACE='DELETEINSIDEWORKSPACE'

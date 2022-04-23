@@ -24,7 +24,7 @@ export const initialState = {
 
 //-----------------------|| CARD REDUCER ||-----------------------//
 
-const WorkspaceStore = (state = initialState, action) => {
+const WorkspaceReducer = (state = initialState, action) => {
 
     //const [listecard, addcart] = useState({cards:});
 
@@ -121,4 +121,4 @@ const WorkspaceStore = (state = initialState, action) => {
 
     }};
 
-export default WorkspaceStore;
+export default WorkspaceReducer;

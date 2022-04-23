@@ -109,7 +109,7 @@ const Import = ()=> {
 
                          dispatcher({
                              type:IMPORT_DATA,
-                             payload: {Data:results.data,superior_id:id}
+                             payload: {Data:results.data,superior_id:id,sourceDB:false}
 
                          });}
                  })

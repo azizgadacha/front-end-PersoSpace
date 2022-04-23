@@ -93,18 +93,24 @@ const Widget_transition_Reducer = (state = initialState, action) => {
             };
 
         case IMPORT_DATA:
+            state.Place = state.Place + 1;
+            state.superior_id = action.payload.superior_id
 
-            state.Place=state.Place+1;
-            state.label=action.payload.Data[0];
-            let numberArray = [];
-            let length = (action.payload.Data[1]).length;
+            if (action.payload.sourceDB){
+state.label=action.payload.Data.label
+                state.dataWidget=action.payload.Data.data
 
-            for (let i = 0; i < length; i++)
-                numberArray.push(parseInt((action.payload.Data[1])[i]));
+}
+else{
+    state.label = action.payload.Data[0];
+    let numberArray = [];
+    let length = (action.payload.Data[1]).length;
 
-            state.dataWidget=numberArray;
-            state.superior_id=action.payload.superior_id
+    for (let i = 0; i < length; i++)
+        numberArray.push(parseInt((action.payload.Data[1])[i]));
 
+    state.dataWidget = numberArray;
+}
 
 
             return {

@@ -125,7 +125,7 @@ let element
             </Grid>
             <Customization />
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
-    {true && ( <Import_Data_From_DB/>)}
+    {open.ModalState && ( <Import_Data_From_DB/>)}
 
 </React.Fragment>
 

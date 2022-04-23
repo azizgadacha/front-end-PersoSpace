@@ -32,18 +32,10 @@ import configData from "../../../config";
 
 
 
-const Cells=  ({userPar}) => {
+const Cells=  ({title}) => {
 
 
 
-    const dispatcher = useDispatch();
-
-    const handleClickModal = () => {
-
-        dispatcher({
-            type:Confirm_Share_Workspace_MODAL,
-            payload: {objet:userPar}
-        })}
 
 
 
@@ -56,7 +48,7 @@ const Cells=  ({userPar}) => {
 
 
 
-            <TableCell align="left">{userPar.role}</TableCell>
+            <TableCell align="left">{title}</TableCell>
 
 
 

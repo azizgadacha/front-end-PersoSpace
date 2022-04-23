@@ -102,26 +102,36 @@ let link
     })
 
               }
+            console.log('je suis ici')
 
                     dispatcher({
                     type:CLICK,
                     payload: {text:`${type} has been deleted`,severity:"success"}
-                })}
-                else {
+                })
 
+                    dispatcher({
+                        type:CLOSE_DELETE_MODAL,
+                    })
                 }
-                dispatcher({
-                    type:CLOSE_DELETE_MODAL,
-                })
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:response.data.msg,severity:"error"}
-                })
+                else {
+                    dispatcher({
+                        type:CLOSE_DELETE_MODAL,
+                    })
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:response.data.msg,severity:"error"}
+                    })
+                }
+
+                console.log('je suis ici')
+                console.log(response.data)
+
+
 
             })
             .catch(function (error) {
                 dispatcher({
-                    type:CLOSE_DELETE_MODAL,
+                     type:CLOSE_DELETE_MODAL,
                 })
                 dispatcher({
                     type:CLICK,

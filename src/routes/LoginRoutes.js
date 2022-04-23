@@ -30,7 +30,7 @@ const Routes = () => {
 
 
 <React.Fragment>
-<Route path={['/login','/forget',"/change/:token"]}>
+<Route path={['/login','/forget',"/change/:token",]}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
@@ -40,7 +40,6 @@ const Routes = () => {
                             <Route path="/login" component={AuthLogin} />
                             <Route path="/forget" component={AuthForget} />
                             <Route path="/change/:token" component={Authverif} />
-                            <Route path='*' component={page404} />
 
                         </Verif_login_Guard>
 

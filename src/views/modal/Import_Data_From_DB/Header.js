@@ -49,13 +49,11 @@ const Header = (props) => {
                             <Typography
                                 color={theme.palette.secondary.main}
                                 gutterBottom
-                                variant={matchDownSM ? 'h3' : 'h2'}
+                                variant={matchDownSM ? 'h4' : 'h3'}
                             >
-                                Delete {props.type}
+                                choose a source
                             </Typography>
-                            <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                Shoose A source
-                            </Typography>
+
                         </Stack>
                     </Grid>
                 </Grid>

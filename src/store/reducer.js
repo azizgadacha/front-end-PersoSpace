@@ -8,10 +8,11 @@ import accountReducer from './accountReducer';
 import cardReducer from './cardReducer';
 import SnackbarReducer from "./SnackbarReducer";
 import ModalReducer from "./ModalReducer";
-import WorkspaceStore from "./WorkspaceStore";
+import WorkspaceReducer from "./WorkspaceReducer";
 import UserReducer from "./UserReducer";
 import Widget_transition_Reducer from "./Widget_transition_Reducer";
-import WidgetStore from "./WidgetStore";
+import WidgetReducer from "./WidgetReducer";
+import DataReducer from "./DataReducer";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -24,14 +25,17 @@ const reducer = combineReducers({
         },
         accountReducer
     ),
+
     customization: customizationReducer,
     card:cardReducer,
     snack:SnackbarReducer,
     modal:ModalReducer,
-    workspace:WorkspaceStore,
+    workspace:WorkspaceReducer,
     user:UserReducer,
+    data:DataReducer,
+
     widget:Widget_transition_Reducer,
-widgetstore:WidgetStore
+widgetstore:WidgetReducer
 });
 
 export default reducer;

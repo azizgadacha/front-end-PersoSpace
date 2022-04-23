@@ -5,9 +5,9 @@ import Fade from '@mui/material/Fade';
 
 import {
 
-    Box,
+    Box, Grid, IconButton,
 
-    Modal,
+    Modal, useMediaQuery,
 
 } from '@mui/material';
 // components
@@ -21,16 +21,11 @@ import { CLOSE_MODAL,} from "../../../store/actions";
 
 
 
-import {
-
-    Grid,
-     useMediaQuery,
-} from "@material-ui/core";
 
 import {makeStyles} from "@material-ui/styles";
-import Modal_Delete from "../Modal_delete";
-import DeleteModalCore from "./DeleteModal";
+import DataModal from "./DataModal";
 import Header from "./Header";
+import CloseIcon from "@mui/icons-material/Close";
 
 // ----------------------------------------------------------------------
 
@@ -45,7 +40,7 @@ const OVERLAY_Styles ={
 }
 const style = {
 
-    padding:'50px',
+    padding:'30px',
     zIndex:100,
 
     borderRadius: 3,
@@ -63,70 +58,6 @@ const style = {
 
 // ----------------------------------------------------------------------
 
-const useStyles = makeStyles((theme) => ({
-
-
-
-
-
-    redButton: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        backgroundColor: theme.palette.grey[50],
-        border: '1px solid',
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[700],
-        textTransform: 'none',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '0.875rem'
-        }
-    },
-    signDivider: {
-        flexGrow: 1
-    },
-    signText: {
-        cursor: 'unset',
-        margin: theme.spacing(2),
-        padding: '5px 56px',
-        borderColor: theme.palette.grey[100] + ' !important',
-        color: theme.palette.grey[900] + '!important',
-        fontWeight: 500
-    },
-    loginIcon: {
-        marginRight: '16px',
-        [theme.breakpoints.down('sm')]: {
-            marginRight: '8px'
-        }
-    },
-    loginInput: {
-        ...theme.typography.customInput
-    },
-
-    root: {
-        alignSelf: 'center',
-        justifyContent: "center",
-        alignItems: "center",
-        display: 'flex',
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-    input: {
-        display: "none",
-
-
-    },
-    large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-    },
-
-
-}));
-
 
 
 
@@ -134,25 +65,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Import=  (props) => {
 
-
-
-
-
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-
-
-
-
-
-
-
-
-
-
-
     const dispatcher = useDispatch();
 
-    let account = useSelector((state) => state.account);
 
 
 
@@ -184,7 +98,7 @@ const Import=  (props) => {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalState}
+                open={true}
                 onClose={handleClose}
 
                 closeAfterTransition
@@ -195,16 +109,19 @@ const Import=  (props) => {
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in={open1.ModalState}>
+                    <Fade in={true}>
 
-                        <Box sx={matchDownSM? {width:300,...style}:{width:400,...style} } >
+                        <Box sx={{...style}}>
+                            <IconButton sx={{mt:0,float:'right'}}               label="close">
+                                <CloseIcon onClick={handleClose}  color="disabled"      />
+                            </IconButton>
                         <ThemeConfig>
 
                                 <Header />
                                 <Grid container alignItems={"center"}>
 
 
-                                    <DeleteModalCore />
+                                    <DataModal />
                                 </Grid>
                         </ThemeConfig>
 

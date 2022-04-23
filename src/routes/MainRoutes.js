@@ -87,7 +87,6 @@ const MainRoutes = () => {
                 </AuthGuard>
                 </Switch>
         </MainLayout>
-                <Route path='*' component={page404} />
 
 
 

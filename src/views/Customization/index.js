@@ -28,7 +28,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import ThemeConfig from "../../themes/theme2";
 import Chose from "./Chose/Chose";
-import {AddWidget, Back, Cancel, } from "../Button/actionButton";
+import {Adding, AddWidget, Back, Cancel,} from "../Button/actionButton";
 import Import from "./Import/import";
 import WidgetName from "./WidgetName";
 
@@ -299,7 +299,7 @@ const Customization = () => {
                                                 variant="contained"
                                                 loading loadingPosition="start"
                                                 startIcon={<SaveIcon />}
-                                                variant="outlined">{AddWidget}</LoadingButton>):
+                                                variant="outlined">{Adding}</LoadingButton>):
 
 
                                                     <Button
