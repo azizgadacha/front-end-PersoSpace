@@ -194,10 +194,10 @@ export default function MenuList({data}) {
                                 >
 
                                     <MenuItem onClick={handleClickDelete}>
-                                        <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
+                                        <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Widget
                                     </MenuItem>
                                     <MenuItem >
-                                        <EditIcon fontSize="inherit"  className={classes.menuItem} /> Edit Workspace
+                                        <EditIcon fontSize="inherit"  className={classes.menuItem} /> Edit widget
                                     </MenuItem>
 
                                 </Menu>

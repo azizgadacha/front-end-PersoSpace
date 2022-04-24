@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector,} from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 // material-ui
@@ -33,6 +33,7 @@ import Import from "./Import/import";
 import WidgetName from "./WidgetName";
 
 import {
+    CLOSE_MODAL,
     CLOSE_WIDGET_MODAL,
     INIZIALIZE_STEPS, OPEN_WIDGET_MODAL,
     RETURN_BACK
@@ -154,7 +155,13 @@ const Customization = () => {
 
         });    };
     let widget = useSelector((state) => state.widget);
-
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_WIDGET_MODAL,
+            });
+        }
+    }, [])
     return (
         <React.Fragment>
             {/* toggle button */}

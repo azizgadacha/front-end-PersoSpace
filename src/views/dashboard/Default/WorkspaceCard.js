@@ -189,7 +189,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
 
 
     };
-    const handleClick = () => {
+    const handleDelete = () => {
         handleCloseMenu()
 
         dispatcher({
@@ -262,7 +262,7 @@ const WorkspaceCard = ({ isLoading,card }) => {
                                             <ShareIcon  fontSize="inherit" className={classes.menuItem} /> Share Workspace
 
                                         </MenuItem>
-                                        <MenuItem onClick={handleClick}>
+                                        <MenuItem onClick={handleDelete}>
                                             <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Workspace
                                         </MenuItem>
                                         <MenuItem onClick={handleCloseMenu}>

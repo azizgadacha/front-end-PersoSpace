@@ -51,7 +51,7 @@ const WidgetStore= (state = initialState, action) => {
 
             var filteredObj = state.widget.find(function(item, i){
 
-                if((item.WidgetName === deleteWidget.WidgetName)&&(item.superior_id===deleteWidget.superior_id)){
+                if(item._id === deleteWidget._id){
 
 
 

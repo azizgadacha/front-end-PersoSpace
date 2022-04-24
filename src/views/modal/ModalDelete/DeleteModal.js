@@ -22,18 +22,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     ADD_USER,
     CLICK,
-    CLOSE_DELETE_MODAL,
-     DELETE_WIDGET,
+    CLOSE_DELETE_MODAL, DELETE,
+    DELETE_WIDGET,
     USER_DELETE
 } from "../../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import {Cancel, Delete, Deleting} from "../../Button/actionButton";
+import {useHistory, useParams} from "react-router-dom";
 
 // style constant
 
 //===========================|| API JWT - REGISTER ||===========================//
 
 const DeleteModalCore = ({obj,type}) => {
+
     const handleCloseModal = ()=> {
         dispatcher({
             type:CLOSE_DELETE_MODAL,
@@ -54,8 +56,9 @@ let link
 
 
 
+    let {id}=useParams()
 
-    const Click = () => {
+    const Delete = () => {
 
         if(type=="User")
 
@@ -69,16 +72,14 @@ let link
             else if (type=="Widget")
             {
 
-                link='api/users/deleteWidget'
-                dataSend=  {token:account.token,WidgetName:obj.WidgetName, superior_id:obj.superior_id}}
+                if(obj.widgetName){
+                    link='api/users/deleteWidget'
+                    dataSend=  {token:account.token,WidgetName:obj.WidgetName, superior_id:obj.superior_id}}
+                else {
+            link = 'api/users/deleteLinkWidget'
+            dataSend=  {token:account.token,superior_id:id, idData:obj._id}}
 
-
-
-
-
-
-
-
+    }
         setIsloading(true)
 
 
@@ -170,10 +171,10 @@ let link
                                 <Button
                                     disableElevation
                                     fullWidth
-                                    onClick={Click}
+                                    onClick={Delete}
                                     type="submit" size="large"
                                     variant="contained"
-                                    color="error">{Delete}</Button>}
+                                    color="error">{DELETE}</Button>}
 
 
 

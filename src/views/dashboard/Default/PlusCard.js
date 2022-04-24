@@ -62,7 +62,7 @@ const PlusCard = () => {
                     <Grid container  sx={{mt:3.75 ,mb:3.30,ml:12}} onClick={handleClick} alignItems="center" >
 
 
-                        <Tooltip title="Add Widget">
+                        <Tooltip title="Add Workspace">
 
                         <IconButton   alt="Add Workspace"   aria-label="close"  >
 

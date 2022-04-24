@@ -26,9 +26,19 @@ import Backdrop from '@mui/material/Backdrop';
 
 import {useDispatch, useSelector} from "react-redux";
 import {
+    ADD_WIDGET,
+    CLICK,
 
     CLOSE_Confirm_Share_Workspace_MODAL,
-    CLOSE_MODAL, CLOSE_WIDGET_MODAL, IMPORT_DATA, INISIALIZE_DATA, INISIALIZE_USER, INIZIALIZE_STEPS
+    CLOSE_DELETE_MODAL,
+    CLOSE_MODAL,
+    CLOSE_WIDGET_MODAL,
+    DELETE_WIDGET,
+    IMPORT_DATA,
+    INISIALIZE_DATA,
+    INISIALIZE_USER,
+    INIZIALIZE_STEPS,
+    USER_DELETE
     ,
 } from "../../../store/actions";
 
@@ -213,6 +223,7 @@ const DataModal=  (props) => {
     const [isLoading,setIsLoading]=useState(false)
 
     const [success,setSucess]=useState(false)
+    let [errorMessage,setErrorMessage]=useState("")
     const [chosed,setChosed]=useState(false)
 
     const [page, setPage] = useState(0);
@@ -269,6 +280,7 @@ const DataModal=  (props) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    let widget = useSelector((state) => state.widget);
 
     const handleFilterByName = (event) => {
         setFilterName(event.target.value);
@@ -278,42 +290,111 @@ const DataModal=  (props) => {
     const handleSubmit=()=>{
   /*
 */
-
         setIsLoading(true)
 
         if(selected.length==0){
-setChosed(true)
+            setChosed(true)
+
+            setErrorMessage("You should choose a data source")
+
             setIsLoading(false)
 
         }
         else {
-    console.log(selected)
-    let get=(dataStore.data).filter((value)=>{
-        console.log("l")
-        return value.title==selected[0]
-    })
+            console.log(selected)
+            let get=(dataStore.data).filter((value)=>{
+                console.log("l")
+                return value.title==selected[0]
+            })
 
-    console.log(get)
-            setIsLoading(true)
+            console.log(get[0].title)
+            axios
+                .post( configData.API_SERVER + 'api/users/shareData',{
+                    token:account.token,
+                    idData:get[0]._id,
+                    WidgetName:get[0].title,
+                    superiorID:id
+                })
+                .then(response =>{
+                    if(response.data.success){
+                    setIsLoading(true)
 
-        dispatcher({
-            type:IMPORT_DATA,
-            payload: {Data:get[0],superior_id:id,sourceDB:true}
+                        console.log("less2")
 
-        })
+                        dispatcher({
+                            type:ADD_WIDGET,
+                            payload: {widget:response.data.dataupdated}
 
-            dispatcher({
-            type:CLOSE_MODAL,
+                        })
+                        console.log("less1")
 
-        });}
+                        dispatcher({
+                            type:INIZIALIZE_STEPS
+
+                        })
+                        console.log("less3")
+
+                        dispatcher({
+                            type:CLOSE_WIDGET_MODAL,
+
+                        })
+
+
+                        console.log("less4")
+
+
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:"Widget added successfuly",severity:"success"}
+                        })
+
+                        console.log("less34")
+
+
+
+                }else{
+                        if(response.data.WidgetExisite){
+                            setChosed(true)
+                            setIsLoading(false)
+
+                            setErrorMessage("Widget with the same name already existe ")
+                        }else{
+
+                        dispatcher({
+                            type:CLOSE_MODAL,
+
+                        })
+                        dispatcher({
+                            type:INIZIALIZE_STEPS
+
+                        })
+                        console.log("less35")
+
+                        dispatcher({
+                            type:CLOSE_WIDGET_MODAL,
+
+                        })
+
+
+                    }}
+
+                })
+                .catch(function (error) {
+
+
+                })
+
+            console.log(get)
+            ;}
+
+
 
 }
 
     useEffect(() => {
         axios
             .post(configData.API_SERVER + 'api/users/getData', {
-
-
+                superior_Id:id,
                 token: account.token
             }).then((result) => {
             dispatcher({
@@ -454,13 +535,12 @@ setChosed(true)
                     mb={4}
                 >
                     <Alert variant="filled" autoHideDuration={4000} severity="error">
-                        You should choose a data source
-                    </Alert>
+                        {errorMessage}   </Alert>
                 </Grid>
             }
             <Stack direction="row" sx={{mt:3}} alignItems="center" justifyContent="space-between" >
 
-                <Grid lg={6}>
+                <Grid lg={3}>
 
                     <Box
 
@@ -471,7 +551,7 @@ setChosed(true)
                     >
                         <AnimateButton>
 
-                            <Button disableElevation size="large" disabled={isLoading}  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                            <Button disableElevation  disabled={isLoading}  size="large" onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
                         </AnimateButton>
 
                     </Box>

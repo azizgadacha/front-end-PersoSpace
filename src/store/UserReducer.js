@@ -1,5 +1,5 @@
 
-import {ADD_USER, DELETE_USER, INISIALIZE_USER, USER_DELETE} from './actions';
+import {ADD_USER, DELETE_USER, INISIALIZE_USER, USER_DELETE, USER_UPDATE} from './actions';
 
 
 
@@ -45,6 +45,28 @@ const UserReducer = (state = initialState, action) => {
 
 
             let index = 0;
+            var filteredObj = state.users.find(function(item, i){
+                if((item.email===deleteUser.email)){
+                    index = i;
+                    return i;
+
+                }
+            });
+            state.users.splice(index,1)
+
+
+
+
+
+            return {
+                ...state
+            }
+        case USER_UPDATE:
+             deleteUser=action.payload.user
+
+
+
+             index = 0;
             var filteredObj = state.users.find(function(item, i){
                 if((item.email===deleteUser.email)){
                     index = i;

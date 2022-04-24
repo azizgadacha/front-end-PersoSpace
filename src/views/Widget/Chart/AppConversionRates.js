@@ -145,8 +145,11 @@ export default function AppConversionRates(data) {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  const CHART_DATA = [{ data: data.data.dataWidget}];
-
+  let CHART_DATA
+  if(data.data.dataWidget)
+   CHART_DATA = [{ data: data.data.dataWidget}];
+else
+    CHART_DATA=[{data:data.data.data}]
   const chartOptions = merge(BaseOptionChart(), {
     tooltip: {
       marker: { show: false },
@@ -172,7 +175,6 @@ export default function AppConversionRates(data) {
       categories: data.data.label
     }
   });
-  const [value, setValue] = React.useState('today');
 
   return (
 
@@ -186,7 +188,7 @@ export default function AppConversionRates(data) {
           <Grid item>
             <Grid container direction="column" >
               <Grid item>
-                <CardHeader title={data.data.WidgetName} />
+                <CardHeader title={data.data.WidgetName?data.data.WidgetName:data.data.title} />
               </Grid>
 
             </Grid>

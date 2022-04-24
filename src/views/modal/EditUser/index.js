@@ -5,9 +5,9 @@ import Fade from '@mui/material/Fade';
 
 import {
 
-    Box, Grid, IconButton,
+    Box,
 
-    Modal, useMediaQuery,
+    Modal,
 
 } from '@mui/material';
 // components
@@ -21,11 +21,15 @@ import { CLOSE_MODAL,} from "../../../store/actions";
 
 
 
+import {
+
+    Grid,
+     useMediaQuery,
+} from "@material-ui/core";
 
 import {makeStyles} from "@material-ui/styles";
-import DataModal from "./DataModal";
-import Header from "./Header";
-import CloseIcon from "@mui/icons-material/Close";
+import Modal_Delete from "../Modal_delete";
+import EditModalCore from "./EditModal";
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +44,7 @@ const OVERLAY_Styles ={
 }
 const style = {
 
-    padding:'30px',
+    padding:'50px',
     zIndex:100,
 
     borderRadius: 3,
@@ -62,14 +66,15 @@ const style = {
 
 
 
+const User=  (props) => {
 
-const Import=  (props) => {
 
+
+
+
+    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const dispatcher = useDispatch();
-
-
-
-
+    let account = useSelector((state) => state.account);
     useEffect(() => {
         return () => {
             dispatcher({
@@ -77,20 +82,12 @@ const Import=  (props) => {
             });
         }
     }, [])
-
-
-
     let open1 = useSelector((state) => state.modal);
-
     const handleClose=()=>{
         dispatcher({
             type:CLOSE_MODAL,
         });
     }
-
-
-
-
     return (
         <Fragment>
 
@@ -98,7 +95,7 @@ const Import=  (props) => {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalState}
+                open={open1.ModalDeleteState}
                 onClose={handleClose}
 
                 closeAfterTransition
@@ -109,18 +106,17 @@ const Import=  (props) => {
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in={open1.ModalState}>
+                    <Fade in={open1.ModalDeleteState}>
 
-                        <Box sx={{...style}}>
-                            <IconButton sx={{mt:0,float:'right'}}               label="close">
-                                <CloseIcon onClick={handleClose}  color="disabled"      />
-                            </IconButton>
+                        <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
                         <ThemeConfig>
 
-                                <Header />
+                                <Modal_Delete   type={props.type} />
+                                <Grid container alignItems={"center"}>
 
 
-                                    <DataModal />
+                                    <EditModalCore obj={open1.objet} type={props.type}  />
+                                </Grid>
                         </ThemeConfig>
 
 
@@ -136,4 +132,4 @@ const Import=  (props) => {
     )
         ;
 }
-export default Import;
+export default User;

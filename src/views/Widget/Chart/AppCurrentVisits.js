@@ -145,7 +145,17 @@ export default function AppCurrentVisits(data) {
 
 
   const theme = useTheme();
-  const CHART_DATA = data.data.dataWidget;
+  let CHART_DATA
+
+  if(data.data.dataWidget) {
+    console.log("mchinaaa")
+    CHART_DATA =  data.data.dataWidget;
+  }
+    else {
+    CHART_DATA =  data.data.data;
+    console.log("mchinaaa20")
+
+  }
   const chartOptions = merge(BaseOptionChart(), {
     colors: [
       theme.palette.primary.main,
@@ -188,7 +198,7 @@ export default function AppCurrentVisits(data) {
               <Grid item>
                 <Grid container direction="column" >
                   <Grid item>
-                    <CardHeader title={data.data.WidgetName} />
+                    <CardHeader title={data.data.WidgetName? data.data.WidgetName:data.data.title} />
                   </Grid>
 
                 </Grid>

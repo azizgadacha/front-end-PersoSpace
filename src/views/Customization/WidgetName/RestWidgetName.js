@@ -183,7 +183,7 @@ const RestWidgetName = ( { buttonRef }) => {
 
                                     dispatcher({
                                         type:ADD_WIDGET,
-                                        payload: {widget:{WidgetName:values.WidgetName,superior_id:widget.superior_id,type:widget.Type,label:widget.label,dataWidget:widget.dataWidget,}}
+                                        payload: {widget:{WidgetName:values.WidgetName,_id:response.data.newWidget._id, superior_id:widget.superior_id,type:widget.Type,label:widget.label,dataWidget:widget.dataWidget,}}
 
                                     })
 

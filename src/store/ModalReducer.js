@@ -9,26 +9,27 @@ import {
     Confirm_Share_Workspace_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL
 
-    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE, OPEN_DELETE_WIDGET_MODAL, CLOSE_DELETE_WIDGET_MODAL,
+    ,
+    OPEN_WIDGET_MODAL,
+    CLOSE_WIDGET_MODAL,
+    IS_LOADING_CHANGE,
+    OPEN_DELETE_WIDGET_MODAL,
+    CLOSE_DELETE_WIDGET_MODAL,
+    CLOSE_EDIT_MODAL, OPEN_EDIT_MODAL,
 } from './actions';
 
 
 
 
 export const initialState = {
+    Modal_Edit_State:false,
     ModalState:false,
     ModalStateShare:false,
     ModalConfirmShare:false,
     ModalDeleteState:false,
-    ModalDeleteWidget:false,
-    ModalEditState:false,
-
     isSubmitting:false,
-    ModalInsideDeleteState:false,
-ModalWidget:false,
-    card1:null,
+    ModalWidget:false,
     objet:null,
-    objet1:null
 
 
 
@@ -48,7 +49,27 @@ let objet;
 
                 ...state,
                 ModalState:true,
-                
+
+
+
+            };
+        case OPEN_EDIT_MODAL:
+        objet=action.payload.objet
+            return {
+                 objet,
+                ...state,
+                Modal_Edit_State:true,
+
+
+
+            };
+        case CLOSE_EDIT_MODAL:
+
+            return {
+
+                ...state,
+                Modal_Edit_State:true,
+
 
 
             };

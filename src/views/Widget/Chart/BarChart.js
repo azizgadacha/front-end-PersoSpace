@@ -142,7 +142,12 @@ export default function BarChart(data) {
     const handleCloseMenu = () => {
         setAnchorEl(null);
     };
-    const CHART_DATA = [{ data: data.data.dataWidget}];
+    let CHART_DATA
+    if(data.data.dataWidget)
+     CHART_DATA = [{ data: data.data.dataWidget}];
+    else
+        CHART_DATA = [{ data: data.data.data}];
+
 
     const chartOptions = merge(BaseOptionChart(), {
         tooltip: {
@@ -183,7 +188,8 @@ export default function BarChart(data) {
                         <Grid item>
                             <Grid container direction="column" >
                                 <Grid item>
-                                    <CardHeader title={data.data.WidgetName} />
+
+                                    <CardHeader title={data.data.WidgetName? data.data.WidgetName:data.data.title} />
                                 </Grid>
 
                             </Grid>

@@ -1,3 +1,5 @@
+import { useHistory} from "react-router-dom";
+
 import { filter } from 'lodash';
 import React, {Fragment,  useState} from 'react';
 // material
@@ -36,13 +38,18 @@ const Cells=  ({userPar}) => {
     const dispatcher = useDispatch();
 
 
+    let history = useHistory();
 
     const handleClickEditModal = () => {
+        history.push('/dashboard/viewAll')
 
-        dispatcher({
+      /*  dispatcher({
             type:OPEN_EDIT_MODAL,
             payload: {objet:userPar}
-        })}
+        })
+
+    */
+    }
 
 
     const handleClickModal = () => {
