@@ -135,7 +135,8 @@ const RestWidgetName = ( { buttonRef }) => {
     const dispatcher = useDispatch();
     let widget = useSelector((state) => state.widget);
     let {id}=useParams()
-
+let link
+    let data
     return (
         <React.Fragment>
 
@@ -147,7 +148,7 @@ const RestWidgetName = ( { buttonRef }) => {
                 }}
                 validationSchema={Yup.object().shape({
 
-                    WidgetName: Yup.string().required("Widget Name is required"),
+                    WidgetName: Yup.string().min(4,"widget name should contain 4 digit minimum").required("Widget Name is required"),
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
@@ -155,32 +156,29 @@ const RestWidgetName = ( { buttonRef }) => {
                         type:IS_LOADING_CHANGE,
 
                     })
+if(widget.sourceDB)
+{
+    link='api/users/shareData'
+    data={token:account.token, idData:widget.idData, WidgetName:values.WidgetName, superiorID:id,type:widget.Type}
+}
+else
+{
+    link='api/users/addWidget'
+data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:widget.label, dataWidget:widget.dataWidget, token:account.token}
 
-                    console.log("dddddddddddd")
-                    console.log(widget.Type)
-                    console.log(values.WidgetName)
-                    console.log(widget.Type)
-                    console.log(widget.label)
-                    console.log(widget.dataWidget)
+}
 
 
                     try{
-                        axios.post( configData.API_SERVER + 'api/users/addWidget', {
-                            superior_id:id,
-                            WidgetName: values.WidgetName,
-                             type: widget.Type,
-                            label:widget.label,
-                            dataWidget:widget.dataWidget,
-                            token:account.token
-                        })
+                        axios.post( configData.API_SERVER + link, data)
                             .then(function (response) {
                                 if (response.data.success) {
-console.log("lommmmm")
-console.log(response.data.success)
+
                                     dispatcher({
                                         type:IS_LOADING_CHANGE,
 
                                     })
+
                                     console.log("lommmmm2222222222")
 
                                     dispatcher({
@@ -188,21 +186,16 @@ console.log(response.data.success)
                                         payload: {WidgetName:values.WidgetName}
 
                                     })
-                                    console.log("lommmmm33333333333333333")
-console.log(values.WidgetName)
+                                    console.log("l2")
                                     console.log(response.data)
+                                    console.log(response.data.widget)
 
-console.log(widget.superior_id)
-console.log(widget.Type)
-console.log(widget.label)
-console.log(widget.dataWidget)
-console.log()
+
                                     dispatcher({
                                         type:ADD_WIDGET,
-                                        payload: {widget:{WidgetName:values.WidgetName,_id:response.data.widget._id, superior_id:widget.superior_id,type:widget.Type,label:widget.label,dataWidget:widget.dataWidget}}
+                                        payload: {widget:response.data.widget}
 
                                     })
-                                    console.log("lommmmm44444444444444444444")
 
                                     dispatcher({
                                         type:INIZIALIZE_STEPS
@@ -210,14 +203,12 @@ console.log()
                                     })
 
 
-                                    console.log("lommmmm588888888888888")
 
                                     dispatcher({
                                         type:CLOSE_WIDGET_MODAL,
 
                                     })
 
-                                    console.log("lommmmm8888887777777796633333333333333333")
 
 
                                     dispatcher({
@@ -227,12 +218,7 @@ console.log()
 
 
 
-
-
-
-
                                 } else {
-                                    console.log("lom888888888888888888888888888888mmmm")
 
 
 
@@ -259,6 +245,18 @@ console.log()
                                     type:IS_LOADING_CHANGE,
 
                                 })
+
+                                dispatcher({
+                                    type:INIZIALIZE_STEPS
+
+                                })
+
+
+
+                                dispatcher({
+                                    type:CLOSE_WIDGET_MODAL,
+
+                                })
                                 dispatcher({
                                     type:CLICK,
                                     payload: {text:"intern probleme please retry later",severity:"error"}
@@ -271,6 +269,18 @@ console.log()
                             setStatus({ success: false });
                             setErrors({ submit: err.message });
                             setSubmitting(false);
+
+                            dispatcher({
+                                type:INIZIALIZE_STEPS
+
+                            })
+
+
+
+                            dispatcher({
+                                type:CLOSE_WIDGET_MODAL,
+
+                            })
                             dispatcher({
                                 type:CLICK,
                                 payload: {text:"intern probleme please retry later",severity:"error"}

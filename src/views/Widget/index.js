@@ -20,7 +20,7 @@ import AppCurrentVisits from "./Chart/AppCurrentVisits";
 import ThemeConfig from "../../themes/theme2";
 import AppConversionRates from "./Chart/AppConversionRates";
 import BarChart from "./Chart/BarChart";
-import ModalDelete from "../modal/ModalDelete";
+import ModalDelete from "../modal/ModalDeleteWidgetUser";
 import TotalGrowthBarChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
 import Import_Data_From_DB from "../modal/Import_Data_From_DB";
 
@@ -88,6 +88,7 @@ console.log(error)
    
     let lc =   widget.widget.map((data)  => {
 let element
+        console.log(data)
         if (data.type==='Bar'){
            element=<ThemeConfig><BarChart isLoading={isLoading} data={data}/></ThemeConfig>
         } else if(data.type==='Donuts') {

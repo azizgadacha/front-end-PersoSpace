@@ -308,82 +308,19 @@ const DataModal=  (props) => {
             })
 
             console.log(get[0].title)
-            axios
-                .post( configData.API_SERVER + 'api/users/shareData',{
-                    token:account.token,
-                    idData:get[0]._id,
-                    WidgetName:get[0].title,
-                    superiorID:id
-                })
-                .then(response =>{
-                    if(response.data.success){
-                    setIsLoading(true)
+            console.log("leeeeeeeeeeeeeeeeeeeeeeeee")
 
-                        console.log("less2")
+            console.log(get[0]._id)
+            dispatcher({
+                type:IMPORT_DATA,
+                payload: {data:get[0].data,idData:get[0]._id,label:get[0].label,superior_id:id,sourceDB:true}
 
-                        dispatcher({
-                            type:ADD_WIDGET,
-                            payload: {widget:response.data.dataupdated}
-
-                        })
-                        console.log("less1")
-
-                        dispatcher({
-                            type:INIZIALIZE_STEPS
-
-                        })
-                        console.log("less3")
-
-                        dispatcher({
-                            type:CLOSE_WIDGET_MODAL,
-
-                        })
+            })
+            dispatcher({
+                type:CLOSE_MODAL,
 
 
-                        console.log("less4")
-
-
-                        dispatcher({
-                            type:CLICK,
-                            payload: {text:"Widget added successfuly",severity:"success"}
-                        })
-
-                        console.log("less34")
-
-
-
-                }else{
-                        if(response.data.WidgetExisite){
-                            setChosed(true)
-                            setIsLoading(false)
-
-                            setErrorMessage("Widget with the same name already existe ")
-                        }else{
-
-                        dispatcher({
-                            type:CLOSE_MODAL,
-
-                        })
-                        dispatcher({
-                            type:INIZIALIZE_STEPS
-
-                        })
-                        console.log("less35")
-
-                        dispatcher({
-                            type:CLOSE_WIDGET_MODAL,
-
-                        })
-
-
-                    }}
-
-                })
-                .catch(function (error) {
-
-
-                })
-
+            })
             console.log(get)
             ;}
 

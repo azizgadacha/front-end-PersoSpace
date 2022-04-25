@@ -59,7 +59,9 @@ let link
     let {id}=useParams()
 
     const Delete = () => {
-
+        console.log("rrr")
+        console.log(type)
+        console.log(obj.WidgetName)
         if(type=="User")
 
             {
@@ -71,13 +73,15 @@ let link
 
             else if (type=="Widget")
             {
-
-                if(obj.widgetName){
+console.log("rrr")
+console.log(obj.WidgetName)
+console.log(obj.superior_id)
+                if(obj.WidgetName){
                     link='api/users/deleteWidget'
                     dataSend=  {token:account.token,WidgetName:obj.WidgetName, superior_id:obj.superior_id}}
                 else {
             link = 'api/users/deleteLinkWidget'
-            dataSend=  {token:account.token,superior_id:id, idData:obj._id}}
+            dataSend=  {token:account.token,superiorID:id,type:obj.type,WidgetName:obj.WidgetName, idData:obj.idData}}
 
     }
         setIsloading(true)

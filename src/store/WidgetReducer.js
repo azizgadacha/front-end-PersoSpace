@@ -33,7 +33,7 @@ const WidgetStore= (state = initialState, action) => {
 
         case ADD_WIDGET:
 
-
+console.log(action.payload.widget)
 
             state.widget=state.widget.concat(action.payload.widget)
             return {

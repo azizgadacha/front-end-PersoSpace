@@ -34,7 +34,7 @@ import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import SearchNotFound from "./import/customer/SearchNotFound";
-import Modal_Delete_User from "../modal/ModalDelete";
+import Modal_Delete_User from "../modal/ModalDeleteWidgetUser";
 import Cells from "./cells";
 import { useHistory} from "react-router-dom";
 

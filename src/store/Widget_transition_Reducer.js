@@ -15,8 +15,9 @@ export const initialState = {
     label:null,
     dataWidget:null,
     WidgetName:'',
-    superior_id:null
-
+    superior_id:null,
+    sourceDB:null,
+idData:null
 
 };
 
@@ -95,11 +96,11 @@ const Widget_transition_Reducer = (state = initialState, action) => {
         case IMPORT_DATA:
             state.Place = state.Place + 1;
             state.superior_id = action.payload.superior_id
-
-            if (action.payload.sourceDB){
-state.label=action.payload.Data.label
-                state.dataWidget=action.payload.Data.data
-
+            state.sourceDB=action.payload.sourceDB
+             if (action.payload.sourceDB){
+state.label=action.payload.label
+                state.dataWidget=action.payload.data
+                 state.idData=action.payload.idData
 }
 else{
     state.label = action.payload.Data[0];
