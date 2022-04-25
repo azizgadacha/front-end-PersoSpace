@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector,} from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 // material-ui
@@ -28,11 +28,12 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import ThemeConfig from "../../themes/theme2";
 import Chose from "./Chose/Chose";
-import {AddWidget, Back, Cancel, } from "../Button/actionButton";
+import {Adding, AddWidget, Back, Cancel,} from "../Button/actionButton";
 import Import from "./Import/import";
 import WidgetName from "./WidgetName";
 
 import {
+    CLOSE_MODAL,
     CLOSE_WIDGET_MODAL,
     INIZIALIZE_STEPS, OPEN_WIDGET_MODAL,
     RETURN_BACK
@@ -154,11 +155,16 @@ const Customization = () => {
 
         });    };
     let widget = useSelector((state) => state.widget);
-
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_WIDGET_MODAL,
+            });
+        }
+    }, [])
     return (
         <React.Fragment>
             {/* toggle button */}
-            {console.log("im testing"+widget.Place)}
 
             <Tooltip title="Add Widget">
                 <Fab
@@ -247,7 +253,6 @@ const Customization = () => {
 
                                 </Stepper>
                                 </Grid>
-                                {console.log('to test 2'+widget.Place)}
                             {getStepContent(widget.Place)}
 
 
@@ -295,16 +300,13 @@ const Customization = () => {
                                                 {Back}
                                             </Button>
                                         )}
-                                        {console.log("salut")}
-                                        {console.log(buttonRef.current)}
 
-                                        {console.log(modal.isSubmitting)}
                                         {(widget.Place === steps.length - 1)&&(
                                     (modal.isSubmitting)?(<LoadingButton
                                                 variant="contained"
                                                 loading loadingPosition="start"
                                                 startIcon={<SaveIcon />}
-                                                variant="outlined">{AddWidget}</LoadingButton>):
+                                                variant="outlined">{Adding}</LoadingButton>):
 
 
                                                     <Button

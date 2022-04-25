@@ -9,6 +9,7 @@ import AppWebsiteVisits from "../barChart/AppWebsiteVisits";
 import AppCurrentSubject from "../AppCurrentSubject";
 import {CHANGE_SUCCESS, } from "../../../store/actions";
 import {useDispatch} from "react-redux";
+import AppConversionRates from "../Rates/AppConversionRates";
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
     position: 'absolute',
@@ -72,9 +73,9 @@ const images = [
 
     },
     {
-        title: 'Radar',
+        title: 'Rate',
         width: '35%',
-        ahba: <AppCurrentSubject />
+        ahba: <AppConversionRates />
 
 
     },
@@ -88,7 +89,6 @@ export default function Chose() {
 
 
     const handleChange=(name)=>{
-console.log("see me")
             dispatcher({
                 type:CHANGE_SUCCESS,
                 payload: {Type:name}

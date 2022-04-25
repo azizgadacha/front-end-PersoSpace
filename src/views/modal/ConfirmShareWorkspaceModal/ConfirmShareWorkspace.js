@@ -159,9 +159,7 @@ const ConfirmShareWorkspace = (props) => {
     const dispatcher = useDispatch();
     const Click = () => {
         setIsloading(true)
-        console.log("salut")
-        console.log(props.user)
-        console.log(props.user._id)
+
 
 
         axios
@@ -170,11 +168,9 @@ const ConfirmShareWorkspace = (props) => {
                 user_id:props.user._id,
             })
             .then(response =>{
-                console.log('Delete Work')
 
 
 
-                console.log(response.data);
                 dispatcher({
                     type:USER_DELETE,
                     payload: {user:response.data.user}
@@ -182,7 +178,6 @@ const ConfirmShareWorkspace = (props) => {
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
-                console.log(response.data.user)
 
 
 
@@ -201,8 +196,7 @@ const ConfirmShareWorkspace = (props) => {
 
             })
             .catch(function (error) {
-                console.log(' Delete dont work')
-                console.log('error')
+
 
             })
 

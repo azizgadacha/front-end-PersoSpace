@@ -3,33 +3,34 @@ import {
     CLOSE_MODAL,
     OPEN_DELETE_MODAL,
     CLOSE_DELETE_MODAL,
-    OPEN_INSIDE_DELETE_MODAL,
-    CLOSE_INSIDE_DELETE_MODAL,
+
     OPEN_MODAL_SHARE,
     CLOSE_MODAL_SHARE,
     Confirm_Share_Workspace_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL
 
     , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE, OPEN_EDIT_MODAL, ClOSE_EDIT_MODAL,
+
+
+
+    CLOSE_EDIT_MODAL,
+
 } from './actions';
 
 
 
 
 export const initialState = {
+    Modal_Edit_State:false,
     ModalState:false,
     ModalStateShare:false,
     ModalConfirmShare:false,
     ModalDeleteState:false,
-    ModalEditState:false,
-
     isSubmitting:false,
     ModalInsideDeleteState:false,
-ModalWidget:false,
     card:null,
-    card1:null,
+    ModalWidget:false,
     objet:null,
-    objet1:null
 
 
 
@@ -49,14 +50,36 @@ let objet;
 
                 ...state,
                 ModalState:true,
-                
+
+
+
+            };
+        case OPEN_EDIT_MODAL:
+        objet=action.payload.objet
+            return {
+                 objet,
+                ...state,
+                Modal_Edit_State:true,
+
+
+
+            };
+        case CLOSE_EDIT_MODAL:
+
+            return {
+
+                ...state,
+                Modal_Edit_State:true,
+
 
 
             };
         case OPEN_MODAL_SHARE:
+
             console.log("salut")
             const card=action.payload.card
             console.log(state.ModalStateShare)
+
             return {
 
                 ...state,
@@ -132,25 +155,7 @@ let objet;
 
 
             };
-        case OPEN_INSIDE_DELETE_MODAL:
-            const  {card1}=action.payload
 
-            return {
-
-                ...state,
-                card1,
-                ModalInsideDeleteState:true,
-
-            };
-
-        case CLOSE_INSIDE_DELETE_MODAL:
-
-            return {
-                ...state,
-                ModalInsideDeleteState:false
-
-
-            };
 
         case OPEN_WIDGET_MODAL:
 
@@ -169,6 +174,7 @@ let objet;
 
 
             };
+
         case IS_LOADING_CHANGE:
                 return{
             ...state,

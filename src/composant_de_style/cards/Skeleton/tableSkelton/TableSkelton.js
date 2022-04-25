@@ -22,7 +22,7 @@ import UserListToolbarSkelton from "./UserListToolbarSkelton";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 
-import USERLIST from '../Static';
+import USERLIST from '../Static_Data/Static';
 
 // ----------------------------------------------------------------------
 

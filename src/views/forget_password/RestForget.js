@@ -94,19 +94,16 @@ const RestForget = ({ ...others }) => {
         <React.Fragment>
             <Formik
                 initialValues={{
-                    username: '',
                     email: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    username: Yup.string().required('Username is required'),
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
                             .post( configData.API_SERVER + 'api/users/forget', {
-                                username: values.username,
                                 email: values.email
                             })
                             .then(function (response) {
@@ -133,28 +130,7 @@ const RestForget = ({ ...others }) => {
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
-                        <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Username"
-                                    margin="normal"
-                                    name="username"
-                                    id="username"
-                                    type="text"
-                                    value={values.username}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    className={classes.loginInput}
-                                    error={touched.username && Boolean(errors.username)}
-                                />
-                                {touched.username && errors.username && (
-                                    <FormHelperText error id="standard-weight-helper-text--register">
-                                        {errors.username}
-                                    </FormHelperText>
-                                )}
-                            </Grid>
-                        </Grid>
+
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
                             <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
                             <OutlinedInput

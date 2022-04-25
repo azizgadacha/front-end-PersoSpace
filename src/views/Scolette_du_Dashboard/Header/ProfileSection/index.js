@@ -140,7 +140,6 @@ const ProfileSection = () => {
 
     const handleLogout = () => {
 
-        console.log(account.token);
         axios
             .post( configData.API_SERVER + 'api/users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
             .then(function (response) {
@@ -148,14 +147,11 @@ const ProfileSection = () => {
                 // Force the LOGOUT
                 //if (response.data.success) {
 
-                console.log('out2.0')
 
                 dispatcher({ type: LOGOUT });
-                console.log('out')
                 history.push("/login");
 
                 //} else {
-                //    console.log('response - ', response.data.msg);
                 //}
             })
             .catch(function (error) {

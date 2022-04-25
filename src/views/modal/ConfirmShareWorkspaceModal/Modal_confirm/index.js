@@ -238,6 +238,7 @@ const Modal_confirm=  (props) => {
     let {id}=useParams()
 
     const Click=()=>{
+<<<<<<< HEAD
           console.log("1    "   +  props.user._id)
           console.log("2   "   +  props.card._id)
 
@@ -302,6 +303,9 @@ console.log('3     ')
             })
 
     };
+=======
+    }
+>>>>>>> test
 
 
 

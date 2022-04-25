@@ -17,6 +17,7 @@ import Preparation_du_page from "../animation/Preparation_du_page";
 
 const AuthLogin = Preparation_du_page(lazy(() => import('../views/login')));
 const AuthForget = Preparation_du_page(lazy(() => import('../views/forget_password')));
+const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 
 //-----------------------|| ROUTING RENDER ||-----------------------//
 
@@ -29,7 +30,7 @@ const Routes = () => {
 
 
 <React.Fragment>
-<Route path={['/login','/forget',"/change/:token"]}>
+<Route path={['/login','/forget',"/change/:token",]}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
@@ -39,7 +40,8 @@ const Routes = () => {
                             <Route path="/login" component={AuthLogin} />
                             <Route path="/forget" component={AuthForget} />
                             <Route path="/change/:token" component={Authverif} />
-                    </Verif_login_Guard>
+
+                        </Verif_login_Guard>
 
 
                     </Animation_entre_page>

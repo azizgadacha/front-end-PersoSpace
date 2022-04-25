@@ -6,6 +6,7 @@ import MainLayout from '../views/Scolette_du_Dashboard';
 import Preparation_du_page from "./../animation/Preparation_du_page";
 
 import AuthGuard from './../guard_root/AuthGuard';
+import {useRouteMatch} from "react-router";
 
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
@@ -13,6 +14,10 @@ const SharedWorkspaces = Preparation_du_page(lazy(() => import('../views/dashboa
 const ViewAll = Preparation_du_page(lazy(() => import('../views/ViewAll/User')));
 const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 
+const Profile = Preparation_du_page(lazy(() => import('../views/Profile/affiche_profile')));
+
+const ProfileEdit = Preparation_du_page(lazy(() => import('../views/Profile/edit_profile')));
+const ProfileEdit2 = Preparation_du_page(lazy(() => import('../views/Profile/edit_profilePassword')));
 // Bare_du_cotte routing
 
 
@@ -21,23 +26,45 @@ const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
-   
+// [][dashbord][default]/id/id2/4
     const location = useLocation();
+    console.log(location.pathname)
+    let loc=location.pathname
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+    console.log(array.slice(3, (array.length)));
 
+    const ar2 = array.slice(3, (array.length)-1);
+    console.log(ar2)
+
+    let link=ar2.join('/')
+
+    console.log(link)
+    console.log(ar2[0])
+    const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
+
+    let linkName=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
     return (
 
         <Route
             path={[
+                "/Profile",
+                '/ProfileEdit',
+                '/ProfileEditPass',
 
+                "/dashboard/default/widget/:id",
+                linkName,
                 '/dashboard/viewAll',
-                '/dashboard/default/widget/:id',
 
-                '/dashboard/default/:id',
+
                 '/dashboard/default',
                 '/dashboard/SharedWorkspaces',
 
             ]}
         >
+
+
 
 
         <MainLayout>
@@ -49,12 +76,18 @@ const MainRoutes = () => {
 
                     <Route exact path="/dashboard/default/widget/:id" component={widget} />
 
-                    <Route exact path="/dashboard/default/:id" component={DashboardDefault} />
+                    <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />:
 
                     <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
 
                     <Route exact path='/dashboard/viewAll' component={ViewAll} />
-                    <Route exact path="/dashboard/default" component={DashboardDefault} />
+
+
+                   <Route exact path="/dashboard/default" component={DashboardDefault} />
+
+                    <Route path="/Profile" component={Profile} />
+                    <Route exact path="/ProfileEdit" component={ProfileEdit} />
+                    <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
 
 
 
@@ -62,8 +95,11 @@ const MainRoutes = () => {
                 </AuthGuard>
                 </Switch>
         </MainLayout>
+
+
+
         </Route>
-    );
+            );
 };
 
 export default MainRoutes;

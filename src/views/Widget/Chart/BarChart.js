@@ -1,44 +1,218 @@
+import { merge } from 'lodash';
+import ReactApexChart from 'react-apexcharts';
+// material
+import {Box, Button, Card, CardHeader, IconButton, } from '@mui/material';
+import {makeStyles} from "@material-ui/styles";
+import {useTheme} from "@mui/material/styles";
 
-import React, {Fragment} from 'react';
-import {Bar} from 'react-chartjs-2'
-import {Chart as ChartJS} from "chart.js/auto";
-import {useSelector} from "react-redux";
+// utils
+import { fNumber } from '../../Customization/formatNumber';
+//
+import Menu from "./Menu"
 
-const BarChart = () => {
+import BaseOptionChart  from './BaseOptionChart';
+import {Avatar, Grid, MenuItem, TextField} from "@material-ui/core";
+import React, {useState} from "react";
+import {gridSpacing} from "../../../store/constant";
+import chartData from "../../dashboard/Default/chart-data/total-growth-bar-chart";
+import MainCard from "../../../composant_de_style/cards/MainCard";
 
-    let widget = useSelector((state) => state.widget);
-return(
-    <Fragment>
-        {console.log(widget)}
-        {console.log(widget.Data)}
 
-        <Bar
-                 data={{
-                     labels:widget.label,
-                     datasets: [{
-                         label: widget.WidgetNamee,
-                         data: widget.Data,
-                         backgroundColor: [
-                             'rgba(255, 99, 132, 0.2)',
-                             'rgba(54, 162, 235, 0.2)',
-                             'rgba(255, 206, 86, 0.2)',
-                             'rgba(75, 192, 192, 0.2)',
-                             'rgba(153, 102, 255, 0.2)',
-                             'rgba(255, 159, 64, 0.2)'
-                         ],
-                         borderColor: [
-                             'rgba(255, 99, 132, 1)',
-                             'rgba(54, 162, 235, 1)',
-                             'rgba(255, 206, 86, 1)',
-                             'rgba(75, 192, 192, 1)',
-                             'rgba(153, 102, 255, 1)',
-                             'rgba(255, 159, 64, 1)'
-                         ],
-                         borderWidth: 1
-                     }]
-                 }}
-                  height={300} width={300}/>
-    </Fragment>
-)
+
+
+
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+    card: {
+        backgroundColor: theme.palette.primary.dark,
+        color: '#fff',
+        overflow: 'hidden',
+        position: 'relative',
+        '&>div': {
+            position: 'relative',
+            zIndex: 5
+        },
+        '&:after': {
+            content: '""',
+            position: 'absolute',
+            width: '210px',
+            height: '210px',
+            background: theme.palette.primary[800],
+            borderRadius: '50%',
+            zIndex: 1,
+            top: '-85px',
+            right: '-95px',
+            [theme.breakpoints.down('xs')]: {
+                top: '-105px',
+                right: '-140px'
+            }
+        },
+        '&:before': {
+            content: '""',
+            position: 'absolute',
+            zIndex: 1,
+            width: '210px',
+            height: '210px',
+            background: theme.palette.primary[800],
+            borderRadius: '50%',
+            top: '-125px',
+            right: '-15px',
+            opacity: 0.5,
+            [theme.breakpoints.down('xs')]: {
+                top: '-155px',
+                right: '-70px'
+            }
+        }
+    },
+    content: {
+        padding: '20px !important'
+    },
+    avatar: {
+        ...theme.typography.commonAvatar,
+        ...theme.typography.largeAvatar,
+        backgroundColor: theme.palette.primary[800],
+        color: '#fff',
+        marginTop: '8px'
+    },
+
+    cardHeading: {
+        fontSize: '2.125rem',
+        fontWeight: 500,
+        marginRight: '8px',
+        marginTop: '0px',
+        marginBottom: '0px'
+    },
+    subHeading: {
+        fontSize: '1rem',
+        fontWeight: 500,
+        color: theme.palette.primary[200]
+    },
+    avatarCircle: {
+        ...theme.typography.smallAvatar,
+        cursor: 'pointer',
+        backgroundColor: theme.palette.primary[200],
+        color: theme.palette.primary.dark
+    },
+    circleIcon: {
+        transform: 'rotate3d(1, 1, 1, 45deg)'
+    },
+    menuItem: {
+        marginRight: '14px',
+        fontSize: '1.25rem'
+    },
+    avatarRight:{
+        backgroundColor: theme.palette.grey[120],
+    }
+
+}));
+
+
+
+
+
+// ----------------------------------------------------------------------
+const status = [
+    {
+        value: 'today',
+        label: 'Today'
+    },
+    {
+        value: 'month',
+        label: 'This Month'
+    },
+    {
+        value: 'year',
+        label: 'This Year'
+    }
+];
+
+export default function BarChart(data) {
+    const theme = useTheme();
+
+    const classes = useStyles();
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClickMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+    };
+    let CHART_DATA
+    if(data.data.dataWidget)
+     CHART_DATA = [{ data: data.data.dataWidget}];
+    else
+        CHART_DATA = [{ data: data.data.data}];
+
+
+    const chartOptions = merge(BaseOptionChart(), {
+        tooltip: {
+            marker: { show: false },
+            y: {
+                formatter: (seriesName) => fNumber(seriesName),
+                title: {
+                    formatter: (seriesName) => `#${seriesName}`
+                }
+            }
+        },
+        colors: [
+            'rgba(255, 99, 132)',
+            'rgba(54, 162, 235)',
+            'rgba(255, 206, 86)',
+            'rgba(75, 192, 192)',
+            'rgba(153, 102, 255)',
+            'rgba(255, 159, 64)'
+        ],
+        plotOptions: {
+            bar: { horizontal: false, barHeight: '30%', borderRadius: 2 ,distributed: true}
+        },
+        xaxis: {
+            categories: data.data.label
+        }
+    });
+    const [value, setValue] = React.useState('today');
+
+    return (
+
+
+
+        <MainCard>
+
+            <Grid container spacing={gridSpacing}>
+                <Grid item xs={12}>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                        <Grid item>
+                            <Grid container direction="column" >
+                                <Grid item>
+
+                                    <CardHeader title={data.data.WidgetName? data.data.WidgetName:data.data.title} />
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                        <Grid item >
+                            <Grid item >
+                                <Menu data={data.data}/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                    <Grid item xs={12}>
+                        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={330} />
+                    </Grid>
+
+            </Grid>
+        </MainCard>
+
+
+
+
+
+
+
+    );
 }
-export default BarChart

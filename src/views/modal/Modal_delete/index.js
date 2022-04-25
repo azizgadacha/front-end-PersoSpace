@@ -35,32 +35,32 @@ const Modal_Delete = (props) => {
 
 
     return (
+        <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+            <Grid item xs={12}>
 
-                <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
-                    <Grid item xs={12}>
-                        <Grid
-                            container
-                            direction={matchDownSM ? 'column-reverse' : 'row'}
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <Grid item>
-                                <Stack alignItems="center" justifyContent="center" spacing={1}>
-                                    <Typography
-                                        color={theme.palette.secondary.main}
-                                        gutterBottom
-                                        variant={matchDownSM ? 'h3' : 'h2'}
-                                    >
-                                        Delete {props.type}
-                                    </Typography>
-                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                        Are you sure to delete {props.name} ?
-                                    </Typography>
-                                </Stack>
-                            </Grid>
-                        </Grid>
+                <Grid
+                    container
+                    direction={matchDownSM ? 'column-reverse' : 'row'}
+                    alignItems="center"
+                    justifyContent="center"
+                >
+                    <Grid item>
+                        <Stack alignItems="center" justifyContent="center" spacing={1}>
+                            <Typography
+                                color={theme.palette.secondary.main}
+                                gutterBottom
+                                variant={matchDownSM ? 'h3' : 'h2'}
+                            >
+                                Delete {props.type}
+                            </Typography>
+                            <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                                Are you sure to delete {props.type=="User"?props.obj.username: props.type=="Widget"?props.obj.WidgetName:props.name} ?
+                            </Typography>
+                        </Stack>
                     </Grid>
                 </Grid>
+            </Grid>
+        </Grid>
 
     );
 };

@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {OPEN_MODAL, CLOSE_MODAL, CLOSE_DELETE_MODAL,} from '../../../store/actions';
 import {IconPlus} from '@tabler/icons';
-
+import {Tooltip,} from '@material-ui/core';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {Avatar, Card, CardContent, Grid, IconButton, Skeleton} from '@material-ui/core';
@@ -60,10 +60,15 @@ const PlusCard = () => {
             <Card>
                 <CardContent>
                     <Grid container  sx={{mt:3.75 ,mb:3.30,ml:12}} onClick={handleClick} alignItems="center" >
-                        <IconButton     aria-label="close"  >
+
+
+                        <Tooltip title="Add Workspace">
+
+                        <IconButton   alt="Add Workspace"   aria-label="close"  >
 
                         <IconPlus size={100.5}    />
 </IconButton>
+                        </Tooltip>
                     </Grid>
 
                 </CardContent>

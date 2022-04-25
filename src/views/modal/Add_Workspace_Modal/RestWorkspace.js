@@ -148,7 +148,6 @@ setIsloading(true)
                                         type:"Click",
                                         payload: {text:"Workspace added successfully",severity:"success"}
                                     })
-                                    console.log()
 
 
                                 } else {

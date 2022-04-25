@@ -192,7 +192,6 @@ const ShareWorkspaceModal=  (props) => {
     const handleCapture = ({target}) => {
         const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {

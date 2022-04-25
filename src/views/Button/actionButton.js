@@ -3,6 +3,7 @@
 export const Edit = 'Edit';
 export const Cancel = 'Cancel';
 export const Editing = 'Editing';
+export const Select = 'Select';
 export const Add = 'Add';
 export const Adding = 'Adding';
 export const Delete = 'Delete';

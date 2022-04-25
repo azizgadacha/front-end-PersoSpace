@@ -19,7 +19,6 @@ import ThemeConfig from "../../../themes/theme2"
 import {useDispatch, useSelector} from "react-redux";
 import { CLOSE_MODAL,} from "../../../store/actions";
 
-import { useHistory} from "react-router-dom";
 
 
 import {
@@ -28,11 +27,9 @@ import {
      useMediaQuery,
 } from "@material-ui/core";
 
-import useScriptRef from "../../../hooks/useScriptRef";
-import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import Modal_Delete from "../Modal_delete";
-import DeleteUser from "./DeleteUser";
+import DeleteModalCore from "./DeleteModal";
 
 // ----------------------------------------------------------------------
 
@@ -135,60 +132,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const User=  (props) => {
-    const [isloading, setIsloading] = useState(false);
 
-    const states = [
-        {
-            value: 'administrateur',
-            label: 'administrateur'
-        },
-        {
-            value: 'simple employer',
-            label: 'simple employer'
-        },
 
-    ];
-    const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
-    const handleCapture = ({target}) => {
-        const fileReader = new FileReader();
-        // const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log(target.files[0])
 
-        fileReader.readAsDataURL(target.files[0]);
-        fileReader.onload = (e) => {
-            setSource(e.target.result);
-        };
-    };
 
-    const classes = useStyles();
-    let history = useHistory();
-    const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
 
@@ -197,9 +146,6 @@ const User=  (props) => {
 
 
 
-
-
-    const [open5, setOpen5] = React.useState(false);
 
 
 
@@ -250,12 +196,14 @@ const User=  (props) => {
 
                     <Fade in={open1.ModalDeleteState}>
 
-                        <Box sx={matchDownSM? {width:300,...style}:{width:400,...style} } >
+                        <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
                         <ThemeConfig>
 
-                                <Modal_Delete  name={props.user.username} type={"User"} />
+                                <Modal_Delete  obj={open1.objet} type={props.type} />
                                 <Grid container alignItems={"center"}>
-                                    <DeleteUser handleClose={props.handleClose} user={props.user}  />
+
+
+                                    <DeleteModalCore obj={open1.objet} type={props.type}  />
                                 </Grid>
                         </ThemeConfig>
 

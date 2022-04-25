@@ -3,20 +3,19 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Grid} from '@material-ui/core';
 
 // project imports
-
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import PlusCard from './PlusCard';
 import {useDispatch, useSelector} from 'react-redux';
 
 import WorkspaceCard from "./WorkspaceCard";
 import axios from "axios";
 import configData from "../../../config";
-
-
-import TotalGrowthBarChart from "../../Widget/TotalGrowthBarChart";
+import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
 import {
-    CLOSE_DELETE_MODAL,
-    ClOSE_EDIT_MODAL,
+    CLICKED,
+    CLICKED_INISIALIZE,
+    CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL,
     CLOSE_MODAL_SHARE,
     INISIALIZE,
     INISIALIZE_USER
@@ -26,9 +25,12 @@ import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/Earn
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
-import {useParams} from "react-router-dom";
-import {useLocation} from "react-router";
-import Add_Workspace_Modal from "../../modal/Add_Workspace_Modal";
+import {useHistory, useLocation, useParams} from "react-router-dom";
+import {useRouteMatch} from "react-router";
+import {Box, Card, List, ListItem, ListItemIcon, ListItemText, Skeleton, Stack, Typography} from "@mui/material";
+import ListItemButton from "@material-ui/core/ListItemButton";
+import config from "../../../config";
+import Item from "./Item";
 import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
 
 
@@ -36,6 +38,9 @@ import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
+
+    const { url, path } = useRouteMatch();
+
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -49,21 +54,15 @@ const Dashboard = (props, { ...others }) => {
     useEffect(() => {
         return () => {
             dispatcher({
-                type:ClOSE_EDIT_MODAL,
-
-            });
-        }
-    }, [])
-    useEffect(() => {
-        return () => {
-            dispatcher({
                 type:CLOSE_MODAL_SHARE,
 
             });
         }
     }, [])
 
-const load=[1,2,3,4,5,6]
+    const load=[1,2,3,4,5,6]
+    const load2=[1,2,3,4]
+
     const [succes, setSucces] = useState(false);
     const [isload, setLoad] = useState(true);
 
@@ -73,70 +72,74 @@ const load=[1,2,3,4,5,6]
 
     const [success,setSucess]=useState(false)
     const [USERLIST,setUSERLIST]=useState([])
-    const workspaces = useSelector((state) => state.workspace);
+    let workspaces = useSelector((state) => state.workspace);
 
     let open = useSelector((state) => state.modal);
-    let open1 = useSelector((state) => state.modal);
     function handleClose  () {
         dispatcher({
             type:CLOSE_DELETE_MODAL,
 
         });
     };
-
-    function handleCloseEdit  () {
-        dispatcher({
-            type:ClOSE_EDIT_MODAL,
-
-        });
-    };
-    useEffect(() => {
-
-        axios
-            .post(configData.API_SERVER + 'api/users/all', {
-                id:account.user._id,
-
-                token: account.token
-            }).then((result) => {
-            console.log("im gere")
-            console.log(result.data.users)
-            dispatcher({
-                type:INISIALIZE_USER,
-                payload: {users:result.data.users},
-            })
-            console.log(userSt)
-            setSucess(true)
-            console.log("salah3.0")
-
-        })},[] );
+    let history =useHistory()
 
     let {id}=useParams()
     let link
     let id1
-    const location = useLocation();
+    let datasend
+
+
 
     useEffect(() => {
-        if((window.location.pathname=='/dashboard/default')||(window.location.pathname=='/dashboard/default/'+id)) {
+        console.log(location.pathname)
+        let loc=location.pathname
+        let array=loc.split("/")
+        console.log(array)
+        console.log(array.length)
+
+        const ar2 = array.slice(3, (array.length));
+        console.log(ar2)
+
+        let link2=ar2.join('/')
+if((location.pathname).includes('/dashboard/default')){
+
             if (id) {
+                console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
+
                 link = 'api/users/getinsideworkspace'
-                id1 = id
+                id1=id
+                console.log('mrigggggggggggggggggggggggggggg')
+                console.log(ar2)
+                let clicked
+                if(workspaces.clicked){
+                    clicked=true
+
+                }
+                else
+                    clicked=false
+
+                datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token,listeNameReceive:workspaces.listeName}
+                dispatcher({
+                    type:CLICKED_INISIALIZE
+                })
+
             } else {
+                console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
                 link = 'api/users/getworkspace'
-                id1 = account.user._id
+                datasend= {superior_id:account.user._id, token:account.token}
+
             }
-            console.log(link)
-            console.log(id)
-            console.log(id1)
+
+
 
             axios
-                .post(configData.API_SERVER + link, {superior_id: id1, token: account.token})
-                .then(response => {
-
-                    console.log(response.data.workspaceitems)
-
+                .post( configData.API_SERVER + link,datasend)
+                .then(response =>{
+                    console.log("llllllllllllllllllllllllll")
+                    console.log(response.data.listeName)
                     dispatcher({
-                            type: INISIALIZE,
-                            payload: {work: response.data.workspaceitems,  }
+                            type:INISIALIZE,
+                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
                         }
                     )
 
@@ -149,6 +152,7 @@ const load=[1,2,3,4,5,6]
 
 
                 })
+
         }
         else { axios
             .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {user_id: account.user._id, token: account.token})
@@ -171,21 +175,55 @@ const load=[1,2,3,4,5,6]
 
             })
 
-        }}, []);
+        }
+    },[]);
 
-    let j=-1
-    let lc =   workspaces.Workspace.map((card)  => {
 
-        j++
+    useEffect(() => {
+        axios
+            .post(configData.API_SERVER + 'api/users/all', {
+                id:account.user._id,
+
+                token: account.token
+            }).then((result) => {
+
+            dispatcher({
+                type:INISIALIZE_USER,
+                payload: {users:result.data.users},
+            })
+
+            setUSERLIST(userSt.users)
+            setSucess(true)
+
+        })},[] );
+
+
+
+
+    let listOfBar =   workspaces.listeName.map((item)  => {
+
         return(
 
+
+
+            <Item item={item}/>
+
+
+        )})
+    let lc =   workspaces.Workspace.map((card)  => {
+
+        return(
+
+
+
             <Grid item lg={4} md={6} sm={6} xs={12}>
-                <WorkspaceCard isLoading={isLoading} card={card}   username={(location.pathname).includes('Shared')?workspaces.username[j]:null} />
+                <WorkspaceCard isLoading={isLoading} card={card}/>
 
             </Grid>
 
 
         )})
+
     let Url;
     console.log(window.location.pathname)
     if(((window.location.pathname)==('/dashboard/default'))||((window.location.pathname)==('/dashboard/default/'+id))){
@@ -195,65 +233,153 @@ const load=[1,2,3,4,5,6]
         Url=false
     }
 
+    const flexContainer = {
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 0,
+    };
+    const location = useLocation();
+    console.log(location.pathname)
+    let loc=location.pathname
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+
+    const ar2 = array.slice(3, (array.length));
+    console.log(ar2)
+
+    let link1=ar2.join('/')
+    console.log(link1)
+
+
+    function handleCloseEdit  () {
+        dispatcher({
+            type:ClOSE_EDIT_MODAL,
+
+        });
+    };
+
     return (
-<Fragment>
-    {isload?  (<Grid container spacing={3}>
-            <Grid item xs={12} >
-                <Grid container spacing={gridSpacing}>
-
-                    {
-                        load.map((i) => (
-                            <Grid item lg={4} md={6} sm={6} xs={12}>
-
-                            <SkeletonEarningCard />
-                            </Grid>
-                            ))
-                    }
 
 
+        <Fragment>
+            <Card xs={12}  sx={{mb:3}}>
+
+                <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    <List component={Stack} direction="row">
+                        {isload?
+                            <Fragment>
+                                <ListItem   sx={{minHeight:"100%",
+                                    minWidth: "30%",marginLeft:2
+                                }} key={1} disablePadding>
+
+                                    <ListItemButton style={{ backgroundColor: 'transparent' }}>
+                                        <ListItemIcon>
 
 
-                </Grid>
-            </Grid>
+                                            <HomeRoundedIcon />
+                                        </ListItemIcon>
+                                        <ListItemText  sx={{ whiteSpace: "normal"  }} />
+                                        <Skeleton width="80%" height={"100%"} />
+                                    </ListItemButton>
+                                </ListItem>
+                                { load2.map((i) => (
 
-        </Grid>):(<Grid container spacing={3}>
-        <Grid item xs={12} >
+                                    <ListItem
+                                        sx={{minHeight:"100%",
+                                            minWidth: "30%"
+                                        }}
+                                        disablePadding>
+                                        <ListItemButton  style={{ backgroundColor: 'transparent' }}>
+                                            <ListItemIcon>
 
 
-            <Grid container spacing={gridSpacing}>
+                                                <NavigateNextRoundedIcon />
+                                            </ListItemIcon>
+                                            <ListItemText  sx={{ whiteSpace: "normal"  }} />
+                                            <Skeleton width="80%" height={"100%"} />
+                                        </ListItemButton>
+
+                                    </ListItem>
+                                ))
+
+                                }
+                            </Fragment>
+                            :
+                            <Fragment>
+                                <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
+                                    <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
+                                        history.push(config.defaultPath)
+                                    }}>
+                                        <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
+                                            <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
+                                        </ListItemIcon>
+                                        <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
+                                    </ListItemButton>
+                                </ListItem>
+
+                                {listOfBar}
+                            </Fragment>}
+                    </List>
+                </Box>
+
+            </Card>
 
 
-                    {lc}
-                    <ThemeConfig>
-                        {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
-                        </ThemeConfig>
-                <ThemeConfig>
-                    {open1.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
-                </ThemeConfig>
-                    <ShareWorkspaceModal card= {open.card}/>
-                {Url ?(
-                <Grid item lg={4} md={6} sm={6} xs={12}>
 
-                        <PlusCard/>
+            <Grid container spacing={3}>
+                <Grid item xs={12} >
+                    <Grid container spacing={gridSpacing}>
+
+                        {isload?  (
+
+
+
+                            load.map((i) => (
+                                <Grid item lg={4} md={6} sm={6} xs={12}>
+
+                                    <SkeletonEarningCard />
+                                </Grid>
+                            ))) :(<Fragment>
+
+
+
+
+
+
+
+
+
+                            {lc}
+                            <ThemeConfig>
+                                {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
+                            </ThemeConfig>
+                            <ThemeConfig>
+                                {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
+                            </ThemeConfig>
+                            <ShareWorkspaceModal card= {open.card}/>
+
+
+
+                            {Url ?(
+                                <Grid item lg={4} md={6} sm={6} xs={12}>
+
+                                    <PlusCard/>
+
+                                </Grid>
+                            ):(
+                                <Grid item lg={4} md={6} sm={6} xs={12}>
+
+
+                                </Grid>
+                            )}
+                        </Fragment>)}
 
                     </Grid>
-                    ):(
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
-
-
-                    </Grid>
-                    )}
-
                 </Grid>
+
             </Grid>
+        </Fragment>)
 
-        </Grid>)}
-
-
-
-
-</Fragment>
-
-    )
 }
 export default Dashboard;

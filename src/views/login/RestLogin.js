@@ -119,7 +119,6 @@ const RestLogin = (props, { ...others }) => {
                             .then(function (response) {
                                 if (response.data.success) {
 
-                                    console.log(response.data);
 
 
                                     dispatcher({

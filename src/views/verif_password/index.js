@@ -33,11 +33,9 @@ const Verification = () => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 useEffect(()=>{
-    console.log("3asfour"+token)
 
     const activationmail=async ()=>{
 
-            console.log("3asfour"+token)
 if(!token){
 
     dispatcher({
@@ -53,8 +51,6 @@ if(!token){
     let result = await axios
         .post(configData.API_SERVER + 'api/users/validation', {token,})
     setSucess(result.data.success)
-    console.log("il ntija hya"+ result.data.success)
-    console.log("il ntija hya"+ result)
 
     if(!result.data.success) {
         dispatcher({

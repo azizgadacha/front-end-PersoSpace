@@ -18,6 +18,7 @@ import {Alert} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 import {styled} from "@mui/material/styles";
 import {Card} from "@mui/material";
+import ThemeConfig from "../../themes/theme2";
 
 
 const SectionStyle = styled(Card)(({ theme }) => ({
@@ -128,12 +129,12 @@ const Login = () => {
     </Stack >
         </AuthWrapper1>
 
-
-        {console.log(open1)}
+<ThemeConfig>
     <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={open1.severity} sx={{ width: '100%' }}>
             {open1.text}                </Alert>
     </Snackbar>
+</ThemeConfig>
 </React.Fragment>
     );
 };

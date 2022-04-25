@@ -2,7 +2,7 @@
 import {
     ADD,
     ADDINSIDEWORKSPACE,
-    CLICK,
+    CLICK, CLICKED, CLICKED_INISIALIZE,
     CLOSE,
     DELETE, DELETEINSIDEWORKSPACE,
     IDWORKSPACE,
@@ -18,17 +18,37 @@ export const initialState = {
    Workspace:[],
     username:[],
     InsideWorkspace:[],
-    id:null
+
+    id:null,
+    clicked:false,
+    listeName:[]
+
 
 };
 
 //-----------------------|| CARD REDUCER ||-----------------------//
 
-const WorkspaceStore = (state = initialState, action) => {
+const WorkspaceReducer = (state = initialState, action) => {
 
     //const [listecard, addcart] = useState({cards:});
 
     switch (action.type) {
+
+        case CLICKED:
+            state.clicked =true
+
+
+            return{
+            ...state
+
+        };
+        case CLICKED_INISIALIZE:
+            state.clicked =false
+            return{
+                ...state
+
+            };
+
         case INISIALIZE:
             console.log("gggggggggggggggggg")
 
@@ -46,21 +66,14 @@ const WorkspaceStore = (state = initialState, action) => {
                 console.log(state.Workspace)
                 console.log(username)
             }
+
+            state. listeName=action.payload.listeName
             return {
 
                 ...state,
 
             };
-        case INISIALIZEINSIDEWORKSPACE:
 
-
-
-            state.InsideWorkspace=action.payload.work
-            return {
-
-                ...state,
-
-            };
         case ADD:
 
 
@@ -71,16 +84,7 @@ const WorkspaceStore = (state = initialState, action) => {
                 ...state,
 
             };
-        case ADDINSIDEWORKSPACE:
 
-
-
-            state.InsideWorkspace=state.InsideWorkspace.concat(action.payload.work)
-            return {
-
-                ...state,
-
-            };
 
         case DELETE:
 
@@ -135,4 +139,4 @@ const WorkspaceStore = (state = initialState, action) => {
 
     }};
 
-export default WorkspaceStore;
+export default WorkspaceReducer;
