@@ -19,7 +19,7 @@ import Backdrop from '@mui/material/Backdrop';
 import {useDispatch, useSelector} from "react-redux";
 import {
     ADD_USER,
-    CLICK,
+    CLICK, CLICKED_INISIALIZE,
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
     CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
@@ -236,9 +236,49 @@ const Modal_confirm=  (props) => {
         });
     }
     let {id}=useParams()
+    let workspaces = useSelector((state) => state.workspace);
+    let loc=window.location.pathname
 
+
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+
+    const ar2 = array.slice(3, (array.length));
+    console.log(ar2)
+
+    let link2=ar2.join('/')
+
+    let link
+    let id1
+    let datasend
     const Click=()=>{
-<<<<<<< HEAD
+        if (id) {
+            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
+
+            link = 'api/users/getinsideworkspace'
+            id1=id
+            console.log('mrigggggggggggggggggggggggggggg')
+            console.log(ar2)
+            let clicked
+            if(workspaces.clicked){
+                clicked=true
+
+            }
+            else
+                clicked=false
+
+            datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token,listeNameReceive:workspaces.listeName}
+            dispatcher({
+                type:CLICKED_INISIALIZE
+            })
+
+        } else {
+            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
+            link = 'api/users/getworkspace'
+            datasend= {superior_id:account.user._id, token:account.token}
+
+        }
           console.log("1    "   +  props.user._id)
           console.log("2   "   +  props.card._id)
 
@@ -269,22 +309,27 @@ console.log('3     ')
                     type:CLOSE_MODAL_SHARE,
 
                 })
-                let link
-                let id1
-                if (id) {
-                    link = 'api/users/getinsideworkspace'
-                    id1=id
-                } else {
-                    link = 'api/users/getworkspace'
-                    id1=account.user._id
-                }
+
+
+
+
+
+
+
                 axios
-                    .post( configData.API_SERVER + link,{superior_id:id1, token:account.token})
+                    .post( configData.API_SERVER + link,datasend)
                     .then(response =>{
+                        console.log("llllllllllllllllllllllllll")
+                        console.log(response.data.listeName)
                         dispatcher({
                                 type:INISIALIZE,
-                                payload: {work:response.data.workspaceitems}
-                            })})
+                                payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
+                            }
+                        )
+
+
+
+                    })
                     .catch(function (error) {
                     })
 
@@ -303,9 +348,7 @@ console.log('3     ')
             })
 
     };
-=======
-    }
->>>>>>> test
+
 
 
 

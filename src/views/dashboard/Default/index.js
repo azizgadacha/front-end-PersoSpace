@@ -73,8 +73,8 @@ const Dashboard = (props, { ...others }) => {
     const [success,setSucess]=useState(false)
     const [USERLIST,setUSERLIST]=useState([])
     let workspaces = useSelector((state) => state.workspace);
-
     let open = useSelector((state) => state.modal);
+
     function handleClose  () {
         dispatcher({
             type:CLOSE_DELETE_MODAL,
@@ -89,10 +89,10 @@ const Dashboard = (props, { ...others }) => {
     let datasend
 
 
+    let loc=window.location.pathname
 
     useEffect(() => {
         console.log(location.pathname)
-        let loc=location.pathname
         let array=loc.split("/")
         console.log(array)
         console.log(array.length)
@@ -226,7 +226,7 @@ if((location.pathname).includes('/dashboard/default')){
 
     let Url;
     console.log(window.location.pathname)
-    if(((window.location.pathname)==('/dashboard/default'))||((window.location.pathname)==('/dashboard/default/'+id))){
+    if((window.location.pathname).includes('/dashboard/default')){
         Url=true
     }
     else {
@@ -240,7 +240,6 @@ if((location.pathname).includes('/dashboard/default')){
     };
     const location = useLocation();
     console.log(location.pathname)
-    let loc=location.pathname
     let array=loc.split("/")
     console.log(array)
     console.log(array.length)
@@ -354,6 +353,10 @@ if((location.pathname).includes('/dashboard/default')){
                             <ThemeConfig>
                                 {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
                             </ThemeConfig>
+
+
+                            {console.log("ffffffffffffffffffff")}
+                            {console.log(open.ModalEditState)}
                             <ThemeConfig>
                                 {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
                             </ThemeConfig>

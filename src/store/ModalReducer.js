@@ -23,6 +23,8 @@ import {
 export const initialState = {
     Modal_Edit_State:false,
     ModalState:false,
+    ModalEditState:false,
+
     ModalStateShare:false,
     ModalConfirmShare:false,
     ModalDeleteState:false,
@@ -54,7 +56,7 @@ let objet;
 
 
             };
-        case OPEN_EDIT_MODAL:
+        /*case OPEN_EDIT_MODAL:
         objet=action.payload.objet
             return {
                  objet,
@@ -64,7 +66,9 @@ let objet;
 
 
             };
+
         case CLOSE_EDIT_MODAL:
+
 
             return {
 
@@ -74,10 +78,13 @@ let objet;
 
 
             };
-        case OPEN_MODAL_SHARE:
+        */case OPEN_MODAL_SHARE:
 
             console.log("salut")
             const card=action.payload.card
+            console.log("eb3ed ********* ya 5ra")
+            console.log(card)
+
             console.log(state.ModalStateShare)
 
             return {

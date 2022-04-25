@@ -23,7 +23,7 @@ import ThemeConfig from "../../../themes/theme2";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
-import {ClOSE_EDIT_MODAL, CLOSE_MODAL, INISIALIZE, OPEN_MODAL} from "../../../store/actions";
+import {CLICKED_INISIALIZE, ClOSE_EDIT_MODAL, CLOSE_MODAL, INISIALIZE, OPEN_MODAL} from "../../../store/actions";
 
 import AnimateButton from "../../../animation/AnimateButton";
 
@@ -37,6 +37,18 @@ import {useParams} from "react-router-dom";
 
 
 const EditWorkspace = (props, { ...others }) => {
+    let loc=window.location.pathname
+
+
+    let array=loc.split("/")
+    console.log(array)
+    console.log(array.length)
+
+    const ar2 = array.slice(3, (array.length));
+    console.log(ar2)
+
+    let link2=ar2.join('/')
+
 
     const dispatcher = useDispatch();
     const [changed, setChanged] = useState(false);
@@ -65,8 +77,11 @@ let {id}=useParams()
             });
         }
     }, [])
+    let workspaces = useSelector((state) => state.workspace);
 
-
+    let link
+    let id1
+    let datasend
     return (
 
         <ThemeConfig>
@@ -91,6 +106,32 @@ let {id}=useParams()
                     if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null}))
                         setChanged(true)
                     else {
+                        if (id) {
+                            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
+
+                            link = 'api/users/getinsideworkspace'
+                            id1=id
+                            console.log('mrigggggggggggggggggggggggggggg')
+                            console.log(ar2)
+                            let clicked
+                            if(workspaces.clicked){
+                                clicked=true
+
+                            }
+                            else
+                                clicked=false
+
+                            datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token,listeNameReceive:workspaces.listeName}
+                            dispatcher({
+                                type:CLICKED_INISIALIZE
+                            })
+
+                        } else {
+                            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
+                            link = 'api/users/getworkspace'
+                            datasend= {superior_id:account.user._id, token:account.token}
+
+                        }
                         axios
                             .post(configData.API_SERVER + 'api/users/editworkspace', {
                                 token: account.token,
@@ -109,14 +150,19 @@ let {id}=useParams()
                                     } else {
                                         link = 'api/users/getworkspace'
                                         id1 = account.user._id
-                                    }
-                                    axios
-                                        .post(configData.API_SERVER + link, {superior_id: id1, token: account.token})
-                                        .then(response => {
+                                    }   axios
+                                        .post( configData.API_SERVER + link,datasend)
+                                        .then(response =>{
+                                            console.log("llllllllllllllllllllllllll")
+                                            console.log(response.data.listeName)
                                             dispatcher({
-                                                type: INISIALIZE,
-                                                payload: {work: response.data.workspaceitems}
-                                            })
+                                                    type:INISIALIZE,
+                                                    payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
+                                                }
+                                            )
+
+
+
                                         })
                                         .catch(function (error) {
                                         })

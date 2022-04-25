@@ -196,9 +196,6 @@ console.log(card.Share)
         handleCloseMenu()
 
 
-        dispatcher(  {
-            type:OPEN_MODAL_SHARE,
-        })
 
 
     };

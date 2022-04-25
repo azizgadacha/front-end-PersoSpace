@@ -156,6 +156,12 @@ const RestWidgetName = ( { buttonRef }) => {
 
                     })
 
+                    console.log("dddddddddddd")
+                    console.log(widget.Type)
+                    console.log(values.WidgetName)
+                    console.log(widget.Type)
+                    console.log(widget.label)
+                    console.log(widget.dataWidget)
 
 
                     try{
@@ -169,33 +175,49 @@ const RestWidgetName = ( { buttonRef }) => {
                         })
                             .then(function (response) {
                                 if (response.data.success) {
-
+console.log("lommmmm")
+console.log(response.data.success)
                                     dispatcher({
                                         type:IS_LOADING_CHANGE,
 
                                     })
+                                    console.log("lommmmm2222222222")
 
                                     dispatcher({
                                         type:CHANGE_NAME,
                                         payload: {WidgetName:values.WidgetName}
 
                                     })
+                                    console.log("lommmmm33333333333333333")
+console.log(values.WidgetName)
+                                    console.log(response.data)
 
+console.log(widget.superior_id)
+console.log(widget.Type)
+console.log(widget.label)
+console.log(widget.dataWidget)
+console.log()
                                     dispatcher({
                                         type:ADD_WIDGET,
-                                        payload: {widget:{WidgetName:values.WidgetName,_id:response.data.newWidget._id, superior_id:widget.superior_id,type:widget.Type,label:widget.label,dataWidget:widget.dataWidget,}}
+                                        payload: {widget:{WidgetName:values.WidgetName,_id:response.data.widget._id, superior_id:widget.superior_id,type:widget.Type,label:widget.label,dataWidget:widget.dataWidget}}
 
                                     })
+                                    console.log("lommmmm44444444444444444444")
 
                                     dispatcher({
                                         type:INIZIALIZE_STEPS
 
                                     })
+
+
+                                    console.log("lommmmm588888888888888")
+
                                     dispatcher({
                                         type:CLOSE_WIDGET_MODAL,
 
                                     })
 
+                                    console.log("lommmmm8888887777777796633333333333333333")
 
 
                                     dispatcher({
@@ -210,6 +232,7 @@ const RestWidgetName = ( { buttonRef }) => {
 
 
                                 } else {
+                                    console.log("lom888888888888888888888888888888mmmm")
 
 
 

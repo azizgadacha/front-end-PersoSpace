@@ -65,8 +65,7 @@ const WorkspaceReducer = (state = initialState, action) => {
                 state.username = username
                 console.log(state.Workspace)
                 console.log(username)
-            }
-
+            }else
             state. listeName=action.payload.listeName
             return {
 
