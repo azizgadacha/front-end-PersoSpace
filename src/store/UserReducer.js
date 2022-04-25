@@ -76,7 +76,7 @@ const UserReducer = (state = initialState, action) => {
 
             let index = 0;
             var filteredObj = state.users.find(function(item, i){
-                if((item.email===deleteUser.email)){
+                if((item._id===deleteUser._id)){
                     index = i;
                     return i;
 
@@ -93,23 +93,27 @@ const UserReducer = (state = initialState, action) => {
             }
         case USER_UPDATE:
            // deleteUser=action.payload.user
+            console.log("dddddd")
+            console.log(action.payload.user)
+            let {user}=action.payload
+            console.log("dddddd")
 
-
-
-             index = 0;
-            var filteredObj = state.users.find(function(item, i){
-                if((item.email===deleteUser.email)){
-                    index = i;
+             let index1 = 0;
+            console.log(index1)
+            state.users.find(function(item, i){
+                console.log('qq111')
+                console.log(item)
+                if((item._id===user._id)){
+                    index1 = i;
                     return i;
 
                 }
             });
-            state.users.splice(index,1)
+            console.log("dddddd")
 
-
-
-
-
+            console.log(index1)
+            console.log(state.users[index1])
+            state.users[index1]=user
             return {
                 ...state
             }

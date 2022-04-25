@@ -28,13 +28,21 @@ import axios from "axios";
 import configData from "../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../store/actions";
+import {
+    ADD_USER,
+    CLICK,
+    CLOSE_DELETE_MODAL,
+    ClOSE_EDIT_MODAL,
+    CLOSE_MODAL,
+    INISIALIZE_USER,
+} from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import SearchNotFound from "./import/customer/SearchNotFound";
 import Modal_Delete_User from "../modal/ModalDeleteWidgetUser";
+import Modal_Edit_User from '../modal/EditUser'
 import Cells from "./cells";
 import { useHistory} from "react-router-dom";
 
@@ -357,6 +365,12 @@ const User=  (props) => {
 
         });
     };
+    function handleCloseEditModal  () {
+        dispatcher({
+            type:ClOSE_EDIT_MODAL,
+
+        });
+    };
     let open1 = useSelector((state) => state.modal);
 
 
@@ -468,8 +482,9 @@ const User=  (props) => {
 
       </Container>
           </ThemeConfig>
+          {console.log(open.ModalEditState)}
           {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} type={"User"}/>)}
-
+          {open.ModalEditState&&(<Modal_Edit_User handleClose={handleCloseEditModal} type={"User"} />)}
 
 <RegistreModal/>
           {/* <EditUser user={open.objet}/>*/}

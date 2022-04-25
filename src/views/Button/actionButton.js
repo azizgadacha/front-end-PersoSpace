@@ -12,6 +12,8 @@ export const Workspaces = 'Workspaces';
 export const Widget = 'Widget';
 export const AddWidget = 'AddWidget';
 export const Back = 'Back';
+export const Change = 'Change';
+export const Changing = 'Changing';
 
 
 

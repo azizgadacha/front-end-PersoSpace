@@ -53,7 +53,9 @@ const Modal_Delete = (props) => {
                             >
                                 Edit {props.type}
                             </Typography>
-
+                            <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                                Edit {props.name}
+                            </Typography>
                         </Stack>
                     </Grid>
                 </Grid>

@@ -28,8 +28,8 @@ import {
 } from "@material-ui/core";
 
 import {makeStyles} from "@material-ui/styles";
-import Modal_Delete from "../Modal_delete";
-import EditModalCore from "./EditModal";
+import EditModalCore from "./EditModalCore";
+import EditModal from "../EditModal/EditModal";
 
 // ----------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ const User=  (props) => {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalDeleteState}
+                open={open1.ModalEditState}
                 onClose={handleClose}
 
                 closeAfterTransition
@@ -106,17 +106,17 @@ const User=  (props) => {
             >
                 <div style={OVERLAY_Styles}>
 
-                    <Fade in={open1.ModalDeleteState}>
+                    <Fade in={open1.ModalEditState}>
 
                         <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
                         <ThemeConfig>
 
-                                <Modal_Delete   type={props.type} />
-                                <Grid container alignItems={"center"}>
+                                <EditModal type={props.type} name={open1.objet.username} />
+                                    {console.log("dddddd")}
 
+                                    {console.log(open1.objet)}
 
-                                    <EditModalCore obj={open1.objet} type={props.type}  />
-                                </Grid>
+                                    <EditModalCore objet={open1.objet} type={props.type}  />
                         </ThemeConfig>
 
 

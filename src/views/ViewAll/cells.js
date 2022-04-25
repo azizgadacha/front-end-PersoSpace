@@ -41,14 +41,13 @@ const Cells=  ({userPar}) => {
     let history = useHistory();
 
     const handleClickEditModal = () => {
-        history.push('/dashboard/viewAll')
 
-      /*  dispatcher({
+        dispatcher({
             type:OPEN_EDIT_MODAL,
             payload: {objet:userPar}
         })
 
-    */
+
     }
 
 

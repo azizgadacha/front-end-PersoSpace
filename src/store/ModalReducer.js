@@ -11,10 +11,6 @@ import {
 
     , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE, OPEN_EDIT_MODAL, ClOSE_EDIT_MODAL,
 
-
-
-    CLOSE_EDIT_MODAL,
-
 } from './actions';
 
 

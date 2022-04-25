@@ -1,225 +1,3 @@
-import React, {Fragment, useState} from 'react';
-
-
-import configData from '../../../config';
-
-// maerial-ui
-import {Box, Button, Grid,} from '@material-ui/core';
-import SaveIcon from '@mui/icons-material/Save';
-
-
-import axios from 'axios';
-
-// project imports
-
-
-import AnimateButton from '../../../animation/AnimateButton';
-
-
-
-import {useDispatch, useSelector} from "react-redux";
-
-import {
-    ADD_USER,
-    CLICK,
-    CLOSE_DELETE_MODAL, CLOSE_EDIT_MODAL,
-    DELETE_WIDGET, UPDATE,
-    USER_DELETE
-} from "../../../store/actions";
-import {LoadingButton} from "@material-ui/lab";
-import {Cancel, Delete, Deleting} from "../../Button/actionButton";
-import {useHistory, useParams} from "react-router-dom";
-
-// style constant
-
-//===========================|| API JWT - REGISTER ||===========================//
-
-const DeleteModalCore = ({obj,type}) => {
-    const handleCloseModal = ()=> {
-        dispatcher({
-            type:CLOSE_DELETE_MODAL,
-
-        });
-    };
-
-    const [isloading, setIsloading] = useState(false);
-    const account = useSelector((state) => state.account);
-    //const [openModal,setOpenModal]=useState(false);
-
-    const dispatcher = useDispatch();
-
-let link
-    let dataSend
-
-
-
-
-
-    let {id}=useParams()
-
-    const Click = () => {
-
-        if(type=="User")
-
-            {
-                link='api/users/deleteUser'
-
-                dataSend=  {token:account.token, user_id:obj._id}
-            }
-
-
-            else if (type=="Widget")
-            {
-
-                if(obj.widgetName){
-                    link='api/users/deleteWidget'
-                    dataSend=  {token:account.token,WidgetName:obj.WidgetName, superior_id:obj.superior_id}}
-                else {
-            link = 'api/users/deleteLinkWidget'
-            dataSend=  {token:account.token,superior_id:id, idData:obj._id}}
-
-    }
-        setIsloading(true)
-
-
-        axios
-            .post( configData.API_SERVER + link,dataSend)
-            .then(response =>{
-                if(response.data.success){
-                dispatcher({
-                    type:CLOSE_DELETE_MODAL,
-                })
-              if(type=="User"){
-
-                dispatcher({
-                    type:USER_DELETE,
-                    payload: {user:response.data.user}
-                })}
-            else {
-            dispatcher({
-             type:DELETE_WIDGET,
-            payload: {widget:response.data.widget}
-    })
-
-              }
-            console.log('je suis ici')
-
-                    dispatcher({
-                    type:CLICK,
-                    payload: {text:`${type} has been deleted`,severity:"success"}
-                })
-
-                    dispatcher({
-                        type:CLOSE_DELETE_MODAL,
-                    })
-                }
-                else {
-                    dispatcher({
-                        type:CLOSE_DELETE_MODAL,
-                    })
-                    dispatcher({
-                        type:CLICK,
-                        payload: {text:response.data.msg,severity:"error"}
-                    })
-                }
-
-                console.log('je suis ici')
-                console.log(response.data)
-
-
-
-            })
-            .catch(function (error) {
-                dispatcher({
-                     type:CLOSE_DELETE_MODAL,
-                })
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:"internel problem please try later",severity:"error"}
-                })
-
-            })
-
-
-    };
-
-
-    return (
-        <Fragment>
-
-
-            <Grid container alignItems={"center"}>
-                <Grid xs={6}>
-                    <Box
-                        sx={
-
-
-                        {
-                            ml:0,
-                            mr:3,
-                            mt: 2,
-
-                        }}
-                    >
-                        <AnimateButton>
-
-
-
-
-                            {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Deleting}</LoadingButton>):
-                                <Button
-                                    disableElevation
-                                    fullWidth
-                                    onClick={Click}
-                                    type="submit" size="large"
-                                    variant="contained"
-                                    color="error">{Delete}</Button>}
-
-
-
-                        </AnimateButton>
-
-                    </Box>
-                </Grid>
-
-                <Grid xs={6}>
-
-                    <Box
-                        sx={{
-                            mt: 2,
-                            marginLeft:1
-                        }}
-                    >
-                        <AnimateButton>
-
-                            <Button disableElevation size="large" disabled={isloading}  onClick={handleCloseModal} fullWidth variant="contained" color="secondary">{Cancel}</Button>
-                        </AnimateButton>
-
-                    </Box>
-                </Grid>
-
-            </Grid>
-
-
-
-
-
-</Fragment>
-    );
-};
-
-export default DeleteModalCore;
-
-
-
-
-
-
-
-
-
-
-
 import React, {Fragment, useEffect, useState} from 'react';
 // material
 import Fade from '@mui/material/Fade';
@@ -244,7 +22,7 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import { ADD_USER, CLICK, CLOSE_MODAL} from "../../../store/actions";
+import {ADD_USER, CLICK, ClOSE_EDIT_MODAL, CLOSE_MODAL, UPDATE, USER_UPDATE} from "../../../store/actions";
 
 
 import {Formik} from "formik";
@@ -262,7 +40,8 @@ import AnimateButton from "../../../animation/AnimateButton";
 import useScriptRef from "../../../hooks/useScriptRef";
 import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
-import {Add, Adding, Cancel} from "../../Button/actionButton";
+import {Add, Adding, Cancel, Change, Changing} from "../../Button/actionButton";
+import {useHistory} from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -374,7 +153,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const EditModal=  ({obj}) => {
+const EditModalCore=  ({objet}) => {
     const [isloading, setIsloading] = useState(false);
 
     const states = [
@@ -401,7 +180,7 @@ const EditModal=  ({obj}) => {
     useEffect(() => {
         return () => {
             dispatcher({
-                type:CLOSE_EDIT_MODAL,
+                type:ClOSE_EDIT_MODAL,
             });
         }
     }, [])
@@ -415,7 +194,7 @@ const EditModal=  ({obj}) => {
 
 
         dispatcher({
-            type:CLOSE_EDIT_MODAL,
+            type:ClOSE_EDIT_MODAL,
         });
     }
 
@@ -429,7 +208,7 @@ const EditModal=  ({obj}) => {
 
                                 <Formik
                                     initialValues={{
-                                        role: obj.role,
+                                        role: objet.role,
                                     }}
                                     validationSchema={Yup.object().shape({
                                         role: Yup.string().required('role is required')
@@ -438,31 +217,61 @@ const EditModal=  ({obj}) => {
 
 
                                         setIsloading(true)
+                                        if(objet.role==values.role){
+                                            setStatus({ success: false });
+                                            setErrors({ submit: "you didn't change any thing" });
+                                            setSubmitting(false)
+                                            setIsloading(false)
+                                        }
+                                        else{
+
                                         try {
 
-
+console.log("imsssssssssssssssssssssssssssssssssssssssssssss1")
+                                            console.log(account)
+                                            console.log(account)
 
 
                                             axios.post( configData.API_SERVER + 'api/users/editUser', {
                                               token:account.token,
                                                 role:values.role,
-                                                _id:account._id
+                                                userID:objet._id,
+                                                _id:account.user._id
                                             })
                                                 .then(function (response) {
+                                                    console.log("imd863dddd5")
 
                                                     if (response.data.success) {
+                                                        console.log("imddddd5")
+console.log(response.data.user)
                                                         dispatcher({
-                                                            type:UPDATE,
+                                                            type:USER_UPDATE,
                                                             payload: {user:response.data.user}
                                                         });
 
+                                                        console.log("im2")
+                                                        dispatcher({
+                                                            type:ClOSE_EDIT_MODAL,
+                                                        });
+                                                        dispatcher({
+                                                            type:CLICK,
+                                                            payload: {text:'user modified with success',severity:"success"}
+                                                        });
                                                     } else {
+                                                        console.log("im3")
+
                                                         if(response.data.administratorProblem)
                                                         {
+                                                            console.log("im4")
+
+                                                            setStatus({ success: false });
+                                                            setSubmitting(false);
+                                                            setIsloading(false)
                                                             dispatcher({
-                                                            type:UPDATE,
-                                                            payload: {user:response.data.user}
-                                                        });
+                                                                type:ClOSE_EDIT_MODAL,
+                                                            });
+                                                            console.log("im5")
+
                                                             history.push(configData.defaultPath)
 
                                                             dispatcher({
@@ -471,36 +280,44 @@ const EditModal=  ({obj}) => {
                                                             });
 
                                                         }
-
-
-                                                        setStatus({ success: false });
-                                                        setErrors({ submit: response.data.msg });
-                                                        setSubmitting(false);
-                                                        setIsloading(false)
-
                                                     }
                                                 })
                                                 .catch(function (error) {
-                                                    setStatus({ success: false });
-                                                    setErrors({ submit: error.response.data.msg });
-                                                    setSubmitting(false);
+                                                    console.log("im16")
+console.log(error)
                                                     setIsloading(false)
+                                                    dispatcher({
+                                                        type:ClOSE_EDIT_MODAL,
+                                                    });
+                                                    history.push(configData.defaultPath)
 
+                                                    dispatcher({
+                                                        type:CLICK,
+                                                        payload: {text:'externel error please try later',severity:"error"}
+                                                    });
                                                 });
                                         } catch (err) {
-                                            if (scriptedRef.current) {
+                                                console.log("im9")
+
                                                 setStatus({ success: false });
-                                                setErrors({ submit: err.message });
                                                 setSubmitting(false);
                                                 setIsloading(false)
+                                                dispatcher({
+                                                    type:ClOSE_EDIT_MODAL,
+                                                });
+                                                history.push(configData.defaultPath)
 
-                                            }
+                                                dispatcher({
+                                                    type:CLICK,
+                                                    payload: {text:'externel error please try later',severity:"error"}
+                                                });
+
                                         }
-                                    }}
+                                    }}}
                                 >
                                     {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                                         <form  noValidate onSubmit={handleSubmit} >
-                                                      <Grid item lg={6} md={6} sm={6} xs={12}>
+                                                      <Grid item lg={12} md={12} mt={3} sm={12} xs={12}>
 
                                                                     <FormControl fullWidth   error={Boolean(touched.role&& errors.role)} >
 
@@ -562,14 +379,14 @@ const EditModal=  ({obj}) => {
                                                             }}
                                                         >
                                                             <AnimateButton>
-                                                                {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Adding}</LoadingButton>):
+                                                                {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Changing}</LoadingButton>):
                                                                     <Button
                                                                         disabled={isSubmitting}
                                                                         disableElevation
                                                                         fullWidth
                                                                         type="submit" size="large"
                                                                         variant="contained"
-                                                                        color="secondary">{Add}</Button>}
+                                                                        color="secondary">{Change}</Button>}
 
 
 
@@ -607,5 +424,5 @@ const EditModal=  ({obj}) => {
     )
         ;
 }
-export default EditModal;
+export default EditModalCore;
 
