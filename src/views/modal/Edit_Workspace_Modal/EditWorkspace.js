@@ -48,11 +48,8 @@ const EditWorkspace = (props, { ...others }) => {
 
 
     let array=loc.split("/")
-    console.log(array)
-    console.log(array.length)
 
     const ar2 = array.slice(3, (array.length));
-    console.log(ar2)
 
     let link2=ar2.join('/')
 
@@ -114,6 +111,8 @@ let {id}=useParams()
                         setChanged(true)
                     else {
 
+
+
                         axios
                             .post(configData.API_SERVER + 'api/users/editworkspace', {
                                 token: account.token,
@@ -124,10 +123,12 @@ let {id}=useParams()
                             .then(function (response) {
                                 if (response.data.success) {
                                     setIsloading(false)
+
                                     dispatcher({
                                         type:UPDATE_WORKSPACE,
                                         payload: {work:response.data.w}
                                     })
+
                                     dispatcher({
                                             type: ClOSE_EDIT_MODAL,
                                         }
@@ -136,7 +137,6 @@ let {id}=useParams()
                                         type: "Click",
                                         payload: {text: "Workspace Edited successfully", severity: "success"}
                                     })
-                                    console.log()
                                 }
                             })
 

@@ -76,12 +76,8 @@ let objet;
             };
         */case OPEN_MODAL_SHARE:
 
-            console.log("salut")
             const card=action.payload.card
-            console.log("eb3ed ********* ya 5ra")
-            console.log(card)
 
-            console.log(state.ModalStateShare)
 
             return {
 

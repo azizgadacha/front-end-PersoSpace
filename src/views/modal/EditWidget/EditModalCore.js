@@ -22,7 +22,15 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, ClOSE_EDIT_MODAL, CLOSE_MODAL, UPDATE, USER_UPDATE} from "../../../store/actions";
+import {
+    ADD_USER,
+    CLICK,
+    ClOSE_EDIT_MODAL,
+    CLOSE_MODAL,
+    UPDATE,
+    USER_UPDATE,
+    WIDGET_UPDATE
+} from "../../../store/actions";
 
 
 import {Formik} from "formik";
@@ -41,7 +49,7 @@ import useScriptRef from "../../../hooks/useScriptRef";
 import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel, Change, Changing} from "../../Button/actionButton";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -198,6 +206,7 @@ const EditModalCore=  ({objet}) => {
         });
     }
 
+    let {id}=useParams()
 
     let history =useHistory()
 
@@ -208,16 +217,17 @@ const EditModalCore=  ({objet}) => {
 
                                 <Formik
                                     initialValues={{
-                                        role: objet.role,
+                                        WidgetName: objet.WidgetName,
                                     }}
                                     validationSchema={Yup.object().shape({
-                                        role: Yup.string().required('role is required')
+                                        WidgetName: Yup.string().min(4,"widget name should contain 4 digit minimum").required("Widget Name is required"),
                                     })}
                                     onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
 
+
                                         setIsloading(true)
-                                        if(objet.role==values.role){
+                                        if(objet.WidgetName==values.WidgetName){
                                             setStatus({ success: false });
                                             setErrors({ submit: "you didn't change any thing" });
                                             setSubmitting(false)
@@ -226,26 +236,25 @@ const EditModalCore=  ({objet}) => {
                                         else{
 
                                         try {
+                                         let link
+                                            let dataSend
+                                            if(objet.sourceDB){
+                                                link = 'api/users/editWidgetlink'
+                                                dataSend= {token:account.token, WidgetName:objet.WidgetName, newName:values.WidgetName, idData:objet.idData, type:objet.type, superiorID:id}
+                                           } else {
+                                                link='api/users/editWidget'
+                                                dataSend=  {token:account.token,idWidget:objet._id, newName:values.WidgetName}}
 
-console.log("imsssssssssssssssssssssssssssssssssssssssssssss1")
-                                            console.log(account)
 
-
-                                            axios.post( configData.API_SERVER + 'api/users/editUser', {
-                                              token:account.token,
-                                                role:values.role,
-                                                userID:objet._id,
-                                                _id:account.user._id
-                                            })
+                                            axios.post( configData.API_SERVER + link, dataSend)
                                                 .then(function (response) {
-                                                    console.log("imd863dddd5")
 
                                                     if (response.data.success) {
-                                                        console.log("editmodalcore")
-console.log(response.data.user)
+
+
                                                         dispatcher({
-                                                            type:USER_UPDATE,
-                                                            payload: {user:response.data.user}
+                                                            type:WIDGET_UPDATE,
+                                                            payload: {widget:response.data.widget}
                                                         });
 
                                                         dispatcher({
@@ -253,14 +262,10 @@ console.log(response.data.user)
                                                         });
                                                         dispatcher({
                                                             type:CLICK,
-                                                            payload: {text:'user modified with success',severity:"success"}
+                                                            payload: {text:'Widget modified with success',severity:"success"}
                                                         });
                                                     } else {
-                                                        console.log("im3")
 
-                                                        if(response.data.administratorProblem)
-                                                        {
-                                                            console.log("im4")
 
                                                             setStatus({ success: false });
                                                             setSubmitting(false);
@@ -268,21 +273,18 @@ console.log(response.data.user)
                                                             dispatcher({
                                                                 type:ClOSE_EDIT_MODAL,
                                                             });
-                                                            console.log("im5")
 
                                                             history.push(configData.defaultPath)
 
                                                             dispatcher({
                                                                 type:CLICK,
-                                                                payload: {text:'You are no langeran administrateur',severity:"error"}
+                                                                payload: {text:'Widget No Longeur exist',severity:"error"}
                                                             });
 
                                                         }
                                                     }
-                                                })
+                                                )
                                                 .catch(function (error) {
-                                                    console.log("im16")
-console.log(error)
                                                     setIsloading(false)
                                                     dispatcher({
                                                         type:ClOSE_EDIT_MODAL,
@@ -295,7 +297,7 @@ console.log(error)
                                                     });
                                                 });
                                         } catch (err) {
-                                                console.log("im9")
+
 
                                                 setStatus({ success: false });
                                                 setSubmitting(false);
@@ -317,38 +319,39 @@ console.log(error)
                                         <form  noValidate onSubmit={handleSubmit} >
                                                       <Grid item lg={12} md={12} mt={3} sm={12} xs={12}>
 
-                                                                    <FormControl fullWidth   error={Boolean(touched.role&& errors.role)} >
-
-                                                                        <TextField
-                                                                            fullWidth
-                                                                            onChange={handleChange}
-                                                                            required
-                                                                            select
-                                                                            SelectProps={{ native: true }}
-                                                                            variant="outlined"
-                                                                            id="role"
-                                                                            name="role"
-
-                                                                            value={values.role}
-                                                                            label="Role"
-                                                                            onBlur={handleBlur}
-                                                                            error={touched.role && Boolean(errors.role)}
-
-                                                                            onChange={handleChange}
+                                                          <FormControl fullWidth error={Boolean(touched.WidgetName && errors.WidgetName)} >
 
 
-                                                                        >
-                                                                            {states.map((option) => (
-                                                                                <option
-                                                                                    key={option.value}
-                                                                                    value={option.value}
-                                                                                >
-                                                                                    {option.label}
-                                                                                </option>
-                                                                            ))}
-                                                                        </TextField>
 
-                                                                    </FormControl>
+                                                              <TextField  label="WidgetName" required variant="outlined"
+                                                                          id="outlined-adornment-username-register"
+                                                                          name="WidgetName"
+                                                                          value={values.WidgetName}
+                                                                          onChange={handleChange}
+
+                                                              />
+
+                                                              {touched.WidgetName && errors.WidgetName && (
+                                                                  <FormHelperText error id="standard-weight-helper-text--username">
+                                                                      {errors.WidgetName}
+                                                                  </FormHelperText>
+                                                              )}
+                                                              {errors.submit && (
+                                                                  <Box
+                                                                      sx={{
+                                                                          mt: 3
+                                                                      }}
+                                                                  >
+
+
+                                                                      <Alert severity="error">{errors.submit}</Alert>
+
+
+                                                                  </Box>
+                                                              )}
+
+
+                                                          </FormControl>
                                                                 </Grid>
                                             <Box
                                                 sx={{

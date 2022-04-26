@@ -301,16 +301,11 @@ const DataModal=  (props) => {
 
         }
         else {
-            console.log(selected)
             let get=(dataStore.data).filter((value)=>{
-                console.log("l")
                 return value.title==selected[0]
             })
 
-            console.log(get[0].title)
-            console.log("leeeeeeeeeeeeeeeeeeeeeeeee")
 
-            console.log(get[0]._id)
             dispatcher({
                 type:IMPORT_DATA,
                 payload: {data:get[0].data,idData:get[0]._id,label:get[0].label,superior_id:id,sourceDB:true}
@@ -321,7 +316,6 @@ const DataModal=  (props) => {
 
 
             })
-            console.log(get)
             ;}
 
 
@@ -399,8 +393,6 @@ const DataModal=  (props) => {
                                                         onRequestSort={handleRequestSort}
                                                         onSelectAllClick={handleSelectAllClick}
                                                     />
-                                                    {console.log("dd")}
-                                                    {console.log(selected)}
 
                                                     <TableBody sx={{border:'1px solid #c5c5c5',borderBottomLeftRadius:8,borderBottomRightRadius:8}}>
                                                         {filteredUsers

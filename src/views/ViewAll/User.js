@@ -482,7 +482,6 @@ const User=  (props) => {
 
       </Container>
           </ThemeConfig>
-          {console.log(open.ModalEditState)}
           {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} type={"User"}/>)}
           {open.ModalEditState&&(<Modal_Edit_User  type={"User"} />)}
 

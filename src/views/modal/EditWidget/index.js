@@ -110,10 +110,7 @@ const User=  (props) => {
                         <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
                         <ThemeConfig>
 
-                                <EditModal type={props.type} name={open1.objet.WidgetName?open1.objet.WidgetName:open1.objet.title} />
-                                    {console.log("dddddd")}
-
-                                    {console.log(open1.objet)}
+                                <EditModal type={props.type} name={open1.objet.WidgetName} />
 
                                     <EditModalCore objet={open1.objet} type={props.type}  />
                         </ThemeConfig>

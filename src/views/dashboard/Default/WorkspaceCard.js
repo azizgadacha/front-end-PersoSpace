@@ -140,17 +140,13 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
 
     const location = useLocation();
-    console.log(location.pathname)
     let loc=location.pathname
     let array=loc.split("/")
-    console.log(array)
-    console.log(array.length)
+
 
     const ar2 = array.slice(3, (array.length));
-    console.log(ar2)
 
     let link=ar2.join('/')
-    console.log(link)
 
 
    
@@ -179,15 +175,11 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         history.push(`${config.defaultPath}/${link==""?"":link+"/"}${card._id}`)
     }
     const shareWorkspaces = () => {
-console.log(card.Share)
         dispatcher({
             type:INISIALIZE_FILTRED_USER,
             payload:{card:card}
         })
-        console.log(userSt.filtred)
-        //console.log("rani el shareWorkspaces ")
-       // console.log(userSt.users)
-        //console.log(card)
+
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
             payload:{card:card}
@@ -201,7 +193,6 @@ console.log(card.Share)
     };
 
     const EditSpace=()=>{
-        console.log("ena el edit space")
         dispatcher({
             type:OPEN_EDIT_MODAL,
             payload: {objet:card}
@@ -248,7 +239,6 @@ console.log(card.Share)
 
 
                     <MainCard border={false} className={classes.card} contentClass={classes.content}>
-                        {console.log(workspaces.Workspace)}
 
                         <Grid container direction="column">
                             <Grid item>
@@ -276,7 +266,6 @@ console.log(card.Share)
 
                                         </Avatar>
 
-                                        {console.log("helle" + Boolean(anchorEl))}
                                         <Menu
                                             id="menu-earning-card"
                                             anchorEl={anchorEl}

@@ -59,9 +59,7 @@ let link
     let {id}=useParams()
 
     const Delete = () => {
-        console.log("rrr")
-        console.log(type)
-        console.log(obj.WidgetName)
+
         if(type=="User")
 
             {
@@ -73,13 +71,7 @@ let link
 
             else if (type=="Widget")
             {
-console.log("rrr")
-console.log(obj.WidgetName)
-console.log(obj.superior_id)
-                console.log("rrr")
-                console.log("rrsssssssssssssssssssr")
 
-                console.log(obj)
 
                 if(obj.sourceDB){
                     link = 'api/users/deleteLinkWidget'
@@ -114,7 +106,6 @@ console.log(obj.superior_id)
     })
 
               }
-            console.log('je suis ici')
 
                     dispatcher({
                     type:CLICK,
@@ -135,8 +126,6 @@ console.log(obj.superior_id)
                     })
                 }
 
-                console.log('je suis ici')
-                console.log(response.data)
 
 
 

@@ -92,24 +92,18 @@ const Dashboard = (props, { ...others }) => {
     let loc=window.location.pathname
 
     useEffect(() => {
-        console.log(location.pathname)
         let array=loc.split("/")
-        console.log(array)
-        console.log(array.length)
+
 
         const ar2 = array.slice(3, (array.length));
-        console.log(ar2)
 
         let link2=ar2.join('/')
 if((location.pathname).includes('/dashboard/default')){
 
             if (id) {
-                console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
 
                 link = 'api/users/getinsideworkspace'
                 id1=id
-                console.log('mrigggggggggggggggggggggggggggg')
-                console.log(ar2)
                 let clicked
                 if(workspaces.clicked){
                     clicked=true
@@ -124,7 +118,6 @@ if((location.pathname).includes('/dashboard/default')){
                 })
 
             } else {
-                console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
                 link = 'api/users/getworkspace'
                 datasend= {superior_id:account.user._id, token:account.token}
 
@@ -135,8 +128,7 @@ if((location.pathname).includes('/dashboard/default')){
             axios
                 .post( configData.API_SERVER + link,datasend)
                 .then(response =>{
-                    console.log("llllllllllllllllllllllllll")
-                    console.log(response.data.listeName)
+
                     dispatcher({
                             type:INISIALIZE,
                             payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
@@ -164,7 +156,6 @@ if((location.pathname).includes('/dashboard/default')){
                         payload: {work: response.data.workspaceitems, location :'shared'}
                     }
                 )
-                console.log(response.data.workspaceitems)
 
                 setLoading(false);
                 setSucces(true)
@@ -225,7 +216,6 @@ if((location.pathname).includes('/dashboard/default')){
         )})
 
     let Url;
-    console.log(window.location.pathname)
     if((window.location.pathname).includes('/dashboard/default')){
         Url=true
     }
@@ -239,16 +229,12 @@ if((location.pathname).includes('/dashboard/default')){
         padding: 0,
     };
     const location = useLocation();
-    console.log(location.pathname)
     let array=loc.split("/")
-    console.log(array)
-    console.log(array.length)
+
 
     const ar2 = array.slice(3, (array.length));
-    console.log(ar2)
 
     let link1=ar2.join('/')
-    console.log(link1)
 
 
     function handleCloseEdit  () {
@@ -355,8 +341,7 @@ if((location.pathname).includes('/dashboard/default')){
                             </ThemeConfig>
 
 
-                            {console.log("ffffffffffffffffffff")}
-                            {console.log(open.ModalEditState)}
+
                             <ThemeConfig>
                                 {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
                             </ThemeConfig>
