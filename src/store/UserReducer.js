@@ -25,7 +25,6 @@ const UserReducer = (state = initialState, action) => {
             for(let i of share){
                 alam.push(i[0])
             }
-            console.log(alam)
             if(share.length==0) {
                 for (let item2 of state.users) {
                         if (!(item2.role == 'administrateur')) {
@@ -93,13 +92,10 @@ const UserReducer = (state = initialState, action) => {
             }
         case USER_UPDATE:
            // deleteUser=action.payload.user
-            console.log("userReducer")
-            console.log(action.payload.user)
+
             let {user}=action.payload
-            console.log("dddddd")
 
              let index1 = 0;
-            console.log(index1)
             state.users.find(function(item, i){
                 if((item._id===user._id)){
                     index1 = i;
@@ -109,8 +105,7 @@ const UserReducer = (state = initialState, action) => {
             });
 
 
-            console.log(index1)
-            console.log(state.users[index1])
+
             state.users[index1]=user
             return {
                 ...state

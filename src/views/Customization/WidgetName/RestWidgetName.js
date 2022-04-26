@@ -179,16 +179,13 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
 
                                     })
 
-                                    console.log("lommmmm2222222222")
 
                                     dispatcher({
                                         type:CHANGE_NAME,
                                         payload: {WidgetName:values.WidgetName}
 
                                     })
-                                    console.log("l2")
-                                    console.log(response.data)
-                                    console.log(response.data.widget)
+
 
 
                                     dispatcher({

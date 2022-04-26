@@ -89,7 +89,6 @@ console.log(error)
    
     let lc =   widget.widget.map((data)  => {
 let element
-        console.log(data)
         if (data.type==='Bar'){
            element=<ThemeConfig><BarChart isLoading={isLoading} data={data}/></ThemeConfig>
         } else if(data.type==='Donuts') {

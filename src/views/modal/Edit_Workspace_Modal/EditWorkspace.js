@@ -41,11 +41,8 @@ const EditWorkspace = (props, { ...others }) => {
 
 
     let array=loc.split("/")
-    console.log(array)
-    console.log(array.length)
 
     const ar2 = array.slice(3, (array.length));
-    console.log(ar2)
 
     let link2=ar2.join('/')
 
@@ -107,12 +104,10 @@ let {id}=useParams()
                         setChanged(true)
                     else {
                         if (id) {
-                            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
 
                             link = 'api/users/getinsideworkspace'
                             id1=id
-                            console.log('mrigggggggggggggggggggggggggggg')
-                            console.log(ar2)
+
                             let clicked
                             if(workspaces.clicked){
                                 clicked=true
@@ -127,7 +122,6 @@ let {id}=useParams()
                             })
 
                         } else {
-                            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
                             link = 'api/users/getworkspace'
                             datasend= {superior_id:account.user._id, token:account.token}
 
@@ -153,8 +147,7 @@ let {id}=useParams()
                                     }   axios
                                         .post( configData.API_SERVER + link,datasend)
                                         .then(response =>{
-                                            console.log("llllllllllllllllllllllllll")
-                                            console.log(response.data.listeName)
+
                                             dispatcher({
                                                     type:INISIALIZE,
                                                     payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
@@ -174,7 +167,6 @@ let {id}=useParams()
                                         type: "Click",
                                         payload: {text: "Workspace Edited successfully", severity: "success"}
                                     })
-                                    console.log()
                                 }
                             })
 

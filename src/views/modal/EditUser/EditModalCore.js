@@ -227,9 +227,6 @@ const EditModalCore=  ({objet}) => {
 
                                         try {
 
-console.log("imsssssssssssssssssssssssssssssssssssssssssssss1")
-                                            console.log(account)
-
 
                                             axios.post( configData.API_SERVER + 'api/users/editUser', {
                                               token:account.token,
@@ -238,11 +235,8 @@ console.log("imsssssssssssssssssssssssssssssssssssssssssssss1")
                                                 _id:account.user._id
                                             })
                                                 .then(function (response) {
-                                                    console.log("imd863dddd5")
 
                                                     if (response.data.success) {
-                                                        console.log("editmodalcore")
-console.log(response.data.user)
                                                         dispatcher({
                                                             type:USER_UPDATE,
                                                             payload: {user:response.data.user}
@@ -256,11 +250,9 @@ console.log(response.data.user)
                                                             payload: {text:'user modified with success',severity:"success"}
                                                         });
                                                     } else {
-                                                        console.log("im3")
 
                                                         if(response.data.administratorProblem)
                                                         {
-                                                            console.log("im4")
 
                                                             setStatus({ success: false });
                                                             setSubmitting(false);
@@ -268,7 +260,6 @@ console.log(response.data.user)
                                                             dispatcher({
                                                                 type:ClOSE_EDIT_MODAL,
                                                             });
-                                                            console.log("im5")
 
                                                             history.push(configData.defaultPath)
 
@@ -281,8 +272,6 @@ console.log(response.data.user)
                                                     }
                                                 })
                                                 .catch(function (error) {
-                                                    console.log("im16")
-console.log(error)
                                                     setIsloading(false)
                                                     dispatcher({
                                                         type:ClOSE_EDIT_MODAL,
@@ -295,7 +284,6 @@ console.log(error)
                                                     });
                                                 });
                                         } catch (err) {
-                                                console.log("im9")
 
                                                 setStatus({ success: false });
                                                 setSubmitting(false);

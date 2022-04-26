@@ -28,20 +28,14 @@ const ProfileEdit2 = Preparation_du_page(lazy(() => import('../views/Profile/edi
 const MainRoutes = () => {
 // [][dashbord][default]/id/id2/4
     const location = useLocation();
-    console.log(location.pathname)
     let loc=location.pathname
     let array=loc.split("/")
-    console.log(array)
-    console.log(array.length)
-    console.log(array.slice(3, (array.length)));
+
 
     const ar2 = array.slice(3, (array.length)-1);
-    console.log(ar2)
 
     let link=ar2.join('/')
 
-    console.log(link)
-    console.log(ar2[0])
     const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 
     let linkName=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`

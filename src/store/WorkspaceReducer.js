@@ -50,7 +50,6 @@ const WorkspaceReducer = (state = initialState, action) => {
             };
 
         case INISIALIZE:
-            console.log("gggggggggggggggggg")
 
             state.Workspace=action.payload.work
 
@@ -63,8 +62,7 @@ const WorkspaceReducer = (state = initialState, action) => {
                 }
                 state.Workspace = workspace
                 state.username = username
-                console.log(state.Workspace)
-                console.log(username)
+
             }else
             state. listeName=action.payload.listeName
             return {

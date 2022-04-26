@@ -241,11 +241,9 @@ const Modal_confirm=  (props) => {
 
 
     let array=loc.split("/")
-    console.log(array)
-    console.log(array.length)
+
 
     const ar2 = array.slice(3, (array.length));
-    console.log(ar2)
 
     let link2=ar2.join('/')
 
@@ -254,12 +252,10 @@ const Modal_confirm=  (props) => {
     let datasend
     const Click=()=>{
         if (id) {
-            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii225 ")
 
             link = 'api/users/getinsideworkspace'
             id1=id
-            console.log('mrigggggggggggggggggggggggggggg')
-            console.log(ar2)
+
             let clicked
             if(workspaces.clicked){
                 clicked=true
@@ -274,18 +270,13 @@ const Modal_confirm=  (props) => {
             })
 
         } else {
-            console.log("rrrrrrrrrrrrrrrrrraaaaaaaaaaaaaaaaaaaaaaaaaaaniiiiiiii ")
             link = 'api/users/getworkspace'
             datasend= {superior_id:account.user._id, token:account.token}
 
         }
-          console.log("1    "   +  props.user._id)
-          console.log("2   "   +  props.card._id)
 
         setIsloading(true)
 
-console.log('3     ')
-        console.log(account.user.username)
         axios
             .post( configData.API_SERVER + 'api/users/shareWorkspace',{
                 token:account.token,
@@ -319,8 +310,7 @@ console.log('3     ')
                 axios
                     .post( configData.API_SERVER + link,datasend)
                     .then(response =>{
-                        console.log("llllllllllllllllllllllllll")
-                        console.log(response.data.listeName)
+
                         dispatcher({
                                 type:INISIALIZE,
                                 payload: {work:response.data.workspaceitems,listeName:response.data.listeName}

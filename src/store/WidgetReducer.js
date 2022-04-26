@@ -1,7 +1,7 @@
 
 import {
-     ADD_WIDGET,
-    DELETE_WIDGET,  INISIALIZE_STORE,
+    ADD_WIDGET,
+    DELETE_WIDGET, INISIALIZE_STORE, WIDGET_UPDATE,
 
 } from './actions';
 
@@ -33,7 +33,6 @@ const WidgetStore= (state = initialState, action) => {
 
         case ADD_WIDGET:
 
-console.log(action.payload.widget)
 
             state.widget=state.widget.concat(action.payload.widget)
             return {
@@ -43,6 +42,26 @@ console.log(action.payload.widget)
             };
 
 
+        case WIDGET_UPDATE:
+            const WidgeteEdited=action.payload.widget
+
+
+            let index1 = 0;
+
+             state.widget.find(function(item, i){
+
+                if(item.WidgetName === WidgeteEdited.oldName){
+                    index1 = i;
+                    return i;
+
+                }
+            });
+WidgeteEdited.oldName=undefined
+            state.widget[index1]=WidgeteEdited
+
+            return {
+                ...state
+            }
         case DELETE_WIDGET:
             const deleteWidget=action.payload.widget
 

@@ -19,13 +19,11 @@ import configData from "../config";
      axios
         .post(configData.API_SERVER + 'users/validation', {token})
         .then(function (response) {
-            console.log("mrigla1")
             return children;
 
 
         })
         .catch(function (error) {
-            console.log("tehche")
 
             return <Redirect to="/login"/>;
 
@@ -39,9 +37,7 @@ const ValidationGuard =  ({children}) => {
     let {token} = useParams()
     let res = children
 
-    console.log('sahbiii')
 
-    console.log('sahbi')
     let c = traitement({children}, token);
 
 

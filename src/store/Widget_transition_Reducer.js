@@ -83,7 +83,6 @@ const Widget_transition_Reducer = (state = initialState, action) => {
             };
 
             case CHANGE_NAME:
-                console.log('hroo')
             let {WidgetName}=action.payload
 
             return {

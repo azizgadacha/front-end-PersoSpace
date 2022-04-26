@@ -112,9 +112,7 @@ const User=  (props) => {
                         <ThemeConfig>
 
                                 <EditModal type={props.type} name={open1.objet.username} />
-                                    {console.log("dddddd")}
 
-                                    {console.log(open1.objet)}
 
                                     <EditModalCore objet={open1.objet} type={props.type}  />
                         </ThemeConfig>

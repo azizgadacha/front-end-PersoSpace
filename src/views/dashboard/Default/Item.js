@@ -131,22 +131,15 @@ const Item = ({ item }) => {
     let history =useHistory()
 
     let handleClickItem=(item)=>{
-        console.log('jjjjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
-console.log(item)
         let loc2=location.pathname
-        console.log(loc2)
 
         let array2=loc2.split("/")
-        console.log(array2)
 
         let ar3 = array2.slice(3, (array2.length));
-        console.log(ar3)
 
         let indexOfElement=ar3.indexOf(item[1])
-        console.log(indexOfElement)
 
         let finalLink = ar3.slice(0, indexOfElement+1);
-        console.log(finalLink)
 
         history.push(config.defaultPath+"/"+finalLink.join('/'))
 

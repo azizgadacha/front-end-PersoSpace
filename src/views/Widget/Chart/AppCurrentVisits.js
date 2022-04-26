@@ -148,12 +148,10 @@ export default function AppCurrentVisits(data) {
   let CHART_DATA
 
   if(data.data.dataWidget) {
-    console.log("mchinaaa")
     CHART_DATA =  data.data.dataWidget;
   }
     else {
     CHART_DATA =  data.data.data;
-    console.log("mchinaaa20")
 
   }
   const chartOptions = merge(BaseOptionChart(), {
