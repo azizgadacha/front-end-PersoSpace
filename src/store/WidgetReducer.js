@@ -51,7 +51,7 @@ console.log(action.payload.widget)
 
             var filteredObj = state.widget.find(function(item, i){
 
-                if(item._id === deleteWidget._id){
+                if(item.WidgetName === deleteWidget.WidgetName){
 
 
 

@@ -76,12 +76,19 @@ let link
 console.log("rrr")
 console.log(obj.WidgetName)
 console.log(obj.superior_id)
-                if(obj.WidgetName){
+                console.log("rrr")
+                console.log("rrsssssssssssssssssssr")
+
+                console.log(obj)
+
+                if(obj.sourceDB){
+                    link = 'api/users/deleteLinkWidget'
+                    dataSend=  {token:account.token,superiorID:id,type:obj.type,WidgetName:obj.WidgetName, idData:obj.idData}}
+
+
+                else {
                     link='api/users/deleteWidget'
                     dataSend=  {token:account.token,WidgetName:obj.WidgetName, superior_id:obj.superior_id}}
-                else {
-            link = 'api/users/deleteLinkWidget'
-            dataSend=  {token:account.token,superiorID:id,type:obj.type,WidgetName:obj.WidgetName, idData:obj.idData}}
 
     }
         setIsloading(true)

@@ -74,7 +74,6 @@ const User=  (props) => {
 
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const dispatcher = useDispatch();
-    let account = useSelector((state) => state.account);
     useEffect(() => {
         return () => {
             dispatcher({
@@ -111,7 +110,7 @@ const User=  (props) => {
                         <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
                         <ThemeConfig>
 
-                                <EditModal type={props.type} name={open1.objet.username} />
+                                <EditModal type={props.type} name={open1.objet.WidgetName?open1.objet.WidgetName:open1.objet.title} />
                                     {console.log("dddddd")}
 
                                     {console.log(open1.objet)}

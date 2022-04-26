@@ -23,6 +23,7 @@ import BarChart from "./Chart/BarChart";
 import ModalDelete from "../modal/ModalDeleteWidgetUser";
 import TotalGrowthBarChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
 import Import_Data_From_DB from "../modal/Import_Data_From_DB";
+import EditWidget from "../modal/EditWidget";
 
 
 
@@ -127,6 +128,7 @@ let element
             <Customization />
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {open.ModalState && ( <Import_Data_From_DB/>)}
+    {open.ModalEditState&&(<EditWidget  type={"Widget"} />)}
 
 </React.Fragment>
 

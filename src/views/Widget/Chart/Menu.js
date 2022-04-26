@@ -19,7 +19,7 @@ import {makeStyles} from "@material-ui/styles";
 import ThemeConfig from "../../../themes/theme2";
 import {useTheme} from "@mui/material/styles";
 import {useDispatch} from "react-redux";
-import {OPEN_DELETE_MODAL} from "../../../store/actions";
+import {OPEN_DELETE_MODAL, OPEN_EDIT_MODAL} from "../../../store/actions";
 
 
 
@@ -137,6 +137,16 @@ export default function MenuList({data}) {
 
     const dispatcher = useDispatch();
 
+    const handleClickEditModal = () => {
+
+        dispatcher({
+            type:OPEN_EDIT_MODAL,
+            payload: {objet:data}
+        })
+
+
+    }
+
     const handleClickDelete = () => {
         handleCloseMenu()
 
@@ -196,7 +206,7 @@ export default function MenuList({data}) {
                                     <MenuItem onClick={handleClickDelete}>
                                         <DeleteIcon fontSize="inherit"  className={classes.menuItem} /> Delete Widget
                                     </MenuItem>
-                                    <MenuItem >
+                                    <MenuItem  onClick={handleClickEditModal}>
                                         <EditIcon fontSize="inherit"  className={classes.menuItem} /> Edit widget
                                     </MenuItem>
 
