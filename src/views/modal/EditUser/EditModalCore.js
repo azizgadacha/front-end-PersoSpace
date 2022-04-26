@@ -229,7 +229,6 @@ const EditModalCore=  ({objet}) => {
 
 console.log("imsssssssssssssssssssssssssssssssssssssssssssss1")
                                             console.log(account)
-                                            console.log(account)
 
 
                                             axios.post( configData.API_SERVER + 'api/users/editUser', {
@@ -242,14 +241,13 @@ console.log("imsssssssssssssssssssssssssssssssssssssssssssss1")
                                                     console.log("imd863dddd5")
 
                                                     if (response.data.success) {
-                                                        console.log("imddddd5")
+                                                        console.log("editmodalcore")
 console.log(response.data.user)
                                                         dispatcher({
                                                             type:USER_UPDATE,
                                                             payload: {user:response.data.user}
                                                         });
 
-                                                        console.log("im2")
                                                         dispatcher({
                                                             type:ClOSE_EDIT_MODAL,
                                                         });
