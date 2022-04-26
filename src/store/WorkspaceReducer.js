@@ -7,7 +7,7 @@ import {
     DELETE, DELETEINSIDEWORKSPACE,
     IDWORKSPACE,
     INISIALIZE,
-    INISIALIZEINSIDEWORKSPACE
+    INISIALIZEINSIDEWORKSPACE, UPDATE_WORKSPACE
 } from './actions';
 
 
@@ -83,7 +83,28 @@ const WorkspaceReducer = (state = initialState, action) => {
                 ...state,
 
             };
+        case UPDATE_WORKSPACE:
+            const Work=action.payload.work
+            console.log("test Edit")
+            console.log(Work)
+           let index2 = 0;
+            var filteredObj = state.Workspace.find(function(item, i){
+                if(item._id === Work._id){
+                    index2 = i;
+                    return i;
+                    //console.log(i)
 
+                }
+            });
+
+
+            state.Workspace[index2]=Work
+
+
+
+            return {
+                ...state
+            }
 
         case DELETE:
 
