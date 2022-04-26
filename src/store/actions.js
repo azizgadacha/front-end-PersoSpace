@@ -37,6 +37,8 @@ export const CHANGE_SUCCESS='CHANGE_SUCCESS';
 
 export const IMPORT_DATA='IMPORT_DATA';
 
+export const UPDATE_WORKSPACE='UPDATE_WORKSPACE';
+
 export const RETURN_BACK='RETURN_BACK';
 
 export const CHANGE_TYPE='CHANGE_TYPE';
