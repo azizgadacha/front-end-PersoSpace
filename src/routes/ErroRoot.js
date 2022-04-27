@@ -13,12 +13,12 @@ import Preparation_du_page from "../animation/Preparation_du_page";
 
 // login routing
 
-
 const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
+
 
 //-----------------------|| ROUTING RENDER ||-----------------------//
 
-const ErrorRoutes = () => {
+const Routes = () => {
 
     const location = useLocation();
 
@@ -27,16 +27,17 @@ const ErrorRoutes = () => {
 
 
         <React.Fragment>
-            <Route path={['/page404']}>
+            <Route path={['*']}>
 
                 <Switch location={location} key={location.pathname}>
-                    <Animation_entre_page>
 
 
-                            <Route path='/page404' component={page404} />
 
 
-                    </Animation_entre_page>
+                            <Route path="*" component={page404} />
+
+
+
                 </Switch>
             </Route>
 
@@ -44,4 +45,4 @@ const ErrorRoutes = () => {
     );
 };
 
-export default ErrorRoutes;
+export default Routes;

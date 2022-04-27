@@ -223,7 +223,7 @@ const EditModalCore=  ({objet}) => {
                                         WidgetName: Yup.string().min(4,"widget name should contain 4 digit minimum").required("Widget Name is required"),
                                     })}
                                     onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
-
+console.log('rani lena')
 
 
                                         setIsloading(true)
@@ -232,40 +232,54 @@ const EditModalCore=  ({objet}) => {
                                             setErrors({ submit: "you didn't change any thing" });
                                             setSubmitting(false)
                                             setIsloading(false)
+                                            console.log('rani lena1.0')
+
                                         }
                                         else{
+                                            console.log('rani lena2.0')
 
                                         try {
                                          let link
                                             let dataSend
                                             if(objet.sourceDB){
+                                                console.log('rani lena3.0')
+
                                                 link = 'api/users/editWidgetlink'
                                                 dataSend= {token:account.token, WidgetName:objet.WidgetName, newName:values.WidgetName, idData:objet.idData, type:objet.type, superiorID:id}
                                            } else {
+                                                console.log('rani lena4.0')
+
                                                 link='api/users/editWidget'
                                                 dataSend=  {token:account.token,idWidget:objet._id, newName:values.WidgetName}}
+                                            console.log('rani lena5.0')
 
 
                                             axios.post( configData.API_SERVER + link, dataSend)
                                                 .then(function (response) {
+                                                    console.log('rani lena6.0')
 
                                                     if (response.data.success) {
+                                                        console.log('rani lena7.0')
 
 
                                                         dispatcher({
                                                             type:WIDGET_UPDATE,
                                                             payload: {widget:response.data.widget}
                                                         });
+                                                        console.log('rani lena7.0')
 
                                                         dispatcher({
                                                             type:ClOSE_EDIT_MODAL,
                                                         });
+                                                        console.log('rani lena8.0')
+
                                                         dispatcher({
                                                             type:CLICK,
                                                             payload: {text:'Widget modified with success',severity:"success"}
                                                         });
                                                     } else {
-
+                                                        console.log('rani lena8')
+                                                        console.log('rani len9')
 
                                                             setStatus({ success: false });
                                                             setSubmitting(false);
@@ -285,6 +299,7 @@ const EditModalCore=  ({objet}) => {
                                                     }
                                                 )
                                                 .catch(function (error) {
+                                                    console.log(error)
                                                     setIsloading(false)
                                                     dispatcher({
                                                         type:ClOSE_EDIT_MODAL,
@@ -297,6 +312,7 @@ const EditModalCore=  ({objet}) => {
                                                     });
                                                 });
                                         } catch (err) {
+                                            console.log(err)
 
 
                                                 setStatus({ success: false });
