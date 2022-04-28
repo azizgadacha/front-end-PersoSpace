@@ -138,6 +138,7 @@ export default function MenuList({data}) {
     const dispatcher = useDispatch();
 
     const handleClickEditModal = () => {
+        setAnchorEl(null);
 
         dispatcher({
             type:OPEN_EDIT_MODAL,

@@ -58,7 +58,7 @@ let link
 
     let {id}=useParams()
 
-    const Delete = () => {
+    let Delete = () => {
 
         if(type=="User")
 
