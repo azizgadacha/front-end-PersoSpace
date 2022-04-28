@@ -32,6 +32,7 @@ import ListItemButton from "@material-ui/core/ListItemButton";
 import config from "../../../config";
 import Item from "./Item";
 import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
+import {io} from "socket.io-client";
 
 
 
@@ -40,9 +41,11 @@ import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
 const Dashboard = (props, { ...others }) => {
 
     const { url, path } = useRouteMatch();
-
+let socket,selectedChatCompare
     const dispatcher = useDispatch();
-
+useEffect(()=>{
+    socket=io(configData.API_SERVER)
+},[])
     useEffect(() => {
         return () => {
             dispatcher({
