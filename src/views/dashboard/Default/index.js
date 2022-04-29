@@ -41,11 +41,13 @@ import {io} from "socket.io-client";
 const Dashboard = (props, { ...others }) => {
 
     const { url, path } = useRouteMatch();
-let socket,selectedChatCompare
+//let socket,selectedChatCompare
     const dispatcher = useDispatch();
-useEffect(()=>{
+/*useEffect(()=>{
     socket=io(configData.API_SERVER)
 },[])
+*/
+
     useEffect(() => {
         return () => {
             dispatcher({
@@ -210,7 +212,7 @@ if((location.pathname).includes('/dashboard/default')){
 
 
 
-            <Grid item lg={4} md={6} sm={6} xs={12}>
+            <Grid item lg={4} md={6} sm={12} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}/>
 
             </Grid>
@@ -324,7 +326,7 @@ if((location.pathname).includes('/dashboard/default')){
 
 
                             load.map((i) => (
-                                <Grid item lg={4} md={6} sm={6} xs={12}>
+                                <Grid item lg={4} md={6} sm={12} xs={12}>
 
                                     <SkeletonEarningCard />
                                 </Grid>
@@ -353,13 +355,13 @@ if((location.pathname).includes('/dashboard/default')){
 
 
                             {Url ?(
-                                <Grid item lg={4} md={6} sm={6} xs={12}>
+                                <Grid item lg={4} md={6} sm={12} xs={12}>
 
                                     <PlusCard/>
 
                                 </Grid>
                             ):(
-                                <Grid item lg={4} md={6} sm={6} xs={12}>
+                                <Grid item lg={4} md={6} sm={12} xs={12}>
 
 
                                 </Grid>

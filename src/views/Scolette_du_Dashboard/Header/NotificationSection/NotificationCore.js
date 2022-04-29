@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -25,21 +25,10 @@ import User1 from './../../../../assets/images/users/user-round.svg';
 import NotificationSkelton from "../../../../composant_de_style/cards/Skeleton/NotificationSkelton/NotificationSkelton";
 import SkeletonEarningCard from "../../../../composant_de_style/cards/Skeleton/EarningCard";
 import {useSelector} from "react-redux";
-import NotificationCore from "./NotificationCore";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
-    navContainer: {
-        minWidth:"330px",
-        width: '100%',
-        maxWidth: '330px',
-        paddingTop: 0,
-        paddingBottom: 0,
-        borderRadius: '10px',
-        [theme.breakpoints.down('sm')]: {
-            maxWidth: '300px'
-        }
-    },
+
     listAction: {
         top: '22px'
     },
@@ -50,14 +39,8 @@ const useStyles = makeStyles((theme) => ({
     listItem: {
         padding: 0
     },
-    sendIcon: {
-        marginLeft: '8px',
-        marginTop: '-3px'
-    },
-    listDivider: {
-        marginTop: 0,
-        marginBottom: 0
-    },
+
+
     listChipError: {
         color: theme.palette.orange.dark,
         backgroundColor: theme.palette.orange.light,
@@ -71,30 +54,11 @@ const useStyles = makeStyles((theme) => ({
         height: '24px',
         padding: '0 6px'
     },
-    listChipSuccess: {
-        color: theme.palette.success.dark,
-        backgroundColor: theme.palette.success.light,
-        height: '24px',
-        padding: '0 6px'
-    },
-    listAvatarSuccess: {
-        color: theme.palette.success.dark,
-        backgroundColor: theme.palette.success.light,
-        border: 'none',
-        borderColor: theme.palette.success.main
-    },
-    listAvatarPrimary: {
-        color: theme.palette.primary.dark,
-        backgroundColor: theme.palette.primary.light,
-        border: 'none',
-        borderColor: theme.palette.primary.main
-    },
+
     listContainer: {
         paddingLeft: '56px'
     },
-    uploadCard: {
-        backgroundColor: theme.palette.secondary.light
-    },
+
     paddingBottom: {
         paddingBottom: '16px'
     },
@@ -108,41 +72,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
-const load=[1,2,3]
 
-const NotificationList = ({Loading}) => {
+const NotificationCore = (Loading) => {
     const classes = useStyles();
-    const notification = useSelector((state) => state.notification);
 
     return (
-        <List className={classes.navContainer}>
-            {Loading? ( load.map((i) => (
 
-                    <NotificationSkelton/>
-                ))):(notification.notificationListe).length==0?  <div className={classes.itemAction}>
-
-                <Grid item align="center">
-
-                    <ListItemText primary={<Typography variant="subtitle1">No Notifications found</Typography>} />
-                </Grid >
-
-
-            </div>:<NotificationCore/>   }
-
-
-
-
-
-
-
-
-
-            {/*
-                <NotificationSkelton/>
-            {load.map((i) => (
-
-                <NotificationSkelton/>
-            ))}
+        <Fragment>
 
             <Divider />
 
@@ -180,9 +116,8 @@ const NotificationList = ({Loading}) => {
                     </Grid>
                 </Grid>
             </div>
-*/}
-        </List>
+        </Fragment>
     );
 };
 
-export default NotificationList;
+export default NotificationCore;

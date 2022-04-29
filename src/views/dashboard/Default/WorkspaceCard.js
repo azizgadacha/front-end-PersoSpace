@@ -254,6 +254,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
+                                        <Button>
                                         <Avatar
                                             variant="rounded"
                                             className={classes.avatarRight}
@@ -265,7 +266,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                             <MoreHorizIcon fontSize="inherit"/>
 
                                         </Avatar>
-
+                                        </Button>
                                         <Menu
                                             id="menu-earning-card"
                                             anchorEl={anchorEl}

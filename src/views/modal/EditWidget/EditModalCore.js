@@ -177,7 +177,7 @@ const EditModalCore=  ({objet}) => {
 
     ];
 
-const [socket,setSocket]=useState(null)
+//const [socket,setSocket]=useState(null)
     const classes = useStyles();
     const scriptedRef = useScriptRef();
     const dispatcher = useDispatch();

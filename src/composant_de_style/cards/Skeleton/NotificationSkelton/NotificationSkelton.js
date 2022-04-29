@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -20,17 +20,12 @@ import {
 } from '@material-ui/core';
 
 // assets
-import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons';
-import User1 from './../../../../assets/images/users/user-round.svg';
-import NotificationSkelton from "../../../../composant_de_style/cards/Skeleton/NotificationSkelton/NotificationSkelton";
-import SkeletonEarningCard from "../../../../composant_de_style/cards/Skeleton/EarningCard";
-import {useSelector} from "react-redux";
-import NotificationCore from "./NotificationCore";
+import {Skeleton} from "@mui/material";
+import FormRange from "react-bootstrap/FormRange";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
     navContainer: {
-        minWidth:"330px",
         width: '100%',
         maxWidth: '330px',
         paddingTop: 0,
@@ -41,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     listAction: {
-        top: '22px'
+        top: '12px'
     },
     actionColor: {
         color: theme.palette.grey[500]
@@ -101,64 +96,29 @@ const useStyles = makeStyles((theme) => ({
     itemAction: {
         cursor: 'pointer',
         padding: '16px',
-        '&:hover': {
-            background: theme.palette.primary.light
-        }
+       
     }
 }));
 
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
-const load=[1,2,3]
 
-const NotificationList = ({Loading}) => {
+const NotificationSkelton = () => {
     const classes = useStyles();
-    const notification = useSelector((state) => state.notification);
 
-    return (
-        <List className={classes.navContainer}>
-            {Loading? ( load.map((i) => (
-
-                    <NotificationSkelton/>
-                ))):(notification.notificationListe).length==0?  <div className={classes.itemAction}>
-
-                <Grid item align="center">
-
-                    <ListItemText primary={<Typography variant="subtitle1">No Notifications found</Typography>} />
-                </Grid >
-
-
-            </div>:<NotificationCore/>   }
-
-
-
-
-
-
-
-
-
-            {/*
-                <NotificationSkelton/>
-            {load.map((i) => (
-
-                <NotificationSkelton/>
-            ))}
-
+    return (<Fragment>
             <Divider />
 
-
-
-            <div className={classes.itemAction}>
+                     <div className={classes.itemAction}>
                 <ListItem alignItems="center" className={classes.listItem}>
                     <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
+                        <Skeleton variant="circular" width={40} height={40} />
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
+                    <ListItemText primary={<Typography variant="subtitle1"><Skeleton width="40%" /></Typography>} />
                     <ListItemSecondaryAction className={classes.listAction}>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
                                 <Typography variant="caption" display="block" gutterBottom className={classes.actionColor}>
-                                    2 min ago
+                                    <Skeleton width="1000%" />
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -166,23 +126,22 @@ const NotificationList = ({Loading}) => {
                 </ListItem>
                 <Grid container direction="column" className={classes.listContainer}>
                     <Grid item xs={12} className={classes.paddingBottom}>
-                        <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
+                        <Typography variant="subtitle2"><Skeleton width="250px"  /><Skeleton width="40%" /></Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container>
                             <Grid item>
-                                <Chip label="Unread" className={classes.listChipError} />
+                                <Skeleton variant="rectangular" width={60} height={25} className={classes.listChipError} />
                             </Grid>
-                            <Grid item>
-                                <Chip label="New" className={classes.listChipWarning} />
-                            </Grid>
+
                         </Grid>
                     </Grid>
                 </Grid>
             </div>
-*/}
-        </List>
+
+        </Fragment>
+
     );
 };
 
-export default NotificationList;
+export default NotificationSkelton;

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
@@ -32,6 +32,10 @@ import NotificationList from './NotificationList';
 
 // assets
 import { IconBell } from '@tabler/icons';
+import axios from "axios";
+import configData from "../../../../config";
+import {useDispatch, useSelector} from "react-redux";
+import {INISIALIZE_NOTIFICATION} from "../../../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -84,25 +88,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// notification status options
-const status = [
-    {
-        value: 'all',
-        label: 'All Notification'
-    },
-    {
-        value: 'new',
-        label: 'New'
-    },
-    {
-        value: 'unread',
-        label: 'Unread'
-    },
-    {
-        value: 'other',
-        label: 'Other'
-    }
-];
+
 
 //-----------------------|| NOTIFICATION ||-----------------------//
 
@@ -137,6 +123,59 @@ const NotificationSection = () => {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+
+
+
+    const notification = useSelector((state) => state.notification);
+
+    const [Loading, setLoading] = React.useState(true);
+    let history=useHistory()
+    const dispatcher = useDispatch();
+    const account = useSelector((state) => state.account);
+    useEffect(()=>{
+
+
+        const activationmail=async ()=>{
+
+
+                try {
+                    axios
+                        .post(configData.API_SERVER + 'api/users/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
+
+
+
+                        if(result.data.success) {
+                            dispatcher({
+                                type: INISIALIZE_NOTIFICATION,
+                                payload: {notificationListe:result.data.notifFound}
+                            });
+                        }
+
+                        setLoading(false)
+
+                    }).catch(()=>{
+                        setLoading(true)
+
+                    })
+                }
+                catch (err)
+                    {
+                        setLoading(true)
+
+                    }}
+
+
+
+        activationmail()
+
+    },[])
+
+
+
+
+
+
+
 
     return (
         <React.Fragment>
@@ -197,39 +236,25 @@ const NotificationSection = () => {
                                             <Grid item xs={12}>
                                                 <PerfectScrollbar className={classes.ScrollHeight}>
                                                     <Grid container direction="column" spacing={2}>
-                                                        <Grid item xs={12}>
-                                                            <div className={classes.textBoxSpacing}>
-                                                                <TextField
-                                                                    id="outlined-select-currency-native"
-                                                                    select
-                                                                    fullWidth
-                                                                    value={value}
-                                                                    onChange={handleChange}
-                                                                    SelectProps={{
-                                                                        native: true
-                                                                    }}
-                                                                >
-                                                                    {status.map((option) => (
-                                                                        <option key={option.value} value={option.value}>
-                                                                            {option.label}
-                                                                        </option>
-                                                                    ))}
-                                                                </TextField>
-                                                            </div>
-                                                        </Grid>
-                                                        <Grid item xs={12} p={0}>
+
+                                                        {/* <Grid item xs={12} p={0}>
                                                             <Divider className={classes.divider} />
-                                                        </Grid>
+                                                        </Grid>*/}
                                                         <Grid item xs={12}>
-                                                            <NotificationList />
+                                                            <NotificationList Loading={Loading}   />
                                                         </Grid>
                                                     </Grid>
                                                 </PerfectScrollbar>
                                             </Grid>
                                         </Grid>
                                     </CardContent>
-                                    <Divider />
+                                    {/*<Divider />
 
+                                    <CardActions className={classes.cardAction}>
+                                        <Button size="small" disableElevation>
+                                            View All
+                                        </Button>
+                                    </CardActions>*/}
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>
