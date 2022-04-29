@@ -177,7 +177,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
     const shareWorkspaces = () => {
         dispatcher({
             type:INISIALIZE_FILTRED_USER,
-            payload:{card:card}
+            payload:{card:card,userId:null}
         })
 
         dispatcher(  {
@@ -304,7 +304,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                     ):(
                                         <Grid item align="center">
                                             <Typography align="center"
-                                                        className={classes.cardHeading}>{username}</Typography>
+                                                        className={classes.cardHeading}>SharedBy: {username}</Typography>
                                         </Grid>
                                     )}
                             </Grid>

@@ -357,21 +357,6 @@ const EditModalCore=  ({objet}) => {
 
                                                           </FormControl>
                                                                 </Grid>
-                                            <Box
-                                                sx={{
-                                                    mt: 2
-                                                }}
-                                            >
-                                                {errors.submit && (
-                                                    <Box
-                                                        sx={{
-                                                            mt:1
-                                                        }}
-                                                    >
-                                                        <Alert severity="error">{errors.submit}</Alert>
-
-                                                    </Box>
-                                                )}
 
 
                                                 <Grid container alignItems={"center"}>
@@ -417,7 +402,7 @@ const EditModalCore=  ({objet}) => {
 
                                                 </Grid>
 
-                                            </Box>
+
 
                                         </form>
                                     )}

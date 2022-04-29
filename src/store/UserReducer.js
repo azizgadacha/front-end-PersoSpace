@@ -20,8 +20,13 @@ const UserReducer = (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE_FILTRED_USER:
             let share=action.payload.card.Share
+            console.log(share)
+            let userId=action.payload.userId
+            console.log("im the userId")
             state.filtred=[]
             var alam=[]
+            if(userId!=null)
+                share.push(userId)
             for(let i of share){
                 alam.push(i[0])
             }
@@ -34,8 +39,9 @@ const UserReducer = (state = initialState, action) => {
                 }
             }
                 else {
+                    console.log("alam")
                     for (let item of state.users) {
-                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur'))) {
+                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur'))&&((!share.includes(item._id)))) {
                             state.filtred.push(item)
                         }
                     }

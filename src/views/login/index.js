@@ -60,7 +60,7 @@ const Login = () => {
 
     return (
 <React.Fragment>
-
+    {console.log("alam")}
         <AuthWrapper1>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
 

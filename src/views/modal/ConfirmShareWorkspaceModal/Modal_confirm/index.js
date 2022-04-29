@@ -251,30 +251,6 @@ const Modal_confirm=  (props) => {
     let id1
     let datasend
     const Click=()=>{
-        if (id) {
-
-            link = 'api/users/getinsideworkspace'
-            id1=id
-
-            let clicked
-            if(workspaces.clicked){
-                clicked=true
-
-            }
-            else
-                clicked=false
-
-            datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token,listeNameReceive:workspaces.listeName}
-            dispatcher({
-                type:CLICKED_INISIALIZE
-            })
-
-        } else {
-            link = 'api/users/getworkspace'
-            datasend= {superior_id:account.user._id, token:account.token}
-
-        }
-
         setIsloading(true)
 
         axios
@@ -285,12 +261,6 @@ const Modal_confirm=  (props) => {
                 user_username:account.user._id
             })
             .then(response =>{
-
-                {/*dispatcher({
-                    type:USER_DELETE,
-                    payload: {user:response.data.user}
-                })
-                */}
                 dispatcher({
                     type:CLOSE_Confirm_Share_Workspace_MODAL,
 
@@ -301,28 +271,10 @@ const Modal_confirm=  (props) => {
 
                 })
 
-
-
-
-
-
-
-                axios
-                    .post( configData.API_SERVER + link,datasend)
-                    .then(response =>{
-
-                        dispatcher({
-                                type:INISIALIZE,
-                                payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
-                            }
-                        )
-
-
-
-                    })
-                    .catch(function (error) {
-                    })
-
+                dispatcher({
+                    type:INISIALIZE_FILTRED_USER,
+                    payload:{card:props.card,userId:props.user._id}
+                })
                 dispatcher({
                     type:CLICK,
                     payload: {text:"Workspace has been shared successfully",severity:"success"}

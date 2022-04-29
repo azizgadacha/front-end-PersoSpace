@@ -30,9 +30,11 @@ const Routes = () => {
                 {/* Routes for main layouts */}
 
 
+
                 <MainRoutes />
                 <LoginRoutes />
                 {/*  <ErrorRoutes/>*/}
+
 
             </React.Fragment>
 
