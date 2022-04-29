@@ -28,12 +28,12 @@ const Routes = () => {
 
                 {/* Route for login */}
                 {/* Routes for main layouts */}
-               <Switch>
+
                 <MainRoutes />
                 <LoginRoutes />
-                   <ErrorRoutes/>
 
-               </Switch>
+
+
             </React.Fragment>
 
         </Switch>
