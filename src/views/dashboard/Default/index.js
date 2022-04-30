@@ -103,7 +103,7 @@ const Dashboard = (props, { ...others }) => {
         const ar2 = array.slice(3, (array.length));
 
         let link2=ar2.join('/')
-if(((location.pathname).includes('/dashboard/default'))||(loc=='/dashboard/VisualizationOfWorkspaces')){
+if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).includes('/dashboard/VisualizationOfWorkspaces')))){
         if (id) {
             link = 'api/users/getinsideworkspace'
             id1 = id
