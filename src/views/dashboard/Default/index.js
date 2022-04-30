@@ -143,6 +143,10 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
             axios
                 .post( configData.API_SERVER + link,datasend)
                 .then(response =>{
+                    let sendIt
+
+
+
 
                     dispatcher({
                             type:INISIALIZE,
@@ -216,6 +220,10 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
 
 
         )})
+
+
+
+
     let lc =   workspaces.Workspace.map((card)  => {
 
         return(

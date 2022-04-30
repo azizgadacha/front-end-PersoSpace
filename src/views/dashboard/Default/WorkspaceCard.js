@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -247,7 +247,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                             <Grid item>
                                 {!(location.pathname.includes('Shared')) ?
                                     (
-
+<Fragment>
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Avatar variant="rounded" className={classes.avatar}
@@ -303,13 +303,17 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
 
                                     </Grid>
-                                </Grid>
-                                    ):(
-                                        <Grid item align="center">
-                                            <Typography align="center"
-                                                        className={classes.cardHeading}>SharedBy: {username}</Typography>
-                                        </Grid>
-                                    )}
+                                </Grid>                                         </Fragment>
+                                    ):null}
+
+                                {((location.pathname=='/dashboard/VisualizationOfWorkspace')||((location.pathname.includes('Shared'))))&&(
+                                    <Grid item align="center">
+                                        <Typography align="center"
+                                                    className={classes.cardHeading}>{(location.pathname.includes('Shared'))?"SharedBy ":null}{username}</Typography>
+                                    </Grid>
+                                )}
+
+
                             </Grid>
                             <Grid item>
                                 <Grid alignItems="center">
