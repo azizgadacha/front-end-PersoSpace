@@ -16,15 +16,15 @@ export function themePalette(theme) {
             800: theme.colors.primary800
         },
         secondary: {
-            light: theme.colors.secondaryLight,
+            light: theme.colors.secondaryDark,
             main: theme.colors.secondaryMain,
             dark: theme.colors.secondaryDark,
             200: theme.colors.secondary200,
             800: theme.colors.secondary800
         },
         error: {
-            light: theme.colors.errorLight,
-            main: theme.colors.errorMain,
+            light: theme.colors.errorDark,
+            main:theme.colors.errorDark,
             dark: theme.colors.errorDark
         },
         orange: {
@@ -38,7 +38,7 @@ export function themePalette(theme) {
             dark: theme.colors.warningDark
         },
         success: {
-            light: theme.colors.successLight,
+            light:  theme.colors.successDark,
             200: theme.colors.success200,
             main: theme.colors.successMain,
             dark: theme.colors.successDark

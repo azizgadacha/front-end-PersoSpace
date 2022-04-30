@@ -110,12 +110,15 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
 const load=[1,2,3]
 
-const NotificationList = ({Loading}) => {
+const NotificationList = ({Loading,open}) => {
     const classes = useStyles();
     const notification = useSelector((state) => state.notification);
-
     return (
         <List className={classes.navContainer}>
+
+
+            {console.log("lmnooo")} 
+            {console.log(notification.notificationListe)}
             {Loading? ( load.map((i) => (
 
                     <NotificationSkelton/>
@@ -127,7 +130,13 @@ const NotificationList = ({Loading}) => {
                 </Grid >
 
 
-            </div>:<NotificationCore/>   }
+            </div>:((notification.notificationListe).map((notification) => (
+
+                    <NotificationCore notification={notification}/>
+                )))
+
+
+                 }
 
 
 

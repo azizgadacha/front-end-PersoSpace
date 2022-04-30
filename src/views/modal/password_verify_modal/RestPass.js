@@ -39,7 +39,7 @@ import {
 
     CLICK,
 
-    CLOSE_MODAL,
+    CLOSE_MODAL, LOGOUT,
 
     UPDATE,
 
@@ -161,7 +161,16 @@ const RestPass = (props, { ...others }) => {
                             token:account.token
                         })
                             .then(function (response) {
-
+                                if(response.data.notConnected){
+                                    dispatcher({ type: LOGOUT });
+                                    history.push("/login");
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:"You are no longer connected",severity:"success"}
+                                    })
+                                }
+                                else
+                                {
                                 if (response.data.success) {
 
 
@@ -204,7 +213,7 @@ const RestPass = (props, { ...others }) => {
                                         });
 
                                     }}
-                            })
+                            }})
                             .catch(function (error) {
 
                                 setStatus({ success: false });

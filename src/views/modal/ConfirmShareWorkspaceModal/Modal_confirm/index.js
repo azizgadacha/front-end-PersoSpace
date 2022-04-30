@@ -23,7 +23,7 @@ import {
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
     CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
-    INISIALIZE_USER, OPEN_MODAL_SHARE, USER_DELETE,
+    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, USER_DELETE,
 } from "../../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -261,6 +261,17 @@ const Modal_confirm=  (props) => {
                 user_username:account.user._id
             })
             .then(response =>{
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"You are no longer connected",severity:"success"}
+                    })
+                }
+                else
+                {
+
                 dispatcher({
                     type:CLOSE_Confirm_Share_Workspace_MODAL,
 
@@ -279,11 +290,24 @@ const Modal_confirm=  (props) => {
                     type:CLICK,
                     payload: {text:"Workspace has been shared successfully",severity:"success"}
                 })
+                try {
+                    axios
+                        .post( configData.API_SERVER + 'api/users/addNotification',{
+                            token:account.token,
+                            receiver:props.user._id,
+                            sender:account.user._id,
+                            type:"shared",
+                            read:false,
+                            name:"has shared Workspace With you"
+                        })
+                }catch (e) {
+
+                }
 
 
 
 
-            })
+            }})
             .catch(function (error) {
 
 

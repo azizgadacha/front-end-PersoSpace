@@ -2,7 +2,7 @@
 import {
     ADD_NOTIFICATION,
     ADD_WIDGET, DELETE_NOTIFICATION,
-    DELETE_WIDGET, INISIALIZE_NOTIFICATION, INISIALIZE_STORE, WIDGET_UPDATE,
+    DELETE_WIDGET, EDIT_NOTIFICATION, INISIALIZE_NOTIFICATION, INISIALIZE_STORE, WIDGET_UPDATE,
 
 } from './actions';
 
@@ -57,6 +57,25 @@ const NotificationReducer= (state = initialState, action) => {
                 }
             });
             state.notificationListe.splice(index,1)
+
+            return {
+                ...state
+            }
+        case EDIT_NOTIFICATION:
+            const editedNotification=action.payload.notification
+
+
+            let indexEdited = 0;
+
+            state.notificationListe.find(function(item, i){
+
+                if(item._id === editedNotification._id){
+                    indexEdited = i;
+                    return i;
+                }
+            });
+            state.notificationListe[indexEdited]=editedNotification
+
 
             return {
                 ...state

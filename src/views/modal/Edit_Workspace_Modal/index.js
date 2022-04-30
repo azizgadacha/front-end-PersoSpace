@@ -19,7 +19,7 @@ import {
     Button,
     TablePagination,
     Modal,
-    TextField, Divider,
+    TextField, Divider, ClickAwayListener,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -30,7 +30,7 @@ import Backdrop from '@mui/material/Backdrop';
 
 
 import {useDispatch, useSelector} from "react-redux";
-import {CLOSE_MODAL,} from "../../../store/actions";
+import {ClOSE_EDIT_MODAL, CLOSE_MODAL,} from "../../../store/actions";
 
 import { useHistory} from "react-router-dom";
 
@@ -240,7 +240,7 @@ const ModalEdit=  (props) => {
 
     const handleClose=()=>{
         dispatcher({
-            type:CLOSE_MODAL,
+            type:ClOSE_EDIT_MODAL,
         });
     }
     const theme = useTheme();
@@ -266,6 +266,7 @@ const ModalEdit=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
 
                     <Fade in={open1.ModalEditState}>
 
@@ -307,6 +308,7 @@ const ModalEdit=  (props) => {
                             </ThemeConfig>
                         </Box>
                     </Fade>
+                        </ClickAwayListener>
 
                 </div>
 

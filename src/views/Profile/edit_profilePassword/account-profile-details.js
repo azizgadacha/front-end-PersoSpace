@@ -21,7 +21,7 @@ import ThemeConfig from "../../../themes/theme2";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
-import {CLICK, CLOSE_MODAL,UPDATE} from "../../../store/actions";
+import {CLICK, CLOSE_MODAL, LOGOUT, UPDATE} from "../../../store/actions";
 
 import AnimateButton from "../../../animation/AnimateButton";
 
@@ -203,6 +203,18 @@ const AccountProfileDetails = (props, { ...others }) => {
                           token:account.token
                       })
                           .then(function (response) {
+                              if(response.data.notConnected){
+                                  dispatcher({ type: LOGOUT });
+                                  history.push("/login");
+                                  dispatcher({
+                                      type:CLICK,
+                                      payload: {text:"You are no longer connected",severity:"success"}
+                                  })
+                              }
+                              else
+                              {
+
+
 
                               if (response.data.success) {
 
@@ -252,7 +264,7 @@ const AccountProfileDetails = (props, { ...others }) => {
                                           payload: {text:"intern probleme please retry later",severity:"error"}
                                       });
 
-                                  }}
+                                  }}}
                           })
                           .catch(function (error) {
 

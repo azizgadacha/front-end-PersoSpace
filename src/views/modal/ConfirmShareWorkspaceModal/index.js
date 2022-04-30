@@ -8,6 +8,9 @@ import { Grid,   useMediaQuery } from '@material-ui/core';
 
 import ConfirmShareWorkspace from "./ConfirmShareWorkspace";
 import Modal_confirm from "./Modal_confirm";
+import {ClickAwayListener} from "@mui/material";
+import {CLOSE_Confirm_Share_Workspace_MODAL} from "../../../store/actions";
+import {useDispatch} from "react-redux";
 
 // assets
 
@@ -36,10 +39,16 @@ const OVERLAY_Styles ={
 const Modal_Delete_User = (props) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
-
-
+    const dispatcher = useDispatch();
+    const handleClose=()=>{
+        dispatcher({
+            type:CLOSE_Confirm_Share_Workspace_MODAL,
+        });
+    }
     return (
         <div style={OVERLAY_Styles}>
+            <ClickAwayListener onClickAway={handleClose}>
+
             {/*<div style={Modal_Styles}>*/}
                 <Modal_confirm name={props.user.username} type={"User"} user={props.user} card={props.card} />
 
@@ -47,6 +56,7 @@ const Modal_Delete_User = (props) => {
                 <ConfirmShareWorkspace handleClose={props.handleClose} user={props.user}  />
          </Grid>
          */}
+                </ClickAwayListener >
 
         </div>
     );

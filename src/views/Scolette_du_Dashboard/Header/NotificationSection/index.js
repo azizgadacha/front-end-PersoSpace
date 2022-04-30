@@ -35,7 +35,7 @@ import { IconBell } from '@tabler/icons';
 import axios from "axios";
 import configData from "../../../../config";
 import {useDispatch, useSelector} from "react-redux";
-import {INISIALIZE_NOTIFICATION} from "../../../../store/actions";
+import {CLICK, INISIALIZE_NOTIFICATION, LOGOUT} from "../../../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -141,18 +141,27 @@ const NotificationSection = () => {
                 try {
                     axios
                         .post(configData.API_SERVER + 'api/users/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
-
-
-
-                        if(result.data.success) {
+                        if(result.data.notConnected){
+                            dispatcher({ type: LOGOUT });
+                            history.push("/login");
                             dispatcher({
-                                type: INISIALIZE_NOTIFICATION,
-                                payload: {notificationListe:result.data.notifFound}
-                            });
+                                type:CLICK,
+                                payload: {text:"You are no longer connected",severity:"success"}
+                            })
                         }
+                        else {
 
-                        setLoading(false)
+                            if (result.data.success) {
+                                dispatcher({
+                                    type: INISIALIZE_NOTIFICATION,
+                                    payload: {notificationListe: result.data.notifFound}
+                                });
+                            }
+                            console.log("dddddddddd")
+                            console.log(notification.notifFound)
 
+                            setLoading(false)
+                        }
                     }).catch(()=>{
                         setLoading(true)
 
@@ -241,7 +250,7 @@ const NotificationSection = () => {
                                                             <Divider className={classes.divider} />
                                                         </Grid>*/}
                                                         <Grid item xs={12}>
-                                                            <NotificationList Loading={Loading}   />
+                                                            <NotificationList open={open} Loading={Loading}   />
                                                         </Grid>
                                                     </Grid>
                                                 </PerfectScrollbar>

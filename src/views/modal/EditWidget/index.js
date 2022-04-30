@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 
 import {
 
-    Box,
+    Box, ClickAwayListener,
 
     Modal,
 
@@ -17,7 +17,7 @@ import ThemeConfig from "../../../themes/theme2"
 
 
 import {useDispatch, useSelector} from "react-redux";
-import { CLOSE_MODAL,} from "../../../store/actions";
+import {ClOSE_EDIT_MODAL, CLOSE_MODAL,} from "../../../store/actions";
 
 
 
@@ -83,8 +83,11 @@ const User=  (props) => {
     }, [])
     let open1 = useSelector((state) => state.modal);
     const handleClose=()=>{
+
+
+
         dispatcher({
-            type:CLOSE_MODAL,
+            type:ClOSE_EDIT_MODAL,
         });
     }
     return (
@@ -104,6 +107,7 @@ const User=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
 
                     <Fade in={open1.ModalEditState}>
 
@@ -118,6 +122,7 @@ const User=  (props) => {
 
                         </Box>
                     </Fade>
+                        </ClickAwayListener>
 
                 </div>
 

@@ -16,7 +16,7 @@ import {
     ListItemSecondaryAction,
     ListItemText,
     Stack,
-    Typography
+    Typography, useTheme
 } from '@material-ui/core';
 
 // assets
@@ -25,57 +25,105 @@ import User1 from './../../../../assets/images/users/user-round.svg';
 import NotificationSkelton from "../../../../composant_de_style/cards/Skeleton/NotificationSkelton/NotificationSkelton";
 import SkeletonEarningCard from "../../../../composant_de_style/cards/Skeleton/EarningCard";
 import {useSelector} from "react-redux";
+import config from "../../../../config";
+import configData from "../../../../config";
 
 // style constant
-const useStyles = makeStyles((theme) => ({
 
-    listAction: {
-        top: '22px'
-    },
-    actionColor: {
-        color: theme.palette.grey[500]
-    },
-
-    listItem: {
-        padding: 0
-    },
-
-
-    listChipError: {
-        color: theme.palette.orange.dark,
-        backgroundColor: theme.palette.orange.light,
-        height: '24px',
-        padding: '0 6px',
-        marginRight: '5px'
-    },
-    listChipWarning: {
-        color: theme.palette.warning.dark,
-        backgroundColor: theme.palette.warning.light,
-        height: '24px',
-        padding: '0 6px'
-    },
-
-    listContainer: {
-        paddingLeft: '56px'
-    },
-
-    paddingBottom: {
-        paddingBottom: '16px'
-    },
-    itemAction: {
-        cursor: 'pointer',
-        padding: '16px',
-        '&:hover': {
-            background: theme.palette.primary.light
-        }
-    }
-}));
 
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
 
-const NotificationCore = (Loading) => {
-    const classes = useStyles();
+const NotificationCore = ({notification}) => {
+    const theme = useTheme();
+    console.log("eeeeeee")
+   let TimeFromDb= new Date(notification[1].date)
+console.log(TimeFromDb)
+let TimeToLog
+    let thisTime = new Date()
+    let TimeInSeconde=(parseInt((thisTime-TimeFromDb)/1000))
+    console.log("juste now")
+    console.log(TimeInSeconde)
+    if((TimeInSeconde/60/60/24/7)>1){
+        if((TimeInSeconde/60/60/24/7)<2)
+        TimeToLog=`${parseInt(TimeInSeconde/60/60/24/7)} week`
+        else
+            TimeToLog=`${parseInt(TimeInSeconde/60/60/24/7)} weeks`
+    }
+    else if((TimeInSeconde/60/60/24)>1){
+        if((TimeInSeconde/60/60/24)<2)
+            TimeToLog=`${parseInt(TimeInSeconde/60/60/24)} day`
+        else
+            TimeToLog=`${parseInt(TimeInSeconde/60/60/24)} days`
 
+
+    }
+    else if((TimeInSeconde/60/60)>1) {
+        if((TimeInSeconde/60/60)<2)
+            TimeToLog = `${parseInt(TimeInSeconde/60/60)} hour`
+        else
+            TimeToLog = `${parseInt(TimeInSeconde/60/60)} hours`
+
+    }
+    else if((TimeInSeconde/60)>1) {
+        if((TimeInSeconde/60)<2)
+            TimeToLog = `${parseInt(TimeInSeconde/60)} minut`
+        else
+            TimeToLog = `${parseInt(TimeInSeconde / 60)} minuts`
+
+    }
+    else
+        TimeToLog = "just Now"
+
+
+let color
+    if(!notification.read)
+        color=theme.palette.primary.light
+
+    const useStyles = makeStyles((theme) => ({
+
+        listAction: {
+            top: '22px'
+        },
+        actionColor: {
+            color: theme.palette.grey[500]
+        },
+
+        listItem: {
+            padding: 0
+        },
+
+
+        listChipError: {
+            color: theme.palette.orange.dark,
+            backgroundColor: theme.palette.orange.light,
+            height: '24px',
+            padding: '0 6px',
+            marginRight: '5px'
+        },
+        listChipWarning: {
+            color: theme.palette.warning.dark,
+            backgroundColor: theme.palette.warning.light,
+            height: '24px',
+            padding: '0 6px'
+        },
+
+        listContainer: {
+            paddingLeft: '56px'
+        },
+
+        paddingBottom: {
+            paddingBottom: '3px'
+        },
+        itemAction: {
+            cursor: 'pointer',
+            padding: '16px',
+            /* '&:hover': {*/
+            background:  color
+            /*}*/
+        }
+    }));
+    const classes = useStyles();
+console.log(notification)
     return (
 
         <Fragment>
@@ -84,17 +132,21 @@ const NotificationCore = (Loading) => {
 
 
 
-            <div className={classes.itemAction}>
+            <div className={classes.itemAction} sx={{background: theme.palette.primary.light}}>
                 <ListItem alignItems="center" className={classes.listItem}>
                     <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
+                        {console.log(config.API_SERVER+notification[0].photo)}
+                        <Avatar alt={notification[0].username}  src={`${configData.API_SERVER}${notification[0].photo}`} />
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
+                    <ListItemText primary={<Typography variant="subtitle1">{notification[0].username}</Typography>} />
                     <ListItemSecondaryAction className={classes.listAction}>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
+
+
+
                                 <Typography variant="caption" display="block" gutterBottom className={classes.actionColor}>
-                                    2 min ago
+                                    {TimeToLog}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -102,16 +154,14 @@ const NotificationCore = (Loading) => {
                 </ListItem>
                 <Grid container direction="column" className={classes.listContainer}>
                     <Grid item xs={12} className={classes.paddingBottom}>
-                        <Typography variant="subtitle2">It is a long established fact that a reader will be distracted</Typography>
+                        <Typography variant="subtitle2">{notification[0].username} {notification[1].name}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container>
                             <Grid item>
                                 <Chip label="Unread" className={classes.listChipError} />
                             </Grid>
-                            <Grid item>
-                                <Chip label="New" className={classes.listChipWarning} />
-                            </Grid>
+
                         </Grid>
                     </Grid>
                 </Grid>

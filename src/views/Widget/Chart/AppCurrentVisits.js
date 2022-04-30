@@ -198,12 +198,15 @@ export default function AppCurrentVisits(data) {
                   <Grid item>
                     <CardHeader title={data.data.WidgetName? data.data.WidgetName:data.data.title} />
                   </Grid>
-
                 </Grid>
               </Grid>
               <Grid item >
                 <Grid item >
-
+                  {console.log('salem')}
+                  {console.log(data.data.WidgetName)}
+                    {console.log(data.data.dataWidget)}
+                  {console.log(data.data.label)}
+   
                   <Menu data={data.data}/>
 
 

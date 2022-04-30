@@ -6,6 +6,9 @@ import { Grid } from '@material-ui/core';
 // project imports
 import Modal_Delete from "../modal/Modal_delete"
 import DeleteWorkspace from "./DeleteWorkspace";
+import {ClickAwayListener} from "@mui/material";
+import {CLOSE_DELETE_MODAL} from "../../store/actions";
+import {useDispatch} from "react-redux";
 
 // assets
 
@@ -30,10 +33,19 @@ const OVERLAY_Styles ={
 
 }
 const Modal_Delete_Workspace = (props) => {
+    const dispatcher = useDispatch();
 
+    function handleClose  () {
+        dispatcher({
+            type:CLOSE_DELETE_MODAL,
+
+        });
+    };
 
     return (
         <div style={OVERLAY_Styles}>
+            <ClickAwayListener onClickAway={handleClose}>
+
             <div style={Modal_Styles}>
 
                 <Modal_Delete  name={props.card.WorkspaceName} type={"Workspace"} />
@@ -41,6 +53,7 @@ const Modal_Delete_Workspace = (props) => {
                 <DeleteWorkspace handleClose={props.handleClose} card={props.card}  />
          </Grid>
             </div>
+                </ClickAwayListener >
 
         </div>
     );

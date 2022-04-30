@@ -13,12 +13,13 @@ import configData from "../../../config";
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
 import {
+    CLICK,
     CLICKED,
     CLICKED_INISIALIZE,
     CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL,
     CLOSE_MODAL_SHARE,
     INISIALIZE,
-    INISIALIZE_USER
+    INISIALIZE_USER, LOGOUT
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal_delete_workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
@@ -133,7 +134,16 @@ if((location.pathname).includes('/dashboard/default')){
             axios
                 .post( configData.API_SERVER + link,datasend)
                 .then(response =>{
-
+if(response.data.notConnected){
+    dispatcher({ type: LOGOUT });
+    history.push("/login");
+    dispatcher({
+        type:CLICK,
+        payload: {text:"You are no longer connected",severity:"success"}
+    })
+}
+else
+{
                     dispatcher({
                             type:INISIALIZE,
                             payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
@@ -144,7 +154,7 @@ if((location.pathname).includes('/dashboard/default')){
                     setLoading(false);
                     setSucces(true)
                     setLoad(false)
-                })
+                }})
                 .catch(function (error) {
 
 
@@ -154,7 +164,10 @@ if((location.pathname).includes('/dashboard/default')){
         else { axios
             .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {user_id: account.user._id, token: account.token})
             .then(response => {
-
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                }else{
 
                 dispatcher({
                         type: INISIALIZE,
@@ -165,7 +178,7 @@ if((location.pathname).includes('/dashboard/default')){
                 setLoading(false);
                 setSucces(true)
                 setLoad(false)
-            })
+            }})
             .catch(function (error) {
 
 
@@ -182,16 +195,20 @@ if((location.pathname).includes('/dashboard/default')){
 
                 token: account.token
             }).then((result) => {
+            if(result.data.notConnected){
+                dispatcher({ type: LOGOUT });
+                history.push("/login");
+            }else {
 
-            dispatcher({
-                type:INISIALIZE_USER,
-                payload: {users:result.data.users},
-            })
+                dispatcher({
+                    type: INISIALIZE_USER,
+                    payload: {users: result.data.users},
+                })
 
-            setUSERLIST(userSt.users)
-            setSucess(true)
+                setUSERLIST(userSt.users)
+                setSucess(true)
 
-        })},[] );
+            }})},[] );
 
 
 

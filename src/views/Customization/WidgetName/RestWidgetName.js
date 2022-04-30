@@ -41,7 +41,7 @@ import {
 
     CLICK,
 
-    CLOSE_MODAL, CLOSE_WIDGET_MODAL, INISIALIZE_STORE, INIZIALIZE_STEPS, IS_LOADING_CHANGE,
+    CLOSE_MODAL, CLOSE_WIDGET_MODAL, INISIALIZE_STORE, INIZIALIZE_STEPS, IS_LOADING_CHANGE, LOGOUT,
 
     UPDATE,
 
@@ -173,6 +173,35 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                     try{
                         axios.post( configData.API_SERVER + link, data)
                             .then(function (response) {
+
+                                if(response.data.notConnected){
+                                    dispatcher({
+                                        type:IS_LOADING_CHANGE,
+
+                                    })
+
+                                    dispatcher({
+                                        type:INIZIALIZE_STEPS
+
+                                    })
+
+
+
+                                    dispatcher({
+                                        type:CLOSE_WIDGET_MODAL,
+
+                                    })
+
+                                    dispatcher({ type: LOGOUT });
+                                    history.push("/login");
+
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:"You are no longer connected",severity:"success"}
+                                    })
+
+                                }else{
+
                                 if (response.data.success) {
 
                                     dispatcher({
@@ -234,7 +263,7 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
 
 
                                     }
-                            })
+                            }})
                             .catch(function (error) {
 
 console.log("sssss")

@@ -24,11 +24,12 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 
 import {
+    CLICK,
     CLICKED_INISIALIZE,
     ClOSE_EDIT_MODAL,
     CLOSE_MODAL,
     DELETE,
-    INISIALIZE,
+    INISIALIZE, LOGOUT,
     OPEN_MODAL, UPDATE_WORKSPACE
 } from "../../../store/actions";
 
@@ -39,7 +40,7 @@ import _ from "lodash";
 import {Cancel, Edit} from "../../Button/actionButton";
 import configData from "../../../config";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 
 
@@ -69,6 +70,8 @@ const EditWorkspace = (props, { ...others }) => {
         },
 
     ];
+    let history =useHistory()
+
     const account = useSelector((state) => state.account);
     let open1 = useSelector((state) => state.modal);
     const [isloading, setIsloading] = useState(false);
@@ -121,6 +124,18 @@ let {id}=useParams()
                                 description: values.description
                             })
                             .then(function (response) {
+
+                                if(response.data.notConnected){
+                                    dispatcher({ type: LOGOUT });
+                                    history.push("/login");
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:"You are no longer connected",severity:"success"}
+                                    })
+                                }
+                                else
+                                {
+
                                 if (response.data.success) {
                                     setIsloading(false)
 
@@ -138,7 +153,7 @@ let {id}=useParams()
                                         payload: {text: "Workspace Edited successfully", severity: "success"}
                                     })
                                 }
-                            })
+                            }})
 
                     }}
 

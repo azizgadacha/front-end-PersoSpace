@@ -34,7 +34,7 @@ import {
     CLOSE_DELETE_MODAL,
     ClOSE_EDIT_MODAL,
     CLOSE_MODAL,
-    INISIALIZE_USER,
+    INISIALIZE_USER, LOGOUT,
 } from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
@@ -255,6 +255,7 @@ const User=  (props) => {
     const handleClose5= () => {
         setOpen5(false);
     };
+    let history = useHistory();
 
     const dispatcher = useDispatch();
 
@@ -279,6 +280,17 @@ const User=  (props) => {
 
           token: account.token
         }).then((result) => {
+        if(result.data.notConnected){
+            dispatcher({ type: LOGOUT });
+            history.push("/login");
+            dispatcher({
+                type:CLICK,
+                payload: {text:"You are no longer connected",severity:"success"}
+            })
+        }
+        else
+        {
+
         dispatcher({
             type:INISIALIZE_USER,
             payload: {users:result.data.users},
@@ -286,7 +298,7 @@ const User=  (props) => {
         setUSERLIST(userSt.users)
         setSucess(true)
 
-    })},[] );
+    }})},[] );
 
 
     useEffect(() => {
