@@ -113,12 +113,10 @@ const load=[1,2,3]
 const NotificationList = ({Loading,open}) => {
     const classes = useStyles();
     const notification = useSelector((state) => state.notification);
+
     return (
         <List className={classes.navContainer}>
 
-
-            {console.log("lmnooo")} 
-            {console.log(notification.notificationListe)}
             {Loading? ( load.map((i) => (
 
                     <NotificationSkelton/>

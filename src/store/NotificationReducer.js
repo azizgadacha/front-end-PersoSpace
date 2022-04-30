@@ -62,19 +62,19 @@ const NotificationReducer= (state = initialState, action) => {
                 ...state
             }
         case EDIT_NOTIFICATION:
-            const editedNotification=action.payload.notification
+            const editedNotification=action.payload.listNotification
 
-
+console.log(editedNotification)
             let indexEdited = 0;
 
             state.notificationListe.find(function(item, i){
+console.log(item)
+console.log(item[1]._id)
 
-                if(item._id === editedNotification._id){
-                    indexEdited = i;
-                    return i;
+                if(  editedNotification.include(item[1]._id)){
+                    item.read = true;
                 }
             });
-            state.notificationListe[indexEdited]=editedNotification
 
 
             return {

@@ -35,14 +35,11 @@ import configData from "../../../../config";
 
 const NotificationCore = ({notification}) => {
     const theme = useTheme();
-    console.log("eeeeeee")
    let TimeFromDb= new Date(notification[1].date)
-console.log(TimeFromDb)
 let TimeToLog
     let thisTime = new Date()
     let TimeInSeconde=(parseInt((thisTime-TimeFromDb)/1000))
-    console.log("juste now")
-    console.log(TimeInSeconde)
+
     if((TimeInSeconde/60/60/24/7)>1){
         if((TimeInSeconde/60/60/24/7)<2)
         TimeToLog=`${parseInt(TimeInSeconde/60/60/24/7)} week`
@@ -118,12 +115,14 @@ let color
             cursor: 'pointer',
             padding: '16px',
             /* '&:hover': {*/
-            background:  color
+            background:  color,
             /*}*/
+            '&:hover': {
+            background: theme.palette.primary.light
+            }
         }
     }));
     const classes = useStyles();
-console.log(notification)
     return (
 
         <Fragment>
@@ -135,7 +134,6 @@ console.log(notification)
             <div className={classes.itemAction} sx={{background: theme.palette.primary.light}}>
                 <ListItem alignItems="center" className={classes.listItem}>
                     <ListItemAvatar>
-                        {console.log(config.API_SERVER+notification[0].photo)}
                         <Avatar alt={notification[0].username}  src={`${configData.API_SERVER}${notification[0].photo}`} />
                     </ListItemAvatar>
                     <ListItemText primary={<Typography variant="subtitle1">{notification[0].username}</Typography>} />

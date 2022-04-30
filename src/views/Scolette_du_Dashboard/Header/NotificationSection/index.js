@@ -35,7 +35,7 @@ import { IconBell } from '@tabler/icons';
 import axios from "axios";
 import configData from "../../../../config";
 import {useDispatch, useSelector} from "react-redux";
-import {CLICK, INISIALIZE_NOTIFICATION, LOGOUT} from "../../../../store/actions";
+import {CLICK, EDIT_NOTIFICATION, INISIALIZE_NOTIFICATION, LOGOUT} from "../../../../store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +93,8 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| NOTIFICATION ||-----------------------//
 
 const NotificationSection = () => {
+    const account = useSelector((state) => state.account);
+
     const classes = useStyles();
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -100,6 +102,13 @@ const NotificationSection = () => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
     const anchorRef = React.useRef(null);
+    console.log("hello gays")
+    const [TestClose, setTestClose] = React.useState(false);
+
+    const notification2 = useSelector((state) => state.notification);
+
+
+
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -118,7 +127,63 @@ const NotificationSection = () => {
             anchorRef.current.focus();
         }
         prevOpen.current = open;
+        console.log('bonjour')
+        console.log(open)
+        console.log(TestClose)
+        if ((open==true)&&(TestClose==false)){
+            console.log('iqssssssssssssssssssssssssssssssssss')
+            setTestClose(true)
+            console.log(TestClose)
+        }
+        else if((open==false)&&(TestClose==true))
+        {console.log('immmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
+            let IdListe=[]
+            for (let item of (notification2.notificationListe)){
+console.log(notification2.notificationListe)
+console.log(item)
+console.log(item[1])
+                if(!item[1].read){
+                    item[1].read=!item[1].read
+                    IdListe.push( item[1]._id)
+                }}
+            if(IdListe.length>1){
+                console.log('fffffffffffffffffffffff')
+                console.log(IdListe)
+                axios
+                    .post(configData.API_SERVER + 'api/users/editNotification', {
+                        token: account.token,
+
+                        IdListe,
+
+                    }).then((result) => {
+                    if(result.data.notConnected){
+                        dispatcher({ type: LOGOUT });
+                        history.push("/login");
+                    }else {
+                        console.log("ffffffff")
+                        console.log(IdListe)
+                        dispatcher({
+                            type: EDIT_NOTIFICATION, payload: {listNotification: IdListe}
+                        });
+                        console.log('salem salekneha')
+
+
+                        console.log(TestClose!=open)
+                        setTestClose  (false)
+                    }})}
+
+        }
+
+
+
+
+
+
+
     }, [open]);
+
+
+
 
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -131,7 +196,6 @@ const NotificationSection = () => {
     const [Loading, setLoading] = React.useState(true);
     let history=useHistory()
     const dispatcher = useDispatch();
-    const account = useSelector((state) => state.account);
     useEffect(()=>{
 
 
@@ -250,7 +314,7 @@ const NotificationSection = () => {
                                                             <Divider className={classes.divider} />
                                                         </Grid>*/}
                                                         <Grid item xs={12}>
-                                                            <NotificationList open={open} Loading={Loading}   />
+                                                            {open&&(  <NotificationList open={open} Loading={Loading}   />)}
                                                         </Grid>
                                                     </Grid>
                                                 </PerfectScrollbar>
