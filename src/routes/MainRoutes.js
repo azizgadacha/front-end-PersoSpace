@@ -11,6 +11,8 @@ import {useRouteMatch} from "react-router";
 // dashboard routing
 const DashboardDefault = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
 const SharedWorkspaces = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
+const VisualizationOfWorkspaces = Preparation_du_page(lazy(() => import('../views/dashboard/Default')));
+
 const ViewAll = Preparation_du_page(lazy(() => import('../views/ViewAll/User')));
 const widget = Preparation_du_page(lazy(() => import('../views/Widget')));
 
@@ -54,6 +56,7 @@ const MainRoutes = () => {
 
                 '/dashboard/default',
                 '/dashboard/SharedWorkspaces',
+                '/dashboard/VisualizationOfWorkspaces'
 
             ]}
         >
@@ -73,6 +76,7 @@ const MainRoutes = () => {
                     <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />:
 
                     <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
+                    <Route exact path="/dashboard/VisualizationOfWorkspaces" component={VisualizationOfWorkspaces}/>
 
                     <Route exact path='/dashboard/viewAll' component={ViewAll} />
 

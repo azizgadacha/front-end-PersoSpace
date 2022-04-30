@@ -103,30 +103,40 @@ const Dashboard = (props, { ...others }) => {
         const ar2 = array.slice(3, (array.length));
 
         let link2=ar2.join('/')
-if((location.pathname).includes('/dashboard/default')){
+if(((location.pathname).includes('/dashboard/default'))||(loc=='/dashboard/VisualizationOfWorkspaces')){
+        if (id) {
+            link = 'api/users/getinsideworkspace'
+            id1 = id
+            let clicked
+            if (workspaces.clicked) {
+                clicked = true
 
-            if (id) {
+            } else
+                clicked = false
 
-                link = 'api/users/getinsideworkspace'
-                id1=id
-                let clicked
-                if(workspaces.clicked){
-                    clicked=true
-
-                }
-                else
-                    clicked=false
-
-                datasend= {user_id:account.user._id,list:ar2, clicked,token:account.token,listeNameReceive:workspaces.listeName}
-                dispatcher({
-                    type:CLICKED_INISIALIZE
-                })
-
-            } else {
-                link = 'api/users/getworkspace'
-                datasend= {superior_id:account.user._id, token:account.token}
-
+            datasend = {
+                user_id: account.user._id,
+                list: ar2,
+                clicked,
+                token: account.token,
+                listeNameReceive: workspaces.listeName
             }
+            dispatcher({
+                type: CLICKED_INISIALIZE
+            })
+
+        }
+        else if(loc=='/dashboard/VisualizationOfWorkspaces'){
+            link = 'api/users/visualizationOfWorkspaces'
+            datasend = {superior_id: account.user._id, token: account.token}
+        }
+        else {
+            link = 'api/users/getworkspace'
+            datasend = {superior_id: account.user._id, token: account.token}
+
+        }
+
+
 
 
 
