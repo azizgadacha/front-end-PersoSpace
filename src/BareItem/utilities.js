@@ -22,6 +22,14 @@ export const utilities = {
             url: '/dashboard/viewAll',
             icon: icons['IconUserSearch'],
             breadcrumbs: false
+        },{
+        id:'visualization of workspaces',
+            title:'visualization of workspaces',
+            type:'item',
+            url:'/dashboard/VisualizationOfWorkspaces',
+            icon:icons['IconUserSearch'],
+            breadcrumbs: false
+
         }
 
 
