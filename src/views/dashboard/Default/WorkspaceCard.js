@@ -174,7 +174,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         if((location.pathname).includes('/dashboard/default'))
         history.push(`${config.defaultPath}/${link==""?"":link+"/"}${card._id}`)
         else
-            history.push(`/dashboard/VisualizationOfWorkspaces/${link==""?"":link+"/"}${card._id}`)
+            history.push(`/dashboard/VisualizationOfWorkspace/${link==""?"":link+"/"}${card._id}`)
 
     }
     const shareWorkspaces = () => {

@@ -140,8 +140,11 @@ const Item = ({ item }) => {
         let indexOfElement=ar3.indexOf(item[1])
 
         let finalLink = ar3.slice(0, indexOfElement+1);
-
+        if((location.pathname).includes('/dashboard/default'))
         history.push(config.defaultPath+"/"+finalLink.join('/'))
+        else
+            history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalLink.join('/'))
+
 
     }
 

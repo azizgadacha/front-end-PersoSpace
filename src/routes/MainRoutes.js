@@ -41,6 +41,8 @@ const MainRoutes = () => {
     const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 
     let linkName=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
+    let linkSpace=`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
+
     return (
 
         <Route
@@ -52,11 +54,11 @@ const MainRoutes = () => {
                 "/dashboard/default/widget/:id",
                 linkName,
                 '/dashboard/viewAll',
-
+                linkSpace,
 
                 '/dashboard/default',
                 '/dashboard/SharedWorkspaces',
-                '/dashboard/VisualizationOfWorkspaces'
+                '/dashboard/VisualizationOfWorkspace'
 
             ]}
         >
@@ -72,12 +74,12 @@ const MainRoutes = () => {
 
 
                     <Route exact path="/dashboard/default/widget/:id" component={widget} />
-                    <Route exact path={`/dashboard/VisualizationOfWorkspaces/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />:
+                    <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />:
 
                     <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />:
 
                     <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
-                    <Route exact path="/dashboard/VisualizationOfWorkspaces" component={VisualizationOfWorkspaces}/>
+                    <Route exact path="/dashboard/VisualizationOfWorkspace" component={VisualizationOfWorkspaces}/>
 
                     <Route exact path='/dashboard/viewAll' component={ViewAll} />
 
