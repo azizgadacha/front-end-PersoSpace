@@ -74,9 +74,9 @@ const MainRoutes = () => {
 
 
                     <Route exact path="/dashboard/default/widget/:id" component={widget} />
-                    <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />:
+                    <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />
 
-                    <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />:
+                    <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />
 
                     <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
 

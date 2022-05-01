@@ -119,7 +119,9 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                 list: ar2,
                 clicked,
                 token: account.token,
-                listeNameReceive: workspaces.listeName
+                listeNameReceive: workspaces.listeName,
+
+                locVis:(  (location.pathname).includes('/dashboard/VisualizationOfWorkspace'))?true:null
             }
             dispatcher({
                 type: CLICKED_INISIALIZE
@@ -128,7 +130,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
         }
         else if(loc=='/dashboard/VisualizationOfWorkspace'){
             link = 'api/users/visualizationOfWorkspaces'
-            datasend = {superior_id: account.user._id, token: account.token}
+            datasend = {superior_id: account.user._id, token: account.token,}
         }
         else {
             link = 'api/users/getworkspace'
@@ -150,7 +152,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
 
                     dispatcher({
                             type:INISIALIZE,
-                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
+                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName,location: (link == 'api/users/visualizationOfWorkspaces')?"visualize":null}
                         }
                     )
 
