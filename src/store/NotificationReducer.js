@@ -71,8 +71,8 @@ console.log(editedNotification)
 console.log(item)
 console.log(item[1]._id)
 
-                if(  editedNotification.include(item[1]._id)){
-                    item.read = true;
+                if(  editedNotification.includes(item[1]._id)){
+                    item[1].read = true;
                 }
             });
 

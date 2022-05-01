@@ -34,6 +34,7 @@ import configData from "../../../../config";
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
 
 const NotificationCore = ({notification}) => {
+    console.log("rani nhawas lena")
     const theme = useTheme();
    let TimeFromDb= new Date(notification[1].date)
 let TimeToLog
@@ -73,13 +74,13 @@ let TimeToLog
 
 
 let color
-    if(!notification.read)
+    if(!notification[1].read)
         color=theme.palette.primary.light
 
     const useStyles = makeStyles((theme) => ({
 
         listAction: {
-            top: '22px'
+            top: '10px'
         },
         actionColor: {
             color: theme.palette.grey[500]
@@ -122,6 +123,7 @@ let color
             }
         }
     }));
+
     const classes = useStyles();
     return (
 
@@ -152,8 +154,9 @@ let color
                 </ListItem>
                 <Grid container direction="column" className={classes.listContainer}>
                     <Grid item xs={12} className={classes.paddingBottom}>
-                        <Typography variant="subtitle2">{notification[0].username} {notification[1].name}</Typography>
+                        <Typography variant="subtitle2">{notification[1]._id} {notification[1].name}</Typography>
                     </Grid>
+                    {!notification[1].read&&(
                     <Grid item xs={12}>
                         <Grid container>
                             <Grid item>
@@ -161,7 +164,7 @@ let color
                             </Grid>
 
                         </Grid>
-                    </Grid>
+                    </Grid>)}
                 </Grid>
             </div>
         </Fragment>

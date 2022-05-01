@@ -36,6 +36,7 @@ import axios from "axios";
 import configData from "../../../../config";
 import {useDispatch, useSelector} from "react-redux";
 import {CLICK, EDIT_NOTIFICATION, INISIALIZE_NOTIFICATION, LOGOUT} from "../../../../store/actions";
+import {Badge} from "@mui/material";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +94,11 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| NOTIFICATION ||-----------------------//
 
 const NotificationSection = () => {
+    const notification = useSelector((state) => state.notification);
+
+    console.log("rrrrrrrrrrr")
+    console.log(notification.notificationListe)
+
     const account = useSelector((state) => state.account);
 
     const classes = useStyles();
@@ -103,9 +109,9 @@ const NotificationSection = () => {
     const [value, setValue] = React.useState('');
     const anchorRef = React.useRef(null);
     console.log("hello gays")
+
     const [TestClose, setTestClose] = React.useState(false);
 
-    const notification2 = useSelector((state) => state.notification);
 
 
 
@@ -122,7 +128,7 @@ const NotificationSection = () => {
     };
 
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    React.useEffect(async () => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current.focus();
         }
@@ -130,36 +136,51 @@ const NotificationSection = () => {
         console.log('bonjour')
         console.log(open)
         console.log(TestClose)
-        if ((open==true)&&(TestClose==false)){
+        let IdListe = []
+
+        if ((open == true) && (TestClose == false)) {
             console.log('iqssssssssssssssssssssssssssssssssss')
             setTestClose(true)
             console.log(TestClose)
-        }
-        else if((open==false)&&(TestClose==true))
-        {console.log('immmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm')
-            let IdListe=[]
-            for (let item of (notification2.notificationListe)){
-console.log(notification2.notificationListe)
-console.log(item)
-console.log(item[1])
-                if(!item[1].read){
-                    item[1].read=!item[1].read
-                    IdListe.push( item[1]._id)
-                }}
-            if(IdListe.length>1){
+        } else if ((open == false) && (TestClose == true)) {
+            let i = 0
+            i++
+
+            console.log('immmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm' + i)
+            let j = 0
+            let parcour = async () => {
+                for (let elem of (notification.notificationListe)) {
+                    j++
+                    console.log(j)
+                    console.log(notification.notificationListe)
+                    console.log("rani lena")
+                    console.log(elem)
+                    console.log(elem[1])
+                    console.log("allllllllloooo")
+
+                    console.log(elem[1].read)
+                    if (!elem[1].read) {
+                        console.log("allllllllloooo3........")
+
+                        //elem[1].read=!elem[1].read
+                        IdListe.push(elem[1]._id)
+                        console.log(IdListe)
+                    }
+                }
+            }
+            await parcour()
+
+            console.log('f55555555555555555555555555555ffffffffffffffffffffff')
+
+            if (IdListe.length >= 1) {
                 console.log('fffffffffffffffffffffff')
                 console.log(IdListe)
-                axios
-                    .post(configData.API_SERVER + 'api/users/editNotification', {
-                        token: account.token,
+                let result =await axios.post(configData.API_SERVER + 'api/users/editNotification', {token: account.token, IdListe})
 
-                        IdListe,
-
-                    }).then((result) => {
-                    if(result.data.notConnected){
-                        dispatcher({ type: LOGOUT });
+                    if (result.data.notConnected) {
+                        dispatcher({type: LOGOUT});
                         history.push("/login");
-                    }else {
+                    } else {
                         console.log("ffffffff")
                         console.log(IdListe)
                         dispatcher({
@@ -168,15 +189,12 @@ console.log(item[1])
                         console.log('salem salekneha')
 
 
-                        console.log(TestClose!=open)
-                        setTestClose  (false)
-                    }})}
+                        console.log(TestClose != open)
+                        setTestClose(false)
+                    }
 
-        }
-
-
-
-
+            }
+    }
 
 
 
@@ -191,7 +209,6 @@ console.log(item[1])
 
 
 
-    const notification = useSelector((state) => state.notification);
 
     const [Loading, setLoading] = React.useState(true);
     let history=useHistory()
@@ -254,6 +271,8 @@ console.log(item[1])
         <React.Fragment>
             <Box component="span" className={classes.box}>
                 <ButtonBase sx={{ borderRadius: '12px' }}>
+                    <Badge badgeContent={4} color="error">
+
                     <Avatar
                         variant="rounded"
                         className={classes.headerAvatar}
@@ -263,8 +282,12 @@ console.log(item[1])
                         onClick={handleToggle}
                         color="inherit"
                     >
+
                         <IconBell stroke={1.5} size="1.3rem" />
+
                     </Avatar>
+                    </Badge>
+
                 </ButtonBase>
             </Box>
             <Popper

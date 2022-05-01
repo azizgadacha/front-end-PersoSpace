@@ -298,7 +298,7 @@ const Modal_confirm=  (props) => {
                             sender:account.user._id,
                             type:"shared",
                             read:false,
-                            name:"has shared Workspace With you"
+                            name:props.card._id
                         })
                 }catch (e) {
 
