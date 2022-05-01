@@ -53,12 +53,15 @@ const WorkspaceReducer = (state = initialState, action) => {
 
             state.Workspace=action.payload.work
 
-            if((action.payload.location=="shared")||(action.payload.location=="visualize")) {
+            if((action.payload.location=="shared")||(action.payload.location=="Visualization")) {
                 var workspace = []
                 var username = []
                 for (let item of state.Workspace) {
                     workspace.push(item[0])
+                    if(action.payload.location=="shared")
                     username.push(item[1])
+                    else
+                        username.push((item[2]))
                 }
                 state.Workspace = workspace
                 state.username = username

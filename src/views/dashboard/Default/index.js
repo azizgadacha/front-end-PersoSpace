@@ -152,7 +152,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
 
                     dispatcher({
                             type:INISIALIZE,
-                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName,location: (link == 'api/users/visualizationOfWorkspaces')?"visualize":null}
+                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName,location: (link == 'api/users/visualizationOfWorkspaces')?"Visualization":null}
                         }
                     )
 
@@ -229,7 +229,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
         return(
 
             <Grid item lg={4} md={6} sm={6} xs={12}>
-                <WorkspaceCard isLoading={isLoading} card={card}   username={loc.includes('Shared')?workspaces.username[j]:null} />
+                <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('Shared'))||(loc.includes('Visualization')))?workspaces.username[j]:null} />
 
             </Grid>
 
@@ -314,7 +314,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                             <Fragment>
                                 <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
-                                        history.push(config.defaultPath)
+                                        loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
                                     }}>
                                         <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
                                             <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
