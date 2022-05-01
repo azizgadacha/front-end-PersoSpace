@@ -216,14 +216,14 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
 
 
         )})
+    let j=-1
     let lc =   workspaces.Workspace.map((card)  => {
 
+        j++
         return(
 
-
-
-            <Grid item lg={4} md={6} sm={12} xs={12}>
-                <WorkspaceCard isLoading={isLoading} card={card}/>
+            <Grid item lg={4} md={6} sm={6} xs={12}>
+                <WorkspaceCard isLoading={isLoading} card={card}   username={(location.pathname).includes('Shared')?workspaces.username[j]:null} />
 
             </Grid>
 
