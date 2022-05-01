@@ -119,7 +119,9 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                 list: ar2,
                 clicked,
                 token: account.token,
-                listeNameReceive: workspaces.listeName
+                listeNameReceive: workspaces.listeName,
+
+                locVis:(  (location.pathname).includes('/dashboard/VisualizationOfWorkspace'))?true:null
             }
             dispatcher({
                 type: CLICKED_INISIALIZE
@@ -128,7 +130,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
         }
         else if(loc=='/dashboard/VisualizationOfWorkspace'){
             link = 'api/users/visualizationOfWorkspaces'
-            datasend = {superior_id: account.user._id, token: account.token}
+            datasend = {superior_id: account.user._id, token: account.token,}
         }
         else {
             link = 'api/users/getworkspace'
@@ -143,10 +145,14 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
             axios
                 .post( configData.API_SERVER + link,datasend)
                 .then(response =>{
+                    let sendIt
+
+
+
 
                     dispatcher({
                             type:INISIALIZE,
-                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName}
+                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName,location: (link == 'api/users/visualizationOfWorkspaces')?"visualize":null}
                         }
                     )
 
@@ -223,13 +229,12 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
         return(
 
             <Grid item lg={4} md={6} sm={6} xs={12}>
-                <WorkspaceCard isLoading={isLoading} card={card}   username={(location.pathname).includes('Shared')?workspaces.username[j]:null} />
+                <WorkspaceCard isLoading={isLoading} card={card}   username={loc.includes('Shared')?workspaces.username[j]:null} />
 
             </Grid>
 
 
         )})
-
     let Url;
     if((window.location.pathname).includes('/dashboard/default')){
         Url=true
