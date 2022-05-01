@@ -314,7 +314,8 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                             <Fragment>
                                 <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
-                                        loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
+                                        //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
+                                        history.push((config.defaultPath))
                                     }}>
                                         <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
                                             <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
