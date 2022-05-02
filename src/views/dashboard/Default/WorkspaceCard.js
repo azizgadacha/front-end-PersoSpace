@@ -182,7 +182,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
             type:INISIALIZE_FILTRED_USER,
             payload:{card:card,userId:null}
         })
-
+        console.log("ENTA AID ENTA MUBarek")
+        console.log(card.Share)
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
             payload:{card:card}

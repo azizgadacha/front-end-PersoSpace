@@ -30,7 +30,7 @@ const UserReducer = (state = initialState, action) => {
                     alam.push(i[0])
                 }
                 for (let item of state.users) {
-                    if (((alam.includes(item._id))) && (!(item.role == 'administrateur'))) {
+                    if (((alam.includes(item._id))) && (!(item.role == 'administrateur')) ||((share.includes(item._id)))) {
                         state.filtred.push(item)
                     }
                 }

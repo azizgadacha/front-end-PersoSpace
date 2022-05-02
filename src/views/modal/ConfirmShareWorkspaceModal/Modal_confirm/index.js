@@ -275,6 +275,9 @@ const Modal_confirm=  (props) => {
                     type:INISIALIZE_FILTRED_USER,
                     payload:{card:props.card,userId:props.user._id}
                 })
+
+                console.log("AIDMUBAREK")
+                console.log(props.card.Share)
                 dispatcher({
                     type:CLICK,
                     payload: {text:"Workspace has been shared successfully",severity:"success"}
