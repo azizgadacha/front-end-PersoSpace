@@ -9,7 +9,14 @@ import {
     Confirm_Share_Workspace_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL
 
-    , OPEN_WIDGET_MODAL, CLOSE_WIDGET_MODAL, IS_LOADING_CHANGE, OPEN_EDIT_MODAL, ClOSE_EDIT_MODAL,
+    ,
+    OPEN_WIDGET_MODAL,
+    CLOSE_WIDGET_MODAL,
+    IS_LOADING_CHANGE,
+    OPEN_EDIT_MODAL,
+    ClOSE_EDIT_MODAL,
+    OPEN_MODAL_Remove,
+    CLOSE_MODAL_REMOVE, OPEN_MODAL_REMOVE, Confirm_Remove_Share_MODAL, CLOSE_Confirm_Remove_Share_MODAL,
 
 } from './actions';
 
@@ -20,9 +27,10 @@ export const initialState = {
     Modal_Edit_State:false,
     ModalState:false,
     ModalEditState:false,
-
+    ModalStateRemove:false,
     ModalStateShare:false,
     ModalConfirmShare:false,
+    ModalConfirmRemove:false,
     ModalDeleteState:false,
     isSubmitting:false,
     ModalInsideDeleteState:false,
@@ -41,6 +49,7 @@ const ModalReducer = (state = initialState, action) => {
 
     //const [listecard, addcart] = useState({cards:});
 let objet;
+let card;
     switch (action.type) {
         case OPEN_MODAL:
 
@@ -76,7 +85,7 @@ let objet;
             };
         */case OPEN_MODAL_SHARE:
 
-            const card=action.payload.card
+             card=action.payload.card
 
 
             return {
@@ -88,11 +97,33 @@ let objet;
 
 
             };
+        case OPEN_MODAL_REMOVE:
+
+            card=action.payload.card
+
+
+            return {
+
+                ...state,
+                card,
+                ModalStateRemove:true,
+
+
+
+            };
         case CLOSE_MODAL:
 
             return {
                 ...state,
                 ModalState:false
+
+
+            };
+        case CLOSE_MODAL_REMOVE:
+
+            return {
+                ...state,
+                ModalStateRemove:false
 
 
             };
@@ -113,11 +144,27 @@ let objet;
                 ModalConfirmShare:true,
 
             };
+        case Confirm_Remove_Share_MODAL:
+            objet=action.payload.objet
+            return {
+
+                ...state,
+                objet,
+                ModalConfirmRemove:true,
+
+            };
         case CLOSE_Confirm_Share_Workspace_MODAL:
             return {
 
                 ...state,
                 ModalConfirmShare:false
+
+            };
+        case CLOSE_Confirm_Remove_Share_MODAL:
+            return {
+
+                ...state,
+                ModalConfirmRemove:false
 
             };
         case OPEN_EDIT_MODAL:

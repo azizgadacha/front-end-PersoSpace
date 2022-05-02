@@ -33,6 +33,7 @@ import config from "../../../config";
 import Item from "./Item";
 import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
 import {io} from "socket.io-client";
+import RemoveShareModal from "../../modal/RemoveShareModal";
 
 
 
@@ -366,7 +367,10 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                             <ThemeConfig>
                                 {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
                             </ThemeConfig>
+
                             <ShareWorkspaceModal card= {open.card}/>
+                            <RemoveShareModal card={open.card}/>
+
 
 
 

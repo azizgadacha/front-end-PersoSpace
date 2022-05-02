@@ -26,9 +26,10 @@ import Backdrop from '@mui/material/Backdrop';
 
 import {useDispatch, useSelector} from "react-redux";
 import {
+    CLOSE_Confirm_Remove_Share_MODAL,
 
     CLOSE_Confirm_Share_Workspace_MODAL,
-    CLOSE_MODAL, CLOSE_MODAL_SHARE, OPEN_MODAL_SHARE
+    CLOSE_MODAL, CLOSE_MODAL_REMOVE, CLOSE_MODAL_SHARE, OPEN_MODAL_SHARE
     ,
 } from "../../../store/actions";
 
@@ -51,6 +52,7 @@ import Cells from "./Cells";
 import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
 import CloseIcon from "@mui/icons-material/Close";
 import {Cancel} from "../../Button/actionButton";
+import ConfirmRemvoeShareModal from "../ConfirmRemvoeShareModal";
 
 // ----------------------------------------------------------------------
 
@@ -173,7 +175,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const ShareWorkspaceModal=  (props) => {
+const RemoveShareModal=  (props) => {
     const [isloading, setIsloading] = useState(false);
 
     const states = [
@@ -329,7 +331,7 @@ const ShareWorkspaceModal=  (props) => {
     let open = useSelector((state) => state.modal);
     function handleCloseModal  () {
         dispatcher({
-            type:CLOSE_Confirm_Share_Workspace_MODAL,
+            type:CLOSE_Confirm_Remove_Share_MODAL,
 
         });
     };
@@ -368,7 +370,7 @@ const ShareWorkspaceModal=  (props) => {
 
     const handleClose=()=>{
         dispatcher(  {
-            type:CLOSE_MODAL_SHARE,
+            type:CLOSE_MODAL_REMOVE,
         });
     }
 
@@ -377,12 +379,13 @@ const ShareWorkspaceModal=  (props) => {
 
     return (
         <Fragment>
-            {console.log("ena el ZABBBB")}
-   <Modal
+            {console.log("ena el ZOKKKKKKKK")}
+
+            <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalStateShare}
+                open={open1.ModalStateRemove}
                 onClose={handleClose}
 
                 closeAfterTransition
@@ -393,7 +396,7 @@ const ShareWorkspaceModal=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
-                    <Fade in={open1.ModalStateShare}>
+                    <Fade in={open1.ModalStateRemove}>
 
                         <Box sx={{ ...style,  }} className={classes.modal}>
                             <IconButton sx={{float:'right'}}               aria-label="close">
@@ -401,7 +404,7 @@ const ShareWorkspaceModal=  (props) => {
                             </IconButton>
                             <Grid container alignItems={"center"}>
                             <Grid xs={6}>
-                                <h1>Share Workspaces</h1>
+                                <h1>List of users shared with</h1>
                             </Grid>
 
                             </Grid>
@@ -474,7 +477,7 @@ const ShareWorkspaceModal=  (props) => {
                                     onPageChange={handleChangePage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
-                                {open.ModalConfirmShare && (<ConfirmShareWorkspaceModal  handleClose={handleCloseModal} user={open.objet} card={props.card}/>)}
+                                {open.ModalConfirmRemove && (<ConfirmRemvoeShareModal  handleClose={handleCloseModal} user={open.objet} card={props.card}/>)}
 
                             </ThemeConfig>
                             <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
@@ -491,4 +494,4 @@ const ShareWorkspaceModal=  (props) => {
     )
         ;
 }
-export default ShareWorkspaceModal;
+export default RemoveShareModal;

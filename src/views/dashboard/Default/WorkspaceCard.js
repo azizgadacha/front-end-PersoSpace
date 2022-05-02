@@ -30,7 +30,7 @@ import {
 
     CLOSE_DELETE_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER,
 
-    OPEN_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_SHARE,
+    OPEN_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_REMOVE, OPEN_MODAL_Remove, OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
 
@@ -188,6 +188,27 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
             payload:{card:card}
         })
 
+
+
+
+
+        handleCloseMenu()
+
+
+
+
+    };
+    const RemoveShare = () => {
+        dispatcher({
+            type:INISIALIZE_FILTRED_USER,
+            payload:{card:card,userId:null,location:"Remove"}
+        })
+
+        dispatcher(  {
+            type:OPEN_MODAL_REMOVE,
+            payload:{card:card}
+        })
+
         handleCloseMenu()
 
 
@@ -251,7 +272,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Avatar variant="rounded" className={classes.avatar}
-                                                onClick={click}
+                                                onClick={RemoveShare}
                                         >
                                             <img src={EarningIcon} alt="Notification"/>
                                         </Avatar>

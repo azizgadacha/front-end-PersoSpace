@@ -25,27 +25,39 @@ const UserReducer = (state = initialState, action) => {
             console.log("im the userId")
             state.filtred=[]
             var alam=[]
-            if(userId!=null)
-                share.push(userId)
-            for(let i of share){
-                alam.push(i[0])
+            if(action.payload.location=='Remove'){
+                for(let i of share){
+                    alam.push(i[0])
+                }
+                for (let item of state.users) {
+                    if (((alam.includes(item._id))) && (!(item.role == 'administrateur'))) {
+                        state.filtred.push(item)
+                    }
+                }
+
             }
-            if(share.length==0) {
-                for (let item2 of state.users) {
+            else {
+                if (userId != null)
+                    share.push(userId)
+                for (let i of share) {
+                    alam.push(i[0])
+                }
+                if (share.length == 0) {
+                    for (let item2 of state.users) {
                         if (!(item2.role == 'administrateur')) {
 
-                        state.filtred.push(item2)
+                            state.filtred.push(item2)
                         }
-                }
-            }
-                else {
+                    }
+                } else {
                     console.log("alam")
                     for (let item of state.users) {
-                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur'))&&((!share.includes(item._id)))) {
+                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur')) && ((!share.includes(item._id)))) {
                             state.filtred.push(item)
                         }
                     }
                 }
+            }
 
 
 

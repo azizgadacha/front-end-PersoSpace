@@ -18,9 +18,13 @@ export const CLOSE_DELETE_MODAL='CLOSE_DELETE_MODAL';
 export const OPEN_MODAL= 'OPEN_MODAL';
 export const CLOSE_MODAL= 'CLOSE_MODAL';
 export const OPEN_DELETE_MODAL='OPEN_DELETE_MODAL';
-export const ClOSE_EDIT_MODAL='ClOSE_EDIT_MODAL'
-export const OPEN_WIDGET_MODAL='OPEN_WIDGET_MODAL'
-export const CLOSE_WIDGET_MODAL='CLOSE_WIDGET_MODAL'
+export const ClOSE_EDIT_MODAL='ClOSE_EDIT_MODAL';
+export const OPEN_WIDGET_MODAL='OPEN_WIDGET_MODAL';
+export const CLOSE_WIDGET_MODAL='CLOSE_WIDGET_MODAL';
+export const OPEN_MODAL_REMOVE='OPEN_MODAL_REMOVE';
+export const CLOSE_MODAL_REMOVE='CLOSE_MODAL_REMOVE';
+export const Confirm_Remove_Share_MODAL='Confirm_Remove_Share_MODAL';
+export const CLOSE_Confirm_Remove_Share_MODAL='CLOSE_Confirm_Remove_Share_MODAL';
 
 // Store - Widget reducer
 export const ADD_WIDGET='ADD_WIDGET';
