@@ -316,8 +316,12 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                                 <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                        history.push((config.defaultPath))
-                                    }}>
+                                        {(loc.includes('/dashboard/default'))?(
+                                            history.push(config.defaultPath)
+                                        ):(
+                                            history.push('/dashboard/VisualizationOfWorkspace')
+                                        )}
+                                        }}>
                                         <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
                                             <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
                                         </ListItemIcon>

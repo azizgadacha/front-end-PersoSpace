@@ -1,10 +1,12 @@
 // assets
-import { IconUserPlus, IconWindmill,IconUserSearch} from '@tabler/icons';
+import { IconUserPlus, IconWindmill,IconUserSearch,IconSearch} from '@tabler/icons';
+
 // constant
 const icons = {
     IconUserPlus: IconUserPlus,
     IconWindmill: IconWindmill,
     IconUserSearch:IconUserSearch,
+    IconSearch:IconSearch
 };
 
 //-----------------------|| UTILITIES MENU ITEMS ||-----------------------//
@@ -24,10 +26,10 @@ export const utilities = {
             breadcrumbs: false
         },{
         id:'visualization of workspaces',
-            title:'visualization of workspaces',
+            title:'Workspaces',
             type:'item',
             url:'/dashboard/VisualizationOfWorkspace',
-            icon:icons['IconUserSearch'],
+            icon:icons['IconSearch'],
             breadcrumbs: false
 
         }
