@@ -8,6 +8,7 @@ import {Avatar,  Grid, Typography} from '@material-ui/core';
 import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
 import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
 import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
@@ -275,7 +276,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                         <Avatar variant="rounded" className={classes.avatar}
                                                 onClick={RemoveShare}
                                         >
-                                            <img src={EarningIcon} alt="Notification"/>
+                                            <CoPresentIcon/>
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
@@ -309,16 +310,13 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                             }}
                                         >
                                             <MenuItem onClick={shareWorkspaces}>
-                                                <ShareIcon fontSize="inherit" className={classes.menuItem}/> Share
-                                                Workspace
+                                                <ShareIcon fontSize="inherit" className={classes.menuItem}/>
                                             </MenuItem>
                                             <MenuItem onClick={handleDelete}>
-                                                <DeleteIcon fontSize="inherit" className={classes.menuItem}/> Delete
-                                                Workspace
+                                                <DeleteIcon fontSize="inherit" className={classes.menuItem}/>
                                             </MenuItem>
                                             <MenuItem onClick={EditSpace}>
-                                                <EditIcon fontSize="inherit" className={classes.menuItem}/> Edit
-                                                Workspace
+                                                <EditIcon fontSize="inherit" className={classes.menuItem}/>
                                             </MenuItem>
 
                                         </Menu>
