@@ -20,12 +20,24 @@ const UserReducer = (state = initialState, action) => {
     switch (action.type) {
         case INISIALIZE_FILTRED_USER:
             let share=action.payload.card.Share
+            console.log("ena el Share fil loul")
             console.log(share)
             let userId=action.payload.userId
             console.log("im the userId")
             state.filtred=[]
             var alam=[]
-            if(action.payload.location=='Remove'){
+            if((action.payload.location=='Remove')&&(action.payload.inside=='Remove reverse')){
+                let index = 0;
+                var filteredObj = share.find(function(item, i){
+                    if(i._id==userId){
+                        index = i;
+                        return i;
+
+                    }
+                });
+               share.splice(index,1)
+            }
+           else if(action.payload.location=='Remove'){
                 for(let i of share){
                     alam.push(i[0])
                 }
@@ -35,7 +47,11 @@ const UserReducer = (state = initialState, action) => {
                     }
                 }
 
+                console.log("ena el Share Ba3d el Intialisation")
+                console.log(share)
+
             }
+
             else {
                 if (userId != null)
                     share.push(userId)

@@ -202,7 +202,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
     const RemoveShare = () => {
         dispatcher({
             type:INISIALIZE_FILTRED_USER,
-            payload:{card:card,userId:null,location:"Remove"}
+            payload:{card:card,userId:null,location:"Remove",inside:"null"}
         })
 
         dispatcher(  {

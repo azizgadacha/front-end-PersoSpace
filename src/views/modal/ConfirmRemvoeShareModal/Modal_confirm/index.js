@@ -22,7 +22,7 @@ import {
     CLICK, CLICKED_INISIALIZE, CLOSE_Confirm_Remove_Share_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
-    CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
+    CLOSE_MODAL, CLOSE_MODAL_REMOVE, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
     INISIALIZE_USER, OPEN_MODAL_SHARE, USER_DELETE,
 } from "../../../../store/actions";
 
@@ -254,30 +254,29 @@ const Modal_confirm=  (props) => {
         setIsloading(true)
 
         axios
-            .post( configData.API_SERVER + 'api/users/shareWorkspace',{
+            .post( configData.API_SERVER + 'api/users/removeShare',{
                 token:account.token,
                 card_id:props.card._id,
                 user_id:props.user._id,
-                user_username:account.user._id
             })
             .then(response =>{
                 dispatcher({
-                    type:CLOSE_Confirm_Share_Workspace_MODAL,
+                    type:CLOSE_Confirm_Remove_Share_MODAL,
 
                 })
 
                 dispatcher(  {
-                    type:CLOSE_MODAL_SHARE,
+                    type:CLOSE_MODAL_REMOVE,
 
                 })
 
                 dispatcher({
                     type:INISIALIZE_FILTRED_USER,
-                    payload:{card:props.card,userId:props.user._id}
+                    payload:{card:props.card,userId:props.user._id,location:"Remove",inside:"Remove reverse"}
                 })
                 dispatcher({
                     type:CLICK,
-                    payload: {text:"Workspace has been shared successfully",severity:"success"}
+                    payload: {text:"User has been Removed successfully",severity:"success"}
                 })
 
 
