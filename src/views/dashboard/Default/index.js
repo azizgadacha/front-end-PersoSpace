@@ -175,7 +175,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
 
                 dispatcher({
                         type: INISIALIZE,
-                        payload: {work: response.data.workspaceitems, location :'shared'}
+                        payload: {work: response.data.workspaceitems, location :'shared',listeName: []}
                     }
                 )
 
@@ -210,19 +210,23 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
 
         })},[] );
 
+    console.log(workspaces.listeName)
+if(!(loc.includes('SharedWorkspaces'))){
+    console.log("Ena el listBar")
+    console.log(workspaces.listeName)
+    var listOfBar = workspaces.listeName.map((item) => {
 
-
-
-    let listOfBar =   workspaces.listeName.map((item)  => {
-
-        return(
-
+        return (
 
 
             <Item item={item}/>
 
 
-        )})
+        )
+    })
+}else  {
+    var listOfBar=null
+}
     let j=-1
     let lc =   workspaces.Workspace.map((card)  => {
 
@@ -330,6 +334,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                                 </ListItem>
 
                                 {listOfBar}
+
                             </Fragment>}
                     </List>
                 </Box>

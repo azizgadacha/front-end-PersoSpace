@@ -67,8 +67,14 @@ const WorkspaceReducer = (state = initialState, action) => {
                 state.username = username
                 state. listeName=action.payload.listeName
 
-            }else
-            state. listeName=action.payload.listeName
+            }else{
+                state. listeName=action.payload.listeName
+                console.log("ta7tha")
+                console.log(state.listeName)
+
+
+
+            }
             return {
 
                 ...state,

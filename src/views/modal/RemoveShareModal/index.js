@@ -379,7 +379,7 @@ const RemoveShareModal=  (props) => {
 
     return (
         <Fragment>
-            {console.log("ena el ZOKKKKKKKK")}
+
 
             <Modal
                 aria-labelledby="transition-modal-title"

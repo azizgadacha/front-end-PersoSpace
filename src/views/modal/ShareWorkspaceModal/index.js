@@ -377,7 +377,7 @@ const ShareWorkspaceModal=  (props) => {
 
     return (
         <Fragment>
-            {console.log("ena el ZABBBB")}
+
    <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
