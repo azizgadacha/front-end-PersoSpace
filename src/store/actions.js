@@ -7,6 +7,13 @@ export const ADD = 'ADD';
 export const UPDATE = 'UPDATE';
 
 
+// Store - Socket reducer
+export const INISIALIZE_SOCKET = 'INISIALIZE_SOCKET';
+
+
+
+
+
 // Store - Modal reducer
 export const OPEN_EDIT_MODAL='OPEN_EDIT_MODAL';
 export const CLICKED_INISIALIZE = 'CLICKED_INISIALIZE';

@@ -34,8 +34,13 @@ const NotificationReducer= (state = initialState, action) => {
 
         case ADD_NOTIFICATION:
 
+                let notification =action.payload.notification
 
-            state.notificationListe=state.notificationListe.concat(action.payload.notification)
+let elem =[notification.user,notification.notification]
+
+         state.notificationListe=[elem].concat(state.notificationListe)
+
+
             return {
 
                 ...state,

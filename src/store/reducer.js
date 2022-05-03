@@ -14,6 +14,7 @@ import Widget_transition_Reducer from "./Widget_transition_Reducer";
 import WidgetReducer from "./WidgetReducer";
 import DataReducer from "./DataReducer";
 import NotificationReducer from "./NotificationReducer";
+import SocketReducer from "./SocketReducer";
 
 //-----------------------|| COMBINE REDUCER ||-----------------------//
 
@@ -33,6 +34,8 @@ const reducer = combineReducers({
     modal:ModalReducer,
     workspace:WorkspaceReducer,
     user:UserReducer,
+    socket:SocketReducer,
+
     data:DataReducer,
     notification:NotificationReducer,
     widget:Widget_transition_Reducer,

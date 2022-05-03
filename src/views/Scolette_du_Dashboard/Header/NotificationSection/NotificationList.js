@@ -122,7 +122,7 @@ const NotificationList = ({Loading,open}) => {
 
 
 
-                <NotificationCore notification={item}/>
+                <NotificationCore notification={item} />
 
 
 

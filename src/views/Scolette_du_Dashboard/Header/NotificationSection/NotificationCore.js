@@ -27,14 +27,32 @@ import SkeletonEarningCard from "../../../../composant_de_style/cards/Skeleton/E
 import {useSelector} from "react-redux";
 import config from "../../../../config";
 import configData from "../../../../config";
+import {useHistory} from "react-router-dom";
 
 // style constant
 
 
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
 
-const NotificationCore = ({notification}) => {
-    console.log("rani nhawas lena")
+const NotificationCore = ({notification,}) => {
+
+    let history =useHistory()
+
+    const handleclick=()=>{
+
+        history.push("/dashboard/SharedWorkspaces")
+    }
+
+
+
+
+
+
+
+
+
+
+
     const theme = useTheme();
    let TimeFromDb= new Date(notification[1].date)
 let TimeToLog
@@ -133,7 +151,7 @@ let color
 
 
 
-            <div className={classes.itemAction} sx={{background: theme.palette.primary.light}}>
+            <div className={classes.itemAction} onClick={handleclick} sx={{background: theme.palette.primary.light}}>
                 <ListItem alignItems="center" className={classes.listItem}>
                     <ListItemAvatar>
                         <Avatar alt={notification[0].username}  src={`${configData.API_SERVER}${notification[0].photo}`} />
@@ -142,7 +160,6 @@ let color
                     <ListItemSecondaryAction className={classes.listAction}>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
-
 
 
                                 <Typography variant="caption" display="block" gutterBottom className={classes.actionColor}>
@@ -154,7 +171,7 @@ let color
                 </ListItem>
                 <Grid container direction="column" className={classes.listContainer}>
                     <Grid item xs={12} className={classes.paddingBottom}>
-                        <Typography variant="subtitle2">{notification[1]._id} {notification[1].name}</Typography>
+                        <Typography variant="subtitle2">{notification[0].username} {notification[1].text} </Typography>
                     </Grid>
                     {!notification[1].read&&(
                     <Grid item xs={12}>
