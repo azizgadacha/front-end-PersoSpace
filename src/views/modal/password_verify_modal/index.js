@@ -5,7 +5,9 @@ import React, {Fragment} from 'react';
 // project imports
 import RestPass from "./RestPass"
 import Header from "./Header"
-import {Divider, Grid} from "@mui/material";
+import {ClickAwayListener, Divider, Grid} from "@mui/material";
+import {CLOSE_MODAL} from "../../../store/actions";
+import {useDispatch} from "react-redux";
 
 // assets
 
@@ -29,14 +31,22 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const Pass = (props) => {
 
+const Pass = (props) => {
+    const dispatcher = useDispatch();
+
+    const handleClose=()=>{
+        dispatcher({
+            type:CLOSE_MODAL,
+        });
+    }
 
     return (
         <Fragment>
 
 
         <div style={OVERLAY_Styles}>
+            <ClickAwayListener onClickAway={handleClose}>
 
 
             <div style={Modal_Styles}>
@@ -49,6 +59,7 @@ const Pass = (props) => {
                     <RestPass  user={props.user}  />
                 </Grid>
             </div>
+                </ClickAwayListener>
 
         </div>
         </Fragment>

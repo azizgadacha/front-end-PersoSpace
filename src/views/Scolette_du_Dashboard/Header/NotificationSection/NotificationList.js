@@ -26,6 +26,7 @@ import NotificationSkelton from "../../../../composant_de_style/cards/Skeleton/N
 import SkeletonEarningCard from "../../../../composant_de_style/cards/Skeleton/EarningCard";
 import {useSelector} from "react-redux";
 import NotificationCore from "./NotificationCore";
+import WorkspaceCard from "../../../dashboard/Default/WorkspaceCard";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -110,12 +111,30 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
 const load=[1,2,3]
 
-const NotificationList = ({Loading}) => {
-    const classes = useStyles();
+const NotificationList = ({Loading,open}) => {
+    console.log("rani nhawas lena1.0")
+
     const notification = useSelector((state) => state.notification);
+
+    let ListeNotification =   (notification.notificationListe).map((item)  => {
+
+        return(
+
+
+
+                <NotificationCore notification={item} />
+
+
+
+        )})
+
+
+
+    const classes = useStyles();
 
     return (
         <List className={classes.navContainer}>
+
             {Loading? ( load.map((i) => (
 
                     <NotificationSkelton/>
@@ -127,7 +146,7 @@ const NotificationList = ({Loading}) => {
                 </Grid >
 
 
-            </div>:<NotificationCore/>   }
+            </div>:ListeNotification}
 
 
 

@@ -63,11 +63,13 @@ const PlusCard = () => {
 
 
                         <Tooltip title="Add Workspace">
+                            <Grid container alignItems="center" >
 
-                        <IconButton   alt="Add Workspace"   aria-label="close"  >
+                        <IconButton   alt="Add Workspace"   aria-label="close"  a >
 
                         <IconPlus size={100.5}    />
 </IconButton>
+                            </Grid>
                         </Tooltip>
                     </Grid>
 

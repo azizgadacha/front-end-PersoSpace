@@ -26,11 +26,12 @@ import AnimateButton from './../../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, DELETE, DELETE_USER, USER_DELETE} from "../../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, DELETE, DELETE_USER, LOGOUT, USER_DELETE} from "../../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import Backdrop from "@mui/material/Backdrop";
 import {Fade, Modal} from "@mui/material";
 import ThemeConfig from "../../../themes/theme2";
+import {useHistory} from "react-router-dom";
 
 // style constant
 const OVERLAY_Styles ={
@@ -153,7 +154,7 @@ const ConfirmShareWorkspace = (props) => {
 
     const [isloading, setIsloading] = useState(false);
     const classes = useStyles();
-
+    let history =useHistory()
     const account = useSelector((state) => state.account);
     //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
@@ -168,7 +169,16 @@ const ConfirmShareWorkspace = (props) => {
                 user_id:props.user._id,
             })
             .then(response =>{
-
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"You are no longer connected",severity:"success"}
+                    })
+                }
+                else
+                {
 
 
                 dispatcher({
@@ -194,7 +204,7 @@ const ConfirmShareWorkspace = (props) => {
                 })
 
 
-            })
+            }})
             .catch(function (error) {
 
 

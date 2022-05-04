@@ -1,5 +1,8 @@
 import { filter } from 'lodash';
 import React, {Fragment, useEffect, useState} from 'react';
+import {io} from "socket.io-client";
+
+
 
 // material
 import Fade from '@mui/material/Fade';
@@ -23,7 +26,7 @@ import {
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL,
     CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
-    INISIALIZE_USER, OPEN_MODAL_SHARE, USER_DELETE,
+    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, USER_DELETE,
 } from "../../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -178,45 +181,21 @@ const Modal_confirm=  (props) => {
         },
 
     ];
-    const [source, setSource] = React.useState("/static/images/avatar_1.png");
     const classes = useStyles();
     let history = useHistory();
-    const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-
-
-    const [page, setPage] = useState(0);
-    const [order, setOrder] = useState('asc');
-    const [selected, setSelected] = useState([]);
-    const [orderBy, setOrderBy] = useState('username');
-    const [filterName, setFilterName] = useState('');
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-
-
-    let userSt= useSelector((state) => state.user);
 
 
 
 
 
 
-    let open = useSelector((state) => state.modal);
-    function handleCloseModal  () {
-        dispatcher({
-            type:CLOSE_DELETE_MODAL,
-
-        });
-    };
 
 
-    const [open5, setOpen5] = React.useState(false);
+
     const dispatcher = useDispatch();
     let account = useSelector((state) => state.account);
+    let socket = useSelector((state) => state.socket);
 
     useEffect(() => {
         return () => {
@@ -235,8 +214,6 @@ const Modal_confirm=  (props) => {
             type:CLOSE_Confirm_Share_Workspace_MODAL,
         });
     }
-    let {id}=useParams()
-    let workspaces = useSelector((state) => state.workspace);
     let loc=window.location.pathname
 
 
@@ -245,11 +222,6 @@ const Modal_confirm=  (props) => {
 
     const ar2 = array.slice(3, (array.length));
 
-    let link2=ar2.join('/')
-
-    let link
-    let id1
-    let datasend
     const Click=()=>{
         setIsloading(true)
 
@@ -261,6 +233,17 @@ const Modal_confirm=  (props) => {
                 user_username:account.user._id
             })
             .then(response =>{
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"You are no longer connected",severity:"success"}
+                    })
+                }
+                else
+                {
+
                 dispatcher({
                     type:CLOSE_Confirm_Share_Workspace_MODAL,
 
@@ -283,10 +266,28 @@ const Modal_confirm=  (props) => {
                     payload: {text:"Workspace has been shared successfully",severity:"success"}
                 })
 
+                try {
+                    axios
+                        .post( configData.API_SERVER + 'api/users/addNotification',{
+                            token:account.token,
+                            receiver:props.user._id,
+                            sender:account.user._id,
+                            type:"shared",
+                            read:false,
+                            text: ` has shared ${props.card.WorkspaceName} with you`
+                        }).then((response)=>{
+
+                        socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
+
+                        })
+                }catch (e) {
+
+                }
 
 
 
-            })
+
+            }})
             .catch(function (error) {
 
 

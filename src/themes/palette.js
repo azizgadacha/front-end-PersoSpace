@@ -23,7 +23,7 @@ export function themePalette(theme) {
             800: theme.colors.secondary800
         },
         error: {
-            light: theme.colors.errorLight,
+            light: theme.colors.errorDark,
             main: theme.colors.errorMain,
             dark: theme.colors.errorDark
         },
@@ -38,7 +38,7 @@ export function themePalette(theme) {
             dark: theme.colors.warningDark
         },
         success: {
-            light: theme.colors.successLight,
+            light: theme.colors.successDark,
             200: theme.colors.success200,
             main: theme.colors.successMain,
             dark: theme.colors.successDark

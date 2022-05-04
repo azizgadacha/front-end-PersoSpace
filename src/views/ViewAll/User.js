@@ -34,7 +34,7 @@ import {
     CLOSE_DELETE_MODAL,
     ClOSE_EDIT_MODAL,
     CLOSE_MODAL,
-    INISIALIZE_USER,
+    INISIALIZE_USER, LOGOUT,
 } from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
@@ -145,12 +145,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 const TABLE_HEAD = [
-    { id: 'username', label: 'User name', alignRight: false },
-    { id: 'email', label: 'Email', alignRight: false },
-    { id: 'phone', label: 'Phone', alignRight: false },
-    { id: 'role', label: 'Role', alignRight: false },
+    { id: 'username', label: 'User name', alignRight: 'left' },
+    { id: 'email', label: 'Email', alignRight: 'left' },
+    { id: 'phone', label: 'Phone', alignRight: 'left' },
+    { id: 'role', label: 'Role', alignRight: 'left' },
 
-    {  id: 'action', label: '           Activites', alignLeft: true }
+    {  id: 'action', label: 'Activites', alignRight: 'left' }
 ];
 
 // ----------------------------------------------------------------------
@@ -255,6 +255,7 @@ const User=  (props) => {
     const handleClose5= () => {
         setOpen5(false);
     };
+    let history = useHistory();
 
     const dispatcher = useDispatch();
 
@@ -279,6 +280,17 @@ const User=  (props) => {
 
           token: account.token
         }).then((result) => {
+        if(result.data.notConnected){
+            dispatcher({ type: LOGOUT });
+            history.push("/login");
+            dispatcher({
+                type:CLICK,
+                payload: {text:"You are no longer connected",severity:"success"}
+            })
+        }
+        else
+        {
+
         dispatcher({
             type:INISIALIZE_USER,
             payload: {users:result.data.users},
@@ -286,7 +298,7 @@ const User=  (props) => {
         setUSERLIST(userSt.users)
         setSucess(true)
 
-    })},[] );
+    }})},[] );
 
 
     useEffect(() => {

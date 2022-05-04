@@ -11,7 +11,7 @@ import configData from "../../config";
 
 
 
-import {CLICK, CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZE_STORE} from "../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZE_STORE, LOGOUT} from "../../store/actions";
 
 import {gridSpacing} from "../../store/constant";
 import Customization from "../Customization";
@@ -64,12 +64,16 @@ const [importing,setImporting]=useState(true)
     };
 
     let {id}=useParams()
+    let history =useHistory()
 
    useEffect(() => {
         axios
             .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
             .then(response =>{
-
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                }else{
                 dispatcher({
                         type:INISIALIZE_STORE,
                         payload: {widget:response.data.Widgetitems}
@@ -79,7 +83,7 @@ const [importing,setImporting]=useState(true)
                 setImporting(false)
                 setSucces(true)
 
-            })
+            }})
             .catch(function (error) {
 console.log(error)
 

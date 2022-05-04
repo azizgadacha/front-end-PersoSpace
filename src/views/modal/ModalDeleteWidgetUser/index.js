@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 
 import {
 
-    Box,
+    Box, ClickAwayListener,
 
     Modal,
 
@@ -17,7 +17,7 @@ import ThemeConfig from "../../../themes/theme2"
 
 
 import {useDispatch, useSelector} from "react-redux";
-import { CLOSE_MODAL,} from "../../../store/actions";
+import {CLOSE_DELETE_MODAL, CLOSE_MODAL,} from "../../../store/actions";
 
 
 
@@ -167,11 +167,12 @@ const User=  (props) => {
 
     let open1 = useSelector((state) => state.modal);
 
-    const handleClose=()=>{
+    const handleCloseModal = ()=> {
         dispatcher({
-            type:CLOSE_MODAL,
+            type:CLOSE_DELETE_MODAL,
+
         });
-    }
+    };
 
 
 
@@ -184,7 +185,7 @@ const User=  (props) => {
                 aria-describedby="transition-modal-description"
 
                 open={open1.ModalDeleteState}
-                onClose={handleClose}
+                onClose={handleCloseModal}
 
                 closeAfterTransition
                 BackdropProps={{
@@ -193,6 +194,7 @@ const User=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleCloseModal}>
 
                     <Fade in={open1.ModalDeleteState}>
 
@@ -210,6 +212,7 @@ const User=  (props) => {
 
                         </Box>
                     </Fade>
+                        </ClickAwayListener >
 
                 </div>
 

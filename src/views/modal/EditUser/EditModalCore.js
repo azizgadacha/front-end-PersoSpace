@@ -22,7 +22,7 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, ClOSE_EDIT_MODAL, CLOSE_MODAL, UPDATE, USER_UPDATE} from "../../../store/actions";
+import {ADD_USER, CLICK, ClOSE_EDIT_MODAL, CLOSE_MODAL, LOGOUT, UPDATE, USER_UPDATE} from "../../../store/actions";
 
 
 import {Formik} from "formik";
@@ -235,6 +235,16 @@ const EditModalCore=  ({objet}) => {
                                                 _id:account.user._id
                                             })
                                                 .then(function (response) {
+                                                    if(response.data.notConnected){
+                                                        dispatcher({ type: LOGOUT });
+                                                        history.push("/login");
+                                                        dispatcher({
+                                                            type:CLICK,
+                                                            payload: {text:"You are no longer connected",severity:"success"}
+                                                        })
+                                                    }
+                                                    else
+                                                    {
 
                                                     if (response.data.success) {
                                                         dispatcher({
@@ -270,7 +280,7 @@ const EditModalCore=  ({objet}) => {
 
                                                         }
                                                     }
-                                                })
+                                                }})
                                                 .catch(function (error) {
                                                     setIsloading(false)
                                                     dispatcher({

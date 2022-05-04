@@ -27,7 +27,7 @@ import {
     ADD_USER,
     CLICK,
     ClOSE_EDIT_MODAL,
-    CLOSE_MODAL,
+    CLOSE_MODAL, LOGOUT,
     UPDATE,
     USER_UPDATE,
     WIDGET_UPDATE
@@ -251,7 +251,16 @@ const EditModalCore=  ({objet}) => {
 
                                             axios.post( configData.API_SERVER + link, dataSend)
                                                 .then(function (response) {
-
+                                                    if(response.data.notConnected){
+                                                        dispatcher({ type: LOGOUT });
+                                                        history.push("/login");
+                                                        dispatcher({
+                                                            type:CLICK,
+                                                            payload: {text:"You are no longer connected",severity:"success"}
+                                                        })
+                                                    }
+                                                    else
+                                                    {
                                                     if (response.data.success) {
                                                         dispatcher({
                                                             type:WIDGET_UPDATE,
@@ -284,7 +293,7 @@ const EditModalCore=  ({objet}) => {
                                                             });
 
                                                         }
-                                                    }
+                                                    }}
                                                 )
                                                 .catch(function (error) {
                                                     console.log(error)

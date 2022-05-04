@@ -34,12 +34,16 @@ export default function UserListHead({
         <TableCell padding="checkbox">
           
         </TableCell>
+
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.alignRight ? 'right' : 'left'}
+
+            align={headCell.alignRight}
             sortDirection={orderBy === headCell.id ? order : false}
           >
+            { console.log(headCell.alignRight)}
+
             <TableSortLabel
               hideSortIcon
               active={orderBy === headCell.id}

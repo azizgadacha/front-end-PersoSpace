@@ -10,7 +10,7 @@ import {
     Avatar,
     Button,
     Modal,
-    TextField,
+    TextField, ClickAwayListener,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -22,7 +22,7 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import { ADD_USER, CLICK, CLOSE_MODAL} from "../../../store/actions";
+import {ADD_USER, CLICK, CLOSE_MODAL, LOGOUT} from "../../../store/actions";
 
 
 import {Formik} from "formik";
@@ -41,6 +41,7 @@ import useScriptRef from "../../../hooks/useScriptRef";
 import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel} from "../../Button/actionButton";
+import {useHistory} from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -189,7 +190,7 @@ const User=  (props) => {
 
 
 
-
+    let history =useHistory()
 
 
 
@@ -248,6 +249,7 @@ const User=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
 
                     <Fade in={open1.ModalState}>
 
@@ -291,7 +293,16 @@ setIsloading(true)
                                                 "Content-Type": "multipart/form-data"
                                             }})
                                             .then(function (response) {
-
+                                                if(response.data.notConnected){
+                                                    dispatcher({ type: LOGOUT });
+                                                    history.push("/login");
+                                                    dispatcher({
+                                                        type:CLICK,
+                                                        payload: {text:"You are no longer connected",severity:"success"}
+                                                    })
+                                                }
+                                                else
+                                                {
                                                 if (response.data.success) {
 
                                                     dispatcher({
@@ -316,7 +327,7 @@ setIsloading(true)
                                                     setIsloading(false)
 
                                                 }
-                                            })
+                                            }})
                                             .catch(function (error) {
                                                 setStatus({ success: false });
                                                 setErrors({ submit: error.response.data.msg });
@@ -590,6 +601,7 @@ setIsloading(true)
                         </ThemeConfig>
                     </Box>
                     </Fade>
+                        </ClickAwayListener >
 
                 </div>
 

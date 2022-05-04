@@ -35,7 +35,16 @@ import { IconBell } from '@tabler/icons';
 import axios from "axios";
 import configData from "../../../../config";
 import {useDispatch, useSelector} from "react-redux";
-import {INISIALIZE_NOTIFICATION} from "../../../../store/actions";
+import {
+    ADD_NOTIFICATION,
+    CLICK,
+    EDIT_NOTIFICATION,
+    INISIALIZE_NOTIFICATION,
+    INISIALIZE_SOCKET,
+    LOGOUT
+} from "../../../../store/actions";
+import {Badge} from "@mui/material";
+import {io} from "socket.io-client";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +102,36 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| NOTIFICATION ||-----------------------//
 
 const NotificationSection = () => {
+    const notification = useSelector((state) => state.notification);
+    const [OccurenceNotification, setOccurenceNotification] = React.useState(0);
+let values=0
+    let v=0
+    useEffect(() => {
+        v++
+
+        let i=0
+        values=0
+        setOccurenceNotification(values)
+console.log("dddddd")
+console.log(notification.notificationListe)
+        for(let element of notification.notificationListe){
+            i++
+
+ if(!element[1].read){
+     values++
+     setOccurenceNotification(values)
+
+ }}
+    });
+
+
+
+
+
+
+
+    const account = useSelector((state) => state.account);
+
     const classes = useStyles();
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -100,6 +139,35 @@ const NotificationSection = () => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('');
     const anchorRef = React.useRef(null);
+
+    const [TestClose, setTestClose] = React.useState(false);
+    let socket = useSelector((state) => state.socket);
+    useEffect(async () => {
+
+        let ss = await io(configData.API_SERVER)
+        dispatcher({
+            type: INISIALIZE_SOCKET, payload: {socket: ss}
+        }, []);
+
+
+    },[])
+    useEffect(async () => {
+        await socket.socket?.emit('add_User', account.user._id)
+
+
+    },[socket.socket])
+    let k=0
+    useEffect(async () => {
+
+        await socket.socket?.on("send_Notification_to_user", (data) => {
+
+
+            dispatcher({
+                type: ADD_NOTIFICATION, payload: {notification: data.notification}
+            });
+        })
+    },[socket.socket])
+
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -111,29 +179,60 @@ const NotificationSection = () => {
         }
         setOpen(false);
     };
-
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+    React.useEffect(async () => {
         if (prevOpen.current === true && open === false) {
             anchorRef.current.focus();
         }
         prevOpen.current = open;
-    }, [open]);
 
+        let IdListe = []
+
+        if ((open == true) && (TestClose == false)) {
+            setTestClose(true)
+        } else if ((open == false) && (TestClose == true)) {
+            let i = 0
+            i++
+
+            let j = 0
+            let parcour = async () => {
+                for (let elem of (notification.notificationListe)) {
+                    j++
+
+                    if (!elem[1].read) {
+
+                        //elem[1].read=!elem[1].read
+                        IdListe.push(elem[1]._id)
+                    }
+                }
+            }
+            await parcour()
+
+
+            if (IdListe.length >= 1) {
+
+                let result =await axios.post(configData.API_SERVER + 'api/users/editNotification', {token: account.token, IdListe})
+
+                    if (result.data.notConnected) {
+                        dispatcher({type: LOGOUT});
+                        history.push("/login");
+                    } else {
+
+                        dispatcher({
+                            type: EDIT_NOTIFICATION, payload: {listNotification: IdListe}
+                        });
+                        setTestClose(false)
+                    }
+            }
+    }
+    }, [open]);
     const handleChange = (event) => {
         setValue(event.target.value);
     };
-
-
-
-    const notification = useSelector((state) => state.notification);
-
     const [Loading, setLoading] = React.useState(true);
     let history=useHistory()
     const dispatcher = useDispatch();
-    const account = useSelector((state) => state.account);
     useEffect(()=>{
-
 
         const activationmail=async ()=>{
 
@@ -141,18 +240,26 @@ const NotificationSection = () => {
                 try {
                     axios
                         .post(configData.API_SERVER + 'api/users/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
-
-
-
-                        if(result.data.success) {
+                        if(result.data.notConnected){
+                            dispatcher({ type: LOGOUT });
+                            history.push("/login");
                             dispatcher({
-                                type: INISIALIZE_NOTIFICATION,
-                                payload: {notificationListe:result.data.notifFound}
-                            });
+                                type:CLICK,
+                                payload: {text:"You are no longer connected",severity:"success"}
+                            })
                         }
+                        else {
 
-                        setLoading(false)
+                            if (result.data.success) {
+                                dispatcher({
+                                    type: INISIALIZE_NOTIFICATION,
+                                    payload: {notificationListe: result.data.notifFound}
+                                });
+                            }
 
+
+                            setLoading(false)
+                        }
                     }).catch(()=>{
                         setLoading(true)
 
@@ -181,6 +288,8 @@ const NotificationSection = () => {
         <React.Fragment>
             <Box component="span" className={classes.box}>
                 <ButtonBase sx={{ borderRadius: '12px' }}>
+                    <Badge badgeContent={OccurenceNotification} color="error">
+
                     <Avatar
                         variant="rounded"
                         className={classes.headerAvatar}
@@ -190,8 +299,12 @@ const NotificationSection = () => {
                         onClick={handleToggle}
                         color="inherit"
                     >
+
                         <IconBell stroke={1.5} size="1.3rem" />
+
                     </Avatar>
+                    </Badge>
+
                 </ButtonBase>
             </Box>
             <Popper
@@ -241,7 +354,7 @@ const NotificationSection = () => {
                                                             <Divider className={classes.divider} />
                                                         </Grid>*/}
                                                         <Grid item xs={12}>
-                                                            <NotificationList Loading={Loading}   />
+                                                            <NotificationList open={open} Loading={Loading}   />
                                                         </Grid>
                                                     </Grid>
                                                 </PerfectScrollbar>

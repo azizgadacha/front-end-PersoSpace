@@ -23,7 +23,7 @@ import {
     ADD_USER,
     CLICK,
     CLOSE_DELETE_MODAL, DELETE,
-    DELETE_WIDGET,
+    DELETE_WIDGET, LOGOUT,
     USER_DELETE
 } from "../../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
@@ -48,6 +48,7 @@ const DeleteModalCore = ({obj,type}) => {
     //const [openModal,setOpenModal]=useState(false);
 
     const dispatcher = useDispatch();
+    let history =useHistory()
 
 let link
     let dataSend
@@ -89,6 +90,16 @@ let link
         axios
             .post( configData.API_SERVER + link,dataSend)
             .then(response =>{
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"You are no longer connected",severity:"success"}
+                    })
+                }
+                else
+                {
                 if(response.data.success){
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
@@ -129,7 +140,7 @@ let link
 
 
 
-            })
+            }})
             .catch(function (error) {
                 dispatcher({
                      type:CLOSE_DELETE_MODAL,

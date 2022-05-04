@@ -25,9 +25,10 @@ import AnimateButton from './../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLICK, CLOSE_DELETE_MODAL, DELETE} from "../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, DELETE, LOGOUT} from "../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import {useHistory} from "react-router-dom";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -72,6 +73,8 @@ const useStyles = makeStyles((theme) => ({
 
 const DeleteWorkspace = (props) => {
 
+    let history =useHistory()
+
     const [isloading, setIsloading] = useState(false);
 
 
@@ -95,7 +98,16 @@ const DeleteWorkspace = (props) => {
 
             })
             .then(response =>{
-
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"You are no longer connected",severity:"success"}
+                    })
+                }
+                else
+                {
                 dispatcher({
                     type:CLOSE_DELETE_MODAL,
                 })
@@ -109,7 +121,7 @@ const DeleteWorkspace = (props) => {
                 })
 
 
-            })
+            }})
             .catch(function (error) {
 
 

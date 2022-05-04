@@ -19,7 +19,7 @@ import {
     Button,
     TablePagination,
     Modal,
-    TextField, Divider,
+    TextField, Divider, ClickAwayListener,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -275,10 +275,13 @@ const ModalAdd=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
 
                     <Fade in={open1.ModalState}>
 
                         <Box sx={{ ...style,  }} className={classes.modal}>
+
+
                             <ThemeConfig>
 
 
@@ -325,6 +328,7 @@ const ModalAdd=  (props) => {
                             </ThemeConfig>
                         </Box>
                     </Fade>
+                    </ClickAwayListener>
 
                 </div>
 

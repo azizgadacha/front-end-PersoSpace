@@ -37,7 +37,7 @@ import {
     IMPORT_DATA,
     INISIALIZE_DATA,
     INISIALIZE_USER,
-    INIZIALIZE_STEPS,
+    INIZIALIZE_STEPS, LOGOUT,
     USER_DELETE
     ,
 } from "../../../store/actions";
@@ -321,6 +321,7 @@ const DataModal=  (props) => {
 
 
 }
+    let history =useHistory()
 
     useEffect(() => {
         axios
@@ -328,13 +329,24 @@ const DataModal=  (props) => {
                 superior_Id:id,
                 token: account.token
             }).then((result) => {
+            if(result.data.notConnected){
+                dispatcher({ type: LOGOUT });
+                history.push("/login");
+                dispatcher({
+                    type:CLICK,
+                    payload: {text:"You are no longer connected",severity:"success"}
+                })
+            }
+            else
+            {
+
             dispatcher({
                 type:INISIALIZE_DATA,
                 payload: {data:result.data.data},
             })
 
             setSucess(true)
-        })},[] );
+        }})},[] );
 
 
 

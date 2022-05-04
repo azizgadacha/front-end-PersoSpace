@@ -37,6 +37,9 @@ import AnimateButton from './../../animation/AnimateButton';
 // assets
 
 import {Alert} from "@material-ui/lab";
+import {CLICK, LOGOUT} from "../../store/actions";
+import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -84,6 +87,8 @@ const RestForget = ({ ...others }) => {
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
+    const dispatcher = useDispatch();
+    let history =useHistory()
 
 
 
@@ -107,12 +112,23 @@ const RestForget = ({ ...others }) => {
                                 email: values.email
                             })
                             .then(function (response) {
+                                if(response.data.notConnected){
+                                    dispatcher({ type: LOGOUT });
+                                    history.push("/login");
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:"You are no longer connected",severity:"success"}
+                                    })
+                                }
+                                else
+                                {
+
 
                                     setStatus({ success: response.data.success });
                                     setErrors({ submit: response.data.msg });
                                     setSubmitting(false);
 
-                            })
+                            }})
                             .catch(function (error) {
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
