@@ -36,8 +36,8 @@ import { useHistory} from "react-router-dom";
 
 
 import {
-    IconButton,
-    useMediaQuery,
+    IconButton, Typography,
+    useMediaQuery, useTheme,
 } from "@material-ui/core";
 
 import useScriptRef from "../../../hooks/useScriptRef";
@@ -97,8 +97,9 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
 
         transform: 'translate(-50%, -50%)',
-        width: 1000,
+
         bgcolor: 'background.paper',
+        width:"50%",
         border: '2px solid #000',
         boxShadow: 24,
         pt: 2,
@@ -176,17 +177,7 @@ const useStyles = makeStyles((theme) => ({
 const ShareWorkspaceModal=  (props) => {
     const [isloading, setIsloading] = useState(false);
 
-    const states = [
-        {
-            value: 'administrateur',
-            label: 'administrateur'
-        },
-        {
-            value: 'simple employer',
-            label: 'simple employer'
-        },
 
-    ];
     const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
     const handleCapture = ({target}) => {
@@ -200,42 +191,13 @@ const ShareWorkspaceModal=  (props) => {
     };
 
     const classes = useStyles();
-    let history = useHistory();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
     const TABLE_HEAD = [
-        { id: 'username', label: 'User name', alignRight: false },
-        { id: 'email', label: 'Email', alignRight: false },
-        { id: 'phone', label: 'Phone', alignRight: false },
-        { id: 'role', label: 'Role', alignRight: false },
-
-        {  id: 'action', label: '           Activites', alignLeft: true }
+        { id: 'username', label: 'User name', alignRight: "left" },
+        {  id: 'action', label: '           Activites', alignRight: "left" }
     ];
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {
@@ -374,6 +336,7 @@ const ShareWorkspaceModal=  (props) => {
 
 
 
+    const theme = useTheme();
 
     return (
         <Fragment>
@@ -399,14 +362,18 @@ const ShareWorkspaceModal=  (props) => {
                                 <CloseIcon onClick={handleClose}  color="disabled"      />
                             </IconButton>
                             <Grid container alignItems={"center"}>
-                            <Grid xs={6}>
-                                <h1>Share Workspaces</h1>
+                            <Grid xs={12}>
+                                <Typography  gutterBottom           color={theme.palette.secondary.main} variant="h1" align="center">
+
+
+                                    Share Workspaces
+                                </Typography>
                             </Grid>
 
                             </Grid>
                             <ThemeConfig>
                                 <PerfectScrollbar>
-                                    <TableContainer sx={{minWidth: 800}}>
+                                    <TableContainer sx={{minWidth: 250,maxWidth:450}}>
                                         <Table>
                                             <UserListHead
                                                 order={order}

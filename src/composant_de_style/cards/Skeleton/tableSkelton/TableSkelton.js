@@ -32,12 +32,12 @@ import USERLIST from '../Static_Data/Static';
 
 
 const TABLE_HEAD = [
-    { id: 'username', label: 'User name', alignRight: false },
-    { id: 'email', label: 'Email', alignRight: false },
-    { id: 'phone', label: 'Phone', alignRight: false },
-    { id: 'role', label: 'Role', alignRight: false },
+    { id: 'username', label: 'User name', alignRight: 'right' },
+    { id: 'email', label: 'Email', alignRight: 'right' },
+    { id: 'phone', label: 'Phone', alignRight: 'right' },
+    { id: 'role', label: 'Role', alignRight: 'right' },
 
-    {  id: 'action', label: '           Activites', alignLeft: true }
+    {  id: 'action', label: '           Activites', alignLeft: 'center' }
 ];
 
 // ----------------------------------------------------------------------
