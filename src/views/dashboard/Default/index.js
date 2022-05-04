@@ -341,9 +341,9 @@ if(!(loc.includes('SharedWorkspaces'))){
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
                                         {(loc.includes('/dashboard/default'))?(
                                             history.push(config.defaultPath)
-                                        ):(
-                                            history.push('/dashboard/VisualizationOfWorkspace')
-                                        )}
+                                        ):(loc.includes('SharedWorkspaces')) ?  (
+                                            history.push('/dashboard/SharedWorkspaces')
+                                        ):history.push('/dashboard/VisualizationOfWorkspace')}
                                         }}>
                                         <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
                                             <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />

@@ -232,12 +232,12 @@ const RemoveShareModal=  (props) => {
 
 
     const TABLE_HEAD = [
-        { id: 'username', label: 'User name', alignRight: false },
-        { id: 'email', label: 'Email', alignRight: false },
-        { id: 'phone', label: 'Phone', alignRight: false },
-        { id: 'role', label: 'Role', alignRight: false },
+        { id: 'username', label: 'User name', alignRight:'left' },
+        { id: 'email', label: 'Email', alignRight: 'left' },
+        { id: 'phone', label: 'Phone', alignRight: 'left' },
+        { id: 'role', label: 'Role', alignRight: 'left' },
 
-        {  id: 'action', label: '           Activites', alignLeft: true }
+        {  id: 'action', label: '           Activites', alignLeft: 'left' }
     ];
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {

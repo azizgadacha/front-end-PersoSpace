@@ -7,6 +7,7 @@ import {ADD_USER, DELETE_USER, INISIALIZE_FILTRED_USER, INISIALIZE_USER, USER_DE
 
 export const initialState = {
     users:[],
+    User_Specified_Columns:[],
     filtred:[]
 
 };
@@ -86,6 +87,10 @@ const UserReducer = (state = initialState, action) => {
 
         case INISIALIZE_USER:
             state.users=action.payload.users
+            for (let user of state.users )
+            {
+                state.User_Specified_Columns.push([user._id,user.username,user.role])
+            }
             return {
 
                 ...state,
