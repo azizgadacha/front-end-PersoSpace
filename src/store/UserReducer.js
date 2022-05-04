@@ -23,6 +23,7 @@ const UserReducer = (state = initialState, action) => {
             console.log("ena el Share fil loul")
             console.log(share)
             let userId=action.payload.userId
+            let supId=action.payload.card.superior_id
             console.log("im the userId")
             state.filtred=[]
             var alam=[]
@@ -60,7 +61,7 @@ const UserReducer = (state = initialState, action) => {
                 }
                 if (share.length == 0) {
                     for (let item2 of state.users) {
-                        if (!(item2.role == 'administrateur')) {
+                        if ((!(item2.role == 'administrateur'))&&(item2._id!=supId)) {
 
                             state.filtred.push(item2)
                         }
@@ -68,7 +69,7 @@ const UserReducer = (state = initialState, action) => {
                 } else {
                     console.log("alam")
                     for (let item of state.users) {
-                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur')) && ((!share.includes(item._id)))) {
+                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur')) && ((!share.includes(item._id)))&&(item._id!=supId)) {
                             state.filtred.push(item)
                         }
                     }

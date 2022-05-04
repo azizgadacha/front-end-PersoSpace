@@ -45,6 +45,7 @@ import {Cancel, Delete, Deleting, Widget, Workspaces} from "../../Button/actionB
 import {initialState as userSt} from "../../../store/UserReducer";
 
 import {useRouteMatch} from "react-router";
+import {IconShare} from "@tabler/icons";
 
 
 // style constant
@@ -276,7 +277,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                         <Avatar variant="rounded" className={classes.avatar}
                                                 onClick={RemoveShare}
                                         >
-                                            <CoPresentIcon/>
+                                            <IconShare/>
                                         </Avatar>
                                     </Grid>
                                     <Grid item>
