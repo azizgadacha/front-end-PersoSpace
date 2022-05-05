@@ -232,9 +232,7 @@ const RemoveShareModal=  (props) => {
 
 
     const TABLE_HEAD = [
-        { id: 'username', label: 'User name', alignRight: 'left' },
-        { id: 'email', label: 'Email', alignRight: 'left' },
-        { id: 'phone', label: 'Phone', alignRight: 'left'},
+
         { id: 'role', label: 'Role', alignRight: 'left' },
 
         {  id: 'action', label: '           Activites', alignLeft: 'left' }

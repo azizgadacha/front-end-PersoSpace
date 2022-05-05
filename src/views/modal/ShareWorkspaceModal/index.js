@@ -71,13 +71,12 @@ const style = {
 
     borderRadius: 5,
 
-
+maxWidth:"30%",
     position: 'absolute',
     top: '50%',
     left: '50%',
     radius:3,
     transform: 'translate(-50%, -50%)',
-    width: 400,
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
@@ -99,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translate(-50%, -50%)',
 
         bgcolor: 'background.paper',
-        width:"50%",
+        width:"45%",
         border: '2px solid #000',
         boxShadow: 24,
         pt: 2,
@@ -197,7 +196,7 @@ const ShareWorkspaceModal=  (props) => {
 
     const TABLE_HEAD = [
         { id: 'username', label: 'User name', alignRight: "left" },
-        {  id: 'action', label: '           Activites', alignRight: "left" }
+        {  id: 'action', label: '           Activites', alignRight: "center" }
     ];
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {
@@ -281,7 +280,8 @@ const ShareWorkspaceModal=  (props) => {
         setFilterName(event.target.value);
     };
     let userSt= useSelector((state) => state.user);
-
+console.log("ddddddd")
+console.log(userSt.filtred)
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.filtred.length) : 0;
 
     const filteredUsers = applySortFilter(userSt.filtred, getComparator(order, orderBy), filterName);
@@ -390,7 +390,7 @@ const ShareWorkspaceModal=  (props) => {
                                                     .map((row) => {
 
 
-                                                        const {_id, username, email, phone,role,photo} = row;
+                                                        const {_id, username, photo} = row;
                                                         const isItemSelected = selected.indexOf(username) !== -1;
 
                                                         return (
@@ -406,7 +406,7 @@ const ShareWorkspaceModal=  (props) => {
                                                                     <TableCell padding="checkbox">
 
                                                                     </TableCell>
-                                                                    <Cells    userPar={{_id,username,phone,role,photo,email}}/>
+                                                                    <Cells    userPar={{_id,username,photo}}/>
                                                                 </TableRow>
 
                                                             </Fragment>
