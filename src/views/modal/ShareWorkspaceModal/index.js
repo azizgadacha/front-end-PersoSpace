@@ -340,8 +340,7 @@ const ShareWorkspaceModal=  (props) => {
 
     return (
         <Fragment>
-
-   <Modal
+            <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
@@ -363,13 +362,13 @@ const ShareWorkspaceModal=  (props) => {
                                 <CloseIcon onClick={handleClose}  color="disabled"      />
                             </IconButton>
                             <Grid container alignItems={"center"}>
-                            <Grid xs={12}>
-                                <Typography  gutterBottom           color={theme.palette.secondary.main} variant="h1" align="center">
+                                <Grid xs={12}>
+                                    <Typography  gutterBottom           color={theme.palette.secondary.main} variant="h1" align="center">
 
 
-                                    Share Workspaces
-                                </Typography>
-                            </Grid>
+                                        Share Workspaces
+                                    </Typography>
+                                </Grid>
 
                             </Grid>
                             <ThemeConfig>
