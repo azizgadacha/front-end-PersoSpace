@@ -37,8 +37,8 @@ import { useHistory} from "react-router-dom";
 
 
 import {
-    IconButton,
-    useMediaQuery,
+    IconButton, Typography,
+    useMediaQuery, useTheme,
 } from "@material-ui/core";
 
 import useScriptRef from "../../../hooks/useScriptRef";
@@ -73,13 +73,12 @@ const style = {
 
     borderRadius: 5,
 
-
+    maxWidth:"30%",
     position: 'absolute',
     top: '50%',
     left: '50%',
     radius:3,
     transform: 'translate(-50%, -50%)',
-    width: 400,
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
@@ -99,8 +98,9 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
 
         transform: 'translate(-50%, -50%)',
-        width: 1000,
+
         bgcolor: 'background.paper',
+        width:"45%",
         border: '2px solid #000',
         boxShadow: 24,
         pt: 2,
@@ -178,17 +178,7 @@ const useStyles = makeStyles((theme) => ({
 const RemoveShareModal=  (props) => {
     const [isloading, setIsloading] = useState(false);
 
-    const states = [
-        {
-            value: 'administrateur',
-            label: 'administrateur'
-        },
-        {
-            value: 'simple employer',
-            label: 'simple employer'
-        },
 
-    ];
     const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
     const handleCapture = ({target}) => {
@@ -202,40 +192,13 @@ const RemoveShareModal=  (props) => {
     };
 
     const classes = useStyles();
-    let history = useHistory();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
-
-
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
 
 
     const TABLE_HEAD = [
-
-        { id: 'role', label: 'Role', alignRight: 'left' },
-
-        {  id: 'action', label: '           Activites', alignLeft: 'left' }
+        { id: 'username', label: 'User name', alignRight: "left" },
+        {  id: 'action', label: '           Activites', alignRight: "center" }
     ];
     function descendingComparator(a, b, orderBy) {
         if (b[orderBy] < a[orderBy]) {
@@ -319,7 +282,8 @@ const RemoveShareModal=  (props) => {
         setFilterName(event.target.value);
     };
     let userSt= useSelector((state) => state.user);
-
+    console.log("ddddddd")
+    console.log(userSt.filtred)
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.filtred.length) : 0;
 
     const filteredUsers = applySortFilter(userSt.filtred, getComparator(order, orderBy), filterName);
@@ -374,11 +338,10 @@ const RemoveShareModal=  (props) => {
 
 
 
+    const theme = useTheme();
 
     return (
         <Fragment>
-
-
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -401,14 +364,18 @@ const RemoveShareModal=  (props) => {
                                 <CloseIcon onClick={handleClose}  color="disabled"      />
                             </IconButton>
                             <Grid container alignItems={"center"}>
-                            <Grid xs={6}>
-                                <h1>List of users shared with</h1>
-                            </Grid>
+                                <Grid xs={12}>
+                                    <Typography  gutterBottom           color={theme.palette.secondary.main} variant="h1" align="center">
+
+
+                                        List Of Users Shared With
+                                    </Typography>
+                                </Grid>
 
                             </Grid>
                             <ThemeConfig>
                                 <PerfectScrollbar>
-                                    <TableContainer sx={{minWidth: 800}}>
+                                    <TableContainer sx={{minWidth: 250,maxWidth:450}}>
                                         <Table>
                                             <UserListHead
                                                 order={order}
@@ -425,7 +392,7 @@ const RemoveShareModal=  (props) => {
                                                     .map((row) => {
 
 
-                                                        const {_id, username, email, phone,role,photo} = row;
+                                                        const {_id, username, photo} = row;
                                                         const isItemSelected = selected.indexOf(username) !== -1;
 
                                                         return (
@@ -441,7 +408,7 @@ const RemoveShareModal=  (props) => {
                                                                     <TableCell padding="checkbox">
 
                                                                     </TableCell>
-                                                                    <Cells    userPar={{_id,username,phone,role,photo,email}}/>
+                                                                    <Cells    userPar={{_id,username,photo}}/>
                                                                 </TableRow>
 
                                                             </Fragment>
