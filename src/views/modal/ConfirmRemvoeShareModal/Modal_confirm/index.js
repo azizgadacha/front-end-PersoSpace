@@ -21,9 +21,9 @@ import {
     ADD_USER,
     CLICK, CLICKED_INISIALIZE, CLOSE_Confirm_Remove_Share_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL,
-    CLOSE_DELETE_MODAL,
+    CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL,
     CLOSE_MODAL, CLOSE_MODAL_REMOVE, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
-    INISIALIZE_USER, OPEN_MODAL_SHARE, USER_DELETE,
+    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, USER_DELETE,
 } from "../../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -260,26 +260,54 @@ const Modal_confirm=  (props) => {
                 user_id:props.user._id,
             })
             .then(response =>{
-                dispatcher({
-                    type:CLOSE_Confirm_Remove_Share_MODAL,
+                if(response.data.notConnected) {
+                    dispatcher({type: LOGOUT});
+                    history.push("/login");
+                }
+                else
+                if(response.data.success){
+                    dispatcher({
+                        type: CLOSE_Confirm_Remove_Share_MODAL,
 
-                })
+                    })
 
-                dispatcher(  {
-                    type:CLOSE_MODAL_REMOVE,
+                    dispatcher({
+                        type: CLOSE_MODAL_REMOVE,
 
-                })
+                    })
 
-                dispatcher({
-                    type:INISIALIZE_FILTRED_USER,
-                    payload:{card:props.card,userId:props.user._id,location:"Remove",inside:"Remove reverse"}
-                })
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:"User has been Removed successfully",severity:"success"}
-                })
+                    dispatcher({
+                        type: INISIALIZE_FILTRED_USER,
+                        payload: {
+                            card: props.card,
+                            userId: props.user._id,
+                            location: "Remove",
+                            inside: "Remove reverse"
+                        }
+                    })
+                    dispatcher({
+                        type: CLICK,
+                        payload: {text: "User has been Removed successfully", severity: "success"}
+                    })
 
+                }
+                else {
+                    dispatcher({
+                        type: CLOSE_Confirm_Remove_Share_MODAL,
 
+                    })
+                    dispatcher({
+                        type:CLOSE_MODAL_REMOVE,
+                    });
+
+                    history.push(configData.defaultPath)
+
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:'Workspace No Longer exist',severity:"error"}
+                    });
+
+                }
 
 
             })

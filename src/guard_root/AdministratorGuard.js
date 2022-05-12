@@ -7,10 +7,10 @@ import { Redirect } from 'react-router-dom';
 
 const AdministratorGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
-    const arr = ["viewAll", "VisualizationOfWorkspace"]
+    const arr = ["/viewAll", "/VisualizationOfWorkspace"]
     const  isAdministrator  = (account.user.role=='administrateur'?true:false);
     const contains = arr.some(element => {
-        if ((window.location.pathname).includes(element)) {
+        if ((window.location.pathname)==((element))) {
             return true;
         }
         return false;

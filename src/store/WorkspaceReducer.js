@@ -93,9 +93,12 @@ const WorkspaceReducer = (state = initialState, action) => {
             };
         case UPDATE_WORKSPACE:
             const Work=action.payload.work
+            console.log(Work)
 
            let index2 = 0;
             var filteredObj = state.Workspace.find(function(item, i){
+                console.log("ena el item")
+                console.log(item)
                 if(item._id === Work._id){
                     index2 = i;
                     return i;

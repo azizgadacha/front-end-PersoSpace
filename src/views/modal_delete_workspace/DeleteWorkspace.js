@@ -106,20 +106,31 @@ const DeleteWorkspace = (props) => {
                         payload: {text:"You are no longer connected",severity:"success"}
                     })
                 }
-                else
-                {
-                dispatcher({
-                    type:CLOSE_DELETE_MODAL,
-                })
-                dispatcher({
-                    type:DELETE,
-                    payload: {work:response.data.workspaceitems}
-                })
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:"Workspace Removed successfully",severity:"success"}
-                })
+                else {
+                    if (response.data.success) {
 
+                    dispatcher({
+                        type: CLOSE_DELETE_MODAL,
+                    })
+                    dispatcher({
+                        type: DELETE,
+                        payload: {work: response.data.workspaceitems}
+                    })
+                    dispatcher({
+                        type: CLICK,
+                        payload: {text: "Workspace Removed successfully", severity: "success"}
+                    })
+                }
+                    else{
+                        dispatcher({
+                            type: CLOSE_DELETE_MODAL,
+                        })
+                     history.push(configData.defaultPath)
+                        dispatcher({
+                            type: CLICK,
+                            payload: {text: "Workspace No Longer Exist", severity: "error"}
+                        })
+                    }
 
             }})
             .catch(function (error) {

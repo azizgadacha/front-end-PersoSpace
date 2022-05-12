@@ -137,6 +137,7 @@ let {id}=useParams()
                                 {
 
                                 if (response.data.success) {
+                                    console.log("ena lehne kifech menedrouch")
                                     setIsloading(false)
 
                                     dispatcher({
@@ -151,6 +152,18 @@ let {id}=useParams()
                                     dispatcher({
                                         type: "Click",
                                         payload: {text: "Workspace Edited successfully", severity: "success"}
+                                    })
+                                }
+                                else{
+
+                                    dispatcher({
+                                            type: ClOSE_EDIT_MODAL,
+                                        }
+                                    )
+                                    history.push(configData.defaultPath)
+                                    dispatcher({
+                                        type: "Click",
+                                        payload: {text: "Workspace No Longer Exist", severity: "error"}
                                     })
                                 }
                             }})

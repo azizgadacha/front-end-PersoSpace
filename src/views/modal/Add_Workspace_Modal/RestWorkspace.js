@@ -37,7 +37,7 @@ import AnimateButton from '../../../animation/AnimateButton';
 import {Alert, LoadingButton} from "@material-ui/lab";
 import {useDispatch, useSelector} from "react-redux";
 
-import {ADD, CLOSE_MODAL} from "../../../store/actions";
+import {ADD, CLOSE_MODAL, LOGOUT} from "../../../store/actions";
 import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel} from "../../Button/actionButton";
 
@@ -131,28 +131,41 @@ setIsloading(true)
                                 description: values.description
                             })
                             .then(function (response) {
-                                if (response.data.success) {
-                                    setIsloading(false)
+                                if(response.data.notConnected) {
+                                    dispatcher({type: LOGOUT});
+                                    history.push("/login");
+                                }
+                                else if(response.data.success)
+                                        {
+                                            setIsloading(false)
 
-                                    dispatcher({
-                                        type:CLOSE_MODAL,
+                                            dispatcher({
+                                                    type: CLOSE_MODAL,
+                                                }
+                                            )
+
+                                            dispatcher({
+                                                type: ADD,
+                                                payload: {
+                                                    work: [{
+                                                        WorkspaceName: values.WorkspaceName,
+                                                        description: values.description,
+                                                        _id: response.data.WorkspaceID,
+                                                        Share: []
+                                                    }]
+                                                }
+
+                                            })
+                                            dispatcher({
+                                                type: "Click",
+                                                payload: {text: "Workspace added successfully", severity: "success"}
+                                            })
+
+
                                         }
-                                    )
-
-                                    dispatcher({
-                                        type:ADD,
-                                        payload: {work:[{WorkspaceName:values.WorkspaceName,description:values.description,_id:response.data.WorkspaceID,Share:[]}]}
-
-                                    })
-                                    dispatcher({
-                                        type:"Click",
-                                        payload: {text:"Workspace added successfully",severity:"success"}
-                                    })
-
-
-                                } else {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: response.data.msg });
+                                    else {
+                                    setStatus({success: false});
+                                    setErrors({submit: response.data.msg});
                                     setSubmitting(false);
                                     setIsloading(false)
 
