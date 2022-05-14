@@ -348,6 +348,7 @@ if(!(loc.includes('SharedWorkspaces'))){
                                         <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
                                             <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
                                         </ListItemIcon>
+
                                         <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
                                     </ListItemButton>
                                 </ListItem>
@@ -415,7 +416,9 @@ if(!(loc.includes('SharedWorkspaces'))){
                                 </Grid>
                             )}
                         </Fragment>)}
-
+                        {window.location.pathname}
+                        {window.location.hash}
+                        {window.location.hash}
                     </Grid>
                 </Grid>
 
