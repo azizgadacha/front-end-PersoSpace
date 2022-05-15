@@ -34,7 +34,6 @@ const Routes = () => {
 
 
 
-                            <Route path="*" component={page404} />
 
 
 

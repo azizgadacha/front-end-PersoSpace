@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import {Redirect, Route, Switch, useLocation} from 'react-router-dom';
 
 // project imports
 import MainLayout from '../views/Scolette_du_Dashboard';
@@ -93,6 +93,7 @@ const MainRoutes = () => {
                     <SimpleUserGuard>
                         <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
                     </SimpleUserGuard>
+                    <Redirect  to="/page404" />
 
 
 

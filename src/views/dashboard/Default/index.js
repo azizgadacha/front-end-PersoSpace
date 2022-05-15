@@ -21,7 +21,7 @@ import {
     INISIALIZE,
     INISIALIZE_USER, LOGOUT
 } from "../../../store/actions";
-import Modal_Delete_Workspace from "../../modal_delete_workspace";
+import Modal_Delete_Workspace from "../../modal/Modal_Delete_Workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
@@ -252,7 +252,7 @@ if(!(loc.includes('SharedWorkspaces'))){
         j++
         return(
 
-            <Grid item lg={4} md={6} sm={6} xs={12}>
+            <Grid item lg={4} md={6} sm={12} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('Shared'))||(loc.includes('Visualization')))?workspaces.username[j]:null} />
 
             </Grid>
@@ -387,15 +387,14 @@ if(!(loc.includes('SharedWorkspaces'))){
 
 
                             {lc}
-                            <ThemeConfig>
-                                {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
-                            </ThemeConfig>
+
+                                {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}/>)}
 
 
 
-                            <ThemeConfig>
+
                                 {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
-                            </ThemeConfig>
+
 
                             <ShareWorkspaceModal card= {open.card}/>
                             <RemoveShareModal card={open.card}/>
@@ -416,9 +415,10 @@ if(!(loc.includes('SharedWorkspaces'))){
                                 </Grid>
                             )}
                         </Fragment>)}
-                        {window.location.pathname}
-                        {window.location.hash}
-                        {window.location.hash}
+                        {//window.location.pathname
+                        //window.location.hash}
+                        //window.location.hash
+                            }
                     </Grid>
                 </Grid>
 

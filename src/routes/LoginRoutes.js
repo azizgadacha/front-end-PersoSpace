@@ -1,5 +1,5 @@
 import React, {lazy} from 'react';
-import { Route, Switch, useLocation} from 'react-router-dom';
+import {Redirect, Route, Switch, useLocation} from 'react-router-dom';
 
 // routes
 
@@ -8,6 +8,7 @@ import { Route, Switch, useLocation} from 'react-router-dom';
 import Animation_entre_page from "../animation/Animation_entre_page";
 import Verif_login_Guard from "../guard_root/verif_login_Guard";
 import Preparation_du_page from "../animation/Preparation_du_page";
+import config from "../config";
 
 
 
@@ -30,7 +31,7 @@ const Routes = () => {
 
 
 <React.Fragment>
-<Route path={['/login','/forget',"/change/:token",]}>
+<Route path={['/login','/forget',"/change/:token","/page404"]}>
 
                 <Switch location={location} key={location.pathname}>
                     <Animation_entre_page>
@@ -42,6 +43,8 @@ const Routes = () => {
                             <Route path="/change/:token" component={Authverif} />
 
                         </Verif_login_Guard>
+                        <Route path="/page404" component={page404} />
+
 
 
                     </Animation_entre_page>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 
 
 import configData from '../../config';
@@ -7,7 +7,7 @@ import configData from '../../config';
 import { makeStyles } from '@material-ui/styles';
 import {
     Box,
-    Button,
+    Button, Grid,
 
 
 } from '@material-ui/core';
@@ -29,6 +29,7 @@ import {CLICK, CLOSE_DELETE_MODAL, DELETE, LOGOUT} from "../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
 import {useHistory} from "react-router-dom";
+import {Cancel, Deleting} from "../Button/actionButton";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -130,6 +131,62 @@ const DeleteWorkspace = (props) => {
 
     };
     return (
+    <Fragment>
+
+
+        <Grid container alignItems={"center"}>
+            <Grid xs={6}>
+                <Box
+                    sx={
+
+
+                        {
+                            ml:0,
+                            mr:3,
+                            mt: 2,
+
+                        }}
+                >
+                    <AnimateButton>
+
+
+
+
+                        {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Deleting}</LoadingButton>):
+                            <Button
+                                disableElevation
+                                fullWidth
+                                onClick={Click}
+                                type="submit" size="large"
+                                variant="contained"
+                                color="error">{DELETE}</Button>}
+
+
+
+                    </AnimateButton>
+
+                </Box>
+            </Grid>
+
+            <Grid xs={6}>
+
+                <Box
+                    sx={{
+                        mt: 2,
+                        marginLeft:1
+                    }}
+                >
+                    <AnimateButton>
+
+                        <Button disableElevation size="large" disabled={isloading}  onClick={props.handleClose} fullWidth variant="contained" color="secondary">{Cancel}</Button>
+                    </AnimateButton>
+
+                </Box>
+            </Grid>
+
+        </Grid>
+
+        {/*
         <React.Fragment>
 
             <Box
@@ -169,6 +226,15 @@ const DeleteWorkspace = (props) => {
                         </Box>
 
 </React.Fragment>
+
+*/}
+
+
+
+    </Fragment>
+
+
+
     );
 };
 

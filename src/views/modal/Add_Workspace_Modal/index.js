@@ -60,6 +60,10 @@ import RestWorkspace from "./RestWorkspace";
 
 // ----------------------------------------------------------------------
 
+
+
+
+// ----------------------------------------------------------------------
 const OVERLAY_Styles ={
     position: 'fixed',
     top: 0,
@@ -70,28 +74,6 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const style = {
-
-    padding:'50px',
-    zIndex:100,
-
-    borderRadius: 2,
-
-
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    radius:3,
-    transform: 'translate(-50%, -50%)',
-
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    boxShadow: 24,
-
-};
-
-// ----------------------------------------------------------------------
-
 const useStyles = makeStyles((theme) => ({
 
 
@@ -162,6 +144,33 @@ const useStyles = makeStyles((theme) => ({
 
 
 const ModalAdd=  (props) => {
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
+console.log("3aslema")
+console.log(matchDownMD)
+
+
+    const style = {
+        minWidth:matchDownMD?"80%":"5%",
+
+        padding:'50px',
+        zIndex:100,
+
+        borderRadius: 2,
+
+
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        radius:3,
+        transform: 'translate(-50%, -50%)',
+
+        bgcolor: 'background.paper',
+        border: '0px solid #000',
+        boxShadow: 24,
+
+    };
     const [isloading, setIsloading] = useState(false);
 
     const states = [
@@ -188,33 +197,12 @@ const ModalAdd=  (props) => {
     };
 
     const classes = useStyles();
-    let history = useHistory();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const [strength, setStrength] = React.useState(0);
-    const [level, setLevel] = React.useState('');
-
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
 
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const changePassword = (value) => {
-        const temp = strengthIndicator(value);
-        setStrength(temp);
-        setLevel(strengthColor(temp));
-    };
 
 
-    useEffect(() => {
-        changePassword('123456');
-    }, []);
+
+
 
 
 
@@ -252,19 +240,18 @@ const ModalAdd=  (props) => {
             type:CLOSE_MODAL,
         });
     }
-    const theme = useTheme();
-
-
+   
 
 
     return (
         <Fragment>
+            {/*open={open1.ModalState}*/}
 
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalState}
+                open={true}
                 onClose={handleClose}
 
                 closeAfterTransition
@@ -277,9 +264,9 @@ const ModalAdd=  (props) => {
                 <div style={OVERLAY_Styles}>
                     <ClickAwayListener onClickAway={handleClose}>
 
-                    <Fade in={open1.ModalState}>
+                    <Fade in={true}>
 
-                        <Box sx={{ ...style,  }} className={classes.modal}>
+                        <Box sx={{ ...style,  }}>
 
 
                             <ThemeConfig>
@@ -291,10 +278,13 @@ const ModalAdd=  (props) => {
 
 
 
+                                {console.log("salut sava")}
+                                {console.log(matchDownSM)}
+                                {console.log(matchDownMD)}
 
 
                                 <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12}>
                                         <Grid
                                             container
                                             direction={matchDownSM ? 'column-reverse' : 'row'}
@@ -306,7 +296,7 @@ const ModalAdd=  (props) => {
                                                     <Typography
                                                         color={theme.palette.secondary.main}
                                                         gutterBottom
-                                                        variant={matchDownSM ? 'h3' : 'h2'}
+                                                        variant={matchDownSM ? 'h3' : 'h3'}
                                                     >
                                                         Add Workspace
                                                     </Typography>
@@ -317,10 +307,10 @@ const ModalAdd=  (props) => {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12}>
                                         <RestWorkspace handleClose={props.handleClose}  />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12}>
                                         <Divider />
                                     </Grid>
                                 </Grid>
