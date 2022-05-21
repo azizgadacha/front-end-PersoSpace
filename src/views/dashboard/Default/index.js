@@ -252,7 +252,7 @@ if(!(loc.includes('SharedWorkspaces'))){
         j++
         return(
 
-            <Grid item lg={4} md={6} sm={6} xs={12}>
+            <Grid item lg={4} md={6} sm={12} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('Shared'))||(loc.includes('Visualization')))?workspaces.username[j]:null} />
 
             </Grid>

@@ -16,10 +16,11 @@ const Verif_login_Guard = ({ children }) => {
     const account = useSelector((state) => state.account);
     const { isLoggedIn } = account;
 
-    if (isLoggedIn) {
+
+    if (isLoggedIn ) {
 
 
-        return <Redirect to={config.defaultPath} />;
+        return <Redirect to="/page404" />;
     }
 
     return children;

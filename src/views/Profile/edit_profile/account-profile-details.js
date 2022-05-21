@@ -33,7 +33,7 @@ import {Edit} from "../../Button/actionButton";
 
 
 
-const AccountProfileDetails = (props, { ...others }) => {
+const AccountProfileDetails = (props,{file, ...others }) => {
 
   const dispatcher = useDispatch();
     const [changed, setChanged] = useState(false);
@@ -68,6 +68,11 @@ const AccountProfileDetails = (props, { ...others }) => {
     <ThemeConfig>
 
       <Formik
+
+
+
+
+
           initialValues={{
             username: account.user.username,
             email: account.user.email,
@@ -317,7 +322,7 @@ setVal(values)
             </form>
         )}
       </Formik>
-        {open1.ModalState && (<Password_verify     user={val}/>)}
+        {open1.ModalState && (<Password_verify file={file}    user={val}/>)}
 
     </ThemeConfig>
 );

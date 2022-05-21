@@ -10,6 +10,7 @@ import ThemeConfig from "../../themes/theme2";
 import config from "../../config";
 import {Fragment} from "react";
 import {makeStyles} from "@material-ui/styles";
+import AnimateButton from "../../animation/AnimateButton";
 
 // ----------------------------------------------------------------------
 
@@ -58,10 +59,12 @@ export default function Page404() {
                                 sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
                             />
                         </motion.div>
+                        <AnimateButton>
 
                         <Button  onClick={handleClick} size="large" variant="contained" color={"secondary"} >
                             Go to Home
                         </Button>
+                        </AnimateButton>
                     </Box>
                 </MotionContainer>
             </Container>

@@ -46,21 +46,17 @@ const Header = (props) => {
                         >
                             <Grid item>
                                 <Stack alignItems="center" justifyContent="center" >
-                                    <Typography
-                                        color={theme.palette.secondary.main}
-                                        gutterBottom
-                                        variant={matchDownSM ? 'h8' : 'h6'}
-                                    >
-                                        To verify that you are the owner of this account
-                                    </Typography>
-                                    <Typography
-                                        color={theme.palette.secondary.main}
-                                        gutterBottom
-                                        variant={matchDownSM ? 'h8' : 'h6'}
-                                    >
-                                        Plesse enter Your password
-                                    </Typography>
 
+                                    <Typography
+                                        color={theme.palette.secondary.main}
+                                        gutterBottom
+                                        variant={matchDownSM ? 'h3' : 'h3'}
+                                    >
+                                         Password verification
+                                    </Typography>
+                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                                        Are you sure to delete {props.type=="User"?props.obj.username: props.type=="Widget"?props.obj.WidgetName:props.name} ?
+                                    </Typography>
                                 </Stack>
 
                             </Grid>

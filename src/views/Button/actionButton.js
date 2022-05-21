@@ -7,6 +7,9 @@ export const Select = 'Select';
 export const Add = 'Add';
 export const Adding = 'Adding';
 export const Delete = 'Delete';
+export const Sharing = 'SHARING';
+export const Share = 'SHARE';
+
 export const Deleting = 'Deleting';
 export const Workspaces = 'Workspaces';
 export const Widget = 'Widget';

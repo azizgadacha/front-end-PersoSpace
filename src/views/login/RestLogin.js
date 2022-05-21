@@ -5,6 +5,7 @@ import {Link as RouterLink} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
 import configData from '../../config';
+import {useHistory} from "react-router-dom";
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -37,6 +38,7 @@ import { ACCOUNT_INITIALIZE } from '../../store/actions';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import {Alert} from "@material-ui/lab";
+import config from "../../config";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -95,7 +97,7 @@ const RestLogin = (props, { ...others }) => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
+const history=useHistory();
     return (
         <React.Fragment>
             <Formik
@@ -129,6 +131,7 @@ const RestLogin = (props, { ...others }) => {
                                         setStatus({ success: true });
                                         setSubmitting(false);
                                     }
+                                 history.push(config.defaultPath)
                                 } else {
                                     setStatus({ success: false });
                                     setErrors({ submit: response.data.msg });

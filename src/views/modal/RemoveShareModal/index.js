@@ -49,43 +49,13 @@ import {UserListHead} from "../../ViewAll/import/customer/@dashboard/user";
 import SearchNotFound from "../../ViewAll/import/customer/SearchNotFound";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Cells from "./Cells";
-import ConfirmShareWorkspaceModal from "../ConfirmShareWorkspaceModal";
 import CloseIcon from "@mui/icons-material/Close";
 import {Cancel} from "../../Button/actionButton";
 import ConfirmRemvoeShareModal from "../ConfirmRemvoeShareModal";
 
 // ----------------------------------------------------------------------
 
-const OVERLAY_Styles ={
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right:0,
-    bottom:0,
-    backgroundColor: 'rgba(0,0,0, .2)',
-    zIndex:100
 
-}
-const style = {
-
-    padding:'50px',
-    zIndex:100,
-
-    borderRadius: 5,
-
-    maxWidth:"30%",
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    radius:3,
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-};
 
 // ----------------------------------------------------------------------
 
@@ -176,6 +146,46 @@ const useStyles = makeStyles((theme) => ({
 
 
 const RemoveShareModal=  (props) => {
+
+    const theme = useTheme();
+
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
+    let minWith=matchDownSM?'20%':matchDownMD?"95%":"35%"
+    let maxWidth=matchDownSM?'90%':matchDownMD?"98%":"40%";
+
+    const OVERLAY_Styles ={
+        position: 'fixed',
+        minWith,
+        top: 0,
+        left: 0,
+        right:0,
+        bottom:0,
+        backgroundColor: 'rgba(0,0,0, .2)',
+        zIndex:100
+
+    }
+
+    const style = {
+
+        padding:'50px',
+        zIndex:100,
+
+        borderRadius: 3,
+        maxWidth,
+        minWith,
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        radius:3,
+        transform: 'translate(-50%, -50%)',
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+    };
+
     const [isloading, setIsloading] = useState(false);
 
 
@@ -338,7 +348,6 @@ const RemoveShareModal=  (props) => {
 
 
 
-    const theme = useTheme();
 
     return (
         <Fragment>
@@ -367,8 +376,7 @@ const RemoveShareModal=  (props) => {
                                 <Grid xs={12}>
                                     <Typography  gutterBottom           color={theme.palette.secondary.main} variant="h1" align="center">
 
-
-                                        List Of Users Shared With
+                                        Shared With
                                     </Typography>
                                 </Grid>
 

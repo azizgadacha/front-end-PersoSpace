@@ -1,30 +1,19 @@
 import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography
+    Avatar,
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Divider, Grid,
+    Typography
 } from '@mui/material';
-import { CameraAlt as CameraIcon } from '@material-ui/icons'
-
-import {
-
-    Badge,
-    DialogActions,
-    DialogTitle,
-    IconButton,
-    Dialog,
-    DialogContent,
-} from '@material-ui/core'
-import React, {Fragment, useRef} from "react";
+import configData from "../../../config";
+import React, {Fragment} from "react";
 import {useSelector} from "react-redux";
 import Profile from "./index";
 import {makeStyles} from "@material-ui/styles";
 import {useMediaQuery, useTheme} from "@material-ui/core";
-import configData from "../../../config";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,39 +30,36 @@ const useStyles = makeStyles((theme) => ({
 const AccountProfile = (props) => {
     const theme = useTheme();
 
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
-const account = useSelector((state) => state.account);
+    const account = useSelector((state) => state.account);
 
     const classes = useStyles();
-    const inputFileRef = useRef(null)
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
 
-return(
-    <Fragment>
-<Card >
-    <CardContent >
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-          <Avatar src={`${configData.API_SERVER}${account.user.photo}`}  className={classes.large}/>
-
-          <Typography
-          color="textPrimary"
-          gutterBottom
-          variant={matchDownSM ? 'h3' : 'h2'}  >
-          {account.user.username}
-        </Typography>
+    return(
+        <Card   sx={{minHeight:{matchDownLG}?"100%":null}}   >
+            <Grid  container
+                   spacing={0}
+                   direction="column"
+                   alignItems="center"
+                   justifyContent="center"
+                   style={{ minHeight: '35vh' }}
+            >
+                <Avatar  src={`${configData.API_SERVER}${account.user.photo}`}  className={classes.large}/>
 
 
-      </Box>
-    </CardContent>
-    <Divider />
+                <Typography
+                    color="textPrimary"
+                    gutterBottom
+                    variant={matchDownSM ? 'h3' : 'h2'}  >
+                    {account.user.username}
+                </Typography>
 
-  </Card>
-    </Fragment>
-)};
+
+            </Grid>
+
+        </Card>
+    )};
 export default AccountProfile;
