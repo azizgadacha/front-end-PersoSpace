@@ -1,70 +1,165 @@
-import React, {Fragment} from 'react';
+import { filter } from 'lodash';
+import React, {Fragment, useEffect, useState} from 'react';
+// material
+import Fade from '@mui/material/Fade';
 
-// material-ui
+import {
 
-// project imports
-import RestPass from "./RestPass"
-import Header from "./Header"
-import {ClickAwayListener, Divider, Grid} from "@mui/material";
-import {CLOSE_MODAL} from "../../../store/actions";
-import {useDispatch} from "react-redux";
+    Box, ClickAwayListener, Divider,
 
-// assets
+    Modal,
 
-//===============================|| AUTH3 - AddWorkspace ||===============================//
-const Modal_Styles ={
-    position:'fixed',
-    top:'50%',
-    left:'45%',
-    transform:'translate(-30%,-50%)',
-    backgroundColor:'#FFF',
-    padding:'50px',
-    zIndex:100
-}
+} from '@mui/material';
+// components
+import ThemeConfig from "../../../themes/theme2"
+
+
+
+
+import {useDispatch, useSelector} from "react-redux";
+import {CLOSE_DELETE_MODAL, CLOSE_MODAL,} from "../../../store/actions";
+
+
+
+import {
+
+    Grid,
+     useMediaQuery,
+} from "@material-ui/core";
+
+import {makeStyles} from "@material-ui/styles";
+
+import Header from "./Header";
+import RestPass from "./RestPass";
+
+// ----------------------------------------------------------------------
+
 const OVERLAY_Styles ={
     position: 'fixed',
     top: 0,
     left: 0,
     right:0,
     bottom:0,
-    backgroundColor: 'rgba(0,0,0, .2)',
     zIndex:100
 
 }
 
-const Pass = (props) => {
+
+// ----------------------------------------------------------------------
+
+
+
+
+const User=  (props) => {
+
+
+    const style = {
+maxWidth:'90%',
+        padding:'50px',
+        zIndex:100,
+
+        borderRadius: 3,
+
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        radius:3,
+        transform: 'translate(-50%, -50%)',
+
+        bgcolor: 'background.paper',
+        border: '0px solid #000',
+
+    };
+
+
+
+
+    const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
+
+
+
+
+
+
+
+
+
+
     const dispatcher = useDispatch();
 
-    const handleClose=()=>{
-        dispatcher({
-            type:CLOSE_MODAL,
-        });
-    }
+    let account = useSelector((state) => state.account);
+
+
+
+    useEffect(() => {
+        return () => {
+            dispatcher({
+                type:CLOSE_MODAL,
+            });
+        }
+    }, [])
+
+
+
+    let open1 = useSelector((state) => state.modal);
+
+    const handleCloseModal = ()=> {
+
+            dispatcher({
+                type:CLOSE_MODAL,
+            });
+
+    };
+
+
+
 
     return (
         <Fragment>
 
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
 
-        <div style={OVERLAY_Styles}>
-            <ClickAwayListener onClickAway={handleClose}>
+                open={open1.ModalState}
+                onClose={handleCloseModal}
+
+                closeAfterTransition
+                BackdropProps={{
+                    timeout: 500,
+                }}
+
+            >
+                <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleCloseModal}>
+
+                    <Fade in={open1.ModalState}>
+
+                        <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
+                        <ThemeConfig>
+
+                            <Header   />
+
+                            <Grid alignItems="center" justifyContent="center" >
 
 
-            <div style={Modal_Styles}>
-                <Header  type={"Workspace"} />
+                                    <RestPass  user={props.user}  file={props.file} />
+                            </Grid>
+                        </ThemeConfig>
 
-                <Divider />
 
-                <Grid container alignItems={"center"}>
+                        </Box>
+                    </Fade>
+                        </ClickAwayListener >
 
-                    <RestPass  user={props.user}  />
-                </Grid>
-            </div>
-                </ClickAwayListener>
+                </div>
 
-        </div>
+            </Modal>
+
+
         </Fragment>
-
-    );
-};
-
-export default Pass;
+    )
+        ;
+}
+export default User;

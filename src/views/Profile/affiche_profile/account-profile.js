@@ -1,12 +1,12 @@
 import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography
+    Avatar,
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Divider, Grid,
+    Typography
 } from '@mui/material';
 import configData from "../../../config";
 import React, {Fragment} from "react";
@@ -30,24 +30,24 @@ const useStyles = makeStyles((theme) => ({
 const AccountProfile = (props) => {
     const theme = useTheme();
 
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
 const account = useSelector((state) => state.account);
 
     const classes = useStyles();
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
 
 return(
-    <Fragment>
-<Card >
-    <CardContent >
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
+<Card   sx={{minHeight:{matchDownLG}?"100%":null}}   >
+      <Grid  container
+             spacing={0}
+             direction="column"
+             alignItems="center"
+             justifyContent="center"
+             style={{ minHeight: '35vh' }}
       >
-          <Avatar src={`${configData.API_SERVER}${account.user.photo}`}  className={classes.large}/>
+          <Avatar  src={`${configData.API_SERVER}${account.user.photo}`}  className={classes.large}/>
 
 
           <Typography
@@ -58,11 +58,8 @@ return(
         </Typography>
 
 
-      </Box>
-    </CardContent>
-    <Divider />
+      </Grid>
 
   </Card>
-    </Fragment>
 )};
 export default AccountProfile;

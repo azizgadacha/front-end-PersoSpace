@@ -27,14 +27,14 @@ const Routes = () => {
 
 
         <React.Fragment>
-            <Route path={['*']}>
+            <Route path={['/page404']}>
 
                 <Switch location={location} key={location.pathname}>
 
 
 
 
-                            <Route path="*" component={page404} />
+                            <Route path="/page404" component={page404} />
 
 
 

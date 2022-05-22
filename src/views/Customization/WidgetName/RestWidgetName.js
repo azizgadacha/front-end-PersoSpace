@@ -197,7 +197,7 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
 
                                     dispatcher({
                                         type:CLICK,
-                                        payload: {text:"You are no longer connected",severity:"success"}
+                                        payload: {text:"You are no longer connected",severity:"error"}
                                     })
 
                                 }else{

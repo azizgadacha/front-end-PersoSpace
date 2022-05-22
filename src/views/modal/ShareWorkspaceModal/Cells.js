@@ -70,8 +70,8 @@ const Cells=  ({userPar}) => {
                 <Box sx={{ '& button': { m: 1 } }}>
 
                     <div>
-                        <Button onClick={handleClickModal} sx={{width:180}} variant="outlined"  color="info" startIcon={<ShareIcon />}>
-                            Share Workspace
+                        <Button onClick={handleClickModal} sx={{mawWidth:180}} variant="outlined"  color="info" startIcon={<ShareIcon />}>
+
                         </Button>
                     </div>
                 </Box>

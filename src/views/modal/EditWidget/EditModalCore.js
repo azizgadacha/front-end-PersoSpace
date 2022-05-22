@@ -256,7 +256,7 @@ const EditModalCore=  ({objet}) => {
                                                         history.push("/login");
                                                         dispatcher({
                                                             type:CLICK,
-                                                            payload: {text:"You are no longer connected",severity:"success"}
+                                                            payload: {text:"You are no longer connected",severity:"error"}
                                                         })
                                                     }
                                                     else

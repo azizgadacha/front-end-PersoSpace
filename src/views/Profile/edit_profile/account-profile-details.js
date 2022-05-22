@@ -11,11 +11,11 @@ import {
     Grid, TextField,
 } from '@mui/material';
 import {
-  FormControl,
-  FormHelperText,
-  InputLabel, MenuItem,
-  OutlinedInput,
-  Select,
+    FormControl,
+    FormHelperText,
+    InputLabel, MenuItem,
+    OutlinedInput,
+    Select, useMediaQuery, useTheme,
 
 } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
@@ -23,20 +23,30 @@ import ThemeConfig from "../../../themes/theme2";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
-import { CLOSE_MODAL, OPEN_MODAL} from "../../../store/actions";
+import {CLICK, CLOSE_MODAL, LOGOUT, OPEN_MODAL} from "../../../store/actions";
 
 import AnimateButton from "../../../animation/AnimateButton";
 
 import Password_verify from "../../modal/password_verify_modal";
 import _ from "lodash";
-import {Edit} from "../../Button/actionButton";
+import {Change, Changing, Edit, Editing} from "../../Button/actionButton";
+import axios from "axios";
+import configData from "../../../config";
+import {useHistory} from "react-router-dom";
+import {LoadingButton} from "@material-ui/lab";
+import SaveIcon from "@mui/icons-material/Save";
 
 
 
-const AccountProfileDetails = (props, { ...others }) => {
+const AccountProfileDetails = (props,{file, ...others }) => {
 
   const dispatcher = useDispatch();
-    const [changed, setChanged] = useState(false);
+
+    const [isloading, setIsloading] = useState(false);
+
+
+    const [notChanged, setNotChanged] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [val, setVal] = useState({});
 
     const states = [
@@ -50,8 +60,14 @@ const AccountProfileDetails = (props, { ...others }) => {
         },
 
     ];
-  const account = useSelector((state) => state.account);
+    const theme = useTheme();
+    let history =useHistory()
+
+    const account = useSelector((state) => state.account);
     let open1 = useSelector((state) => state.modal);
+
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+
 
     useEffect(() => {
         return () => {
@@ -68,6 +84,11 @@ const AccountProfileDetails = (props, { ...others }) => {
     <ThemeConfig>
 
       <Formik
+
+
+
+
+
           initialValues={{
             username: account.user.username,
             email: account.user.email,
@@ -79,28 +100,82 @@ const AccountProfileDetails = (props, { ...others }) => {
             email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
             username: Yup.string().required('Username is required').min(6,"must contain minimum 6 digits  "),
 
-            phone: Yup.number().typeError("Must be a number").required('phone number is required').integer("Must be a valid number").positive(),
+              phone:Yup.string().required().matches(/^[0-9]+$/, "Must be only digits").min(8, 'Must be exactly 8 digits').max(8, 'Must be exactly 8 digits'),
 
             role: Yup.string().required('role is required')
 
           })}
           onSubmit={(values) => {
-              setChanged(false)
+              setIsloading(true)
+              setNotChanged(false)
 
 
              if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
-                 setChanged(true)
-              else {
+             {
+                 setIsloading(false)
+                 setNotChanged(true)
+
+                 setErrorMessage( "  You didn't change any things")
+
+             }
+                 else{
+
+                 axios.post( configData.API_SERVER + 'api/users/all', {
+                     id:account.user._id,
+                     email: values.email,
+                     username:values.username,
+                     token:account.token
+                 })
+                     .then(function (response) {
+                         if(response.data.notConnected){
+                             dispatcher({ type: LOGOUT });
+                             history.push("/login");
+                             dispatcher({
+                                 type:CLICK,
+                                 payload: {text:"You are no longer connected",severity:"error"}
+                             })
+                         }
+                         else
+                         {
+                             if (response.data.success) {
+                              if((response.data.users).length==0) {
+                                  setVal(values)
+                                  setIsloading(false)
+
+                                  dispatcher({
+                                      type: OPEN_MODAL,
+
+                                  });
+                              }else{
+                                  setIsloading(false)
+
+                                  setNotChanged(true)
+                                  setErrorMessage( `  a user with same ${ response.data.users[0].email==values.email?'email':'username'} already exist `)
+
+
+                              }
+                             } else {
+                                 setIsloading(false)
+
+                                 dispatcher({
+                                     type:CLICK,
+                                     payload: {text:"internel problem",severity:"error"}
+                                 })
+
+                                   }
+                                    }}).catch(()=>{
+                     setIsloading(false)
+
+                     dispatcher({
+                         type:CLICK,
+                         payload: {text:"internel problem",severity:"error"}
+                     })
+                 })
 
 
 
 
-setVal(values)
 
-                      dispatcher({
-                          type:OPEN_MODAL,
-
-                      });
 
           }}
 
@@ -111,8 +186,8 @@ setVal(values)
             <form  noValidate onSubmit={handleSubmit} {...others}>
 
 
-                <Card>
-                <CardHeader
+               <Card sx={{minHeight:{matchDownLG}?"100%":null}}>
+               <CardHeader
                     subheader="The information can be edited"
                     title="Profile"
                 />
@@ -124,7 +199,7 @@ setVal(values)
                   container
                   spacing={3}
               >
-                  { changed&&(
+                  { notChanged&&(
                   <Grid
                       item
                       md={12}
@@ -145,7 +220,14 @@ setVal(values)
                           id="outlined-adornment-username-register"
                                  name="username"
                           value={values.username}
-                          onChange={handleChange}
+                          onChange={(e)=>{
+                              setNotChanged(false)
+                              handleChange(e)
+
+
+                          }}
+
+
 
                       />
 
@@ -170,7 +252,12 @@ setVal(values)
                           value={values.email}
                           name="email"
                           onBlur={handleBlur}
-                          onChange={handleChange}
+                                 onChange={(e)=>{
+                                     setNotChanged(false)
+                                     handleChange(e)
+
+
+                                 }}
 
                       />
                       {touched.email && errors.email && (
@@ -196,7 +283,12 @@ setVal(values)
                           value={values.phone}
                           name="phone"
                           onBlur={handleBlur}
-                          onChange={handleChange}
+                                   onChange={(e)=>{
+                                       setNotChanged(false)
+                                       handleChange(e)
+
+
+                                   }}
 
                       />
                       {touched.phone && errors.phone && (
@@ -233,7 +325,12 @@ setVal(values)
                             onBlur={handleBlur}
                             error={touched.role && Boolean(errors.role)}
 
-                            onChange={handleChange}
+                            onChange={(e)=>{
+                                setNotChanged(false)
+                                handleChange(e)
+
+
+                            }}
 
 
                         >
@@ -290,16 +387,23 @@ setVal(values)
                     }}
                 >
                   <AnimateButton>
-                    <Button
-                        disableElevation
-                        fullWidth
-                        size="large"
-                        type="submit"
-                        variant="contained"
-                        color="secondary"
-                    >
-                        {Edit}
-                    </Button>
+                      {isloading?(<LoadingButton  disableElevation
+                                                  fullWidth
+                                                  size="large"
+                                                  type="submit"
+                                                  variant="contained" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):
+                          <Button
+                              disableElevation
+                              fullWidth
+                              size="large"
+                              type="submit"
+                              variant="contained"
+                              color="secondary"
+                          >
+                              {Edit}
+                          </Button>}
+
+
                   </AnimateButton>
 
 
@@ -317,7 +421,7 @@ setVal(values)
             </form>
         )}
       </Formik>
-        {open1.ModalState && (<Password_verify     user={val}/>)}
+        {open1.ModalState && (<Password_verify file={file}    user={val}/>)}
 
     </ThemeConfig>
 );

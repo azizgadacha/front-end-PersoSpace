@@ -3,6 +3,7 @@ import React, {Fragment} from 'react';
 // material-ui
 import {useTheme} from '@material-ui/core';
 import { Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
+import {Divider} from "@mui/material";
 
 // project imports
 
@@ -35,42 +36,53 @@ const Header = (props) => {
 
 
     return (
-        <Fragment>
-                <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
-                    <Grid item xs={12}>
-                        <Grid
-                            container
-                            direction={matchDownSM ? 'column-reverse' : 'row'}
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <Grid item>
-                                <Stack alignItems="center" justifyContent="center" >
-                                    <Typography
-                                        color={theme.palette.secondary.main}
-                                        gutterBottom
-                                        variant={matchDownSM ? 'h8' : 'h6'}
-                                    >
-                                        To verify that you are the owner of this account
-                                    </Typography>
-                                    <Typography
-                                        color={theme.palette.secondary.main}
-                                        gutterBottom
-                                        variant={matchDownSM ? 'h8' : 'h6'}
-                                    >
-                                        Plesse enter Your password
-                                    </Typography>
 
-                                </Stack>
 
-                            </Grid>
 
-                        </Grid>
 
+
+
+        <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+            <Grid item xs={12}>
+
+                <Grid
+                    container
+                    direction={matchDownSM ? 'column-reverse' : 'row'}
+                    alignItems="center"
+                    justifyContent="center"
+                >
+                    <Grid item mb={2}>
+                        <Stack alignItems="center" justifyContent="center">
+                            <Typography
+                                color={theme.palette.secondary.main}
+                                gutterBottom
+                                variant={matchDownSM ? 'h3':'h3' }
+                            >
+                                Password verification
+                            </Typography>
+                            <Divider />
+
+                            <Typography mt={1} variant="caption" fontSize="16px" textAlign= 'center' >
+
+                            </Typography>
+                            <Typography  variant="caption" fontSize="16px" textAlign='center' >
+                                To verify your identities please enter your password
+                            </Typography>
+                        </Stack>
                     </Grid>
-
                 </Grid>
-</Fragment>
+            </Grid>
+        </Grid>
+
+
+
+
+
+
+
+
+
+
 
     );
 };

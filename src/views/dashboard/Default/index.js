@@ -158,7 +158,7 @@ if(response.data.notConnected){
     history.push("/login");
     dispatcher({
         type:CLICK,
-        payload: {text:"You are no longer connected",severity:"success"}
+        payload: {text:"You are no longer connected",severity:"error"}
     })
 }
 else
@@ -265,7 +265,9 @@ if(!(loc.includes('SharedWorkspaces'))){
         j++
         return(
 
+
             <Grid item lg={4} md={12} sm={12} xs={12}>
+
                 <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('Shared'))||(loc.includes('Visualization')))?workspaces.username[j]:null} />
 
             </Grid>

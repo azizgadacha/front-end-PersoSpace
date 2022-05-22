@@ -3,6 +3,7 @@ import React from 'react';
 // material-ui
 import {useTheme} from '@material-ui/core';
 import { Grid, Stack, Typography, useMediaQuery } from '@material-ui/core';
+import {Divider} from "@mui/material";
 
 // project imports
 
@@ -53,6 +54,8 @@ const Modal_Delete = (props) => {
                             >
                                 Delete {props.type}
                             </Typography>
+                            <Divider />
+
                             <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
                                 Are you sure to delete {props.type=="User"?props.obj.username: props.type=="Widget"?props.obj.WidgetName:props.name} ?
                             </Typography>

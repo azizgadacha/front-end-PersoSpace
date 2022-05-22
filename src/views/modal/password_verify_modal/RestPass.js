@@ -31,6 +31,7 @@ import axios from 'axios';
 
 import AnimateButton from '../../../animation/AnimateButton';
 
+import Iconify from "../../ViewAll/import/customer/Iconify";
 
 
 import {useDispatch, useSelector} from "react-redux";
@@ -45,7 +46,7 @@ import {
 
 } from "../../../store/actions";
 import { LoadingButton} from "@material-ui/lab";
-import {Grid} from "@mui/material";
+import {Divider, Grid, TextField} from "@mui/material";
 import {Formik} from "formik";
 import * as Yup from "yup";
 
@@ -128,7 +129,12 @@ const RestPass = (props, { ...others }) => {
 
 
 
+    function handleShowPassword () {
 
+                setShowPassword((show) => !show);
+
+
+            }
 
     const [isloading, setIsloading] = useState(false);
     const dispatcher = useDispatch();
@@ -150,23 +156,47 @@ const RestPass = (props, { ...others }) => {
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 
                     setIsloading(true)
+                    let data
+                    if((props.file)===(`${configData.API_SERVER}${account.user.photo}`)){
+                     data={
+                               id:account.user._id,
+                               password: values.password,
+                               email: props.user.email,
+                               username:props.user.username,
+                               role:props.user.role,
+                         sendPhoto:false,
+                               phone:props.user.phone,
+                               token:account.token
+}}else{
+
+
+
+                         data = new FormData();
+
+                        data.append('id',account.user._id)
+                        data.append('password',values.password)
+                        data.append('email',props.user.email)
+                        data.append('phone',props.user.phone)
+                        data.append('file',props.file)
+                        data.append('role',props.user.role)
+                        data.append('token',account.token)
+                        data.append('sendPhoto',true)
+
+                    }
+
+
+
                     try{
-                        axios.post( configData.API_SERVER + 'api/users/edit', {
-                            userID:account.user._id,
-                            password: values.password,
-                            email: props.user.email,
-                            username:props.user.username,
-                            role:props.user.role,
-                            phone:props.user.phone,
-                            token:account.token
-                        })
+
+
+                        axios.post( configData.API_SERVER + 'api/users/edit', data)
                             .then(function (response) {
                                 if(response.data.notConnected){
                                     dispatcher({ type: LOGOUT });
                                     history.push("/login");
                                     dispatcher({
                                         type:CLICK,
-                                        payload: {text:"You are no longer connected",severity:"success"}
+                                        payload: {text:"You are no longer connected",severity:"error"}
                                     })
                                 }
                                 else
@@ -246,67 +276,124 @@ const RestPass = (props, { ...others }) => {
 
                     <form  noValidate onSubmit={handleSubmit}  {...others} >
 
-                        <Box marginLeft={7}
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                                p: 2,
-                            }}
-                        >
-                            <Grid item md={11} xs={12}>
-                            <FormControl fullWidth error={Boolean( touched.password && errors.password  )} >
-                                <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
-                                <OutlinedInput
-                                    id="outlined-adornment-password-register"
-                                    type={showPassword ? 'text' : 'password'}
-                                    value={values.password}
-                                    name="password" margin="2"
-                                    label="Password"
-                                    onBlur={handleBlur}
-                                    onChange={(e) => {
-                                        setVerifPass(false)
-                                        handleChange(e);
-                                    }}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                                edge="end"
+                        {/*
+
+                        <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+                            <Grid item xs={12}>
+                                <Grid
+                                    container
+                                    direction={matchDownSM ? 'column-reverse' : 'row'}
+                                    alignItems="center"
+                                    justifyContent="center"
+                                >
+                                    <Grid item>
+                                        <Grid alignItems="center" justifyContent="center" >
+
+                                            <Typography
+                                                color={theme.palette.secondary.main}
+                                                gutterBottom
+                                                variant={matchDownSM ? 'h3' : 'h3'}
                                             >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </            InputAdornment>
-                                    }
-                                     inputProps={{
-                                        classes: {
-                                            notchedOutline: classes.notchedOutline
-                                        }
-                                    }}
-                                />
-                                {touched.password && errors.password && (
-                                    <FormHelperText error id="standard-weight-helper-text-password-register">
-                                        {errors.password}
-                                    </FormHelperText>
+                                                Password verification
+                                            </Typography>
+                                            <Divider />
+                                            <Grid container alignItems={"center"}>
 
-                                )}
-                                { !(errors.password) && verifPass && (
-                                    <FormHelperText error id="standard-weight-helper-text-password-register">
-                                        please verify your password
-                                    </FormHelperText>
+                                                <Typography variant="caption" fontSize="16px" textAlign= 'center' >
+                                                    To verify your identities please enter your password
+                                                </Typography>
+                                            </Grid>
 
-                                )}
 
-                            </FormControl>
+                                        </Grid>
+
+                                    </Grid>
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+
+
+
+
+
+*/}
+
+
+
+
+
+
+
+                                                           <Grid container alignItems={"center"}>
+
+                        <Grid item xl={12} lg={12} md={12} xs={12}>
+                            <Grid container alignItems={"center"}>
+
+                            <FormControl fullWidth error={Boolean( touched.password && errors.password  )} >
+
+
+
+                                    <TextField
+                                        fullWidth={false}
+                                        name="password"
+                                        value={values.password}
+                                        sx={{display:'flex',textAlign: 'center',min: 0, style: { textAlign: 'center' }}}                                       onBlur={handleBlur}
+                                        id="outlined-adornment-password-register"
+                                        required
+                                        type={showPassword ? 'text' : 'password'}
+                                        label="Password"
+
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={(e)=>{handleShowPassword(0)}} edge="end">
+                                                        <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+
+                                    />
+
+
+
+
+
+
+
+                                    {touched.password && errors.password && (
+                                        <FormHelperText error id="standard-weight-helper-text-password-register">
+                                            {errors.password}
+                                        </FormHelperText>
+
+                                    )}
+                                    { !(errors.password) && verifPass && (
+                                        <FormHelperText error id="standard-weight-helper-text-password-register">
+                                            please verify your password
+                                        </FormHelperText>
+
+                                    )}
+
+                                </FormControl>
+
+                            </Grid>
+                        </Grid>
+
+
+
+
 
                             </Grid>
 
-                            </Box>
 
 
 
-                        <Box marginLeft={11}
+                        <Box mt={2}
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
