@@ -38,7 +38,7 @@ import SaveIcon from "@mui/icons-material/Save";
 
 
 
-const AccountProfileDetails = (props,{file, ...others }) => {
+const AccountProfileDetails = (props,{ ...others }) => {
 
   const dispatcher = useDispatch();
 
@@ -110,7 +110,7 @@ const AccountProfileDetails = (props,{file, ...others }) => {
               setNotChanged(false)
 
 
-             if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null}))
+             if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null})&&(props.file===`${configData.API_SERVER}${account.user.photo}`))
              {
                  setIsloading(false)
                  setNotChanged(true)
@@ -206,7 +206,7 @@ const AccountProfileDetails = (props,{file, ...others }) => {
                       xs={12}
                   >
                         <Alert variant="filled" autoHideDuration={4000} severity="error">
-                      You didn't change any things
+                            {errorMessage}
                   </Alert>
                   </Grid>)}
                 <Grid
@@ -421,7 +421,7 @@ const AccountProfileDetails = (props,{file, ...others }) => {
             </form>
         )}
       </Formik>
-        {open1.ModalState && (<Password_verify file={file}    user={val}/>)}
+        {open1.ModalState && (<Password_verify file={props.file}    user={val}/>)}
 
     </ThemeConfig>
 );

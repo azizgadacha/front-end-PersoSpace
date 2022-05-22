@@ -27,7 +27,8 @@ const Profile = () => {
     const dispatcher = useDispatch();
 console.log(file)
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
-    useEffect(() => {
+    console.log("ebla3 nayak")
+useEffect(() => {
         return () => {
             dispatcher({
                 type:CLOSE_MODAL,

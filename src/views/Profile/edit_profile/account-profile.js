@@ -81,7 +81,10 @@ const AccountProfile = ({setFile}) => {
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
             setSource(e.target.result);
+            console.log("BHIM")
+            console.log(target.files[0])
             setFile(target.files[0])
+
         };
     };
     let [source, setSource] = React.useState(`${configData.API_SERVER}${account.user.photo}`);

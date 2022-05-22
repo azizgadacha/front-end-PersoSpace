@@ -138,7 +138,8 @@ const RestPass = (props, { ...others }) => {
 
     const [isloading, setIsloading] = useState(false);
     const dispatcher = useDispatch();
-
+    console.log("Aziz Charmouta")
+console.log(props.file)
     return (
         <React.Fragment>
 
@@ -157,7 +158,9 @@ const RestPass = (props, { ...others }) => {
 
                     setIsloading(true)
                     let data
+                    let config
                     if((props.file)===(`${configData.API_SERVER}${account.user.photo}`)){
+                    config={}
                      data={
                                id:account.user._id,
                                password: values.password,
@@ -168,12 +171,16 @@ const RestPass = (props, { ...others }) => {
                                phone:props.user.phone,
                                token:account.token
 }}else{
-
-
+                        config={ headers: {
+                            "Content-Type": "multipart/form-data"
+                        }}
+console.log("ena el props")
+                        console.log(props.file)
 
                          data = new FormData();
 
                         data.append('id',account.user._id)
+                        data.append('username',props.user.username)
                         data.append('password',values.password)
                         data.append('email',props.user.email)
                         data.append('phone',props.user.phone)
@@ -189,7 +196,7 @@ const RestPass = (props, { ...others }) => {
                     try{
 
 
-                        axios.post( configData.API_SERVER + 'api/users/edit', data)
+                        axios.post( configData.API_SERVER + 'api/users/edit', data,config)
                             .then(function (response) {
                                 if(response.data.notConnected){
                                     dispatcher({ type: LOGOUT });
@@ -204,8 +211,8 @@ const RestPass = (props, { ...others }) => {
                                 if (response.data.success) {
 
 
-
-
+console.log("user")
+console.log(response.data.user)
                                     dispatcher({
                                         type:UPDATE,
                                         payload: {user:response.data.user}
@@ -237,9 +244,10 @@ const RestPass = (props, { ...others }) => {
                                     setSubmitting(false);
                                         setIsloading(false)
                                         history.push("/Profile")
+                                        console.log("bech tnikha el tri7a")
                                         dispatcher({
                                             type:CLICK,
-                                            payload: {text:"intern probleme please retry later",severity:"error"}
+                                            payload: {text:"intern problem please retry later",severity:"error"}
                                         });
 
                                     }}
@@ -252,7 +260,7 @@ const RestPass = (props, { ...others }) => {
                                 history.push("/Profile")
                                 dispatcher({
                                     type:CLICK,
-                                    payload: {text:"intern probleme please retry later",severity:"error"}
+                                    payload: {text:"intern problem please retry later",severity:"error"}
                                 });
                             });
                     } catch (err) {

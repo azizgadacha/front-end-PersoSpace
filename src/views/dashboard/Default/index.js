@@ -275,7 +275,7 @@ if(!(loc.includes('SharedWorkspaces'))){
 
         )})
     let Url;
-    if((window.location.pathname).includes('/dashboard/default')){
+    if((window.location.pathname).includes('/dashboard/default')||((window.location.hash).includes('/dashboard/default'))){
         Url=true
     }
     else {
