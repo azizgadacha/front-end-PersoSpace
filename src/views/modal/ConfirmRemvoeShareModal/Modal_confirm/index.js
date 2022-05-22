@@ -264,49 +264,49 @@ const Modal_confirm=  (props) => {
                     dispatcher({type: LOGOUT});
                     history.push("/login");
                 }
-                else
-                if(response.data.success){
-                    dispatcher({
-                        type: CLOSE_Confirm_Remove_Share_MODAL,
-
-                    })
-
-                    dispatcher({
-                        type: CLOSE_MODAL_REMOVE,
-
-                    })
-
-                    dispatcher({
-                        type: INISIALIZE_FILTRED_USER,
-                        payload: {
-                            card: props.card,
-                            userId: props.user._id,
-                            location: "Remove",
-                            inside: "Remove reverse"
-                        }
-                    })
-                    dispatcher({
-                        type: CLICK,
-                        payload: {text: "User has been Removed successfully", severity: "success"}
-                    })
-
-                }
                 else {
-                    dispatcher({
-                        type: CLOSE_Confirm_Remove_Share_MODAL,
+                    if (response.data.success) {
+                        dispatcher({
+                            type: CLOSE_Confirm_Remove_Share_MODAL,
 
-                    })
-                    dispatcher({
-                        type:CLOSE_MODAL_REMOVE,
-                    });
+                        })
 
-                    history.push(configData.defaultPath)
+                        dispatcher({
+                            type: CLOSE_MODAL_REMOVE,
 
-                    dispatcher({
-                        type:CLICK,
-                        payload: {text:'Workspace No Longer exist',severity:"error"}
-                    });
+                        })
 
+                        dispatcher({
+                            type: INISIALIZE_FILTRED_USER,
+                            payload: {
+                                card: props.card,
+                                userId: props.user._id,
+                                location: "Remove",
+                                inside: "Remove reverse"
+                            }
+                        })
+                        dispatcher({
+                            type: CLICK,
+                            payload: {text: "User has been Removed successfully", severity: "success"}
+                        })
+
+                    } else {
+                        dispatcher({
+                            type: CLOSE_Confirm_Remove_Share_MODAL,
+
+                        })
+                        dispatcher({
+                            type: CLOSE_MODAL_REMOVE,
+                        });
+
+                        history.go(0)
+
+                        dispatcher({
+                            type: CLICK,
+                            payload: {text: 'User Already has been removed from this Workspace', severity: "error"}
+                        });
+
+                    }
                 }
 
 

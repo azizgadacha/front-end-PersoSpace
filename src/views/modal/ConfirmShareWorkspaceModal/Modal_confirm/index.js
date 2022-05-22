@@ -243,51 +243,70 @@ const Modal_confirm=  (props) => {
                 }
                 else
                 {
+                    if (response.data.success) {
 
-                dispatcher({
-                    type:CLOSE_Confirm_Share_Workspace_MODAL,
+                    dispatcher({
+                        type: CLOSE_Confirm_Share_Workspace_MODAL,
 
-                })
+                    })
 
-                dispatcher(  {
-                    type:CLOSE_MODAL_SHARE,
+                    dispatcher({
+                        type: CLOSE_MODAL_SHARE,
 
-                })
+                    })
 
-                dispatcher({
-                    type:INISIALIZE_FILTRED_USER,
-                    payload:{card:props.card,userId:props.user._id}
-                })
+                    dispatcher({
+                        type: INISIALIZE_FILTRED_USER,
+                        payload: {card: props.card, userId: props.user._id}
+                    })
 
-                console.log("AIDMUBAREK")
-                console.log(props.card.Share)
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:"Workspace has been shared successfully",severity:"success"}
-                })
+                    console.log("AIDMUBAREK")
+                    console.log(props.card.Share)
+                    dispatcher({
+                        type: CLICK,
+                        payload: {text: "Workspace has been shared successfully", severity: "success"}
+                    })
 
-                try {
-                    axios
-                        .post( configData.API_SERVER + 'api/users/addNotification',{
-                            token:account.token,
-                            receiver:props.user._id,
-                            sender:account.user._id,
-                            type:"shared",
-                            read:false,
-                            text: ` has shared ${props.card.WorkspaceName} with you`
-                        }).then((response)=>{
+                    try {
+                        axios
+                            .post(configData.API_SERVER + 'api/users/addNotification', {
+                                token: account.token,
+                                receiver: props.user._id,
+                                sender: account.user._id,
+                                type: "shared",
+                                read: false,
+                                text: ` has shared ${props.card.WorkspaceName} with you`
+                            }).then((response) => {
 
-                        socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
+                            socket.socket.emit("send_Notification", {
+                                notification: response.data.notification,
+                                UserId: props.user._id,
+                                User: account.user
+                            })
 
                         })
-                }catch (e) {
+                    } catch (e) {
 
+                    }
                 }
 
+            else
+                    {
+                        dispatcher({
+                            type: CLOSE_Confirm_Share_Workspace_MODAL,
 
+                        })
 
+                        dispatcher({
+                            type: CLOSE_MODAL_SHARE,
 
-            }})
+                        })
+                        history.go(0)
+                        dispatcher({
+                            type: CLICK,
+                            payload: {text: "Workspace already Shared With this User", severity: "error"}
+                        })
+                    }}})
             .catch(function (error) {
 
 

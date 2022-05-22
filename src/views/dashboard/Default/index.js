@@ -162,18 +162,31 @@ if(response.data.notConnected){
     })
 }
 else
-{
-                    dispatcher({
-                            type:INISIALIZE,
-                            payload: {work:response.data.workspaceitems,listeName:response.data.listeName,location: (link == 'api/users/visualizationOfWorkspaces')?"Visualization":null}
-                        }
-                    )
+{ if(response.data.success) {
+    console.log("bara mriguel")
+    dispatcher({
+            type: INISIALIZE,
+            payload: {
+                work: response.data.workspaceitems,
+                listeName: response.data.listeName,
+                location: (link == 'api/users/visualizationOfWorkspaces') ? "Visualization" : null
+            }
+        }
+    )
 
 
-                    setLoading(false);
-                    setSucces(true)
-                    setLoad(false)
-                }})
+    setLoading(false);
+    setSucces(true)
+    setLoad(false)
+}else{
+    history.push(config.defaultPath)
+    dispatcher({
+        type:CLICK,
+        payload: {text:"Workspace No longer Exist",severity:"error"}
+    })
+}
+                }
+                })
                 .catch(function (error) {
 
 
@@ -252,7 +265,7 @@ if(!(loc.includes('SharedWorkspaces'))){
         j++
         return(
 
-            <Grid item lg={4} md={6} sm={6} xs={12}>
+            <Grid item lg={4} md={12} sm={12} xs={12}>
                 <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('Shared'))||(loc.includes('Visualization')))?workspaces.username[j]:null} />
 
             </Grid>
@@ -414,6 +427,7 @@ if(!(loc.includes('SharedWorkspaces'))){
 
                                 </Grid>
                             )}
+
                         </Fragment>)}
 
                     </Grid>
