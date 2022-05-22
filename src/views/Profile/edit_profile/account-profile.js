@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         left: "50%",
         right: "50%",
         bottom: "50%",
-    transform: 'translate(-10%,5%)',
+    transform: 'translate(-2%,20%)',
     borderRadius : "50%",
     overflow: "hidden",
     border: "1px solid grey",
@@ -119,7 +119,7 @@ const AccountProfile = ({setFile}) => {
                                className={classes.input} id="file" type="file"/>
                             <label htmlFor="file" className={classes.uploadBtn}  id="labelStyle">Choose Photo</label>
                 </div>
-                <Typography
+                <Typography mt={3}
                     color="textPrimary"
                     gutterBottom
                     variant={matchDownSM ? 'h3' : 'h2'}  >
