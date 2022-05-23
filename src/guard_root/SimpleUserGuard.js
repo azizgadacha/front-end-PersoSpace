@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 const AdministratorGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
     const arr = ["viewAll", "VisualizationOfWorkspace"]
-    const  isSimpleEmployer  = (account.user.role=='simple employer'?true:false);
+    const  isSimpleEmployer  = (account.user.role==='simple employer'?true:false);
 
 
     if (!(isSimpleEmployer)&&((window.location.pathname).includes("SharedWorkspaces"))) {

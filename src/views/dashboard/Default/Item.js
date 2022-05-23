@@ -127,20 +127,24 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const Item = ({ item }) => {
-    const location = useLocation();
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
+
     let history =useHistory()
 
     let handleClickItem=(item)=>{
-        let loc2=location.pathname
 
-        let array2=loc2.split("/")
+        let array2=location.split("/")
 
         let ar3 = array2.slice(3, (array2.length));
 
         let indexOfElement=ar3.indexOf(item[1])
 
         let finalLink = ar3.slice(0, indexOfElement+1);
-        if((location.pathname).includes('/dashboard/default'))
+        if(location.includes('/dashboard/default'))
         history.push(config.defaultPath+"/"+finalLink.join('/'))
         else
             history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalLink.join('/'))

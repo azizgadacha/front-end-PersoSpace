@@ -21,7 +21,7 @@ import {
     INISIALIZE,
     INISIALIZE_USER, LOGOUT
 } from "../../../store/actions";
-import Modal_Delete_Workspace from "../../modal_delete_workspace";
+import Modal_Delete_Workspace from "../../modal/Modal_Delete_Workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
@@ -94,9 +94,11 @@ const Dashboard = (props, { ...others }) => {
     let link
     let id1
     let datasend
-
-
-    let loc=window.location.pathname
+    let loc
+if(window.location.pathname.includes('html'))
+    loc=window.location.hash
+else
+     loc=window.location.pathname
 
     useEffect(() => {
         let array=loc.split("/")
@@ -105,7 +107,7 @@ const Dashboard = (props, { ...others }) => {
         const ar2 = array.slice(3, (array.length));
 
         let link2=ar2.join('/')
-if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).includes('/dashboard/VisualizationOfWorkspace')))){
+if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/VisualizationOfWorkspace')))){
         if (id) {
             link = 'api/users/getinsideworkspace'
             id1 = id
@@ -123,7 +125,7 @@ if(((location.pathname).includes('/dashboard/default'))||(((location.pathname).i
                 token: account.token,
                 listeNameReceive: workspaces.listeName,
 
-                locVis:(  (location.pathname).includes('/dashboard/VisualizationOfWorkspace'))?true:null
+                locVis:(  (loc).includes('/dashboard/VisualizationOfWorkspace'))?true:null
             }
             dispatcher({
                 type: CLICKED_INISIALIZE
@@ -275,19 +277,13 @@ if(!(loc.includes('SharedWorkspaces'))){
 
         )})
     let Url;
-    if((window.location.pathname).includes('/dashboard/default')||((window.location.hash).includes('/dashboard/default'))){
-        Url=true
-    }
-    else {
-        Url=false
-    }
+    ((loc).includes('/dashboard/default'))? Url=true:Url=false
 
     const flexContainer = {
         display: 'flex',
         flexDirection: 'row',
         padding: 0,
     };
-    const location = useLocation();
     let array=loc.split("/")
 
 
@@ -354,7 +350,7 @@ if(!(loc.includes('SharedWorkspaces'))){
                                 <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                        {(loc.includes('/dashboard/default'))?(
+                                        {((loc.includes('/dashboard/default')))?(
                                             history.push(config.defaultPath)
                                         ):(loc.includes('SharedWorkspaces')) ?  (
                                             history.push('/dashboard/SharedWorkspaces')
@@ -401,15 +397,14 @@ if(!(loc.includes('SharedWorkspaces'))){
 
 
                             {lc}
-                            <ThemeConfig>
+
                                 {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
-                            </ThemeConfig>
 
 
 
-                            <ThemeConfig>
+
+
                                 {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
-                            </ThemeConfig>
 
                             <ShareWorkspaceModal card= {open.card}/>
                             <RemoveShareModal card={open.card}/>
@@ -418,7 +413,7 @@ if(!(loc.includes('SharedWorkspaces'))){
 
 
                             {Url ?(
-                                <Grid item lg={4} md={6} sm={12} xs={12}>
+                                <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
 
                                     <PlusCard/>
 
