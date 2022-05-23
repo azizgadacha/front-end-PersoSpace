@@ -64,7 +64,10 @@ const OVERLAY_Styles ={
 
 const style = {
 
-    padding:'50px',
+    paddingTop:'2px',
+    paddingBottom:'40px',
+    paddingLeft:'2px',
+    paddingRight:'2px',
     zIndex:100,
 
     borderRadius: 5,

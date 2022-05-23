@@ -10,7 +10,6 @@ import AppCurrentSubject from "../AppCurrentSubject";
 import {CHANGE_SUCCESS, } from "../../../store/actions";
 import {useDispatch} from "react-redux";
 import AppConversionRates from "../Rates/AppConversionRates";
-
 const ImageBackdrop = styled('div')(({ theme }) => ({
     position: 'absolute',
     left: 0,
@@ -63,19 +62,19 @@ const images = [
     {
         title: 'Donuts',
         width: '32.5%',
-        Componrnt:<AppCurrentVisits/>,
+        url:'https://back-serveur.herokuapp.com/donuts.jpg',
 
     },
     {
         title: 'Bar',
         width: '32.5%',
-        Componrnt:<AppWebsiteVisits />
+        url:'https://back-serveur.herokuapp.com/bar.jpg'
 
     },
     {
         title: 'Rate',
         width: '35%',
-        Componrnt: <AppConversionRates />
+        url: 'https://back-serveur.herokuapp.com/rates.jpg'
 
 
     },
@@ -85,6 +84,7 @@ const images = [
 ];
 
 export default function Chose() {
+    let imbd='https://back-serveur.herokuapp.com/donuts.jpg'
     const dispatcher = useDispatch();
 
 
@@ -100,7 +100,7 @@ export default function Chose() {
 
         <Container component="section" sx={{ mt: 0, mb: 4 }}>
 
-            <Box sx={{ mt: 8, display: 'flex' }}>
+            <Box sx={{ mt: 8, display: 'flex', flexWrap: 'wrap' }}>
                 {images.map((image) => (
                     <ImageIconButton
                         key={image.title}
@@ -113,19 +113,20 @@ export default function Chose() {
                     >
                         <Box
                             sx={{
+                                position: 'absolute',
+
                                 left: 0,
                                 right: 0,
                                 top: 0,
                                 bottom: 0,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center 40%',
-                            }}
+                                backgroundImage: `url(${image.url})`,                            }}
                         />
 
 
 
-                        <Box>
-                        <ImageBackdrop className="imageBackdrop" >                    <img alt="register" src="/static/images/bar.jpg" />
+                        <ImageBackdrop className="imageBackdrop" />
                         <Box
                             sx={{
                                 position: 'absolute',
@@ -150,9 +151,7 @@ export default function Chose() {
                                 <div className="imageMarked" />
                             </Typography>
                         </Box>
-                        </ImageBackdrop>
 
-                        </Box>
                     </ImageIconButton>
                 ))}
             </Box>

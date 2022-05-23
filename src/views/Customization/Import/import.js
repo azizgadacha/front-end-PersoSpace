@@ -15,40 +15,6 @@ import {useParams} from "react-router-dom";
 import Import_Data_From_DB from "../../modal/Import_Data_From_DB";
 import Password_verify from "../../modal/password_verify_modal";
 
-const useStyles = makeStyles((theme) => ({
-
-
-
-
-    root: {
-        alignSelf: 'center',
-        justifyContent: "center",
-        alignItems: "center",
-        display: 'flex',
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-
-        '&:hover .AvatarBackdrop': {
-            opacity: 0.5,
-        },
-    },
-    input: {
-        display: "none",
-
-
-    },
-    large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-        '&:hover .imageBackdrop': {
-            opacity: 0.5,
-        },
-    },
-
-
-}));
-
 
 const Import = ()=> {
     let open1 = useSelector((state) => state.modal);
@@ -56,13 +22,12 @@ const Import = ()=> {
     const fileInput = useRef();
     const dispatcher = useDispatch();
 
-    const classes = useStyles();
     const[csvFile,setCsvFile]=useState(null);
     const[changed,setchanged]=useState(null);
     let {id}=useParams()
 
     return (
-<Grid sx={{mt:3}}>
+<Grid sx={{mt:3}} md={12}>
     { changed&&(
         <Grid
             item
@@ -75,25 +40,19 @@ const Import = ()=> {
                 You intered invalid Data
             </Alert>
         </Grid>)}
-    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+    <Stack sx={{mt:4}} direction="row" alignItems="center" justifyContent="space-between" >
 
-        <Box
-
-                                          sx={{
+        <Grid item
+              md={3}
+              sm={3}
+              lg={3}
+           sx={{
                 left: 0,
                 right: 0,
                 top: 0,
                 bottom: 0,
-                alignItems: 'center',
-                justifyContent: 'center',
-                                              color:'grey'
-
-                                          }}
+               color:'grey'}}
         >
-
-
-
-
             <input
                 ref={fileInput}
                 type="file"
@@ -120,7 +79,7 @@ setchanged(true)
             />
 
         <Button
-            sx={{ flexDirection: 'column' ,ml:4,mr:6 }}
+            sx={{ flexDirection: 'column' }}
             variant="raised"
             color="success"
             disableRipple={true}
@@ -137,16 +96,19 @@ Import from CSV
         </Button>
 
 
-        </Box>
-        <Box
+        </Grid>
+<Grid
+            item
+            md={3}
+            sm={3}
+            lg={3}
 
             sx={{
                 left: 0,
                 right: 0,
                 top: 0,
                 bottom: 0,
-                alignItems: 'center',
-                justifyContent: 'center',
+
                 color:'grey'
             }}
         >
@@ -167,11 +129,11 @@ Import from CSV
 
         <IconDatabaseExport size={69.5} />
 
-Import from Data Base
+Import DataBase
     </Button>
-        </Box>
+    </Grid>
+</Stack>
 
-    </Stack>
     {open1.ModalState && ( <Import_Data_From_DB/>)}
 
 </Grid>
