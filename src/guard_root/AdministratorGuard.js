@@ -10,7 +10,7 @@ const AdministratorGuard = ({ children }) => {
     const arr = ["/viewAll", "/VisualizationOfWorkspace"]
     const  isAdministrator  = (account.user.role=='administrateur'?true:false);
     const contains = arr.some(element => {
-        if ((window.location.pathname)==((element))) {
+        if ((window.location.pathname)===((element))) {
             return true;
         }
         return false;

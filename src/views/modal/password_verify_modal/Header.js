@@ -33,6 +33,7 @@ const OVERLAY_Styles ={
 const Header = (props) => {
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
 
 
     return (
@@ -56,7 +57,7 @@ const Header = (props) => {
                             <Typography
                                 color={theme.palette.secondary.main}
                                 gutterBottom
-                                variant={matchDownSM ? 'h3':'h3' }
+                                variant={matchDownSM ? 'h6':matchDownMD?'h4':"h3" }
                             >
                                 Password verification
                             </Typography>

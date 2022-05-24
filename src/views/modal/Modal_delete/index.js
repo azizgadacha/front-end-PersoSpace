@@ -50,7 +50,7 @@ const Modal_Delete = (props) => {
                             <Typography
                                 color={theme.palette.secondary.main}
                                 gutterBottom
-                                variant={matchDownSM ? 'h3' : 'h2'}
+                                variant={matchDownSM ? 'h3' : 'h3'}
                             >
                                 Delete {props.type}
                             </Typography>

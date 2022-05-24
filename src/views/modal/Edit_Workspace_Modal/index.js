@@ -47,6 +47,7 @@ import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import EditWorkspace from "./EditWorkspace";
+import CloseIcon from "@mui/icons-material/Close";
 
 
 // ----------------------------------------------------------------------
@@ -63,9 +64,12 @@ const OVERLAY_Styles ={
 }
 const style = {
 
-    padding:'50px',
+    paddingTop:'2px',
+    paddingBottom:'25px',
+    paddingLeft:'25px',
+    paddingRight:'15px',
     zIndex:100,
-
+minWidth:'310px',
     borderRadius: 2,
 
 
@@ -83,69 +87,6 @@ const style = {
 
 // ----------------------------------------------------------------------
 
-const useStyles = makeStyles((theme) => ({
-
-
-
-
-
-    redButton: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        backgroundColor: theme.palette.grey[50],
-        border: '1px solid',
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[700],
-        textTransform: 'none',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '0.875rem'
-        }
-    },
-    signDivider: {
-        flexGrow: 1
-    },
-    signText: {
-        cursor: 'unset',
-        margin: theme.spacing(2),
-        padding: '5px 56px',
-        borderColor: theme.palette.grey[100] + ' !important',
-        color: theme.palette.grey[900] + '!important',
-        fontWeight: 500
-    },
-    loginIcon: {
-        marginRight: '16px',
-        [theme.breakpoints.down('sm')]: {
-            marginRight: '8px'
-        }
-    },
-    loginInput: {
-        ...theme.typography.customInput
-    },
-
-    root: {
-        alignSelf: 'center',
-        justifyContent: "center",
-        alignItems: "center",
-        display: 'flex',
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-    input: {
-        display: "none",
-
-
-    },
-    large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-    },
-
-
-}));
 
 
 
@@ -178,7 +119,6 @@ const ModalEdit=  (props) => {
         };
     };
 
-    const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -270,11 +210,15 @@ const ModalEdit=  (props) => {
 
                     <Fade in={open1.ModalEditState}>
 
-                        <Box sx={{ ...style,  }} className={classes.modal}>
-
+                        <Box sx={{ ...style,  }} >
+                            <IconButton sx={{float:'right'}}               label="close">
+                                <CloseIcon onClick={props.handleClose}  color="disabled"      />
+                            </IconButton>
                             <ThemeConfig>
+
                                 <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12}>
+
                                         <Grid
                                             container
                                             direction={matchDownSM ? 'column-reverse' : 'row'}
@@ -286,24 +230,20 @@ const ModalEdit=  (props) => {
                                                     <Typography
                                                         color={theme.palette.secondary.main}
                                                         gutterBottom
-                                                        variant={matchDownSM ? 'h3' : 'h2'}
+                                                        variant={matchDownSM ? 'h3' : 'h3'}
                                                     >
-                                                        Edit Workspace
+Edit workspace
                                                     </Typography>
-                                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
-                                                    </Typography>
+
+
                                                 </Stack>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={6}>
-                                        <EditWorkspace handleClose={props.handleClose} card={props.card} />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Divider />
-                                    </Grid>
                                 </Grid>
+
+                                        <EditWorkspace handleClose={props.handleClose} card={props.card} />
+
 
                             </ThemeConfig>
                         </Box>

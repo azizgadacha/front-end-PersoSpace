@@ -40,11 +40,10 @@ const MainRoutes = () => {
 
     let link=ar2.join('/')
 
-    const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 
     let linkName=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
     let linkSpace=`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
-
+console.log(linkName)
     return (
 
         <Route
@@ -68,44 +67,45 @@ const MainRoutes = () => {
 
 
 
-        <MainLayout>
-            <Switch location={location} key={location.pathname}>
-                <AuthGuard>
+            <MainLayout>
+                <Switch location={location} key={location.pathname} >
+                    <AuthGuard>
 
 
 
 
-                    <Route exact path="/dashboard/default/widget/:id" component={widget} />
+                        <Route exact path="/dashboard/default/widget/:id" component={widget} />
 
-                    <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />
-
-
-                   <Route exact path="/dashboard/default" component={DashboardDefault} />
-                    <AdministratorGuard>
-                        <Route exact path='/dashboard/viewAll' component={ViewAll} />
-                        <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />
-
-                        <Route exact path="/dashboard/VisualizationOfWorkspace" component={VisualizationOfWorkspaces}/>
-                    </AdministratorGuard>
-                    <Route path="/Profile" component={Profile} />
-                    <Route exact path="/ProfileEdit" component={ProfileEdit} />
-                    <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
-                    <SimpleUserGuard>
-                        <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
-                    </SimpleUserGuard>
+                        <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />
 
 
 
-                </AuthGuard>
+                        <AdministratorGuard>
+                            <Route exact path='/dashboard/viewAll' component={ViewAll} />
+                            <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />
+                            <Route exact path="/dashboard/default" component={DashboardDefault} />
+                            <Route exact path="/dashboard/VisualizationOfWorkspace" component={VisualizationOfWorkspaces}/>
+                        </AdministratorGuard>
+                        <Route path="/Profile" component={Profile} />
+                        <Route exact path="/ProfileEdit" component={ProfileEdit} />
+                        <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
+                        <SimpleUserGuard>
+                            <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
+                        </SimpleUserGuard>
+
+
+
+                    </AuthGuard>
                 </Switch>
-        </MainLayout>
+            </MainLayout>
 
 
 
 
 
         </Route>
-            );
+
+    );
 };
 
 export default MainRoutes;

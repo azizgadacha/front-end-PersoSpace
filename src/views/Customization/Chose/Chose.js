@@ -63,19 +63,19 @@ const images = [
     {
         title: 'Donuts',
         width: '32.5%',
-        ahba:<AppCurrentVisits/>,
+        Componrnt:<AppCurrentVisits/>,
 
     },
     {
         title: 'Bar',
         width: '32.5%',
-        ahba:<AppWebsiteVisits />
+        Componrnt:<AppWebsiteVisits />
 
     },
     {
         title: 'Rate',
         width: '35%',
-        ahba: <AppConversionRates />
+        Componrnt: <AppConversionRates />
 
 
     },
@@ -122,10 +122,10 @@ export default function Chose() {
                             }}
                         />
 
-                        {image.ahba}
+
 
                         <Box>
-                        <ImageBackdrop className="imageBackdrop" ></ImageBackdrop>
+                        <ImageBackdrop className="imageBackdrop" >                    <img alt="register" src="/static/images/bar.jpg" />
                         <Box
                             sx={{
                                 position: 'absolute',
@@ -150,6 +150,8 @@ export default function Chose() {
                                 <div className="imageMarked" />
                             </Typography>
                         </Box>
+                        </ImageBackdrop>
+
                         </Box>
                     </ImageIconButton>
                 ))}

@@ -141,9 +141,13 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
 
 
-    const location = useLocation();
-    let loc=location.pathname
-    let array=loc.split("/")
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
+
+    let array=location.split("/")
 
 
     const ar2 = array.slice(3, (array.length));
@@ -173,7 +177,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         dispatcher({
             type:CLICKED
         });
-        if((location.pathname).includes('/dashboard/default'))
+        if((location).includes('/dashboard/default'))
         history.push(`${config.defaultPath}/${link==""?"":link+"/"}${card._id}`)
         else
             history.push(`/dashboard/VisualizationOfWorkspace/${link==""?"":link+"/"}${card._id}`)
@@ -184,8 +188,6 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
             type:INISIALIZE_FILTRED_USER,
             payload:{card:card,userId:null}
         })
-        console.log("ENTA AID ENTA MUBarek")
-        console.log(card.Share)
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
             payload:{card:card}
@@ -269,7 +271,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
                         <Grid container direction="column">
                             <Grid item>
-                                {!(location.pathname.includes('Shared')) ?
+                                {(!(location.includes('Shared'))) ?
                                     (
 <Fragment>
                                 <Grid container justifyContent="space-between">
@@ -327,10 +329,10 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                 </Grid>                                         </Fragment>
                                     ):null}
 
-                                {((location.pathname=='/dashboard/VisualizationOfWorkspace')||((location.pathname.includes('Shared'))))&&(
+                                {(location=='/dashboard/VisualizationOfWorkspace')&&(
                                     <Grid item align="center">
                                         <Typography align="center"
-                                                    className={classes.cardHeading}>{(location.pathname.includes('Shared'))?"SharedBy ":null}{username}</Typography>
+                                                    className={classes.cardHeading}>{(location.includes('Shared'))?"SharedBy ":null}{username}</Typography>
                                     </Grid>
                                 )}
 
@@ -355,7 +357,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
                                 <Grid xs={6}>
                                     <Box
-                                          marginLeft={(location.pathname).includes('Shared')?17:0}
+                                          marginLeft={(location).includes('Shared')?17:0}
                                         sx={
 
                                             {
@@ -383,7 +385,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                         </Grid>
                                     </Box>
                                 </Grid>
-                                {!(location.pathname.includes('Shared')) &&(
+
+                                {(! (location.includes("Shared"))) &&(
 
                                     <Grid xs={6}>
 

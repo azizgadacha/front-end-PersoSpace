@@ -21,7 +21,7 @@ import ThemeConfig from "../../themes/theme2";
 import AppConversionRates from "./Chart/AppConversionRates";
 import BarChart from "./Chart/BarChart";
 import ModalDelete from "../modal/ModalDeleteWidgetUser";
-import TotalGrowthBarChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
+import SkeltonChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
 import Import_Data_From_DB from "../modal/Import_Data_From_DB";
 import EditWidget from "../modal/EditWidget";
 
@@ -67,6 +67,9 @@ const [importing,setImporting]=useState(true)
     let history =useHistory()
 
    useEffect(() => {
+       console.log("ddddddddddddd")
+       console.log(id)
+       console.log(id)
         axios
             .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
             .then(response =>{
@@ -74,6 +77,8 @@ const [importing,setImporting]=useState(true)
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
                 }else{
+                    console.log("ddddddd")
+                    console.log(response.data.Widgetitems)
                 dispatcher({
                         type:INISIALIZE_STORE,
                         payload: {widget:response.data.Widgetitems}
@@ -102,7 +107,7 @@ let element
 
         }
         return(
-             <Grid item lg={4} md={6} sm={6} xs={12}>
+             <Grid item lg={4} md={12} sm={12} xs={12}>
                  {element}
 
                  </Grid>
@@ -122,7 +127,7 @@ let element
 
          <Grid item xs={12} >
                     <Grid container spacing={gridSpacing}>
-                      {   importing==true ? load.map((i) => (<Grid item lg={4} md={6} sm={6} xs={12}><TotalGrowthBarChart/></Grid>)):lc}
+                      {   importing==true ? load.map((i) => (<Grid item lg={4} md={12} sm={12} xs={12}><SkeltonChart/></Grid>)):lc}
 
                     </Grid>
 

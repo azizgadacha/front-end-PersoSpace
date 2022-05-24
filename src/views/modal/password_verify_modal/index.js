@@ -54,7 +54,7 @@ const User=  (props) => {
 
 
     const style = {
-maxWidth:'90%',
+maxWidth:'100%',
         padding:'50px',
         zIndex:100,
 
@@ -136,7 +136,7 @@ maxWidth:'90%',
 
                     <Fade in={open1.ModalState}>
 
-                        <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
+                        <Box sx={matchDownSM? {...style}:{...style} } >
                         <ThemeConfig>
 
                             <Header   />

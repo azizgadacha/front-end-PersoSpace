@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {OPEN_MODAL, CLOSE_MODAL, CLOSE_DELETE_MODAL,} from '../../../store/actions';
 import {IconPlus} from '@tabler/icons';
-import {Tooltip,} from '@material-ui/core';
+import {Tooltip, useMediaQuery, useTheme,} from '@material-ui/core';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {Avatar, Card, CardContent, Grid, IconButton, Skeleton} from '@material-ui/core';
@@ -10,6 +10,7 @@ import {Avatar, Card, CardContent, Grid, IconButton, Skeleton} from '@material-u
 import { useDispatch, useSelector } from 'react-redux';
 //
 import ModalAdd from '../../modal/Add_Workspace_Modal'
+import {Stack} from "@mui/material";
 
 // style constant
 const useStyles = makeStyles({
@@ -23,8 +24,10 @@ const useStyles = makeStyles({
 //-----------------------|| SKELETON EARNING CARD ||-----------------------//
 
 const PlusCard = () => {
+    const theme = useTheme();
 
     const dispatcher = useDispatch();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
 
     useEffect(() => {
@@ -59,7 +62,21 @@ const PlusCard = () => {
         <React.Fragment>
             <Card>
                 <CardContent>
-                    <Grid container  sx={{mt:3.75 ,mb:3.30,ml:12}} onClick={handleClick} alignItems="center" >
+
+
+                    <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+                        <Grid item xs={12}>
+
+                            <Grid
+                                container
+                                direction={matchDownSM ? 'column-reverse' : 'row'}
+                                alignItems="center"
+                                justifyContent="center"
+                            >
+                                <Grid item mb={2}>
+                                    <Stack alignItems="center" justifyContent="center">
+
+                    <Grid container  sx={{mt:3.75 ,mb:3.30}} onClick={handleClick} alignItems="center" >
 
 
                         <Tooltip title="Add Workspace">
@@ -72,7 +89,11 @@ const PlusCard = () => {
                             </Grid>
                         </Tooltip>
                     </Grid>
-
+                                    </Stack>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </CardContent>
             </Card>
 

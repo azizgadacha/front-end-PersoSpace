@@ -99,7 +99,11 @@ const MainLayout = ({ children }) => {
     const classes = useStyles();
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
-    const location = useLocation();
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
 
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state.customization.opened);
@@ -132,7 +136,7 @@ const MainLayout = ({ children }) => {
 
             {/* drawer */}
 
-            {location.pathname.includes("dashboard")&&
+            {(location.includes("dashboard"))&&
             <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />}
             {/* main content */}
             <main

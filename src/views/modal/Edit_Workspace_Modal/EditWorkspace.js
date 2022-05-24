@@ -175,7 +175,6 @@ let {id}=useParams()
             >
                 {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form  noValidate onSubmit={handleSubmit} {...others}>
-                            <Divider />
 
 
                                 <Grid

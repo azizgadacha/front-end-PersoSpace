@@ -44,8 +44,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ handleLeftDrawerToggle }) => {
     const classes = useStyles();
-    const location = useLocation();
-
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
     return (
         <React.Fragment>
             {/* logo & toggler button */}
@@ -53,7 +56,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
                     <LogoSection />
                 </Box>
-                {location.pathname.includes("dashboard")&&
+                {(location.includes("dashboard"))&&
 
                     <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
                     <Avatar variant="rounded" className={classes.headerAvatar} onClick={handleLeftDrawerToggle} color="inherit">
@@ -63,7 +66,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
             </div>
 
             {/* header search */}
-            {location.pathname.includes("dashboard")&&
+            {(location.includes("dashboard"))&&
 
             <SearchSection theme="light" />}
             <div className={classes.grow} />
