@@ -146,7 +146,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         location=window.location.hash
     else
         location=window.location.pathname
-
+console.log("heyeyeye")
+console.log(location)
     let array=location.split("/")
 
 
@@ -329,7 +330,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                 </Grid>                                         </Fragment>
                                     ):null}
 
-                                {(location=='/dashboard/VisualizationOfWorkspace')&&(
+                                {((location=='/dashboard/VisualizationOfWorkspace')||(location=='/dashboard/SharedWorkspaces'))&&(
                                     <Grid item align="center">
                                         <Typography align="center"
                                                     className={classes.cardHeading}>{(location.includes('Shared'))?"SharedBy ":null}{username}</Typography>
