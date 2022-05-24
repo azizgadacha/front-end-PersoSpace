@@ -167,7 +167,7 @@ maxWidth,
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = userSt.filtred.map((n) => n.username);
+            const newSelecteds = userSt.possibleShare.map((n) => n.username);
             setSelected(newSelecteds);
             return;
         }
@@ -208,10 +208,10 @@ maxWidth,
     };
     let userSt= useSelector((state) => state.user);
 console.log("ddddddd")
-console.log(userSt.filtred)
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.filtred.length) : 0;
+console.log(userSt.possibleShare)
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.possibleShare.length) : 0;
 
-    const filteredUsers = applySortFilter(userSt.filtred, getComparator(order, orderBy), filterName);
+    const filteredUsers = applySortFilter(userSt.possibleShare, getComparator(order, orderBy), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
 
@@ -307,7 +307,7 @@ console.log(userSt.filtred)
                                                 order={order}
                                                 orderBy={orderBy}
                                                 headLabel={TABLE_HEAD}
-                                                rowCount={userSt.filtred.length}
+                                                rowCount={userSt.possibleShare.length}
                                                 numSelected={selected.length}
                                                 onRequestSort={handleRequestSort}
                                                 onSelectAllClick={handleSelectAllClick}
@@ -363,7 +363,7 @@ console.log(userSt.filtred)
 
                                     rowsPerPageOptions={[5, 10, 25]}
                                     component="div"
-                                    count={userSt.filtred.length}
+                                    count={userSt.possibleShare.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onPageChange={handleChangePage}

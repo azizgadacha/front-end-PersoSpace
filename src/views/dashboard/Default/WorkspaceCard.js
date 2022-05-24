@@ -29,9 +29,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CLICKED,
 
-    CLOSE_DELETE_MODAL, CLOSE_WIDGET_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER, INISIALIZE_SHARED_USER,
+    CLOSE_DELETE_MODAL,
+    CLOSE_WIDGET_MODAL,
+    IDWORKSPACE,
+    INISIALIZE_FILTRED_USER,
+    INISIALIZE_POSSIBLE_SHARE_USER,
+    INISIALIZE_SHARED_USER,
 
-    OPEN_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_REMOVE, OPEN_MODAL_Remove, OPEN_MODAL_SHARE,
+    OPEN_DELETE_MODAL,
+    OPEN_EDIT_MODAL,
+    OPEN_MODAL_REMOVE,
+    OPEN_MODAL_Remove,
+    OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
 
@@ -47,6 +56,7 @@ import {initialState as userSt} from "../../../store/UserReducer";
 import {useRouteMatch} from "react-router";
 import {IconShare} from "@tabler/icons";
 import configData from "../../../config";
+import {initialState as account} from "../../../store/accountReducer";
 
 
 // style constant
@@ -129,6 +139,8 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const WorkspaceCard = ({ isLoading,card,username }) => {
+    let workspaces = useSelector((state) => state.workspace);
+
     let history =useHistory()
     let userSt= useSelector((state) => state.user);
 
@@ -186,8 +198,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
     }
     const shareWorkspaces = () => {
         dispatcher({
-            type:INISIALIZE_FILTRED_USER,
-            payload:{card:card,userId:null}
+            type:INISIALIZE_POSSIBLE_SHARE_USER,
+            payload:{card:card}
         })
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
@@ -209,8 +221,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
     const RemoveShare = () => {
         dispatcher({
-            type:INISIALIZE_FILTRED_USER,
-            payload:{card:card,userId:null,location:"Remove",inside:"null"}
+            type:INISIALIZE_SHARED_USER,
+            payload:{card:card}
         })
 
         dispatcher(  {
@@ -221,18 +233,20 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         handleCloseMenu()
 
     };
-    const [filtred, setFiltred] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
-
+        setLoading(true)
 
             dispatcher({
-                type:INISIALIZE_FILTRED_USER,
-                payload:{card:card,userId:null,location:"Remove",inside:"null"}
+                type:INISIALIZE_SHARED_USER,
+                payload:{card:card}
             })
-setFiltred(userSt.filtred)
-    }, [card.Share])
+        console.log(userSt.Shared)
+        setLoading(false)
+
+    }, [workspaces.Workspace])
 
 
 
@@ -259,31 +273,17 @@ setFiltred(userSt.filtred)
         });
     };
 
-    function handleClose  () {
-        dispatcher({
-            type:CLOSE_DELETE_MODAL,
-
-        });
-    };
-
-    /*  const handleClose = () => {
-          setAnchorEl(null);
-      };
 
 
-     */
-
-    const workspaces = useSelector((state) => state.workspace);
-
-    let listeUser =   filtred.map((user)  => {
+console.log("salyyyyt")
+console.log(card)
+    let listeUser =   userSt.Shared.map((user)  => {
         return(
-<Fragment>
             <Avatar alt={user.username} src={`${configData.API_SERVER}${user.photo}`} />
-    {console.log("sssssssssssssssssssssssssssssssssssssssss")}
-    {console.log(user.username)}
-</Fragment>
+
 
         )})
+    const account = useSelector((state) => state.account);
 
     return (
             <React.Fragment>
@@ -304,7 +304,8 @@ setFiltred(userSt.filtred)
                                     <Grid item>
 
                                         <AvatarGroup     onClick={RemoveShare} max={3}>
-                                            {listeUser}
+                                            {(!loading)? listeUser:null}
+                                            <Avatar alt="salut" src={`${configData.API_SERVER}${account.user.photo}`} />
 
                                         </AvatarGroup>
                                     </Grid>

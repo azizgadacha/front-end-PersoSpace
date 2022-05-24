@@ -170,7 +170,7 @@ const RemoveShareModal=  (props) => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = userSt.filtred.map((n) => n.username);
+            const newSelecteds = userSt.Shared.map((n) => n.username);
             setSelected(newSelecteds);
             return;
         }
@@ -211,10 +211,10 @@ const RemoveShareModal=  (props) => {
     };
     let userSt= useSelector((state) => state.user);
     console.log("ddddddd")
-    console.log(userSt.filtred)
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.filtred.length) : 0;
+    console.log(userSt.Shared)
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.Shared.length) : 0;
 
-    const filteredUsers = applySortFilter(userSt.filtred, getComparator(order, orderBy), filterName);
+    const filteredUsers = applySortFilter(userSt.Shared, getComparator(order, orderBy), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
 
@@ -310,7 +310,7 @@ const RemoveShareModal=  (props) => {
                                                 order={order}
                                                 orderBy={orderBy}
                                                 headLabel={TABLE_HEAD}
-                                                rowCount={userSt.filtred.length}
+                                                rowCount={userSt.Shared.length}
                                                 numSelected={selected.length}
                                                 onRequestSort={handleRequestSort}
                                                 onSelectAllClick={handleSelectAllClick}
@@ -365,7 +365,7 @@ const RemoveShareModal=  (props) => {
                                 <TablePagination
                                     rowsPerPageOptions={[5, 10, 25]}
                                     component="div"
-                                    count={userSt.filtred.length}
+                                    count={userSt.Shared.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}
                                     onPageChange={handleChangePage}

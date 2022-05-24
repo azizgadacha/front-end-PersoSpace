@@ -32,6 +32,7 @@ export const OPEN_MODAL_REMOVE='OPEN_MODAL_REMOVE';
 export const CLOSE_MODAL_REMOVE='CLOSE_MODAL_REMOVE';
 export const Confirm_Remove_Share_MODAL='Confirm_Remove_Share_MODAL';
 export const CLOSE_Confirm_Remove_Share_MODAL='CLOSE_Confirm_Remove_Share_MODAL';
+export const INISIALIZE_POSSIBLE_SHARE_USER='INISIALIZE_POSSIBLE_SHARE_USER';
 
 // Store - Widget reducer
 export const ADD_WIDGET='ADD_WIDGET';

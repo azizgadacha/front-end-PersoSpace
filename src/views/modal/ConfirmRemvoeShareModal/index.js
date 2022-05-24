@@ -22,8 +22,8 @@ import {
     CLICK, CLICKED_INISIALIZE, CLOSE_Confirm_Remove_Share_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL,
-    CLOSE_MODAL, CLOSE_MODAL_REMOVE, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER,
-    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, USER_DELETE,
+    CLOSE_MODAL, CLOSE_MODAL_REMOVE, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER, INISIALIZE_SHARED_USER,
+    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, UPDATE_WORKSPACE, USER_DELETE,
 } from "../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -267,6 +267,14 @@ const Modal_confirm=  (props) => {
                 else {
                     if (response.data.success) {
                         dispatcher({
+                            type:UPDATE_WORKSPACE,
+                            payload: {work:response.data.w}
+                        })
+                        dispatcher({
+                            type:INISIALIZE_SHARED_USER,
+                            payload:{card:props.card}
+                        })
+                        dispatcher({
                             type: CLOSE_Confirm_Remove_Share_MODAL,
 
                         })
@@ -276,15 +284,7 @@ const Modal_confirm=  (props) => {
 
                         })
 
-                        dispatcher({
-                            type: INISIALIZE_FILTRED_USER,
-                            payload: {
-                                card: props.card,
-                                userId: props.user._id,
-                                location: "Remove",
-                                inside: "Remove reverse"
-                            }
-                        })
+
                         dispatcher({
                             type: CLICK,
                             payload: {text: "User has been Removed successfully", severity: "success"}

@@ -1,7 +1,7 @@
 import {
     ADD_USER,
     DELETE_USER,
-    INISIALIZE_FILTRED_USER,
+      INISIALIZE_POSSIBLE_SHARE_USER,
     INISIALIZE_SHARED_USER,
     INISIALIZE_USER,
     USER_DELETE,
@@ -16,8 +16,8 @@ import {
 export const initialState = {
     users:[],
     User_Specified_Columns:[],
-    filtred:[],
-    SharedWith:[]
+    possibleShare:[],
+    Shared:[],
 
 };
 
@@ -25,74 +25,40 @@ export const initialState = {
 
 const UserReducer = (state = initialState, action) => {
 
-    let userId
     let share
     let supId
-    var alam
+    var alam=[]
     switch (action.type) {
+
+
+
         case INISIALIZE_SHARED_USER:
             share=action.payload.card.Share
-
-            userId=action.payload.userId
-            supId=action.payload.card.superior_id
-            state.filtred=[]
+            console.log(share)
+             supId=action.payload.card.superior_id
+            state.Shared=[]
             alam=[]
 
-            if(action.payload.location=='Remove'){
                 for(let i of share){
                     alam.push(i[0])
                 }
                 for (let item of state.users) {
                     if (((alam.includes(item._id))) && (!(item.role == 'administrateur')) ||((share.includes(item._id)))) {
-                        state.SharedWith.push(item)
+                        state.Shared.push(item)
                     }
                 }
-
-
-            }
 
             return {
 
                 ...state,
 
-            };
-
-
-        case INISIALIZE_FILTRED_USER:
+            }
+    case INISIALIZE_POSSIBLE_SHARE_USER  :
             share=action.payload.card.Share
             console.log(share)
-             userId=action.payload.userId
              supId=action.payload.card.superior_id
-            state.filtred=[]
-            var alam=[]
-            if((action.payload.location=='Remove')&&(action.payload.inside=='Remove reverse')){
-                let index = 0;
-                var filteredObj = share.find(function(item, i){
-                    if(i._id==userId){
-                        index = i;
-                        return i;
+            state.possibleShare=[]
 
-                    }
-                });
-               share.splice(index,1)
-            }
-           else if(action.payload.location=='Remove'){
-                for(let i of share){
-                    alam.push(i[0])
-                }
-                for (let item of state.users) {
-                    if (((alam.includes(item._id))) && (!(item.role == 'administrateur')) ||((share.includes(item._id)))) {
-                        state.filtred.push(item)
-                    }
-                }
-
-
-
-            }
-
-            else {
-                if (userId != null)
-                    share.push(userId)
                 for (let i of share) {
                     alam.push(i[0])
                 }
@@ -100,16 +66,16 @@ const UserReducer = (state = initialState, action) => {
                     for (let item2 of state.users) {
                         if ((!(item2.role == 'administrateur'))&&(item2._id!=supId)) {
 
-                            state.filtred.push(item2)
+                            state.possibleShare.push(item2)
                         }
                     }
                 } else {
                     console.log("alam")
                     for (let item of state.users) {
-                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur')) && ((!share.includes(item._id)))&&(item._id!=supId)) {
-                            state.filtred.push(item)
+                        if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur')) &&(item._id!=supId)) {
+                            state.possibleShare.push(item)
                         }
-                    }
+
                 }
             }
 
