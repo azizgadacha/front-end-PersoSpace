@@ -15,7 +15,7 @@ import {
     InputLabel,
     MenuItem,
     OutlinedInput,
-    Select,
+    Select, Tooltip,
     Typography, useMediaQuery, useTheme,
 
 
@@ -57,6 +57,7 @@ import {useHistory, useParams} from "react-router-dom";
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {Cancel, Edit, Editing} from "../../Button/actionButton";
+import {IconPlus} from "@tabler/icons";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -139,6 +140,23 @@ let link
     let data
     return (
         <React.Fragment>
+
+            <Grid md={12}  container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+                <Grid item xs={12} md={12} >
+
+                    <Grid
+                        container
+                        direction={'row'}
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Grid item mb={2}>
+                            <Stack alignItems="center" justifyContent="center">
+
+                                <Grid container   sx={{mt:3.75 ,mb:3.30}} alignItems="center" >
+
+
+                                    <Grid md={12} container alignItems="center" >
 
             <Formik
                 initialValues={{
@@ -323,70 +341,69 @@ console.log(err)
 
                     <form  noValidate onSubmit={handleSubmit}  >
 
-                        <Box marginLeft={7}
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                                p: 2,
-                            }}
-                        >
-                            <Grid item md={12} lg={12} xs={12}>
-
-                                <Stack  alignItems="center" ml={4} justifyContent="center" >
 
 
-                                <FormControl fullWidth error={Boolean(touched.WidgetName && errors.WidgetName)} >
+                                                        <FormControl md={12} fullWidth error={Boolean(touched.WidgetName && errors.WidgetName)} >
 
 
 
-                                    <TextField  label="WidgetName" required variant="outlined"
-                                               id="outlined-adornment-username-register"
-                                               name="WidgetName"
-                                               value={values.WidgetName}
-                                               onChange={handleChange}
 
-                                    />
+                                                            <TextField  label="WidgetName" required variant="outlined"
+                                                                        id="outlined-adornment-username-register"
+                                                                        name="WidgetName"
 
-                                    {touched.WidgetName && errors.WidgetName && (
-                                        <FormHelperText error id="standard-weight-helper-text--username">
-                                            {errors.WidgetName}
-                                        </FormHelperText>
-                                    )}
-                                        {errors.submit && (
-                                            <Box
-                                                sx={{
-                                                    mt: 3
-                                                }}
-                                            >
+                                                                        value={values.WidgetName}
+                                                                        onChange={handleChange}
 
+                                                            />
 
-                                                <Alert severity="error">{errors.submit}</Alert>
-
-
-                                            </Box>
-                                        )}
+                                                            {touched.WidgetName && errors.WidgetName && (
+                                                                <FormHelperText error id="standard-weight-helper-text--username">
+                                                                    {errors.WidgetName}
+                                                                </FormHelperText>
+                                                            )}
+                                                            {errors.submit && (
+                                                                <Box
+                                                                    sx={{
+                                                                        mt: 3
+                                                                    }}
+                                                                >
 
 
-                                </FormControl>
-                                </Stack>
-                            </Grid>
-
-                            </Box>
+                                                                    <Alert severity="error">{errors.submit}</Alert>
 
 
-                        <Button
-                            style={{ display: 'none' }}
-                            ref={buttonRef}
+                                                                </Box>
+                                                            )}
 
-                            type="submit"
+                                                            <Button
+                                                                style={{ display: 'none' }}
+                                                                ref={buttonRef}
 
-                        >
-                            Sign IN
-                        </Button>
+                                                                type="submit"
+
+                                                            >
+                                                                Sign IN
+                                                            </Button>
+                                                        </FormControl>
+
+
+
+
+
+
+
 
                     </form>
                 )}
             </Formik>
+                                    </Grid>
+                                </Grid>
+                            </Stack>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
 
 </React.Fragment>
     );

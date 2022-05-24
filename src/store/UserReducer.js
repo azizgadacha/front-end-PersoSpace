@@ -1,4 +1,12 @@
-import {ADD_USER, DELETE_USER, INISIALIZE_FILTRED_USER, INISIALIZE_USER, USER_DELETE, USER_UPDATE} from './actions';
+import {
+    ADD_USER,
+    DELETE_USER,
+    INISIALIZE_FILTRED_USER,
+    INISIALIZE_SHARED_USER,
+    INISIALIZE_USER,
+    USER_DELETE,
+    USER_UPDATE
+} from './actions';
 
 
 
@@ -8,7 +16,8 @@ import {ADD_USER, DELETE_USER, INISIALIZE_FILTRED_USER, INISIALIZE_USER, USER_DE
 export const initialState = {
     users:[],
     User_Specified_Columns:[],
-    filtred:[]
+    filtred:[],
+    SharedWith:[]
 
 };
 
@@ -16,16 +25,44 @@ export const initialState = {
 
 const UserReducer = (state = initialState, action) => {
 
-
-
+    let userId
+    let share
+    let supId
+    var alam
     switch (action.type) {
+        case INISIALIZE_SHARED_USER:
+            share=action.payload.card.Share
+
+            userId=action.payload.userId
+            supId=action.payload.card.superior_id
+            state.filtred=[]
+            alam=[]
+
+            if(action.payload.location=='Remove'){
+                for(let i of share){
+                    alam.push(i[0])
+                }
+                for (let item of state.users) {
+                    if (((alam.includes(item._id))) && (!(item.role == 'administrateur')) ||((share.includes(item._id)))) {
+                        state.SharedWith.push(item)
+                    }
+                }
+
+
+            }
+
+            return {
+
+                ...state,
+
+            };
+
+
         case INISIALIZE_FILTRED_USER:
-            let share=action.payload.card.Share
-            console.log("ena el Share fil loul")
+            share=action.payload.card.Share
             console.log(share)
-            let userId=action.payload.userId
-            let supId=action.payload.card.superior_id
-            console.log("im the userId")
+             userId=action.payload.userId
+             supId=action.payload.card.superior_id
             state.filtred=[]
             var alam=[]
             if((action.payload.location=='Remove')&&(action.payload.inside=='Remove reverse')){
@@ -49,8 +86,7 @@ const UserReducer = (state = initialState, action) => {
                     }
                 }
 
-                console.log("ena el Share Ba3d el Intialisation")
-                console.log(share)
+
 
             }
 

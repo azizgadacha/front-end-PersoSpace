@@ -14,7 +14,7 @@ import {
     Checkbox,
 
     TablePagination,
-    Modal, Grid, Button,
+    Modal, Grid, Button, ClickAwayListener,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -59,88 +59,6 @@ import ConfirmRemvoeShareModal from "../ConfirmRemvoeShareModal";
 
 // ----------------------------------------------------------------------
 
-const useStyles = makeStyles((theme) => ({
-
-
-    modal:{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-
-        transform: 'translate(-50%, -50%)',
-
-        bgcolor: 'background.paper',
-        width:"45%",
-        border: '2px solid #000',
-        boxShadow: 24,
-        pt: 2,
-        px: 4,
-        pb: 3,
-
-
-
-    },
-
-
-    redButton: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        backgroundColor: theme.palette.grey[50],
-        border: '1px solid',
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[700],
-        textTransform: 'none',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.light
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '0.875rem'
-        }
-    },
-    signDivider: {
-        flexGrow: 1
-    },
-    signText: {
-        cursor: 'unset',
-        margin: theme.spacing(2),
-        padding: '5px 56px',
-        borderColor: theme.palette.grey[100] + ' !important',
-        color: theme.palette.grey[900] + '!important',
-        fontWeight: 500
-    },
-    loginIcon: {
-        marginRight: '16px',
-        [theme.breakpoints.down('sm')]: {
-            marginRight: '8px'
-        }
-    },
-    loginInput: {
-        ...theme.typography.customInput
-    },
-
-    root: {
-        alignSelf: 'center',
-        justifyContent: "center",
-        alignItems: "center",
-        display: 'flex',
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
-    input: {
-        display: "none",
-
-
-    },
-    large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-    },
-
-
-}));
-
-
 
 
 
@@ -152,7 +70,7 @@ const RemoveShareModal=  (props) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
     let minWith=matchDownSM?'20%':matchDownMD?"95%":"35%"
-    let maxWidth=matchDownSM?'90%':matchDownMD?"98%":"40%";
+    let maxWidth=matchDownSM?'90%':matchDownMD?"98%":null;
 
     const OVERLAY_Styles ={
         position: 'fixed',
@@ -165,13 +83,12 @@ const RemoveShareModal=  (props) => {
         zIndex:100
 
     }
-
     const style = {
 
         padding:'50px',
         zIndex:100,
 
-        borderRadius: 3,
+        borderRadius: 5,
         maxWidth,
         minWith,
         position: 'absolute',
@@ -180,11 +97,13 @@ const RemoveShareModal=  (props) => {
         radius:3,
         transform: 'translate(-50%, -50%)',
         bgcolor: 'background.paper',
+        border: '0px solid #000',
         boxShadow: 24,
         pt: 2,
         px: 4,
         pb: 3,
     };
+
 
     const [isloading, setIsloading] = useState(false);
 
@@ -201,7 +120,6 @@ const RemoveShareModal=  (props) => {
         };
     };
 
-    const classes = useStyles();
 
 
 
@@ -366,9 +284,12 @@ const RemoveShareModal=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
+
                     <Fade in={open1.ModalStateRemove}>
 
-                        <Box sx={{ ...style,  }} className={classes.modal}>
+                        <Box sx={{ ...style,  }} >
+
                             <IconButton sx={{float:'right'}}               aria-label="close">
                                 <CloseIcon onClick={handleClose}  color="disabled"      />
                             </IconButton>
@@ -454,9 +375,12 @@ const RemoveShareModal=  (props) => {
 
                             </ThemeConfig>
                             <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
+
                         </Box>
 
+
                     </Fade>
+                    </ClickAwayListener >
 
                 </div>
 

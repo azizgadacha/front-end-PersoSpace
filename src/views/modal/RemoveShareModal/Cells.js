@@ -63,10 +63,7 @@ const Cells=  ({userPar}) => {
             </TableCell>
 
 
-            <TableCell align="left">{userPar.email}</TableCell>
-            <TableCell align="left">{userPar.phone}</TableCell>
 
-            <TableCell align="left">{userPar.role}</TableCell>
 
 
 

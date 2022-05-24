@@ -100,6 +100,30 @@ if(window.location.pathname.includes('html'))
 else
      loc=window.location.pathname
 
+
+    useEffect(() => {
+        axios
+            .post(configData.API_SERVER + 'api/users/all', {
+                id:account.user._id,
+
+                token: account.token
+            }).then((result) => {
+            if(result.data.notConnected){
+                dispatcher({ type: LOGOUT });
+                history.push("/login");
+            }else {
+
+                dispatcher({
+                    type: INISIALIZE_USER,
+                    payload: {users: result.data.users},
+                })
+
+                setUSERLIST(userSt.users)
+                setSucess(true)
+
+            }})},[] );
+
+
     useEffect(() => {
         let array=loc.split("/")
 
@@ -222,27 +246,7 @@ else
     },[]);
 
 
-    useEffect(() => {
-        axios
-            .post(configData.API_SERVER + 'api/users/all', {
-                id:account.user._id,
 
-                token: account.token
-            }).then((result) => {
-            if(result.data.notConnected){
-                dispatcher({ type: LOGOUT });
-                history.push("/login");
-            }else {
-
-                dispatcher({
-                    type: INISIALIZE_USER,
-                    payload: {users: result.data.users},
-                })
-
-                setUSERLIST(userSt.users)
-                setSucess(true)
-
-            }})},[] );
 
     console.log(workspaces.listeName)
 if(!(loc.includes('SharedWorkspaces'))){

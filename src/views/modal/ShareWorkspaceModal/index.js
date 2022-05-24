@@ -14,7 +14,7 @@ import {
     Checkbox,
 
     TablePagination,
-    Modal, Grid, Button,
+    Modal, Grid, Button, ClickAwayListener,
 } from '@mui/material';
 // components
 import ThemeConfig from "../../../themes/theme2"
@@ -283,6 +283,8 @@ console.log(userSt.filtred)
                 {//                open={open1.ModalStateShare}
                 }
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
+
                     <Fade in={open1.ModalStateShare}>
 
                         <Box sx={{ ...style }} >
@@ -299,7 +301,7 @@ console.log(userSt.filtred)
 
                             <ThemeConfig>
                                 <PerfectScrollbar>
-                                    <TableContainer sx={{minWidth: 280}}>
+                                    <TableContainer sx={{minWidth: 250,maxWidth:450}}>
                                         <Table>
                                             <UserListHead
                                                 order={order}
@@ -374,7 +376,7 @@ console.log(userSt.filtred)
                         </Box>
 
                     </Fade>
-
+                    </ClickAwayListener>
                 </div>
 
             </Modal>

@@ -76,7 +76,7 @@ let maxWidth="90%"
 let minWidth=matchDownMD?"70%":"35%"
     const style = {
         maxWidth,
-        minWidth,
+        minWidth:"300px",
         padding:'50px',
         zIndex:100,
 

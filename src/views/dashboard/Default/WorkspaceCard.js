@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CLICKED,
 
-    CLOSE_DELETE_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER,
+    CLOSE_DELETE_MODAL, CLOSE_WIDGET_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER, INISIALIZE_SHARED_USER,
 
     OPEN_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_REMOVE, OPEN_MODAL_Remove, OPEN_MODAL_SHARE,
 
@@ -37,7 +37,7 @@ import {
 
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import config from "../../../config";
-import {Box, Button, Menu, MenuItem} from "@mui/material";
+import {AvatarGroup, Box, Button, Menu, MenuItem} from "@mui/material";
 import AnimateButton from "../../../animation/AnimateButton";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
@@ -46,6 +46,7 @@ import {initialState as userSt} from "../../../store/UserReducer";
 
 import {useRouteMatch} from "react-router";
 import {IconShare} from "@tabler/icons";
+import configData from "../../../config";
 
 
 // style constant
@@ -203,6 +204,9 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
 
     };
+
+
+
     const RemoveShare = () => {
         dispatcher({
             type:INISIALIZE_FILTRED_USER,
@@ -216,10 +220,22 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
         handleCloseMenu()
 
-
-
-
     };
+    const [filtred, setFiltred] = useState([]);
+
+    useEffect(() => {
+
+
+
+            dispatcher({
+                type:INISIALIZE_FILTRED_USER,
+                payload:{card:card,userId:null,location:"Remove",inside:"null"}
+            })
+setFiltred(userSt.filtred)
+    }, [card.Share])
+
+
+
 
     const EditSpace=()=>{
         dispatcher({
@@ -259,6 +275,16 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
     const workspaces = useSelector((state) => state.workspace);
 
+    let listeUser =   filtred.map((user)  => {
+        return(
+<Fragment>
+            <Avatar alt={user.username} src={`${configData.API_SERVER}${user.photo}`} />
+    {console.log("sssssssssssssssssssssssssssssssssssssssss")}
+    {console.log(user.username)}
+</Fragment>
+
+        )})
+
     return (
             <React.Fragment>
 
@@ -276,11 +302,11 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 <Fragment>
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
-                                        <Avatar variant="rounded" className={classes.avatar}
-                                                onClick={RemoveShare}
-                                        >
-                                            <IconShare/>
-                                        </Avatar>
+
+                                        <AvatarGroup     onClick={RemoveShare} max={3}>
+                                            {listeUser}
+
+                                        </AvatarGroup>
                                     </Grid>
                                     <Grid item>
                                         <Button>
