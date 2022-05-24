@@ -76,13 +76,13 @@ const PlusCard = () => {
                                 <Grid item mb={2}>
                                     <Stack alignItems="center" justifyContent="center">
 
-                    <Grid container  sx={{mt:3.75 ,mb:3.30}} onClick={handleClick} alignItems="center" >
+                    <Grid container  sx={{mt:2.8 ,mb:2.30}} onClick={handleClick} alignItems="center" >
 
 
                         <Tooltip title="Add Workspace">
                             <Grid container alignItems="center" >
 
-                        <IconButton   alt="Add Workspace"   aria-label="close"  a >
+                        <IconButton   alt="Add Workspace"   aria-label="close"  >
 
                         <IconPlus size={100.5}    />
 </IconButton>

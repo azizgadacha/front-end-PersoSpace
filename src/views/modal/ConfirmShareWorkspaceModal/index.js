@@ -23,8 +23,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     CLICK,
     CLOSE_Confirm_Share_Workspace_MODAL,
-    CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE_FILTRED_USER,
-     LOGOUT,
+    CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE_FILTRED_USER, INISIALIZE_SHARED_USER,
+    LOGOUT, UPDATE_WORKSPACE,
 } from "../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -76,7 +76,7 @@ let maxWidth="90%"
 let minWidth=matchDownMD?"70%":"35%"
     const style = {
         maxWidth,
-        minWidth,
+        minWidth:"300px",
         padding:'50px',
         zIndex:100,
 
@@ -127,13 +127,7 @@ let minWidth=matchDownMD?"70%":"35%"
             type:CLOSE_Confirm_Share_Workspace_MODAL,
         });
     }
-    let loc=window.location.pathname
 
-
-    let array=loc.split("/")
-
-
-    const ar2 = array.slice(3, (array.length));
 
     const Click=()=>{
         setIsloading(true)
@@ -156,6 +150,14 @@ let minWidth=matchDownMD?"70%":"35%"
                 }
                 else
                 {
+                    dispatcher({
+                        type:UPDATE_WORKSPACE,
+                        payload: {work:response.data.w}
+                    })
+                    dispatcher({
+                        type:INISIALIZE_SHARED_USER,
+                        payload:{card:props.card}
+                    })
 
                 dispatcher({
                     type:CLOSE_Confirm_Share_Workspace_MODAL,
@@ -167,10 +169,6 @@ let minWidth=matchDownMD?"70%":"35%"
 
                 })
 
-                dispatcher({
-                    type:INISIALIZE_FILTRED_USER,
-                    payload:{card:props.card,userId:props.user._id}
-                })
 
                 console.log("AIDMUBAREK")
                 console.log(props.card.Share)

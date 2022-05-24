@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -29,15 +29,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CLICKED,
 
-    CLOSE_DELETE_MODAL, IDWORKSPACE, INISIALIZE_FILTRED_USER,
+    CLOSE_DELETE_MODAL,
+    CLOSE_WIDGET_MODAL,
+    IDWORKSPACE,
+    INISIALIZE_FILTRED_USER,
+    INISIALIZE_POSSIBLE_SHARE_USER,
+    INISIALIZE_SHARED_USER,
 
-    OPEN_DELETE_MODAL, OPEN_EDIT_MODAL, OPEN_MODAL_REMOVE, OPEN_MODAL_Remove, OPEN_MODAL_SHARE,
+    OPEN_DELETE_MODAL,
+    OPEN_EDIT_MODAL,
+    OPEN_MODAL_REMOVE,
+    OPEN_MODAL_Remove,
+    OPEN_MODAL_SHARE,
 
 } from "../../../store/actions";
 
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import config from "../../../config";
-import {Box, Button, Menu, MenuItem} from "@mui/material";
+import {AvatarGroup, Box, Button, Menu, MenuItem} from "@mui/material";
 import AnimateButton from "../../../animation/AnimateButton";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
@@ -46,6 +55,8 @@ import {initialState as userSt} from "../../../store/UserReducer";
 
 import {useRouteMatch} from "react-router";
 import {IconShare} from "@tabler/icons";
+import configData from "../../../config";
+import {initialState as account} from "../../../store/accountReducer";
 
 
 // style constant
@@ -128,6 +139,8 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const WorkspaceCard = ({ isLoading,card,username }) => {
+    let workspaces = useSelector((state) => state.workspace);
+
     let history =useHistory()
     let userSt= useSelector((state) => state.user);
 
@@ -186,8 +199,8 @@ console.log(location)
     }
     const shareWorkspaces = () => {
         dispatcher({
-            type:INISIALIZE_FILTRED_USER,
-            payload:{card:card,userId:null}
+            type:INISIALIZE_POSSIBLE_SHARE_USER,
+            payload:{card:card}
         })
         dispatcher(  {
             type:OPEN_MODAL_SHARE,
@@ -204,10 +217,13 @@ console.log(location)
 
 
     };
+
+
+
     const RemoveShare = () => {
         dispatcher({
-            type:INISIALIZE_FILTRED_USER,
-            payload:{card:card,userId:null,location:"Remove",inside:"null"}
+            type:INISIALIZE_SHARED_USER,
+            payload:{card:card}
         })
 
         dispatcher(  {
@@ -217,10 +233,24 @@ console.log(location)
 
         handleCloseMenu()
 
-
-
-
     };
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        setLoading(true)
+
+            dispatcher({
+                type:INISIALIZE_SHARED_USER,
+                payload:{card:card}
+            })
+        console.log(userSt.Shared)
+        setLoading(false)
+
+    }, [workspaces.Workspace])
+
+
+
 
     const EditSpace=()=>{
         dispatcher({
@@ -244,21 +274,17 @@ console.log(location)
         });
     };
 
-    function handleClose  () {
-        dispatcher({
-            type:CLOSE_DELETE_MODAL,
-
-        });
-    };
-
-    /*  const handleClose = () => {
-          setAnchorEl(null);
-      };
 
 
-     */
+console.log("salyyyyt")
+console.log(card)
+    let listeUser =   userSt.Shared.map((user)  => {
+        return(
+            <Avatar alt={user.username} src={`${configData.API_SERVER}${user.photo}`} />
 
-    const workspaces = useSelector((state) => state.workspace);
+
+        )})
+    const account = useSelector((state) => state.account);
 
     return (
             <React.Fragment>
@@ -277,11 +303,12 @@ console.log(location)
 <Fragment>
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
-                                        <Avatar variant="rounded" className={classes.avatar}
-                                                onClick={RemoveShare}
-                                        >
-                                            <IconShare/>
-                                        </Avatar>
+
+                                        <AvatarGroup     onClick={RemoveShare} max={3}>
+                                            {(!loading)? listeUser:null}
+                                            <Avatar alt="salut" src={`${configData.API_SERVER}${account.user.photo}`} />
+
+                                        </AvatarGroup>
                                     </Grid>
                                     <Grid item>
                                         <Button>

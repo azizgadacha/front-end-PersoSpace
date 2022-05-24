@@ -74,8 +74,10 @@ const Dashboard = (props, { ...others }) => {
     const [isload, setLoad] = useState(true);
 
     const [isLoading, setLoading] = useState(true);
+    const [UserLoading, setUserLoading] = useState(true);
     const account = useSelector((state) => state.account);
     let userSt= useSelector((state) => state.user);
+
 
     const [success,setSucess]=useState(false)
     const [USERLIST,setUSERLIST]=useState([])
@@ -100,7 +102,36 @@ if(window.location.pathname.includes('html'))
 else
      loc=window.location.pathname
 
+
+
     useEffect(() => {
+
+        axios
+            .post(configData.API_SERVER + 'api/users/all', {
+                id:account.user._id,
+
+                token: account.token
+            }).then((result) => {
+            if(result.data.notConnected){
+                dispatcher({ type: LOGOUT });
+                history.push("/login");
+            }else {
+
+                dispatcher({
+                    type: INISIALIZE_USER,
+                    payload: {users: result.data.users},
+                })
+
+                setUSERLIST(userSt.users)
+                setSucess(true)
+console.log("ssssssssssssssqqqqqqqqqqqqqqqqqqqqqqq")
+console.log(userSt.users)
+                setUserLoading(false)
+            }})},[] );
+
+    useEffect(() => {
+
+
         let array=loc.split("/")
 
 
@@ -219,30 +250,12 @@ else
             })
 
         }
+        console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+
     },[]);
 
 
-    useEffect(() => {
-        axios
-            .post(configData.API_SERVER + 'api/users/all', {
-                id:account.user._id,
 
-                token: account.token
-            }).then((result) => {
-            if(result.data.notConnected){
-                dispatcher({ type: LOGOUT });
-                history.push("/login");
-            }else {
-
-                dispatcher({
-                    type: INISIALIZE_USER,
-                    payload: {users: result.data.users},
-                })
-
-                setUSERLIST(userSt.users)
-                setSucess(true)
-
-            }})},[] );
 
     console.log(workspaces.listeName)
 if(!(loc.includes('SharedWorkspaces'))){
@@ -307,7 +320,7 @@ if(!(loc.includes('SharedWorkspaces'))){
 
                 <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                     <List component={Stack} direction="row">
-                        {isload?
+                        {(isload || UserLoading)?
                             <Fragment>
                                 <ListItem   sx={{minHeight:"100%",
                                     minWidth: "30%",marginLeft:2
@@ -377,7 +390,7 @@ if(!(loc.includes('SharedWorkspaces'))){
                 <Grid item xs={12} >
                     <Grid container spacing={gridSpacing}>
 
-                        {isload?  (
+                        {(isload || UserLoading)?  (
 
 
 

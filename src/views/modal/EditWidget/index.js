@@ -48,7 +48,7 @@ const style = {
     zIndex:100,
 
     borderRadius: 3,
-
+maxWidth:"95%",
     position: 'absolute',
     top: '50%',
     left: '50%',

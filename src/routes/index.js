@@ -32,8 +32,22 @@ const ProfileEdit2 = Preparation_du_page(lazy(() => import('../views/Profile/edi
 
 const Routes = () => {
     const location = useLocation();
+    let path
 
-    let loc=location.pathname
+
+
+    if(window.location.pathname.includes('html'))
+        path=location.hash
+
+    else
+        path=location.pathname
+    let loc
+    if(window.location.pathname.includes('html'))
+        loc=window.location.hash
+    else
+        loc=window.location.pathname
+
+
     let array=loc.split("/")
 
 
@@ -50,11 +64,68 @@ console.log(linkSpace)
     return (
 
 
-                <Switch >
+                <Switch location={location} key={location.pathname} >
 
 
                     <Redirect exact from="/" to={config.defaultPath} />
-<MainRoutes/>
+                    <Route
+                        path={[
+                            "/Profile",
+                            '/ProfileEdit',
+                            '/ProfileEditPass',
+
+                            "/dashboard/default/widget/:id",
+                            linkName,
+                            '/dashboard/viewAll',
+                            linkSpace,
+
+                            '/dashboard/default',
+                            '/dashboard/SharedWorkspaces',
+                            '/dashboard/VisualizationOfWorkspace'
+
+                        ]}
+                    >
+
+
+
+
+                        <MainLayout>
+                            <Switch location={location} key={location.pathname} >
+                                <AuthGuard>
+
+
+
+
+                                    <Route exact path="/dashboard/default/widget/:id" component={widget} />
+
+                                    <Route exact path={`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={DashboardDefault} />
+
+
+
+                                    <AdministratorGuard>
+                                        <Route exact path='/dashboard/viewAll' component={ViewAll} />
+                                        <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />
+                                        <Route exact path="/dashboard/default" component={DashboardDefault} />
+                                        <Route exact path="/dashboard/VisualizationOfWorkspace" component={VisualizationOfWorkspaces}/>
+                                    </AdministratorGuard>
+                                    <Route path="/Profile" component={Profile} />
+                                    <Route exact path="/ProfileEdit" component={ProfileEdit} />
+                                    <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
+                                    <SimpleUserGuard>
+                                        <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
+                                    </SimpleUserGuard>
+
+
+
+                                </AuthGuard>
+                            </Switch>
+                        </MainLayout>
+
+
+
+
+
+                    </Route>
 
 
 
@@ -65,17 +136,13 @@ console.log(linkSpace)
 
                         ]}
                     >
-                        <Switch >
+                        <Switch location={location} key={location.pathname}>
                                 <Verif_login_Guard>
-                                    <Route path="/login"  >
-                                        <AuthLogin/>
-                                    </Route>
-                                    <Route path="/forget"  >
-                                        <AuthForget/>
-                                    </Route>
-                                    <Route path="/change/:token" >
-                                        <Authverif/>
-                                    </Route>
+                                    <Route exact path="/login" component={AuthLogin} />
+                                    <Route exact path="/forget" component={AuthForget} />
+                                    <Route exact path="/change/:token" component={Authverif} />
+
+
                                 </Verif_login_Guard>
 
 

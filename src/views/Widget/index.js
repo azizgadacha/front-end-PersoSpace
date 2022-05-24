@@ -131,7 +131,7 @@ let element
 
                     </Grid>
 
-                </Grid>}
+                </Grid>
             </Grid>
             <Customization />
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}

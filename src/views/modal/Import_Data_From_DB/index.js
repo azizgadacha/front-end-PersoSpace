@@ -5,7 +5,7 @@ import Fade from '@mui/material/Fade';
 
 import {
 
-    Box, Grid, IconButton,
+    Box, ClickAwayListener, Grid, IconButton,
 
     Modal, useMediaQuery,
 
@@ -38,23 +38,7 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const style = {
 
-    padding:'30px',
-    zIndex:100,
-
-    borderRadius: 3,
-
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    radius:3,
-    transform: 'translate(-50%, -50%)',
-
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-
-};
 
 // ----------------------------------------------------------------------
 
@@ -64,7 +48,26 @@ const style = {
 
 
 const Import=  (props) => {
+    const style = {
+minWidth:'310px',
+        paddingTop:'2px',
+        paddingBottom:'40px',
+        paddingLeft:'20px',
+        paddingRight:'20px',
+        zIndex:100,
 
+        borderRadius: 3,
+
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        radius:3,
+        transform: 'translate(-50%, -50%)',
+
+        bgcolor: 'background.paper',
+        border: '0px solid #000',
+
+    };
     const dispatcher = useDispatch();
 
 
@@ -108,6 +111,7 @@ const Import=  (props) => {
 
             >
                 <div style={OVERLAY_Styles}>
+                    <ClickAwayListener onClickAway={handleClose}>
 
                     <Fade in={open1.ModalState}>
 
@@ -126,7 +130,7 @@ const Import=  (props) => {
 
                         </Box>
                     </Fade>
-
+                    </ClickAwayListener>
                 </div>
 
             </Modal>

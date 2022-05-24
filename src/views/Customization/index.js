@@ -40,6 +40,7 @@ import {
 } from "../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 
 // concat 'px'
@@ -64,9 +65,12 @@ const OVERLAY_Styles ={
 
 const style = {
 
-    padding:'50px',
+    paddingTop:'2px',
+    paddingBottom:'40px',
+    paddingLeft:'2px',
+    paddingRight:'2px',
     zIndex:100,
-
+maxWidth:'98%',
     borderRadius: 5,
 
     position: 'absolute',
@@ -213,10 +217,12 @@ console.log(matchDownMD)
 
 
                         <Box sx={{ ...style,  }}>
+
                             <IconButton sx={{float:'right'}}               aria-label="close">
                                 <CloseIcon onClick={handleClose}  color="disabled"      />
                             </IconButton>
                             <ThemeConfig>
+
 
                                 <Grid container spacing={0} alignItems="center" justifyContent="center" stroke-linecap="round">
                                     <Grid item xs={12}>
@@ -254,27 +260,29 @@ console.log(matchDownMD)
 
                                 </Stepper>
                                 </Grid>
-                            {getStepContent(widget.Place)}
+<Grid item md={12} lg={12} xl={12}>
+                                {getStepContent(widget.Place)}</Grid>
 
 
+                                <Stack sx={{mt:2}} direction="row"  justifyContent="space-between" >
 
-                                <Stack sx={{mt:4}} direction="row" alignItems="center" justifyContent="space-between" >
-                                    <Box
-                                        sx={{
-                                            display: 'block',
-                                            justifyContent: 'block-end',
-                                        }}
-                                    >
+                                    {(widget.Place !== 0 )?(
+                                        <Button
+                                            variant="contained"
+                                            variant="contained"
+
+                                            disabled={modal.isSubmitting}
+                                            color="secondary"
+
+                                            onClick={handleBack}
+                                            sx={{mr:2}}>
+
+                                            {Back}
+                                        </Button>
+                                    ):                                        <Button   onClick={handleClose}  sx={{mr:2}}  variant="contained" color="error">{Cancel}</Button>
+                                    }
 
 
-
-
-                                        <Button   onClick={handleClose}  variant="contained" color="error">{Cancel}</Button>
-
-
-
-
-                                    </Box>
                                 <Box
 
                                     sx={{
@@ -288,19 +296,11 @@ console.log(matchDownMD)
 
                                     }}
                                 >
-                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
 
 
 
-                                        {widget.Place !== 0 && (
-                                            <Button
-                                                disabled={modal.isSubmitting}
-                                                onClick={handleBack}
-                                             sx={{mr:3}}>
 
-                                                {Back}
-                                            </Button>
-                                        )}
 
                                         {(widget.Place === steps.length - 1)&&(
                                     (modal.isSubmitting)?(<LoadingButton
@@ -331,7 +331,6 @@ console.log(matchDownMD)
 
 
                                 </Stack>
-
 
                             </ThemeConfig>
 

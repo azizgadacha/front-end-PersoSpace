@@ -25,6 +25,16 @@ const page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 const Routes = () => {
 
     const location = useLocation();
+    let path
+
+
+
+    if(window.location.pathname.includes('html'))
+        path=location.hash
+
+    else
+        path=location.pathname
+
 
     return (
 
