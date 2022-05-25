@@ -40,7 +40,7 @@ const UserReducer = (state = initialState, action) => {
             alam=[]
 
                 for(let i of share){
-                    alam.push(i[0])
+                    alam.push(i.sharedWith)
                 }
                 for (let item of state.users) {
                     if (((alam.includes(item._id))) && (!(item.role == 'administrateur')) ||((share.includes(item._id)))) {
@@ -60,7 +60,7 @@ const UserReducer = (state = initialState, action) => {
             state.possibleShare=[]
 
                 for (let i of share) {
-                    alam.push(i[0])
+                    alam.push(i.sharedWith)
                 }
                 if (share.length == 0) {
                     for (let item2 of state.users) {

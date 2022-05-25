@@ -19,7 +19,7 @@ import {
     CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL,
     CLOSE_MODAL_SHARE,
     INISIALIZE,
-    INISIALIZE_USER, LOGOUT
+    INISIALIZE_USER, LOGOUT, UPDATE
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal/Modal_Delete_Workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
@@ -41,7 +41,8 @@ import RemoveShareModal from "../../modal/RemoveShareModal";
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
-
+    const account = useSelector((state) => state.account);
+console.log(account)
     const { url, path } = useRouteMatch();
 
     let socket,selectedChatCompare
@@ -75,7 +76,6 @@ const Dashboard = (props, { ...others }) => {
 
     const [isLoading, setLoading] = useState(true);
     const [UserLoading, setUserLoading] = useState(true);
-    const account = useSelector((state) => state.account);
     let userSt= useSelector((state) => state.user);
 
 
@@ -165,7 +165,7 @@ if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/Visualiz
         }
         else if(loc=='/dashboard/VisualizationOfWorkspace'){
             link = 'api/users/visualizationOfWorkspaces'
-            datasend = {superior_id: account.user._id, token: account.token,}
+            datasend = {user_id:account.user._id, token: account.token,}
         }
         else {
             link = 'api/users/getworkspace'
@@ -192,6 +192,19 @@ if(response.data.notConnected){
     dispatcher({
         type:CLICK,
         payload: {text:"You are no longer connected",severity:"error"}
+    })
+}else if (response.data.administratorProblem){
+    dispatcher({
+        type:UPDATE,
+        payload: {user:response.data.user}
+    });
+    if(loc.includes(configData.defaultPath))
+        history.go(0)
+else
+    history.push(configData.defaultPath)
+    dispatcher({
+        type:CLICK,
+        payload: {text:"You are no longer an administrateur",severity:"error"}
     })
 }
 else
@@ -278,8 +291,10 @@ if(!(loc.includes('SharedWorkspaces'))){
     let lc =   workspaces.Workspace.map((card)  => {
 
         j++
-        return(
+       console.log( "dddddzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
+       console.log( workspaces.username[j])
 
+        return(
 
             <Grid item lg={4} md={12} sm={12} xs={12}>
 

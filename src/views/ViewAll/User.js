@@ -34,7 +34,7 @@ import {
     CLOSE_DELETE_MODAL,
     ClOSE_EDIT_MODAL,
     CLOSE_MODAL,
-    INISIALIZE_USER, LOGOUT,
+    INISIALIZE_USER, LOGOUT, UPDATE,
 } from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
@@ -283,13 +283,22 @@ const User=  (props) => {
         if(result.data.notConnected){
             dispatcher({ type: LOGOUT });
             history.push("/login");
+            history.go(0)
+
             dispatcher({
                 type:CLICK,
                 payload: {text:"You are no longer connected",severity:"error"}
             })
+
         }
-        else
+        else if(result.data.administratorProblem)
         {
+            dispatcher({
+                type:UPDATE,
+                payload: {user:result.data.user}
+            });
+        }
+        else{
 
         dispatcher({
             type:INISIALIZE_USER,

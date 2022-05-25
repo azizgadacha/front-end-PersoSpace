@@ -293,10 +293,10 @@ console.log(location)
 console.log("salyyyyt")
 console.log(card)
     let listeUser =   card.Share.map((user)  => {
-        let index
+        let index=null
 
          userSt.users.find(function(item, i){
-            if((item._id===user[0])){
+            if((item._id===user.sharedWith)){
                 index = i;
                 return i;
 
@@ -304,13 +304,15 @@ console.log(card)
         });
 console.log('il index houwa  '+ index)
         console.log(card)
-      /*  return(
-            <Avatar alt={userSt.users[index].username} src={ `${configData.API_SERVER}${userSt.users[index].photo}` }/>
+
+        return(
+            (index!=null)&&  (<Avatar alt={userSt.users[index].username} src={ `${configData.API_SERVER}${userSt.users[index].photo}` }/>)
+
 
 
         )
 
-       */
+
 
     })
     const account = useSelector((state) => state.account);
@@ -390,8 +392,13 @@ console.log('il index houwa  '+ index)
                                 {((location=='/dashboard/VisualizationOfWorkspace')||(location.includes('Shared')))&&(
                                    <ThemeConfig>
 
+
+
+                                       {console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")}
+                                       {console.log(username)}
+
                                     <Grid item align="center">
-                                        <Chip label="primary" color="primary" className={classes.chip} label={(location.includes('Shared'))?"SharedBy ":'Owner : ' + username} />
+                                        <Chip label="primary" color="primary" className={classes.chip} label={((location.includes('Shared'))?"SharedBy ":'Owner : ') + username} />
 
                                     </Grid>
                                    </ThemeConfig>
