@@ -232,7 +232,7 @@ const EditModalCore=  ({objet}) => {
                                               token:account.token,
                                                 role:values.role,
                                                 userID:objet._id,
-                                                _id:account.user._id
+                                                user_id:account.user._id
                                             })
                                                 .then(function (response) {
                                                     if(response.data.notConnected){

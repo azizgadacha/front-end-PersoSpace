@@ -7,15 +7,10 @@ import { Redirect } from 'react-router-dom';
 
 const AdministratorGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
-    const arr = ["/viewAll", "/VisualizationOfWorkspace"]
+
     const  isAdministrator  = (account.user.role=='administrateur'?true:false);
-    const contains = arr.some(element => {
-        if ((window.location.pathname)===((element))) {
-            return true;
-        }
-        return false;
-    });
-    if (!(isAdministrator)&&(contains)) {
+
+    if (!(isAdministrator)) {
 
 
         return <Redirect to="/404Page" />;
