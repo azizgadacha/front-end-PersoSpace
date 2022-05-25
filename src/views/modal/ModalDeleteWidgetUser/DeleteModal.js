@@ -66,7 +66,7 @@ let link
             {
                 link='api/users/deleteUser'
 
-                dataSend=  {token:account.token, user_id:obj._id}
+                dataSend=  {token:account.token,user_id:account.user._id, userDeleted_id:obj._id}
             }
 
 

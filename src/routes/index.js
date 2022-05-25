@@ -67,6 +67,36 @@ console.log(linkSpace)
 
 
                     <Redirect exact from="/" to={config.defaultPath} />
+
+
+                    <Route
+                        path={[
+                            "/change/:token","/forget","/login"
+
+                        ]}
+                    >
+                        <Switch location={location} key={location.pathname}>
+                            <Verif_login_Guard>
+                                <Route exact path="/login" component={AuthLogin} />
+                                <Route exact path="/forget" component={AuthForget} />
+                                <Route exact path="/change/:token" component={Authverif} />
+
+
+                            </Verif_login_Guard>
+
+
+
+
+
+                        </Switch>
+
+
+
+
+
+                    </Route>
+
+
                     <Route
                         path={[
                             "/Profile",
@@ -106,13 +136,19 @@ console.log(linkSpace)
                                     <Route path="/Profile" component={Profile} />
                                     <Route exact path="/ProfileEdit" component={ProfileEdit} />
                                     <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
+
+                                        <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
+
+                                    <Route
+                                        path={['/dashboard/viewAll', linkSpace, '/dashboard/VisualizationOfWorkspace']}
+                                    >
+                                        <AdministratorGuard>
+
                                         <Route exact path='/dashboard/viewAll' component={ViewAll} />
                                         <Route exact path={`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`} component={VisualizationOfWorkspaces} />
                                         <Route exact path="/dashboard/VisualizationOfWorkspace" component={VisualizationOfWorkspaces}/>
-                                        <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
-
-
-
+                                        </AdministratorGuard>
+                                   </Route>
                                 </AuthGuard>
                             </Switch>
                         </MainLayout>
@@ -126,32 +162,6 @@ console.log(linkSpace)
 
 
 
-                    <Route
-                        path={[
-                            "/change/:token","/forget","/login"
-
-                        ]}
-                    >
-                        <Switch location={location} key={location.pathname}>
-                                <Verif_login_Guard>
-                                    <Route exact path="/login" component={AuthLogin} />
-                                    <Route exact path="/forget" component={AuthForget} />
-                                    <Route exact path="/change/:token" component={Authverif} />
-
-
-                                </Verif_login_Guard>
-
-
-
-
-
-                            </Switch>
-
-
-
-
-
-                    </Route>
 
                     <Route path='*'>
                         <Page404/>
