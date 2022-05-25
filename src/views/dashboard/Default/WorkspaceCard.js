@@ -277,9 +277,20 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
 console.log("salyyyyt")
 console.log(card)
-    let listeUser =   userSt.Shared.map((user)  => {
+    let listeUser =   card.Share.map((user)  => {
+        console.log(user)
+        let index
+
+         userSt.users.find(function(item, i){
+            if((item._id===user[0])){
+                index = i;
+                return i;
+
+            }
+        });
+
         return(
-            <Avatar alt={user.username} src={`${configData.API_SERVER}${user.photo}`} />
+            <Avatar alt={userSt.users[index].username} src={ `${configData.API_SERVER}${userSt.users[index].photo}` }/>
 
 
         )})
@@ -302,12 +313,12 @@ console.log(card)
 <Fragment>
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
-
-                                        <AvatarGroup     onClick={RemoveShare} max={3}>
+                                       <Button style={{ backgroundColor: 'transparent'}}>
+                                        <AvatarGroup  alt={'salut'}   onClick={RemoveShare} max={3}>
                                             {(!loading)? listeUser:null}
-                                            <Avatar alt="salut" src={`${configData.API_SERVER}${account.user.photo}`} />
 
                                         </AvatarGroup>
+                                     </Button>
                                     </Grid>
                                     <Grid item>
                                         <Button>
