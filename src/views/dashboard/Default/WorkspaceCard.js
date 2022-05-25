@@ -46,7 +46,7 @@ import {
 
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import config from "../../../config";
-import {AvatarGroup, Box, Button, Menu, MenuItem} from "@mui/material";
+import {AvatarGroup, Box, Button, Chip, Menu, MenuItem} from "@mui/material";
 import AnimateButton from "../../../animation/AnimateButton";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
@@ -57,10 +57,15 @@ import {useRouteMatch} from "react-router";
 import {IconShare} from "@tabler/icons";
 import configData from "../../../config";
 import {initialState as account} from "../../../store/accountReducer";
+import ThemeConfig from "../../../themes/theme2";
 
 
 // style constant
+
 const useStyles = makeStyles((theme) => ({
+
+
+
     card: {
         backgroundColor: theme.palette.primary.dark,
         color: '#fff',
@@ -133,7 +138,16 @@ const useStyles = makeStyles((theme) => ({
     },
     circleIcon: {
         transform: 'rotate3d(1, 1, 1, 45deg)'
+    },
+    chip:{backgroundColor:'#83a0de' ,
+        fontSize: 17,
+
+    },
+    buttonStyle:{
+        backgroundColor:'#e3e3e3'
+
     }
+
 }));
 
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
@@ -278,7 +292,6 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 console.log("salyyyyt")
 console.log(card)
     let listeUser =   card.Share.map((user)  => {
-        console.log(user)
         let index
 
          userSt.users.find(function(item, i){
@@ -288,7 +301,8 @@ console.log(card)
 
             }
         });
-
+console.log('il index houwa  '+ index)
+        console.log(card)
         return(
             <Avatar alt={userSt.users[index].username} src={ `${configData.API_SERVER}${userSt.users[index].photo}` }/>
 
@@ -314,8 +328,9 @@ console.log(card)
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                        <Button style={{ backgroundColor: 'transparent'}}>
-                                        <AvatarGroup  alt={'salut'}   onClick={RemoveShare} max={3}>
-                                            {(!loading)? listeUser:null}
+
+                                           <AvatarGroup  alt={'salut'}   onClick={RemoveShare} max={3}>
+                                            {((!loading)&&(location.includes('default')||location.includes('VisualizationOfWorkspace')))?  listeUser:null}
 
                                         </AvatarGroup>
                                      </Button>
@@ -367,11 +382,13 @@ console.log(card)
                                 </Grid>                                         </Fragment>
                                     ):null}
 
-                                {(location=='/dashboard/VisualizationOfWorkspace')&&(
+                                {((location=='/dashboard/VisualizationOfWorkspace')||(location.includes('Shared')))&&(
+                                   <ThemeConfig>
                                     <Grid item align="center">
-                                        <Typography align="center"
-                                                    className={classes.cardHeading}>{(location.includes('Shared'))?"SharedBy ":null}{username}</Typography>
+                                        <Chip label="primary" color="primary" className={classes.chip} label={(location.includes('Shared'))?"SharedBy ":'Owner : ' + username} />
+
                                     </Grid>
+                                   </ThemeConfig>
                                 )}
 
 
@@ -416,7 +433,8 @@ console.log(card)
                                                 onClick={OpenWidget}
                                                 type="submit" size="large"
                                                 variant="contained"
-                                                color="warning">{Widget} </Button>
+                                                color="warning"
+                                                className={classes.buttonStyle}>{Widget} </Button>
 
 
                                         </AnimateButton>
@@ -437,7 +455,7 @@ console.log(card)
                                         <AnimateButton>
 
                                                 <Button disableElevation size="large" onClick={click} fullWidth
-                                                    variant="contained" color="warning">{Workspaces}</Button>
+                                                    variant="contained" color="warning" className={classes.buttonStyle}>{Workspaces}</Button>
                                         </AnimateButton>
 
                                     </Box>
