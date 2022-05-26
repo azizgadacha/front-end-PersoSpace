@@ -81,7 +81,7 @@ let link
 
                 else {
                     link='api/users/deleteWidget'
-                    dataSend=  {token:account.token,WidgetName:obj.WidgetName, superior_id:obj.superior_id}}
+                    dataSend=  {token:account.token,WidgetName:obj.WidgetName, superiorID:obj.superior_id}}
 
     }
         setIsloading(true)
@@ -131,6 +131,7 @@ let link
                     dispatcher({
                         type:CLOSE_DELETE_MODAL,
                     })
+                    history.push(configData.defaultPath)
                     dispatcher({
                         type:CLICK,
                         payload: {text:response.data.msg,severity:"error"}

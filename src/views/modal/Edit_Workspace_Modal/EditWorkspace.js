@@ -160,7 +160,7 @@ let {id}=useParams()
                                             type: ClOSE_EDIT_MODAL,
                                         }
                                     )
-                                    history.push(configData.defaultPath)
+                                    history.go(0)
                                     dispatcher({
                                         type: "Click",
                                         payload: {text: "Workspace No Longer Exist", severity: "error"}

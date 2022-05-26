@@ -111,8 +111,6 @@ minWidth:'310px',
 
             >
                 <div style={OVERLAY_Styles}>
-                    <ClickAwayListener onClickAway={handleClose}>
-
                     <Fade in={open1.ModalState}>
 
                         <Box sx={{...style}}>
@@ -130,7 +128,6 @@ minWidth:'310px',
 
                         </Box>
                     </Fade>
-                    </ClickAwayListener>
                 </div>
 
             </Modal>

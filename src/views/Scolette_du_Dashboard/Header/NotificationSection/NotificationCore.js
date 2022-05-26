@@ -24,10 +24,12 @@ import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@t
 import User1 from './../../../../assets/images/users/user-round.svg';
 import NotificationSkelton from "../../../../composant_de_style/cards/Skeleton/NotificationSkelton/NotificationSkelton";
 import SkeletonEarningCard from "../../../../composant_de_style/cards/Skeleton/EarningCard";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import config from "../../../../config";
 import configData from "../../../../config";
 import {useHistory} from "react-router-dom";
+import axios from "axios";
+import {EDIT_NOTIFICATION, LOGOUT} from "../../../../store/actions";
 
 // style constant
 
@@ -35,12 +37,64 @@ import {useHistory} from "react-router-dom";
 //-----------------------|| NOTIFICATION LIST ITEM ||-----------------------//
 
 const NotificationCore = ({notification,}) => {
+    const notificationList = useSelector((state) => state.notification);
+    const dispatcher = useDispatch();
+    const account = useSelector((state) => state.account);
 
     let history =useHistory()
+let loc ;
+    const handleclick=async () => {
+        let IdListe = []
+        if (window.location.pathname.includes('html')) {
+            loc = window.location.hash
+        } else {
+            loc = window.location.pathname
+        }
+        if (loc.includes('SharedWorkspaces')) {
+            history.go(0)
 
-    const handleclick=()=>{
+        }
+        else{
+            history.push("/dashboard/SharedWorkspaces")
 
-        history.push("/dashboard/SharedWorkspaces")
+        }
+        let i = 0
+        i++
+
+        let j = 0
+        let parcour = async () => {
+            for (let elem of (notificationList.notificationListe)) {
+                j++
+
+                if (!elem[1].read) {
+
+                    //elem[1].read=!elem[1].read
+                    IdListe.push(elem[1]._id)
+                }
+            }
+        }
+        await parcour()
+
+
+        if (IdListe.length >= 1) {
+
+            let result = await axios.post(configData.API_SERVER + 'api/users/editNotification', {
+                token: account.token,
+                IdListe
+            })
+
+            if (result.data.notConnected) {
+                dispatcher({type: LOGOUT});
+                history.push("/login");
+            } else {
+
+                dispatcher({
+                    type: EDIT_NOTIFICATION, payload: {listNotification: IdListe}
+                });
+            }
+        }
+
+
     }
 
 

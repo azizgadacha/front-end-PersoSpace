@@ -275,7 +275,11 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                                             type:IS_LOADING_CHANGE,
 
                                         })
-                                    setErrors({ submit: response.data.msg });
+                                    history.push(configData.defaultPath)
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:response.data.msg,severity:"error"}
+                                    })
 
 
 
