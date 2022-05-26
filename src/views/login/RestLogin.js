@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 import {Link as RouterLink} from 'react-router-dom';
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.grey[900] + '!important',
         fontWeight: 500
     },
+
     loginIcon: {
         marginRight: '16px',
         [theme.breakpoints.down('sm')]: {
@@ -166,6 +168,7 @@ const history=useHistory();
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 label="Email Address"
+
                                 inputProps={{
                                     classes: {
                                         notchedOutline: classes.notchedOutline
@@ -217,12 +220,13 @@ const history=useHistory();
                         </FormControl>
                         <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
                             <Typography
-                                component={RouterLink}
-                                to='/forget'
                                 variant="subtitle1"
 
+                                component={Link}
+                                to='/forget'
+
                                 color="secondary"
-                                sx={{ ml:33,mb:2,textDecoration: 'none' }}
+                                sx={{ textDecoration: 'none' }}
                             >
                                 Forgot Password?
                             </Typography>

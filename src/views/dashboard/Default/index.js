@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 // material-ui
-import {Grid} from '@material-ui/core';
+import {Grid, IconButton, Tooltip, useMediaQuery, useTheme} from '@material-ui/core';
 
 // project imports
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -34,6 +34,7 @@ import config from "../../../config";
 import Item from "./Item";
 import Edit_Workspace_Modal from "../../modal/Edit_Workspace_Modal";
 import RemoveShareModal from "../../modal/RemoveShareModal";
+import {IconPlus} from "@tabler/icons";
 
 
 
@@ -101,7 +102,9 @@ if(window.location.pathname.includes('html'))
     loc=window.location.hash
 else
      loc=window.location.pathname
+    const theme = useTheme();
 
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
 
     useEffect(() => {
@@ -418,9 +421,40 @@ if(!(loc.includes('SharedWorkspaces'))){
 
 
 
+                            {((loc.includes('SharedWorkspaces')||loc.includes('VisualizationOfWorkspace'))&&workspaces.Workspace.length==0)&&(
+
+                                <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center" stroke-linecap="round">
+                                    <Grid item xs={12}>
+
+                                        <Grid
+                                            container
+                                            direction={matchDownSM ? 'column-reverse' : 'row'}
+                                            alignItems="center"
+                                            justifyContent="center"
+                                        >
+                                            <Grid item mb={2}>
+                                                <Stack alignItems="center" justifyContent="center">
+
+                                                    <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center" >
+
+
+                                                            <Grid container alignItems="center" >
+
+                                                                <IconButton   alt="Add Workspace"   aria-label="close"  >
+
+                                                                    <IconPlus size={100.5}    />
+                                                                </IconButton>
+                                                            </Grid>
+                                                    </Grid>
+                                                </Stack>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
 
 
 
+                            )}
 
 
 
@@ -447,10 +481,12 @@ if(!(loc.includes('SharedWorkspaces'))){
 
                                 </Grid>
                             ):(
-                                <Grid item lg={4} md={6} sm={12} xs={12}>
+<Fragment>
 
+                                        <Grid item lg={4} md={6} sm={12} xs={12}>
 
                                 </Grid>
+</Fragment>
                             )}
 
                         </Fragment>)}

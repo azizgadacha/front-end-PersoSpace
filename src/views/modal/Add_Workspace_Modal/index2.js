@@ -27,17 +27,13 @@ import ThemeConfig from "../../../themes/theme2"
 
 import Backdrop from '@mui/material/Backdrop';
 
-import axios from "axios";
-import configData from "../../../config";
+
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_DELETE_MODAL, CLOSE_MODAL, INISIALIZE_USER,} from "../../../store/actions";
+import {ClOSE_EDIT_MODAL, CLOSE_MODAL,} from "../../../store/actions";
 
 import { useHistory} from "react-router-dom";
 
-import {Formik} from "formik";
-import * as Yup from "yup";
-import config from "../../../config";
 import {
     FormControl,
     FormHelperText,
@@ -47,18 +43,12 @@ import {
     InputLabel,
     OutlinedInput, useMediaQuery, useTheme
 } from "@material-ui/core";
-import {gridSpacing} from "../../../store/constant";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {Alert, LoadingButton} from "@material-ui/lab";
-import AnimateButton from "../../../animation/AnimateButton";
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
-import SaveIcon from "@mui/icons-material/Save";
-import RestWorkspace from "./RestWorkspace";
-import CloseIcon from "@mui/icons-material/Close";
 import EditWorkspace from "./EditWorkspace";
+import CloseIcon from "@mui/icons-material/Close";
+
 
 // ----------------------------------------------------------------------
 
@@ -79,7 +69,7 @@ const style = {
     paddingLeft:'25px',
     paddingRight:'15px',
     zIndex:100,
-    minWidth:'310px',
+minWidth:'310px',
     borderRadius: 2,
 
 
@@ -94,83 +84,41 @@ const style = {
     boxShadow: 24,
 
 };
+
 // ----------------------------------------------------------------------
 
-const useStyles = makeStyles((theme) => ({
 
 
 
 
 
-    redButton: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        backgroundColor: theme.palette.grey[50],
-        border: '1px solid',
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[700],
-        textTransform: 'none',
-        '&:hover': {
-            backgroundColor: theme.palette.primary.light
+
+const ModalEdit=  (props) => {
+    const [isloading, setIsloading] = useState(false);
+
+    const states = [
+        {
+            value: 'administrateur',
+            label: 'administrateur'
         },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '0.875rem'
-        }
-    },
-    signDivider: {
-        flexGrow: 1
-    },
-    signText: {
-        cursor: 'unset',
-        margin: theme.spacing(2),
-        padding: '5px 56px',
-        borderColor: theme.palette.grey[100] + ' !important',
-        color: theme.palette.grey[900] + '!important',
-        fontWeight: 500
-    },
-    loginIcon: {
-        marginRight: '16px',
-        [theme.breakpoints.down('sm')]: {
-            marginRight: '8px'
-        }
-    },
-    loginInput: {
-        ...theme.typography.customInput
-    },
-
-    root: {
-        alignSelf: 'center',
-        justifyContent: "center",
-        alignItems: "center",
-        display: 'flex',
-        '& > *': {
-            margin: theme.spacing(1),
+        {
+            value: 'simple employer',
+            label: 'simple employer'
         },
-    },
-    input: {
-        display: "none",
 
+    ];
+    const [source, setSource] = React.useState("/static/images/avatar_1.png");
 
-    },
-    large: {
-        width: theme.spacing(20),
-        height: theme.spacing(20),
-    },
+    const handleCapture = ({target}) => {
+        const fileReader = new FileReader();
+        // const name = target.accept.includes('image') ? 'images' : 'videos';
 
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            setSource(e.target.result);
+        };
+    };
 
-}));
-
-
-
-
-
-
-const ModalAdd=  (props) => {
-
-
-
-
-    const classes = useStyles();
     let history = useHistory();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -232,7 +180,7 @@ const ModalAdd=  (props) => {
 
     const handleClose=()=>{
         dispatcher({
-            type:CLOSE_MODAL,
+            type:ClOSE_EDIT_MODAL,
         });
     }
     const theme = useTheme();
@@ -247,7 +195,7 @@ const ModalAdd=  (props) => {
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
 
-                open={open1.ModalState}
+                open={open1.ModalEditState}
                 onClose={handleClose}
 
                 closeAfterTransition
@@ -260,11 +208,9 @@ const ModalAdd=  (props) => {
                 <div style={OVERLAY_Styles}>
                     <ClickAwayListener onClickAway={handleClose}>
 
-                    <Fade in={open1.ModalState}>
+                    <Fade in={open1.ModalEditState}>
 
-                        <Box sx={{ ...style,  }}>
-
-
+                        <Box sx={{ ...style,  }} >
                             <IconButton sx={{float:'right'}}               label="close">
                                 <CloseIcon onClick={props.handleClose}  color="disabled"      />
                             </IconButton>
@@ -286,7 +232,7 @@ const ModalAdd=  (props) => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h3'}
                                                     >
-                                                        Add workspace
+Edit workspace
                                                     </Typography>
 
 
@@ -296,33 +242,13 @@ const ModalAdd=  (props) => {
                                     </Grid>
                                 </Grid>
 
-                                <RestWorkspace handleClose={props.handleClose}  />
+                                        <EditWorkspace handleClose={props.handleClose} card={props.card} />
 
 
                             </ThemeConfig>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </Box>
                     </Fade>
-                    </ClickAwayListener>
+                        </ClickAwayListener>
 
                 </div>
 
@@ -333,7 +259,7 @@ const ModalAdd=  (props) => {
     )
         ;
 }
-export default ModalAdd;
+export default ModalEdit;
 
 
 

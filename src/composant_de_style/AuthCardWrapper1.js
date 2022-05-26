@@ -11,7 +11,7 @@ import MainCard from './../composant_de_style/cards/MainCard';
 const useStyles = makeStyles((theme) => ({
     card: {
 
-        maxWidth: '475px',
+        maxWidth: '1075px',
         '& > *': {
             flexGrow: 1,
             flexBasis: '50%'
@@ -46,5 +46,4 @@ const AuthCardWrapper = ({ children, ...other }) => {
 AuthCardWrapper.propTypes = {
     children: PropTypes.node
 };
-
 export default AuthCardWrapper;

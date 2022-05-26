@@ -72,11 +72,9 @@ const Modal_confirm=  (props) => {
     const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
 
     const [isloading, setIsloading] = useState(false);
-let maxWidth="90%"
-let minWidth=matchDownMD?"70%":"35%"
     const style = {
-        maxWidth,
-        minWidth:"300px",
+        minWidth:"310px",
+        maxWidth:"95%",
         padding:'50px',
         zIndex:100,
 

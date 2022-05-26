@@ -394,7 +394,16 @@ const User=  (props) => {
     };
     let open1 = useSelector((state) => state.modal);
 
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
+    const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
+    console.log(matchDownLG)
+    console.log("vzzzzzzzzzzzzzzzzzzzzzzzz")
 
+    console.log(matchDownMD)
 
 
 
@@ -403,10 +412,9 @@ const User=  (props) => {
 
   return (
       <Fragment>
-          <ThemeConfig>
 
-          <Container>
-              <Card xs={6}  sx={{mb:3}}>
+
+              <Card xs={12}  sx={{mb:3}}>
 
             <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
 
@@ -417,9 +425,9 @@ const User=  (props) => {
             </Stack>
 
               </Card>
+          <ThemeConfig>
 
-
-            <Card>
+            <Card >
                 {success?(
 <Fragment>
                         <UserListToolbar
@@ -500,9 +508,8 @@ const User=  (props) => {
 </Fragment>
                     ):(<SkeltonTable/>)}
             </Card>
-
-      </Container>
           </ThemeConfig>
+
           {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} type={"User"}/>)}
           {open.ModalEditState&&(<Modal_Edit_User  type={"User"} />)}
 

@@ -137,7 +137,17 @@ console.log(linkSpace)
                                     <Route exact path="/ProfileEdit" component={ProfileEdit} />
                                     <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
 
-                                        <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
+                                    <Route
+                                        path={["/dashboard/SharedWorkspaces"]}
+                                    >
+                                        <SimpleUserGuard>
+
+                                            <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
+
+                                        </SimpleUserGuard>
+                                    </Route>
+
+
 
                                     <Route
                                         path={['/dashboard/viewAll', linkSpace, '/dashboard/VisualizationOfWorkspace']}
