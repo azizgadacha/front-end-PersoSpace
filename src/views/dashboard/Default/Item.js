@@ -153,7 +153,7 @@ const Item = ({ item }) => {
     }
 
     return (
-        <ListItem key={item[1]} disablePadding>
+        <ListItem sx={{maxWidth:"80px"}}  key={item[1]} disablePadding>
             <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
                 <ListItemIcon>
 

@@ -59,7 +59,6 @@ const style = {
 
     padding:'50px',
     zIndex:100,
-
     borderRadius: 5,
 
 

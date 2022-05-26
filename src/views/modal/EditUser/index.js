@@ -46,6 +46,7 @@ const style = {
 
     padding:'50px',
     zIndex:100,
+    maxWidth:"90%",
 
     borderRadius: 3,
 

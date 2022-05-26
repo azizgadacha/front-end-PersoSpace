@@ -13,7 +13,6 @@ export const INISIALIZE_SOCKET = 'INISIALIZE_SOCKET';
 
 
 
-
 // Store - Modal reducer
 export const OPEN_EDIT_MODAL='OPEN_EDIT_MODAL';
 export const CLICKED_INISIALIZE = 'CLICKED_INISIALIZE';
@@ -33,6 +32,14 @@ export const CLOSE_MODAL_REMOVE='CLOSE_MODAL_REMOVE';
 export const Confirm_Remove_Share_MODAL='Confirm_Remove_Share_MODAL';
 export const CLOSE_Confirm_Remove_Share_MODAL='CLOSE_Confirm_Remove_Share_MODAL';
 export const INISIALIZE_POSSIBLE_SHARE_USER='INISIALIZE_POSSIBLE_SHARE_USER';
+export const OPEN_MODAL_INFORMATION='OPEN_MODAL_INFORMATION';
+export const CLOSE_MODAL_INFORMATION='CLOSE_MODAL_INFORMATION';
+
+
+
+
+
+
 
 // Store - Widget reducer
 export const ADD_WIDGET='ADD_WIDGET';

@@ -82,10 +82,19 @@ console.log(matchDownLG)
                         <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
 
                             <AuthCardWrapper1>
+                                <Stack alignItems="center" justifyContent="center" spacing={1}>
+
+                                <Grid item sx={{ mb: 3,align:'center' }} >
+                                    <RouterLink to="#">
+                                        <Logo />
+
+                                    </RouterLink>
+                                </Grid>
+                                </Stack>
                                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:0}>
 
                                 <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
-                                    <Typography variant="h3" sx={{ px: 4, mt: 10, mb: 5 }}>
+                                    <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
                                         Manage the job more effectively with Minimal effort
                                     </Typography>
                                     <img alt="register" src="/static/illustrations/illustration_register.png" />
@@ -95,12 +104,7 @@ console.log(matchDownLG)
 
                                     <Grid container spacing={2} alignItems="center" justifyContent="center">
 
-                                    <Grid item sx={{ mb: 3 }}>
-                                        <RouterLink to="#">
-                                            <Logo />
 
-                                        </RouterLink>
-                                    </Grid>
                                     <Grid item xs={12}>
                                         <Grid
                                             container
@@ -108,20 +112,18 @@ console.log(matchDownLG)
                                             alignItems="center"
                                             justifyContent="center"
                                         >
-                                            <Grid item>
                                                 <Stack alignItems="center" justifyContent="center" spacing={1}>
                                                     <Typography
                                                         color={theme.palette.secondary.main}
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                        Hi, Welcome
                                                     </Typography>
                                                     <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
                                                         Enter your credentials to continue
                                                     </Typography>
                                                 </Stack>
-                                            </Grid>
                                         </Grid>
                                          </Grid>
                                      <Grid item xs={12}>

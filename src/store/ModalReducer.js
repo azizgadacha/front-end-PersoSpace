@@ -5,6 +5,8 @@ import {
     CLOSE_DELETE_MODAL,
 
     OPEN_MODAL_SHARE,
+    OPEN_MODAL_INFORMATION,
+    CLOSE_MODAL_INFORMATION,
     CLOSE_MODAL_SHARE,
     Confirm_Share_Workspace_MODAL,
     CLOSE_Confirm_Share_Workspace_MODAL
@@ -27,6 +29,7 @@ export const initialState = {
     Modal_Edit_State:false,
     ModalState:false,
     ModalEditState:false,
+    ModalInformation:false,
     ModalStateRemove:false,
     ModalStateShare:false,
     ModalConfirmShare:false,
@@ -37,6 +40,7 @@ export const initialState = {
     card:null,
     ModalWidget:false,
     objet:null,
+    user:null,
 
 
 
@@ -212,14 +216,25 @@ let card;
 
 
             };
-        case CLOSE_WIDGET_MODAL:
+        case CLOSE_MODAL_INFORMATION:
 
             return {
                 ...state,
-                ModalWidget:false
+                ModalInformation:false
 
 
             };
+            case OPEN_MODAL_INFORMATION:
+                state.user=action.payload.user
+
+            return {
+                ...state,
+                ModalInformation:true
+
+
+            };
+
+
 
         case IS_LOADING_CHANGE:
                 return{

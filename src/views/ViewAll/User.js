@@ -42,6 +42,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import SearchNotFound from "./import/customer/SearchNotFound";
 import Modal_Delete_User from "../modal/ModalDeleteWidgetUser";
+import Visualization_Info from "../modal/Visualization_Info";
 import Modal_Edit_User from '../modal/EditUser'
 import Cells from "./cells";
 import { useHistory} from "react-router-dom";
@@ -146,9 +147,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TABLE_HEAD = [
     { id: 'username', label: 'User name', alignRight: 'left' },
-    { id: 'email', label: 'Email', alignRight: 'left' },
-    { id: 'phone', label: 'Phone', alignRight: 'left' },
-    { id: 'role', label: 'Role', alignRight: 'left' },
+
 
     {  id: 'action', label: 'Activites', alignRight: 'left' }
 ];
@@ -431,15 +430,15 @@ const User=  (props) => {
             <Card >
                 {success?(
 <Fragment>
-                        <UserListToolbar
+                        <UserListToolbar sx={{minWidth:"100%"}}
                     numSelected={selected.length}
                     filterName={filterName}
                     onFilterName={handleFilterByName}
                 />
 
                 <PerfectScrollbar>
-                    <TableContainer sx={{minWidth: 800}}>
-                        <Table  sx={{ml:2}}>
+                    <TableContainer sx={{minWidth:"100%"}} >
+                        <Table  sx={{ml:2 ,minWidth:"30%"}} >
                             <UserListHead
                                 order={order}
                                 orderBy={orderBy}
@@ -459,7 +458,7 @@ const User=  (props) => {
                                         const isItemSelected = selected.indexOf(username) !== -1;
 
                                         return (
-                                            <Fragment>
+                                            <Fragment >
                                                 <TableRow
                                                     hover
                                                     key={_id}
@@ -467,6 +466,7 @@ const User=  (props) => {
                                                     role="checkbox"
                                                     selected={isItemSelected}
                                                     aria-checked={isItemSelected}
+                                                    sx={{minWidth:"100%"}}
                                                 >
 
                                                    <Cells    userPar={{_id,username,phone,role,photo,email}}/>
@@ -511,6 +511,7 @@ const User=  (props) => {
 
           {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} type={"User"}/>)}
           {open.ModalEditState&&(<Modal_Edit_User  type={"User"} />)}
+          {open.ModalInformation&&(<Visualization_Info  type={"User"} />)}
 
 <RegistreModal/>
           {/* <EditUser user={open.objet}/>*/}

@@ -23,6 +23,7 @@ import {
 } from "../../../store/actions";
 import Modal_Delete_Workspace from "../../modal/Modal_Delete_Workspace";
 import SkeletonEarningCard from "../../../composant_de_style/cards/Skeleton/EarningCard";
+import LinkSkealton from "../../../composant_de_style/cards/Skeleton/LinkSkealton/LinkSkealton";
 import ThemeConfig from "../../../themes/theme2";
 import {gridSpacing} from "../../../store/constant";
 import ShareWorkspaceModal from "../../modal/ShareWorkspaceModal";
@@ -70,7 +71,6 @@ console.log(account)
     }, [])
 
     const load=[1,2,3,4,5,6]
-    const load2=[1,2,3,4]
 
     const [succes, setSucces] = useState(false);
     const [isload, setLoad] = useState(true);
@@ -277,7 +277,28 @@ else
 if(!(loc.includes('SharedWorkspaces'))){
     console.log("Ena el listBar")
     console.log(workspaces.listeName)
-    var listOfBar = workspaces.listeName.map((item) => {
+    var liste =()=>{
+
+        if(workspaces.listeName.length>2) {
+            console.log(workspaces.listeName.length)
+            console.log(workspaces.listeName)
+            const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
+console.log("swxsdsqdsddsqdsqdqsdsqdsqdqqaaaaaaaaaaaaaaaa")
+console.log(subliste)
+            listOfBar= subliste.map((item) => {
+
+                return (
+
+
+                    <Item item={item}/>
+
+
+                )
+            })
+
+    } else{
+
+            listOfBar= workspaces.listeName.map((item) => {
 
         return (
 
@@ -286,11 +307,20 @@ if(!(loc.includes('SharedWorkspaces'))){
 
 
         )
-    })
+    })}
+
+        return listOfBar
+    }
+    console.log('ssssssvvvvvvvvvvvvvvvvvvvvvvv')
+    liste()
+    console.log(listOfBar)
+
 }else  {
     var listOfBar=null
 }
     let j=-1
+
+
     let lc =   workspaces.Workspace.map((card)  => {
 
         j++
@@ -339,46 +369,11 @@ if(!(loc.includes('SharedWorkspaces'))){
                 <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                     <List component={Stack} direction="row">
                         {(isload || UserLoading)?
-                            <Fragment>
-                                <ListItem   sx={{minHeight:"100%",
-                                    minWidth: "30%",marginLeft:2
-                                }} key={1} disablePadding>
-
-                                    <ListItemButton style={{ backgroundColor: 'transparent' }}>
-                                        <ListItemIcon>
-
-
-                                            <HomeRoundedIcon />
-                                        </ListItemIcon>
-                                        <ListItemText  sx={{ whiteSpace: "normal"  }} />
-                                        <Skeleton width="80%" height={"100%"} />
-                                    </ListItemButton>
-                                </ListItem>
-                                { load2.map((i) => (
-
-                                    <ListItem
-                                        sx={{minHeight:"100%",
-                                            minWidth: "30%"
-                                        }}
-                                        disablePadding>
-                                        <ListItemButton  style={{ backgroundColor: 'transparent' }}>
-                                            <ListItemIcon>
-
-
-                                                <NavigateNextRoundedIcon />
-                                            </ListItemIcon>
-                                            <ListItemText  sx={{ whiteSpace: "normal"  }} />
-                                            <Skeleton width="80%" height={"100%"} />
-                                        </ListItemButton>
-
-                                    </ListItem>
-                                ))
-
-                                }
-                            </Fragment>
+                            <LinkSkealton/>
                             :
                             <Fragment>
-                                <ListItem sx={{ whiteSpace:'wra'}} key={1} disablePadding>
+                                {(workspaces.listeName.length<=2)&&(
+                                <ListItem sx={{maxWidth:"92px"}}  key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
                                         {((loc.includes('/dashboard/default')))?(
@@ -392,7 +387,7 @@ if(!(loc.includes('SharedWorkspaces'))){
                                         </ListItemIcon>
                                         <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
                                     </ListItemButton>
-                                </ListItem>
+                                </ListItem>)}
 
                                 {listOfBar}
 

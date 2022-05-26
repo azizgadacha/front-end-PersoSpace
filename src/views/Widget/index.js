@@ -24,6 +24,12 @@ import ModalDelete from "../modal/ModalDeleteWidgetUser";
 import SkeltonChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
 import Import_Data_From_DB from "../modal/Import_Data_From_DB";
 import EditWidget from "../modal/EditWidget";
+import {Box, Card, List, ListItem, ListItemIcon, ListItemText, Stack} from "@mui/material";
+import LinkSkealton from "../../composant_de_style/cards/Skeleton/LinkSkealton/LinkSkealton";
+import ListItemButton from "@material-ui/core/ListItemButton";
+import config from "../../config";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import Item from "../dashboard/Default/Item";
 
 
 
@@ -31,7 +37,12 @@ import EditWidget from "../modal/EditWidget";
 
 const Widget = (props, { ...others }) => {
     let [isLoading, setIsLoading] = useState(true);
-
+    let workspaces = useSelector((state) => state.workspace);
+    let loc
+    if(window.location.pathname.includes('html'))
+        loc=window.location.hash
+    else
+        loc=window.location.pathname
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -65,6 +76,55 @@ const [importing,setImporting]=useState(true)
 
     let {id}=useParams()
     let history =useHistory()
+    var listOfBar=null
+
+
+    if(!(loc.includes('SharedWorkspaces'))){
+        console.log("Ena el listBar")
+        console.log(workspaces.listeName)
+        var liste =()=>{
+
+            if(workspaces.listeName.length>2) {
+                console.log(workspaces.listeName.length)
+                console.log(workspaces.listeName)
+                const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
+                console.log("swxsdsqdsddsqdsqdqsdsqdsqdqqaaaaaaaaaaaaaaaa")
+                console.log(subliste)
+                listOfBar= subliste.map((item) => {
+
+                    return (
+
+
+                        <Item item={item}/>
+
+
+                    )
+                })
+
+            } else{
+
+                listOfBar= workspaces.listeName.map((item) => {
+
+                    return (
+
+
+                        <Item item={item}/>
+
+
+                    )
+                })}
+
+            return listOfBar
+        }
+        console.log('ssssssvvvvvvvvvvvvvvvvvvvvvvv')
+        liste()
+        console.log(listOfBar)
+
+    }else  {
+        listOfBar=null
+    }
+
+
 
    useEffect(() => {
        console.log("ddddddddddddd")
@@ -123,8 +183,38 @@ let element
 
 <React.Fragment>
 
-    <Grid container spacing={3}>
+        <Card xs={12}  sx={{mb:3}}>
 
+            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                <List component={Stack} direction="row">
+                    {(importing==true)?
+                        <LinkSkealton/>
+                        :
+                        <Fragment>
+                            {(workspaces.listeName.length<=2)&&(
+                                <ListItem sx={{maxWidth:"92px"}}  key={1} disablePadding>
+                                    <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
+                                        //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
+                                        {((loc.includes('/dashboard/default')))?(
+                                            history.push(config.defaultPath)
+                                        ):(loc.includes('SharedWorkspaces')) ?  (
+                                            history.push('/dashboard/SharedWorkspaces')
+                                        ):history.push('/dashboard/VisualizationOfWorkspace')}
+                                    }}>
+                                        <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
+                                            <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
+                                        </ListItemIcon>
+                                        <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
+                                    </ListItemButton>
+                                </ListItem>)}
+
+                            {listOfBar}
+
+                        </Fragment>}
+                </List>
+            </Box>
+
+        </Card>
          <Grid item xs={12} >
                     <Grid container spacing={gridSpacing}>
                       {   importing==true ? load.map((i) => (<Grid item lg={4} md={12} sm={12} xs={12}><SkeltonChart/></Grid>)):lc}
@@ -132,7 +222,6 @@ let element
                     </Grid>
 
                 </Grid>
-            </Grid>
             <Customization />
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {open.ModalState && ( <Import_Data_From_DB/>)}
