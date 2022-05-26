@@ -102,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| NOTIFICATION ||-----------------------//
 
 const NotificationSection = () => {
+    const dispatcher = useDispatch();
     const notification = useSelector((state) => state.notification);
     const [OccurenceNotification, setOccurenceNotification] = React.useState(0);
 let values=0
@@ -231,7 +232,7 @@ console.log(notification.notificationListe)
     };
     const [Loading, setLoading] = React.useState(true);
     let history=useHistory()
-    const dispatcher = useDispatch();
+
     useEffect(()=>{
 
         const activationmail=async ()=>{

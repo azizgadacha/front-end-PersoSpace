@@ -173,7 +173,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         location=window.location.hash
     else
         location=window.location.pathname
-
+console.log("heyeyeye")
+console.log(location)
     let array=location.split("/")
 
 
@@ -303,11 +304,17 @@ console.log(card)
         });
 console.log('il index houwa  '+ index)
         console.log(card)
+
         return(
             (index!=null)&&  (<Avatar alt={userSt.users[index].username} src={ `${configData.API_SERVER}${userSt.users[index].photo}` }/>)
 
 
-        )})
+
+        )
+
+
+
+    })
     const account = useSelector((state) => state.account);
 
     return (
@@ -384,8 +391,12 @@ console.log('il index houwa  '+ index)
 
                                 {((location=='/dashboard/VisualizationOfWorkspace')||(location.includes('Shared')))&&(
                                    <ThemeConfig>
+
+
+
                                        {console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")}
                                        {console.log(username)}
+
                                     <Grid item align="center">
                                         <Chip label="primary" color="primary" className={classes.chip} label={((location.includes('Shared'))?"SharedBy ":'Owner : ') + username} />
 
