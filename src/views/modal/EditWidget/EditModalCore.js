@@ -246,7 +246,7 @@ const EditModalCore=  ({objet}) => {
                                                 dataSend= {token:account.token, WidgetName:objet.WidgetName, newName:values.WidgetName, idData:objet.idData, type:objet.type, superiorID:id}
                                            } else {
                                                 link='api/users/editWidget'
-                                                dataSend=  {token:account.token,idWidget:objet._id, newName:values.WidgetName}}
+                                                dataSend=  {token:account.token,idWidget:objet._id, newName:values.WidgetName,superiorID:id }}
 
 
                                             axios.post( configData.API_SERVER + link, dataSend)
@@ -289,7 +289,7 @@ const EditModalCore=  ({objet}) => {
 
                                                             dispatcher({
                                                                 type:CLICK,
-                                                                payload: {text:'Widget No Longeur exist',severity:"error"}
+                                                                payload: {text:'Widget No Longer exist',severity:"error"}
                                                             });
 
                                                         }

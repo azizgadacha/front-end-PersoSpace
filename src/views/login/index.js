@@ -60,100 +60,88 @@ const Login = () => {
     const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
-console.log(matchDownLG)
+    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
+    console.log(matchDownLG)
     console.log("vzzzzzzzzzzzzzzzzzzzzzzzz")
 
     console.log(matchDownMD)
     return (
-<React.Fragment>
-    {console.log("alam")}
-        <AuthWrapper1>
+        <React.Fragment>
+            {console.log("alam")}
+            <AuthWrapper1>
 
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
 
 
-            <Grid container direction="column" justifyContent="flex-end"  sx={{ minHeight: '100vh' }}>
+                    <Grid container direction="column" justifyContent="flex-end"  sx={{ minHeight: '100vh' }}>
 
-                <Grid item xs={12}>
+                        <Grid item xs={12}>
 
-                    <Grid container  justifyContent="center"  alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
+                            <Grid container  justifyContent="center"  alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
 
-                        <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
+                                <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
 
-                            <AuthCardWrapper1>
-                                <Stack alignItems="center" justifyContent="center" spacing={1}>
+                                    <AuthCardWrapper1>
+                                        <Stack alignItems="center" justifyContent="center" spacing={1}>
 
-                                <Grid item sx={{ mb: 3,align:'center' }} >
-                                    <RouterLink to="#">
-                                        <Logo />
+                                            <Grid item sx={{ mb: 3,align:'center' }} >
+                                                <RouterLink to="#">
+                                                    <Logo />
 
-                                    </RouterLink>
+                                                </RouterLink>
+                                            </Grid>
+                                        </Stack>
+                                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:0}>
+
+                                            <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
+                                                <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
+                                                    Manage the job more effectively with Minimal effort
+                                                </Typography>
+                                                <img alt="register" src="/static/illustrations/illustration_register.png" />
+
+
+                                            </SectionStyle>
+
+                                            <Grid container spacing={2} alignItems="center" justifyContent="center">
+
+
+
+                                                        <Stack alignItems="center" justifyContent="center" spacing={0}>
+                                                            <Typography
+                                                                color={theme.palette.secondary.main}
+                                                                gutterBottom
+                                                                variant={matchDownSM ? 'h3' : 'h2'}
+                                                            >
+                                                                Hi, Welcome
+                                                            </Typography>
+                                                            <Typography variant="caption" fontSize="16px" >
+                                                                Enter your credentials to continue
+                                                            </Typography>
+                                                        </Stack>
+                                                    <RestLogin />
+
+                                                <Grid item xs={12}>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Stack>
+
+                                    </AuthCardWrapper1>
                                 </Grid>
-                                </Stack>
-                                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:0}>
-
-                                <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
-                                    <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
-                                        Manage the job more effectively with Minimal effort
-                                    </Typography>
-                                    <img alt="register" src="/static/illustrations/illustration_register.png" />
-
-
-                                </SectionStyle>
-
-                                    <Grid container spacing={2} alignItems="center" justifyContent="center">
-
-
-                                    <Grid item xs={12}>
-                                        <Grid
-                                            container
-                                            direction={matchDownSM ? 'column-reverse' : 'row'}
-                                            alignItems="center"
-                                            justifyContent="center"
-                                        >
-                                                <Stack alignItems="center" justifyContent="center" spacing={1}>
-                                                    <Typography
-                                                        color={theme.palette.secondary.main}
-                                                        gutterBottom
-                                                        variant={matchDownSM ? 'h3' : 'h2'}
-                                                    >
-                                                        Hi, Welcome
-                                                    </Typography>
-                                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
-                                                    </Typography>
-                                                </Stack>
-                                        </Grid>
-                                         </Grid>
-                                     <Grid item xs={12}>
-                                        <RestLogin />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Divider />
-                                    </Grid>
-                                    <Grid item xs={12}>
-
-                                    </Grid>
-                                </Grid>
-                                </Stack>
-
-                            </AuthCardWrapper1>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
-                {/*    <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
+                        {/*    <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
                     <AuthFooter />
                 </Grid>*/}
-            </Grid>
-            </Stack>
-        </AuthWrapper1>
+                    </Grid>
+                </Stack>
+            </AuthWrapper1>
 
-    <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={open1.severity} sx={{ width: '100%' }}>
-            {open1.text}                </Alert>
-    </Snackbar>
-</React.Fragment>
+            <Snackbar anchorOrigin ={{ vertical:"bottom", horizontal: 'right'}}  open= {open1.open} autoHideDuration={4000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={open1.severity} sx={{ width: '100%' }}>
+                    {open1.text}                </Alert>
+            </Snackbar>
+        </React.Fragment>
     );
 };
 

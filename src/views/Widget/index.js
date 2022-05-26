@@ -136,7 +136,19 @@ const [importing,setImporting]=useState(true)
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
-                }else{
+                }else if(response.data.InExistedWorksapce){
+                    history.push(configData.defaultPath);
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"Workspace No Longer Exist",severity:"error"}
+                    })
+                }
+
+
+else
+
+                    {
+
                     console.log("ddddddd")
                     console.log(response.data.Widgetitems)
                 dispatcher({
