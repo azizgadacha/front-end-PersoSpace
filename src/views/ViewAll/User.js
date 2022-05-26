@@ -401,6 +401,7 @@ const User=  (props) => {
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
     console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
     console.log(matchDownLG)
+    console.log(theme.breakpoints.down('md'))
     console.log("vzzzzzzzzzzzzzzzzzzzzzzzz")
 
     console.log(matchDownMD)
@@ -438,7 +439,7 @@ const User=  (props) => {
 
                 <PerfectScrollbar>
                     <TableContainer sx={{minWidth: 800}}>
-                        <Table>
+                        <Table  sx={{ml:2}}>
                             <UserListHead
                                 order={order}
                                 orderBy={orderBy}
@@ -448,7 +449,7 @@ const User=  (props) => {
                                 onRequestSort={handleRequestSort}
                                 onSelectAllClick={handleSelectAllClick}
                             />
-                            <TableBody >
+                            <TableBody  >
                                 {filteredUsers
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
@@ -467,9 +468,7 @@ const User=  (props) => {
                                                     selected={isItemSelected}
                                                     aria-checked={isItemSelected}
                                                 >
-                                                    <TableCell padding="checkbox">
 
-                                                    </TableCell>
                                                    <Cells    userPar={{_id,username,phone,role,photo,email}}/>
                                                 </TableRow>
 
