@@ -11,7 +11,14 @@ import configData from "../../config";
 
 
 
-import {CLICK, CLOSE_DELETE_MODAL, INISIALIZE, INISIALIZE_STORE, LOGOUT} from "../../store/actions";
+import {
+    CLICK,
+    CLOSE_DELETE_MODAL,
+    INISIALIZE,
+    INISIALIZE_STORE,
+    LOGOUT,
+    UPDATE_WORKSPACE_NAME_LISTE
+} from "../../store/actions";
 
 import {gridSpacing} from "../../store/constant";
 import Customization from "../Customization";
@@ -79,11 +86,63 @@ const [importing,setImporting]=useState(true)
     var listOfBar=null
 
 
+    useEffect(() => {
+        console.log("ddddddddddddd")
+        console.log(id)
+        console.log(id)
+        axios
+            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
+            .then(response =>{
+                if(response.data.notConnected){
+                    dispatcher({ type: LOGOUT });
+                    history.push("/login");
+                }else if(response.data.InExistedWorksapce){
+                    history.push(configData.defaultPath);
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"Workspace No Longer Exist",severity:"error"}
+                    })
+                }
+
+
+                else
+
+                {
+
+                    console.log("ddddddd")
+                    console.log(response.data.Widgetitems)
+
+
+console.log(response.data.workspace)
+
+                    dispatcher({
+                            type:UPDATE_WORKSPACE_NAME_LISTE,
+                            payload: {LastWorkspace:response.data.workspace}
+                        }
+                    )
+                    dispatcher({
+                            type:INISIALIZE_STORE,
+                            payload: {widget:response.data.Widgetitems}
+                        }
+                    )
+
+                    setImporting(false)
+                    setSucces(true)
+
+                }})
+            .catch(function (error) {
+                console.log(error)
+
+
+            })
+    },[]);
+
+
+
     if(!(loc.includes('SharedWorkspaces'))){
         console.log("Ena el listBar")
         console.log(workspaces.listeName)
         var liste =()=>{
-
             if(workspaces.listeName.length>2) {
                 console.log(workspaces.listeName.length)
                 console.log(workspaces.listeName)
@@ -102,7 +161,7 @@ const [importing,setImporting]=useState(true)
                 })
 
             } else{
-
+console.log(workspaces.listeName)
                 listOfBar= workspaces.listeName.map((item) => {
 
                     return (
@@ -126,47 +185,6 @@ const [importing,setImporting]=useState(true)
 
 
 
-   useEffect(() => {
-       console.log("ddddddddddddd")
-       console.log(id)
-       console.log(id)
-        axios
-            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
-            .then(response =>{
-                if(response.data.notConnected){
-                    dispatcher({ type: LOGOUT });
-                    history.push("/login");
-                }else if(response.data.InExistedWorksapce){
-                    history.push(configData.defaultPath);
-                    dispatcher({
-                        type:CLICK,
-                        payload: {text:"Workspace No Longer Exist",severity:"error"}
-                    })
-                }
-
-
-else
-
-                    {
-
-                    console.log("ddddddd")
-                    console.log(response.data.Widgetitems)
-                dispatcher({
-                        type:INISIALIZE_STORE,
-                        payload: {widget:response.data.Widgetitems}
-                    }
-                )
-
-                setImporting(false)
-                setSucces(true)
-
-            }})
-            .catch(function (error) {
-console.log(error)
-
-
-            })
-    },[]);
    
     let lc =   widget.widget.map((data)  => {
 let element

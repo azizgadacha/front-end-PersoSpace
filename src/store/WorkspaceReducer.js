@@ -7,7 +7,7 @@ import {
     DELETE, DELETEINSIDEWORKSPACE,
     IDWORKSPACE,
     INISIALIZE,
-    INISIALIZEINSIDEWORKSPACE, UPDATE_WORKSPACE
+    INISIALIZEINSIDEWORKSPACE, UPDATE_WORKSPACE, UPDATE_WORKSPACE_NAME_LISTE
 } from './actions';
 
 
@@ -160,6 +160,18 @@ const WorkspaceReducer = (state = initialState, action) => {
         case IDWORKSPACE :
             state.id = action.payload;
             return {
+                ...state
+            }
+case UPDATE_WORKSPACE_NAME_LISTE :
+    console.log(state.listeName)
+    console.log(action.payload.LastWorkspace)
+    console.log([action.payload.LastWorkspace.WorkspaceName,action.payload.LastWorkspace._id])
+    let liste=state.listeName
+    console.log(liste)
+            state.listeName = liste.concat ( [[action.payload.LastWorkspace.WorkspaceName,action.payload.LastWorkspace._id]]);
+    console.log(state.listeName)
+
+    return {
                 ...state
             }
 

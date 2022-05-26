@@ -159,28 +159,39 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
     let userSt= useSelector((state) => state.user);
 
     const classes = useStyles();
-    const  OpenWidget=()=>{
-
-        history.push(config.defaultPath+'/widget/'+ card._id)
-
-
-    }
-
-
 
     let location
     if(window.location.pathname.includes('html'))
         location=window.location.hash
     else
         location=window.location.pathname
-console.log("heyeyeye")
-console.log(location)
+    console.log("heyeyeye")
+    console.log(location)
     let array=location.split("/")
 
 
     const ar2 = array.slice(3, (array.length));
 
     let link=ar2.join('/')
+
+
+
+    const  OpenWidget=()=>{
+
+        dispatcher({
+            type:CLICKED
+        });
+        if((location).includes('/dashboard/default'))
+            history.push(`${config.defaultPath}/${link==""?"":link+"/widget/"}${card._id}`)
+        else
+            history.push(`/dashboard/VisualizationOfWorkspace/${link==""?"":link+"/widget/"}${card._id}`)
+
+
+
+
+    }
+
+
 
 
    
@@ -221,14 +232,7 @@ console.log(location)
             payload:{card:card}
         })
 
-
-
-
-
         handleCloseMenu()
-
-
-
 
     };
 
