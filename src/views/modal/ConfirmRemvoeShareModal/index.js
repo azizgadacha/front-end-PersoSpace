@@ -41,6 +41,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import AnimateButton from "../../../animation/AnimateButton";
 import axios from "axios";
 import configData from "../../../config";
+import {Cancel, Remove, Removing, Share, Sharing} from "../../Button/actionButton";
 
 
 // ----------------------------------------------------------------------
@@ -56,11 +57,12 @@ const OVERLAY_Styles ={
 
 }
 const style = {
-
+    minWidth:"310px",
+    maxWidth:"95%",
     padding:'50px',
     zIndex:100,
 
-    borderRadius: 5,
+    borderRadius: 2,
 
 
     position: 'absolute',
@@ -68,7 +70,7 @@ const style = {
     left: '50%',
     radius:3,
     transform: 'translate(-50%, -50%)',
-    width: 400,
+
     bgcolor: 'background.paper',
     border: '0px solid #000',
     boxShadow: 24,
@@ -371,33 +373,65 @@ const Modal_confirm=  (props) => {
 
 
                                             </Grid>
-                                            <Box
-                                                sx={{
-                                                    mt: 2,
-                                                    marginRight:2,
-                                                    marginLeft:5
-                                                }}
-                                            >
-                                                <AnimateButton>
-                                                    {isloading?(<LoadingButton variant="contained" sx={{width:118}}  size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="contained">Removing</LoadingButton>): <Button sx={{width:118}}disableElevation fullWidth size="large" type="submit" variant="contained" onClick={Click} color="error">Remove</Button>}
 
 
 
-                                                </AnimateButton>
 
-                                            </Box>
-                                            <Box
-                                                sx={{
-                                                    mt: 2,
-                                                    marginLeft:2
-                                                }}
-                                            >
-                                                <AnimateButton>
+                                            <Grid container alignItems={"center"}>
+                                                <Grid xs={6}>
+                                                    <Box
+                                                        sx={{
+                                                            mr:1,
+                                                            mt: 2,
 
-                                                    <Button disableElevation sx={{width:118}} size="large" onClick={handleClose} variant="contained" color="secondary">Cancel</Button>
-                                                </AnimateButton>
+                                                        }}
+                                                    >
 
-                                            </Box>
+
+
+                                                        <AnimateButton>
+                                                            {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Removing}</LoadingButton>):
+                                                                <Button
+                                                                    disableElevation
+                                                                    fullWidth
+                                                                    onClick={Click}
+                                                                    type="submit" size="large"
+                                                                    variant="contained"
+                                                                    color="secondary">{Remove}</Button>}
+
+
+
+                                                        </AnimateButton>
+
+                                                    </Box>
+                                                </Grid>
+                                                <Grid xs={6}>
+
+                                                    <Box
+                                                        sx={{
+                                                            mt: 2,
+                                                            marginLeft:1
+                                                        }}
+                                                    >
+                                                        <AnimateButton>
+
+                                                            <Button disableElevation  disabled={isloading} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                                        </AnimateButton>
+
+                                                    </Box>
+                                                </Grid>
+
+                                            </Grid>
+
+
+
+
+
+
+
+
+
+
                                         </Grid>
                                     </Grid>
                                 </Grid>

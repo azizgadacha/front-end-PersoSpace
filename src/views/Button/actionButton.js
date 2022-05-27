@@ -9,6 +9,8 @@ export const Adding = 'Adding';
 export const Delete = 'Delete';
 export const Sharing = 'SHARING';
 export const Share = 'SHARE';
+export const Remove = 'Remove';
+export const Removing = 'Removing';
 
 export const Deleting = 'Deleting';
 export const Workspaces = 'Workspaces';

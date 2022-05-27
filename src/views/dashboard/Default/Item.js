@@ -162,15 +162,14 @@ const Item = ({ item }) => {
     }
 
     return (
-        <ListItem sx={{maxWidth:"40%"}}   key={item[1]} disablePadding>
-            <ListItemButton sx={{maxWidth:"40%"}}     sx={{marginLeft:0,whiteSpace: 'normal',}}    style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
+        <ListItem sx={{maxWidth:"320px"}}  key={item[1]} disablePadding>
+            <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
                 <ListItemIcon>
 
 
                     <NavigateNextRoundedIcon />
-                    <ListItemText primary={item[0]} />
-
                 </ListItemIcon>
+                <ListItemText primary={item[0]} />
             </ListItemButton>
         </ListItem>
     );
