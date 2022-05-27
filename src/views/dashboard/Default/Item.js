@@ -142,17 +142,25 @@ const Item = ({ item }) => {
         workspaces.listeName.find(function(itemOfListe, i){
             if(item[1] === itemOfListe[1]){
                 index1 = i;
+                console.log("ddddddddddddddddddddddddddddddd")
+                console.log(index1)
                 return i;
                 //console.log(i)
 
             }
         });
+        console.log(workspaces.listeName)
+        console.log(workspaces.listeName[0])
+        console.log(index1)
         let finalListe=[]
         for(let i=0;i<=index1;i++){
-            finalListe.concat(workspaces.listeName[i])
+            console.log(workspaces.listeName[i])
+
+            finalListe .push((workspaces.listeName[i])[1])
 
         }
-
+console.log(('ggggggggggggggggggggggggggggg'))
+console.log(finalListe)
         if(location.includes('/dashboard/default'))
             history.push(config.defaultPath+"/"+finalListe.join('/'))
         else
