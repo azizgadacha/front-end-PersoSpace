@@ -127,42 +127,29 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const Item = ({ item }) => {
-    let location
-    let workspaces = useSelector((state) => state.workspace);
-
-    if(window.location.pathname.includes('html'))
-        location=window.location.hash
-    else
-        location=window.location.pathname
-
+    const location = useLocation();
     let history =useHistory()
 
     let handleClickItem=(item)=>{
-        let index1
-        workspaces.listeName.find(function(itemOfListe, i){
-            if(item[1] === itemOfListe[1]){
-                index1 = i;
-                return i;
-                //console.log(i)
+        let loc2=location.pathname
 
-            }
-        });
-        let finalListe=[]
-        for(let i=0;i<=index1;i++){
-            finalListe.concat(workspaces.listeName[i])
+        let array2=loc2.split("/")
 
-        }
+        let ar3 = array2.slice(3, (array2.length));
 
-        if(location.includes('/dashboard/default'))
-            history.push(config.defaultPath+"/"+finalListe.join('/'))
+        let indexOfElement=ar3.indexOf(item[1])
+
+        let finalLink = ar3.slice(0, indexOfElement+1);
+        if((location.pathname).includes('/dashboard/default'))
+            history.push(config.defaultPath+"/"+finalLink.join('/'))
         else
-            history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalListe.join('/'))
+            history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalLink.join('/'))
 
 
     }
 
     return (
-        <ListItem sx={{maxWidth:"320px"}}  key={item[1]} disablePadding>
+        <ListItem sx={{maxWidth:"8%"}} key={item[1]} disablePadding>
             <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
                 <ListItemIcon>
 
