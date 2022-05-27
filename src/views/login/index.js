@@ -91,7 +91,7 @@ const Login = () => {
                                                 </RouterLink>
                                             </Grid>
                                         </Stack>
-                                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:0}>
+                                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:1}>
 
                                             <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
                                                 <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>

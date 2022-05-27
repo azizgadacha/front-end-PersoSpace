@@ -366,15 +366,15 @@ console.log(subliste)
         <Fragment>
             <Card xs={12}  sx={{mb:3}}>
 
-                <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     <List component={Stack} direction="row">
                         {(isload || UserLoading)?
                             <LinkSkealton/>
                             :
                             <Fragment>
                                 {(workspaces.listeName.length<=2)&&(
-                                <ListItem sx={{maxWidth:"92px"}}  key={1} disablePadding>
-                                    <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
+                                <ListItem sx={{maxWidth:"80px"}}  key={1} disablePadding>
+                                    <ListItemButton sx={{maxWidth:"80px"}}   sx={{marginLeft:0,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
                                         {((loc.includes('/dashboard/default')))?(
                                             history.push(config.defaultPath)
@@ -384,8 +384,9 @@ console.log(subliste)
                                         }}>
                                         <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
                                             <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
+                                            <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
+
                                         </ListItemIcon>
-                                        <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
                                     </ListItemButton>
                                 </ListItem>)}
 

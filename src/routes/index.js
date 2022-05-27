@@ -63,7 +63,7 @@ console.log(linkSpace)
     return (
 
 
-                <Switch location={location} key={location.pathname} >
+                <Switch location={location} key={path} >
 
 
                     <Redirect exact from="/" to={config.defaultPath} />
@@ -75,7 +75,7 @@ console.log(linkSpace)
 
                         ]}
                     >
-                        <Switch location={location} key={location.pathname}>
+                        <Switch location={window.location} key={loc}>
                             <Verif_login_Guard>
                                 <Route exact path="/login" component={AuthLogin} />
                                 <Route exact path="/forget" component={AuthForget} />
