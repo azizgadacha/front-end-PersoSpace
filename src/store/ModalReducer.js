@@ -243,7 +243,14 @@ let card;
 
             }
 
+        case CLOSE_WIDGET_MODAL:
 
+            return {
+                ...state,
+                ModalWidget:false
+
+
+            };
         default:
             return {...state};
 

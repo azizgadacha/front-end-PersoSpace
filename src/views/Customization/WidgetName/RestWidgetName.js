@@ -219,43 +219,30 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                                     })
 
                                 }else{
-
                                 if (response.data.success) {
-
                                     dispatcher({
                                         type:IS_LOADING_CHANGE,
 
                                     })
-
-
                                     dispatcher({
                                         type:CHANGE_NAME,
                                         payload: {WidgetName:values.WidgetName}
 
                                     })
 
-
-
                                     dispatcher({
                                         type:ADD_WIDGET,
                                         payload: {widget:response.data.widget}
 
                                     })
-
                                     dispatcher({
                                         type:INIZIALIZE_STEPS
 
                                     })
-
-
-
                                     dispatcher({
                                         type:CLOSE_WIDGET_MODAL,
 
                                     })
-
-
-
                                     dispatcher({
                                         type:CLICK,
                                         payload: {text:"Widget added successfuly",severity:"success"}

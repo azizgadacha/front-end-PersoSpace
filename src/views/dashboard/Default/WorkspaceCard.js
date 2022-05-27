@@ -46,7 +46,7 @@ import {
 
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import config from "../../../config";
-import {AvatarGroup, Box, Button, Chip, Menu, MenuItem} from "@mui/material";
+import {AvatarGroup, Box, Button, Chip, Menu, MenuItem, Stack} from "@mui/material";
 import AnimateButton from "../../../animation/AnimateButton";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
@@ -159,14 +159,22 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
     let userSt= useSelector((state) => state.user);
 
     const classes = useStyles();
+    const  OpenWidget=()=>{
+
+        history.push(config.defaultPath+'/widget/'+ card._id)
+
+
+    }
+
+
 
     let location
     if(window.location.pathname.includes('html'))
         location=window.location.hash
     else
         location=window.location.pathname
-    console.log("heyeyeye")
-    console.log(location)
+console.log("heyeyeye")
+console.log(location)
     let array=location.split("/")
 
 
@@ -176,25 +184,6 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
 
 
-    const  OpenWidget=()=>{
-
-        dispatcher({
-            type:CLICKED
-        });
-        if((location).includes('/dashboard/default'))
-            history.push(`${config.defaultPath}/${link==""?"":link+"/widget/"}${card._id}`)
-        else
-            history.push(`/dashboard/VisualizationOfWorkspace/${link==""?"":link+"/widget/"}${card._id}`)
-
-
-
-
-    }
-
-
-
-
-   
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClickMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -232,7 +221,14 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
             payload:{card:card}
         })
 
+
+
+
+
         handleCloseMenu()
+
+
+
 
     };
 
@@ -427,9 +423,63 @@ console.log('il index houwa  '+ index)
                             </Grid>
                             <Grid container alignItems={"center"}>
 
+                                {( (location.includes("Shared")))?(
+
+
+
+
+                                <Grid md={12} xs={12}  container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+                                    <Grid item xs={12} md={12} >
+
+                                        <Grid
+                                            mt={2.5}
+                                            container
+                                            direction={'row'}
+                                            alignItems="center"
+                                            justifyContent="center"
+xs={12}
+                                        >
+                                            <Grid item xs={8} >
+
+
+
+
+                                            <AnimateButton>
+
+
+                                                    <Button xs={6} lg={6}
+                                                        align="center"
+                                                        disableElevation
+                                                        fullWidth
+                                                        onClick={OpenWidget}
+                                                        type="submit" size="large"
+                                                        variant="contained"
+                                                        color="warning"
+                                                        className={classes.buttonStyle}>{Widget} </Button>
+
+                                            </AnimateButton>
+
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>):(
+
+<Fragment>
+
+
+
+
+
+
+
+
+
+
+
+
                                 <Grid xs={6}>
                                     <Box
-                                          marginLeft={(location).includes('Shared')?17:0}
+                                        xs={12}
                                         sx={
 
                                             {
@@ -442,6 +492,7 @@ console.log('il index houwa  '+ index)
 
                                         <AnimateButton>
 
+                                            <Stack alignItems="center" justifyContent="center" spacing={0}>
 
                                             <Button
                                                 align="center"
@@ -452,14 +503,14 @@ console.log('il index houwa  '+ index)
                                                 variant="contained"
                                                 color="warning"
                                                 className={classes.buttonStyle}>{Widget} </Button>
-
+                                            </Stack>
 
                                         </AnimateButton>
+
                                         </Grid>
                                     </Box>
                                 </Grid>
 
-                                {(! (location.includes("Shared"))) &&(
 
                                     <Grid xs={6}>
 
@@ -477,7 +528,10 @@ console.log('il index houwa  '+ index)
 
                                     </Box>
                                 </Grid>
-                                    )}
+
+</Fragment>
+    )}
+
                             </Grid>
                         </Grid>
                     </MainCard>

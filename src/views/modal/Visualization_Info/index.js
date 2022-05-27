@@ -383,6 +383,7 @@ const User=  (props) => {
                                                                     <Grid md={12} container alignItems="center" >
                                                     <AnimateButton>
                                                             <Button
+                                                                onClick={handleClose}
                                                                 disableElevation
                                                                 fullWidth
                                                                 type="submit" size="large"

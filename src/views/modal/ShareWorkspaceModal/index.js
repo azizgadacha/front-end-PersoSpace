@@ -43,7 +43,7 @@ import {
 import useScriptRef from "../../../hooks/useScriptRef";
 import {strengthColor, strengthIndicator} from "../../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
-import {UserListHead} from "../../ViewAll/import/customer/@dashboard/user";
+import UserListHead from "./UserListHead";
 
 import SearchNotFound from "../../ViewAll/import/customer/SearchNotFound";
 import PerfectScrollbar from "react-perfect-scrollbar";
