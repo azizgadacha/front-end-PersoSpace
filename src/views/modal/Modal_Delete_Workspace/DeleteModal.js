@@ -126,7 +126,7 @@ const DeleteWorkspace = (props) => {
                         dispatcher({
                             type: CLOSE_DELETE_MODAL,
                         })
-                        history(configData.defaultPath)
+                        history.go(0)
                         dispatcher({
                             type: CLICK,
                             payload: {text: "Workspace No Longer Exist", severity: "error"}
