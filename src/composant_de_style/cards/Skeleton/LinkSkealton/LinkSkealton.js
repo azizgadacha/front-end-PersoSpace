@@ -110,9 +110,8 @@ const LinkSkelton = () => {
 
     return (
         <Fragment>
-            <ListItem   sx={{minHeight:"100%",
-                minWidth: "30%",marginLeft:2
-            }} key={1} disablePadding>
+            <ListItem  sx={{maxWidth:"320px"}}
+             key={1} disablePadding>
 
                 <ListItemButton style={{ backgroundColor: 'transparent' }}>
                     <ListItemIcon>
@@ -127,9 +126,7 @@ const LinkSkelton = () => {
             { load2.map((i) => (
 
                 <ListItem
-                    sx={{minHeight:"100%",
-                        minWidth: "30%"
-                    }}
+                    sx={{maxWidth:"320px"}}
                     disablePadding>
                     <ListItemButton  style={{ backgroundColor: 'transparent' }}>
                         <ListItemIcon>

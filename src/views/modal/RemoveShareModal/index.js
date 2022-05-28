@@ -210,8 +210,7 @@ const RemoveShareModal=  (props) => {
         setFilterName(event.target.value);
     };
     let userSt= useSelector((state) => state.user);
-    console.log("ddddddd")
-    console.log(userSt.Shared)
+
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.Shared.length) : 0;
 
     const filteredUsers = applySortFilter(userSt.Shared, getComparator(order, orderBy), filterName);

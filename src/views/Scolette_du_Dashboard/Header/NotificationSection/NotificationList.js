@@ -112,7 +112,6 @@ const useStyles = makeStyles((theme) => ({
 const load=[1,2,3]
 
 const NotificationList = ({Loading,open}) => {
-    console.log("rani nhawas lena1.0")
 
     const notification = useSelector((state) => state.notification);
 

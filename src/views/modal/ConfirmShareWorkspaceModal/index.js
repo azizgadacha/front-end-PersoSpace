@@ -73,8 +73,9 @@ const Modal_confirm=  (props) => {
 
     const [isloading, setIsloading] = useState(false);
     const style = {
-        minWidth:"310px",
-        maxWidth:"95%",
+
+        minWidth:"330px",
+        maxWidth:"450px",
         padding:'50px',
         zIndex:100,
 
@@ -134,10 +135,14 @@ const Modal_confirm=  (props) => {
             .post( configData.API_SERVER + 'api/users/shareWorkspace',{
                 token:account.token,
                 card_id:props.card._id,
-                user_id:props.user._id,
-                user_username:account.user._id
+                withShared:props.user._id,
+                user_id:account.user._id
             })
             .then(response =>{
+                console.log(response.data)
+                console.log(response.data.workspace)
+                console.log(response.data.success)
+                console.log(response.data.notification)
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
@@ -150,7 +155,7 @@ const Modal_confirm=  (props) => {
                 {
                     dispatcher({
                         type:UPDATE_WORKSPACE,
-                        payload: {work:response.data.w}
+                        payload: {work:response.data.workspace}
                     })
                     dispatcher({
                         type:INISIALIZE_SHARED_USER,
@@ -168,37 +173,34 @@ const Modal_confirm=  (props) => {
                 })
 
 
-                console.log("AIDMUBAREK")
-                console.log(props.card.Share)
                 dispatcher({
                     type:CLICK,
                     payload: {text:"Workspace has been shared successfully",severity:"success"}
                 })
-
-                try {
-                    axios
-                        .post( configData.API_SERVER + 'api/users/addNotification',{
-                            token:account.token,
-                            receiver:props.user._id,
-                            sender:account.user._id,
-                            type:"shared",
-                            read:false,
-                            text: ` has shared ${props.card.WorkspaceName} with you`
-                        }).then((response)=>{
-
                         socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
-
-                        })
-                }catch (e) {
-
-                }
-
-
-
 
             }})
             .catch(function (error) {
+console.log(error)
+                dispatcher({
+                    type:INISIALIZE_SHARED_USER,
+                    payload:{card:props.card}
+                })
 
+                dispatcher({
+                    type:CLOSE_Confirm_Share_Workspace_MODAL,
+
+                })
+
+                dispatcher(  {
+                    type:CLOSE_MODAL_SHARE,
+
+                })
+
+                dispatcher({
+                    type:CLICK,
+                    payload: {text:"internal problem",severity:"error"}
+                })
 
             })
 
@@ -211,7 +213,6 @@ const Modal_confirm=  (props) => {
 
     return (
         <Fragment>
-            {console.log(matchDownMD)}
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

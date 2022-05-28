@@ -155,7 +155,6 @@ const ProfileSection = () => {
                 //}
             })
             .catch(function (error) {
-                console.log('error - ', error);
             });
     };
     const handleToggle = () => {

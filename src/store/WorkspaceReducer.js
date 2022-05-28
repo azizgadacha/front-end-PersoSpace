@@ -6,7 +6,7 @@ import {
     CLOSE,
     DELETE, DELETEINSIDEWORKSPACE,
     IDWORKSPACE,
-    INISIALIZE,
+    INISIALIZE, INISIALIZE_LISTE,
     INISIALIZEINSIDEWORKSPACE, UPDATE_WORKSPACE, UPDATE_WORKSPACE_NAME_LISTE
 } from './actions';
 
@@ -63,17 +63,13 @@ const WorkspaceReducer = (state = initialState, action) => {
                     else
                         username.push((item[2]))
                 }
-                console.log("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
-                console.log(username)
+
                 state.Workspace = workspace
                 state.username = username
                 state. listeName=action.payload.listeName
 
             }else{
                 state. listeName=action.payload.listeName
-                console.log("ta7tha")
-                console.log(state.listeName)
-
 
 
             }
@@ -82,7 +78,13 @@ const WorkspaceReducer = (state = initialState, action) => {
                 ...state,
 
             };
+        case INISIALIZE_LISTE:
+            state. listeName=action.payload.listeName
 
+
+            return {
+                ...state
+            }
         case ADD:
 
 
@@ -95,23 +97,20 @@ const WorkspaceReducer = (state = initialState, action) => {
             };
         case UPDATE_WORKSPACE:
             const Work=action.payload.work
-            console.log(Work)
-
+console.log(Work)
            let index2 = 0;
             var filteredObj = state.Workspace.find(function(item, i){
-                console.log("ena el item")
-                console.log(item)
+
                 if(item._id === Work._id){
                     index2 = i;
                     return i;
-                    //console.log(i)
 
                 }
             });
 
-
+console.log(index2)
             state.Workspace[index2]=Work
-
+console.log( state.Workspace)
 
 
             return {
@@ -127,7 +126,6 @@ const WorkspaceReducer = (state = initialState, action) => {
                 if((item.WorkspaceName === deleteWork[0].WorkspaceName)&&(item.description===deleteWork[0].description)){
                     index = i;
                     return i;
-                    //console.log(i)
 
                 }
             });
@@ -136,6 +134,7 @@ const WorkspaceReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
         case DELETEINSIDEWORKSPACE:
             const deleteinsideWork=action.payload.work
 
@@ -163,13 +162,9 @@ const WorkspaceReducer = (state = initialState, action) => {
                 ...state
             }
 case UPDATE_WORKSPACE_NAME_LISTE :
-    console.log(state.listeName)
-    console.log(action.payload.LastWorkspace)
-    console.log([action.payload.LastWorkspace.WorkspaceName,action.payload.LastWorkspace._id])
+
     let liste=state.listeName
-    console.log(liste)
             state.listeName = liste.concat ( [[action.payload.LastWorkspace.WorkspaceName,action.payload.LastWorkspace._id]]);
-    console.log(state.listeName)
 
     return {
                 ...state

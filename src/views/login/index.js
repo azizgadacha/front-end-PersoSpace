@@ -60,14 +60,10 @@ const Login = () => {
     const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
-    console.log(matchDownLG)
-    console.log("vzzzzzzzzzzzzzzzzzzzzzzzz")
 
-    console.log(matchDownMD)
     return (
         <React.Fragment>
-            {console.log("alam")}
+
             <AuthWrapper1>
 
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>

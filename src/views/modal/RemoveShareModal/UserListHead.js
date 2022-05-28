@@ -42,7 +42,6 @@ export default function UserListHead({
             align={headCell.alignRight}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            { console.log(headCell.alignRight)}
 
             <TableSortLabel
               hideSortIcon

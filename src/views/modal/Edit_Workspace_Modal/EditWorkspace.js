@@ -30,7 +30,7 @@ import {
     CLOSE_MODAL,
     DELETE,
     INISIALIZE, LOGOUT,
-    OPEN_MODAL, UPDATE_WORKSPACE
+    OPEN_MODAL, UPDATE, UPDATE_WORKSPACE
 } from "../../../store/actions";
 
 import AnimateButton from "../../../animation/AnimateButton";
@@ -45,14 +45,11 @@ import {useHistory, useParams} from "react-router-dom";
 
 
 const EditWorkspace = (props, { ...others }) => {
-    let loc=window.location.pathname
-
-
-    let array=loc.split("/")
-
-    const ar2 = array.slice(3, (array.length));
-
-    let link2=ar2.join('/')
+    let location=null
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
 
 
     const dispatcher = useDispatch();
@@ -114,11 +111,17 @@ let {id}=useParams()
                         setChanged(true)
                     else {
 
-
+                        let visualise=false
+                        if(location.includes('VisualizationOfWorkspace')){
+                            visualise=true
+                        }else
+                            visualise=false
 
                         axios
                             .post(configData.API_SERVER + 'api/users/editworkspace', {
                                 token: account.token,
+                                user_id:account.user._id,
+                                visualise,
                                 card_id: props.card._id,
                                 WorkspaceName: values.WorkspaceName,
                                 description: values.description
@@ -133,11 +136,32 @@ let {id}=useParams()
                                         payload: {text:"You are no longer connected",severity:"error"}
                                     })
                                 }
-                                else
-                                {
+                                else if(response.data.adminstratorProblem){
+                                    dispatcher({
+                                        type:UPDATE,
+                                        payload: {user:response.data.user}
+                                    });
+                                    dispatcher({
+                                            type: ClOSE_EDIT_MODAL,
+                                        }
+                                    )
+                                    history.push(configData.defaultPath)
+
+                                    setIsloading(false)
+
+
+
+
+                                    dispatcher({
+                                        type:CLICK,
+                                        payload: {text:'You are no langeran administrateur',severity:"error"}
+                                    });
+
+                                }
+
+                                else{
 
                                 if (response.data.success) {
-                                    console.log("ena lehne kifech menedrouch")
                                     setIsloading(false)
 
                                     dispatcher({

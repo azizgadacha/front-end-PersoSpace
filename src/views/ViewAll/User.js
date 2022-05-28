@@ -398,12 +398,6 @@ const User=  (props) => {
     const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
-    console.log(matchDownLG)
-    console.log(theme.breakpoints.down('md'))
-    console.log("vzzzzzzzzzzzzzzzzzzzzzzzz")
-
-    console.log(matchDownMD)
 
 
 

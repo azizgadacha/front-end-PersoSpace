@@ -207,8 +207,7 @@ maxWidth,
         setFilterName(event.target.value);
     };
     let userSt= useSelector((state) => state.user);
-console.log("ddddddd")
-console.log(userSt.possibleShare)
+
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userSt.possibleShare.length) : 0;
 
     const filteredUsers = applySortFilter(userSt.possibleShare, getComparator(order, orderBy), filterName);

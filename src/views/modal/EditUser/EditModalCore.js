@@ -153,6 +153,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 const EditModalCore=  ({objet}) => {
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
     const [isloading, setIsloading] = useState(false);
 
     const states = [
@@ -227,8 +232,10 @@ const EditModalCore=  ({objet}) => {
                                         try {
 
 
+
                                             axios.post( configData.API_SERVER + 'api/users/editUser', {
                                               token:account.token,
+
                                                 role:values.role,
                                                 userID:objet._id,
                                                 user_id:account.user._id
@@ -243,6 +250,8 @@ const EditModalCore=  ({objet}) => {
                                                         })
                                                     }
                                                     else
+
+
                                                     {
 
                                                     if (response.data.success) {
@@ -269,7 +278,10 @@ const EditModalCore=  ({objet}) => {
                                                             dispatcher({
                                                                 type:ClOSE_EDIT_MODAL,
                                                             });
-
+                                                            dispatcher({
+                                                                type:UPDATE,
+                                                                payload: {user:response.data.user}
+                                                            });
                                                             history.push(configData.defaultPath)
 
                                                             dispatcher({

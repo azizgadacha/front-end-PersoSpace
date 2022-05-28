@@ -120,7 +120,7 @@ const Customization = () => {
     const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
     const dispatch = useDispatch();
     const buttonRef = useRef();
-console.log(matchDownMD)
+
     // drawer on/off
     const steps = ["chose the widget", "chose data source","chose a name"];
     function getStepContent(step) {
