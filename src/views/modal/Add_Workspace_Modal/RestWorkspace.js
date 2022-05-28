@@ -164,10 +164,17 @@ setIsloading(true)
 
                                         }
                                     else {
-                                    setStatus({success: false});
-                                    setErrors({submit: response.data.msg});
-                                    setSubmitting(false);
-                                    setIsloading(false)
+
+                                    dispatcher({
+                                            type: CLOSE_MODAL,
+                                        }
+                                    )
+                                    history.push(configData.defaultPath)
+                                    dispatcher({
+                                        type: "Click",
+                                        payload: {text: "Workspace No Longer Exist", severity: "error"}
+                                    })
+
 
                                 }
                             })
