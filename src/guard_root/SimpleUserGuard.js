@@ -5,11 +5,12 @@ import { Redirect } from 'react-router-dom';
 
 //-----------------------|| AUTH GUARD ||-----------------------//
 
-const AdministratorGuard = ({ children }) => {
+const SimpleUserGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
-    console.log("je qqqqqqqqqqqqqqqqqqqqqqqqqs")
-    console.log(window.location.pathname)
+
     const  isSimpleEmployer  = (account.user.role==='simple employer'?true:false);
+    console.log("alam")
+    console.log(account.user.role)
 
 
     if (!(isSimpleEmployer)) {
@@ -22,8 +23,8 @@ const AdministratorGuard = ({ children }) => {
     return children;
 };
 
-AdministratorGuard.propTypes = {
+SimpleUserGuard.propTypes = {
     children: PropTypes.node
 };
 
-export default AdministratorGuard;
+export default SimpleUserGuard;

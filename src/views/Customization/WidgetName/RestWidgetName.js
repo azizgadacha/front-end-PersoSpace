@@ -175,13 +175,13 @@ let link
 
                     })
 if(widget.sourceDB)
-{console.log("sahbi")
+{
     link='api/users/shareData'
     data={token:account.token, idData:widget.idData, WidgetName:values.WidgetName, superiorID:id,type:widget.Type}
 }
 else
 {
-    console.log("ffff")
+
     link='api/users/addWidget'
 data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:widget.label, dataWidget:widget.dataWidget, token:account.token}
 
@@ -275,8 +275,6 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                             }})
                             .catch(function (error) {
 
-console.log("sssss")
-                                console.log(error)
                                 setStatus({ success: false });
                                 setErrors({ submit: error.response.data.msg });
                                 dispatcher({
@@ -301,8 +299,7 @@ console.log("sssss")
                                 });
                             });
                     } catch (err) {
-console.log("portabil")
-console.log(err)
+
                         if (scriptedRef.current) {
 
                             setStatus({ success: false });

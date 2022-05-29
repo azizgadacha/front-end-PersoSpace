@@ -7,6 +7,11 @@
 
 # testing
 /coverage
+#mobile-web
+/src/views/ViewAll
+/src/views/Customization
+/src/views/modal/Visualization_Info
+/src/views/modal/Import_Data_From_DB
 
 # production
 /build

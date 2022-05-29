@@ -73,8 +73,9 @@ const Modal_confirm=  (props) => {
 
     const [isloading, setIsloading] = useState(false);
     const style = {
-        minWidth:"310px",
-        maxWidth:"95%",
+
+        minWidth:"330px",
+        maxWidth:"450px",
         padding:'50px',
         zIndex:100,
 
@@ -134,10 +135,14 @@ const Modal_confirm=  (props) => {
             .post( configData.API_SERVER + 'api/users/shareWorkspace',{
                 token:account.token,
                 card_id:props.card._id,
-                user_id:props.user._id,
-                user_username:account.user._id
+                withShared:props.user._id,
+                user_id:account.user._id
             })
             .then(response =>{
+                console.log(response.data)
+                console.log(response.data.workspace)
+                console.log(response.data.success)
+                console.log(response.data.notification)
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
@@ -148,14 +153,62 @@ const Modal_confirm=  (props) => {
                 }
                 else
                 {
-                    dispatcher({
+                    if (response.data.success) {
+
+                        dispatcher({
                         type:UPDATE_WORKSPACE,
-                        payload: {work:response.data.w}
+                        payload: {work:response.data.workspace}
                     })
                     dispatcher({
                         type:INISIALIZE_SHARED_USER,
                         payload:{card:props.card}
                     })
+
+                    dispatcher({
+                        type:CLOSE_Confirm_Share_Workspace_MODAL,
+
+                    })
+
+                    dispatcher(  {
+                        type:CLOSE_MODAL_SHARE,
+
+                    })
+
+
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"Workspace has been shared successfully",severity:"success"}
+                    })
+                    socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
+
+                }else{
+
+
+                        dispatcher({
+                            type: CLOSE_Confirm_Share_Workspace_MODAL,
+
+                        })
+
+                        dispatcher({
+                            type: CLOSE_MODAL_SHARE,
+
+                        })
+
+                        history.go(0)
+
+                        dispatcher({
+                            type: CLICK,
+                            payload: {text: 'User Already has been Shared ', severity: "error"}
+                        });
+
+                    }
+                }})
+            .catch(function (error) {
+                console.log(error)
+                dispatcher({
+                    type:INISIALIZE_SHARED_USER,
+                    payload:{card:props.card}
+                })
 
                 dispatcher({
                     type:CLOSE_Confirm_Share_Workspace_MODAL,
@@ -167,38 +220,10 @@ const Modal_confirm=  (props) => {
 
                 })
 
-
-                console.log("AIDMUBAREK")
-                console.log(props.card.Share)
                 dispatcher({
                     type:CLICK,
-                    payload: {text:"Workspace has been shared successfully",severity:"success"}
+                    payload: {text:"internal problem",severity:"error"}
                 })
-
-                try {
-                    axios
-                        .post( configData.API_SERVER + 'api/users/addNotification',{
-                            token:account.token,
-                            receiver:props.user._id,
-                            sender:account.user._id,
-                            type:"shared",
-                            read:false,
-                            text: ` has shared ${props.card.WorkspaceName} with you`
-                        }).then((response)=>{
-
-                        socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
-
-                        })
-                }catch (e) {
-
-                }
-
-
-
-
-            }})
-            .catch(function (error) {
-
 
             })
 
@@ -211,7 +236,6 @@ const Modal_confirm=  (props) => {
 
     return (
         <Fragment>
-            {console.log(matchDownMD)}
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -229,89 +253,89 @@ const Modal_confirm=  (props) => {
                 <div style={OVERLAY_Styles}>
                     <ClickAwayListener onClickAway={handleClose}>
 
-                    <Fade in={open1.ModalStateShare}>
+                        <Fade in={open1.ModalStateShare}>
 
-                        <Box sx={{ ...style,  }} >
-                            <ThemeConfig>
-                                <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
-                                    <Grid item xs={12}>
-                                        <Grid
-                                            container
-                                            direction={matchDownSM ? 'column-reverse' : 'row'}
-                                            alignItems="center"
-                                            justifyContent="center"
-                                        >
-                                            <Grid item>
-                                                <Stack alignItems="center" justifyContent="center" spacing={1}>
-                                                    <Typography
-                                                        color={theme.palette.secondary.main}
-                                                        gutterBottom
-                                                        variant={matchDownSM ? 'h3' : 'h2'}
-                                                        align="center"
-                                                    >
-                                                        Confirmm Share
-                                                    </Typography>
-                                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''} align="center">
-                                                        Are you sure to Share this Workspace with {props.name} ?
-                                                    </Typography>
-                                                </Stack>
+                            <Box sx={{ ...style,  }} >
+                                <ThemeConfig>
+                                    <Grid container spacing={2} alignItems="center" justifyContent="center" stroke-linecap="round">
+                                        <Grid item xs={12}>
+                                            <Grid
+                                                container
+                                                direction={matchDownSM ? 'column-reverse' : 'row'}
+                                                alignItems="center"
+                                                justifyContent="center"
+                                            >
+                                                <Grid item>
+                                                    <Stack alignItems="center" justifyContent="center" spacing={1}>
+                                                        <Typography
+                                                            color={theme.palette.secondary.main}
+                                                            gutterBottom
+                                                            variant={matchDownSM ? 'h3' : 'h2'}
+                                                            align="center"
+                                                        >
+                                                            Confirmm Share
+                                                        </Typography>
+                                                        <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''} align="center">
+                                                            Are you sure to Share this Workspace with {props.name} ?
+                                                        </Typography>
+                                                    </Stack>
 
-                                            </Grid>
-
-                                            <Grid container alignItems={"center"}>
-                                                <Grid xs={6}>
-                                                    <Box
-                                                        sx={{
-                                                            mr:1,
-                                                            mt: 2,
-
-                                                        }}
-                                                    >
-
-
-
-                                                        <AnimateButton>
-                                                            {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Sharing}</LoadingButton>):
-                                                                <Button
-                                                                    disableElevation
-                                                                    fullWidth
-                                                                    onClick={Click}
-                                                                    type="submit" size="large"
-                                                                    variant="contained"
-                                                                    color="secondary">{Share}</Button>}
-
-
-
-                                                        </AnimateButton>
-
-                                                    </Box>
-                                                </Grid>
-                                                <Grid xs={6}>
-
-                                                    <Box
-                                                        sx={{
-                                                            mt: 2,
-                                                            marginLeft:1
-                                                        }}
-                                                    >
-                                                        <AnimateButton>
-
-                                                            <Button disableElevation  disabled={isloading} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
-                                                        </AnimateButton>
-
-                                                    </Box>
                                                 </Grid>
 
-                                            </Grid>
+                                                <Grid container alignItems={"center"}>
+                                                    <Grid xs={6}>
+                                                        <Box
+                                                            sx={{
+                                                                mr:1,
+                                                                mt: 2,
 
+                                                            }}
+                                                        >
+
+
+
+                                                            <AnimateButton>
+                                                                {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Sharing}</LoadingButton>):
+                                                                    <Button
+                                                                        disableElevation
+                                                                        fullWidth
+                                                                        onClick={Click}
+                                                                        type="submit" size="large"
+                                                                        variant="contained"
+                                                                        color="secondary">{Share}</Button>}
+
+
+
+                                                            </AnimateButton>
+
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid xs={6}>
+
+                                                        <Box
+                                                            sx={{
+                                                                mt: 2,
+                                                                marginLeft:1
+                                                            }}
+                                                        >
+                                                            <AnimateButton>
+
+                                                                <Button disableElevation  disabled={isloading} size="large"  onClick={handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                                            </AnimateButton>
+
+                                                        </Box>
+                                                    </Grid>
+
+                                                </Grid>
+
+                                            </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
 
-                            </ThemeConfig>
-                        </Box>
+                                </ThemeConfig>
+                            </Box>
 
-                    </Fade>
+                        </Fade>
                     </ClickAwayListener>
                 </div>
 

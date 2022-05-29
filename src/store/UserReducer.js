@@ -34,7 +34,6 @@ const UserReducer = (state = initialState, action) => {
 
         case INISIALIZE_SHARED_USER:
             share=action.payload.card.Share
-            console.log(share)
              supId=action.payload.card.superior_id
             state.Shared=[]
             alam=[]
@@ -55,7 +54,6 @@ const UserReducer = (state = initialState, action) => {
             }
     case INISIALIZE_POSSIBLE_SHARE_USER  :
             share=action.payload.card.Share
-            console.log(share)
              supId=action.payload.card.superior_id
             state.possibleShare=[]
 
@@ -70,7 +68,6 @@ const UserReducer = (state = initialState, action) => {
                         }
                     }
                 } else {
-                    console.log("alam")
                     for (let item of state.users) {
                         if ((!(alam.includes(item._id))) && (!(item.role == 'administrateur')) &&(item._id!=supId)) {
                             state.possibleShare.push(item)

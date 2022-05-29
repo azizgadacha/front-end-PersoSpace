@@ -153,6 +153,22 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const WorkspaceCard = ({ isLoading,card,username }) => {
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
+
+    let array=location.split("/")
+
+
+    const ar2 = array.slice(3, (array.length));
+
+    let link=ar2.join('/')
+
+
+
+
     let workspaces = useSelector((state) => state.workspace);
 
     let history =useHistory()
@@ -160,27 +176,20 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
     const classes = useStyles();
     const  OpenWidget=()=>{
-
-        history.push(config.defaultPath+'/widget/'+ card._id)
+        dispatcher({
+            type:IDWORKSPACE,
+            payload: {card}
+        });
+        dispatcher({
+            type:CLICKED
+        });
+        console.log(card)
+        history.push(  `${config.defaultPath}/widget/${link==""?"":(link+'/')}${card._id}`)
 
 
     }
 
 
-
-    let location
-    if(window.location.pathname.includes('html'))
-        location=window.location.hash
-    else
-        location=window.location.pathname
-console.log("heyeyeye")
-console.log(location)
-    let array=location.split("/")
-
-
-    const ar2 = array.slice(3, (array.length));
-
-    let link=ar2.join('/')
 
 
 
@@ -258,7 +267,6 @@ console.log(location)
                 type:INISIALIZE_SHARED_USER,
                 payload:{card:card}
             })
-        console.log(userSt.Shared)
         setLoading(false)
 
     }, [workspaces.Workspace])
@@ -290,11 +298,10 @@ console.log(location)
 
 
 
-console.log("salyyyyt")
-console.log(card)
     let listeUser =   card.Share.map((user)  => {
         let index=null
-
+        console.log((user))
+        console.log((userSt.users))
          userSt.users.find(function(item, i){
             if((item._id===user.sharedWith)){
                 index = i;
@@ -302,8 +309,8 @@ console.log(card)
 
             }
         });
-console.log('il index houwa  '+ index)
-        console.log(card)
+        console.log(index)
+
 
         return(
             (index!=null)&&  (<Avatar alt={userSt.users[index].username} src={ `${configData.API_SERVER}${userSt.users[index].photo}` }/>)
@@ -393,9 +400,6 @@ console.log('il index houwa  '+ index)
                                    <ThemeConfig>
 
 
-
-                                       {console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")}
-                                       {console.log(username)}
 
                                     <Grid item align="center">
                                         <Chip label="primary" color="primary" className={classes.chip} label={((location.includes('Shared'))?"SharedBy ":'Owner : ') + username} />

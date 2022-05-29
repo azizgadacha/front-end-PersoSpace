@@ -138,8 +138,7 @@ const RestPass = (props, { ...others }) => {
 
     const [isloading, setIsloading] = useState(false);
     const dispatcher = useDispatch();
-    console.log("Aziz Charmouta")
-console.log(props.file)
+
     return (
         <React.Fragment>
 
@@ -174,8 +173,7 @@ console.log(props.file)
                         config={ headers: {
                             "Content-Type": "multipart/form-data"
                         }}
-console.log("ena el props")
-                        console.log(props.file)
+
 
                          data = new FormData();
 
@@ -211,8 +209,7 @@ console.log("ena el props")
                                 if (response.data.success) {
 
 
-console.log("user")
-console.log(response.data.user)
+
                                     dispatcher({
                                         type:UPDATE,
                                         payload: {user:response.data.user}
@@ -244,7 +241,6 @@ console.log(response.data.user)
                                     setSubmitting(false);
                                         setIsloading(false)
                                         history.push("/Profile")
-                                        console.log("bech tnikha el tri7a")
                                         dispatcher({
                                             type:CLICK,
                                             payload: {text:"intern problem please retry later",severity:"error"}

@@ -60,14 +60,10 @@ const Login = () => {
     const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-    console.log("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv4888888")
-    console.log(matchDownLG)
-    console.log("vzzzzzzzzzzzzzzzzzzzzzzzz")
 
-    console.log(matchDownMD)
     return (
         <React.Fragment>
-            {console.log("alam")}
+
             <AuthWrapper1>
 
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -82,22 +78,23 @@ const Login = () => {
                                 <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
 
                                     <AuthCardWrapper1>
-                                        <Stack alignItems="center" justifyContent="center" spacing={1}>
 
-                                            <Grid item sx={{ mb: 3,align:'center' }} >
-                                                <RouterLink to="#">
-                                                    <Logo />
-
-                                                </RouterLink>
-                                            </Grid>
-                                        </Stack>
                                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:1}>
 
                                             <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
+                                                <Stack justifyContent="center" spacing={1}>
+
+                                                    <Grid item sx={{ mb: 3,  ml:4,mt:1}} >
+                                                        <RouterLink to="#">
+                                                            <Logo />
+
+                                                        </RouterLink>
+                                                    </Grid>
+                                                </Stack>
                                                 <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
                                                     Manage the job more effectively with Minimal effort
                                                 </Typography>
-                                                <img alt="register" src="/static/illustrations/illustration_register.png" />
+                                                <img alt="login" src="/static/illustrations/illustration_register.png" />
 
 
                                             </SectionStyle>
