@@ -146,56 +146,79 @@ const Modal_confirm=  (props) => {
                         payload: {text:"You are no longer connected",severity:"error"}
                     })
                 }
+                else {
+                    if (response.data.success) {
+
+                    dispatcher({
+                        type: UPDATE_WORKSPACE,
+                        payload: {work: response.data.w}
+                    })
+                    dispatcher({
+                        type: INISIALIZE_SHARED_USER,
+                        payload: {card: props.card}
+                    })
+
+                    dispatcher({
+                        type: CLOSE_Confirm_Share_Workspace_MODAL,
+
+                    })
+
+                    dispatcher({
+                        type: CLOSE_MODAL_SHARE,
+
+                    })
+
+
+                    console.log("AIDMUBAREK")
+                    console.log(props.card.Share)
+                    dispatcher({
+                        type: CLICK,
+                        payload: {text: "Workspace has been shared successfully", severity: "success"}
+                    })
+
+                    try {
+                        axios
+                            .post(configData.API_SERVER + 'api/users/addNotification', {
+                                token: account.token,
+                                receiver: props.user._id,
+                                sender: account.user._id,
+                                type: "shared",
+                                read: false,
+                                text: ` has shared ${props.card.WorkspaceName} with you`
+                            }).then((response) => {
+
+                            socket.socket.emit("send_Notification", {
+                                notification: response.data.notification,
+                                UserId: props.user._id,
+                                User: account.user
+                            })
+
+                        })
+                    } catch (e) {
+
+                    }
+
+
+                }
                 else
                 {
                     dispatcher({
-                        type:UPDATE_WORKSPACE,
-                        payload: {work:response.data.w}
+                        type: CLOSE_Confirm_Share_Workspace_MODAL,
+
                     })
+
                     dispatcher({
-                        type:INISIALIZE_SHARED_USER,
-                        payload:{card:props.card}
+                        type: CLOSE_MODAL_SHARE,
+
                     })
 
-                dispatcher({
-                    type:CLOSE_Confirm_Share_Workspace_MODAL,
+                    history.go(0)
 
-                })
-
-                dispatcher(  {
-                    type:CLOSE_MODAL_SHARE,
-
-                })
-
-
-                console.log("AIDMUBAREK")
-                console.log(props.card.Share)
-                dispatcher({
-                    type:CLICK,
-                    payload: {text:"Workspace has been shared successfully",severity:"success"}
-                })
-
-                try {
-                    axios
-                        .post( configData.API_SERVER + 'api/users/addNotification',{
-                            token:account.token,
-                            receiver:props.user._id,
-                            sender:account.user._id,
-                            type:"shared",
-                            read:false,
-                            text: ` has shared ${props.card.WorkspaceName} with you`
-                        }).then((response)=>{
-
-                        socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
-
-                        })
-                }catch (e) {
-
+                    dispatcher({
+                        type: CLICK,
+                        payload: {text: 'User Already has been Shared ', severity: "error"}
+                    });
                 }
-
-
-
-
             }})
             .catch(function (error) {
 

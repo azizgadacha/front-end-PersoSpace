@@ -248,7 +248,23 @@ else
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
-                }else{
+
+                }
+                else if (response.data.administratorProblem){
+                    dispatcher({
+                        type:UPDATE,
+                        payload: {user:response.data.user}
+                    });
+                    if(loc.includes(configData.defaultPath))
+                        history.go(0)
+                    else
+                        history.push(configData.defaultPath)
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"You are no longer an Simple Employer",severity:"error"}
+                    })
+                }
+                else{
 
                 dispatcher({
                         type: INISIALIZE,

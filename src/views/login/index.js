@@ -82,18 +82,19 @@ const Login = () => {
                                 <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
 
                                     <AuthCardWrapper1>
-                                        <Stack alignItems="center" justifyContent="center" spacing={1}>
 
-                                            <Grid item sx={{ mb: 3,align:'center' }} >
-                                                <RouterLink to="#">
-                                                    <Logo />
-
-                                                </RouterLink>
-                                            </Grid>
-                                        </Stack>
                                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:1}>
 
                                             <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
+                                                <Stack justifyContent="center" spacing={1}>
+
+                                                    <Grid item sx={{ mb: 3,  ml:4,mt:1}} >
+                                                        <RouterLink to="#">
+                                                            <Logo />
+
+                                                        </RouterLink>
+                                                    </Grid>
+                                                </Stack>
                                                 <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
                                                     Manage the job more effectively with Minimal effort
                                                 </Typography>
