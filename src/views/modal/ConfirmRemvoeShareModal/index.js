@@ -23,7 +23,7 @@ import {
     CLOSE_Confirm_Share_Workspace_MODAL,
     CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL,
     CLOSE_MODAL, CLOSE_MODAL_REMOVE, CLOSE_MODAL_SHARE, INISIALIZE, INISIALIZE_FILTRED_USER, INISIALIZE_SHARED_USER,
-    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, UPDATE_WORKSPACE, USER_DELETE,
+    INISIALIZE_USER, LOGOUT, OPEN_MODAL_SHARE, UPDATE, UPDATE_WORKSPACE, USER_DELETE,
 } from "../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -231,7 +231,11 @@ const Modal_confirm=  (props) => {
 
     const theme = useTheme();
     let open1 = useSelector((state) => state.modal);
-
+    let location=null
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
     const handleClose=()=>{
         dispatcher({
             type:CLOSE_Confirm_Remove_Share_MODAL,
@@ -254,12 +258,19 @@ const Modal_confirm=  (props) => {
     let datasend
     const Click=()=>{
         setIsloading(true)
+        let visualise=false
+        if(location.includes('VisualizationOfWorkspace')){
+            visualise=true
+        }else
+            visualise=false
 
         axios
             .post( configData.API_SERVER + 'api/users/removeShare',{
                 token:account.token,
                 card_id:props.card._id,
+                visualise,
                 user_id:props.user._id,
+                owner_id:account.user._id
             })
             .then(response =>{
                 if(response.data.notConnected) {
@@ -292,7 +303,29 @@ const Modal_confirm=  (props) => {
                             payload: {text: "User has been Removed successfully", severity: "success"}
                         })
 
-                    } else {
+                    }
+                    else if(response.data.adminstratorProblem){
+                        dispatcher({
+                            type:UPDATE,
+                            payload: {user:response.data.user}
+                        });
+                        dispatcher({
+                            type: CLOSE_Confirm_Remove_Share_MODAL,
+
+                        })
+                        dispatcher({
+                            type: CLOSE_MODAL_REMOVE,
+                        });
+
+                        history.push(configData.defaultPath)
+
+                        setIsloading(false)
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:'You are no longer an administrator',severity:"error"}
+                        });
+
+                    }else {
                         dispatcher({
                             type: CLOSE_Confirm_Remove_Share_MODAL,
 

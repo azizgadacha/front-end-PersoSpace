@@ -25,7 +25,7 @@ import AnimateButton from './../../../animation/AnimateButton';
 
 import {useDispatch, useSelector} from "react-redux";
 
-import {CLICK, CLOSE_DELETE_MODAL, DELETE, LOGOUT} from "../../../store/actions";
+import {CLICK, CLOSE_DELETE_MODAL, ClOSE_EDIT_MODAL, DELETE, LOGOUT, UPDATE} from "../../../store/actions";
 import {LoadingButton} from "@material-ui/lab";
 import SaveIcon from "@mui/icons-material/Save";
 import {useHistory} from "react-router-dom";
@@ -83,15 +83,27 @@ const DeleteWorkspace = (props) => {
     //const [openModal,setOpenModal]=useState(false);
     let open = useSelector((state) => state.modal);
     const workspaces = useSelector((state) => state.workspace);
+    let location=null
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
 
     const dispatcher = useDispatch();
     const Click = () => {
         setIsloading(true)
+        let visualise=false
+        if(location.includes('VisualizationOfWorkspace')){
+            visualise=true
+        }else
+            visualise=false
 
         axios
             .post( configData.API_SERVER + 'api/users/deleteworkspace',{
                 token:account.token,
                 superior_id:props.card._id,
+                user_id:account.user._id,
+                visualise,
                 WorkspaceName:props.card.WorkspaceName,
 
 
@@ -122,6 +134,24 @@ const DeleteWorkspace = (props) => {
                             payload: {text: "Workspace Removed successfully", severity: "success"}
                         })
                     }
+                    else if(response.data.adminstratorProblem){
+                        dispatcher({
+                            type:UPDATE,
+                            payload: {user:response.data.user}
+                        });
+                        dispatcher({
+                            type: CLOSE_DELETE_MODAL,
+                        })
+                        history.push(configData.defaultPath)
+
+                        setIsloading(false)
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:'You are no longer an administrator',severity:"error"}
+                        });
+
+                    }
+
                     else{
                         dispatcher({
                             type: CLOSE_DELETE_MODAL,
