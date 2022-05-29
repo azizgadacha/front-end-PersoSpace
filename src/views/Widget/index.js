@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 // material-ui
-import {Grid} from '@material-ui/core';
+import {Grid, useMediaQuery, useTheme} from '@material-ui/core';
 
 // project imports
 
@@ -43,6 +43,20 @@ import Item from "../dashboard/Default/Item";
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Widget = (props, { ...others }) => {
+    const Style = {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-45%,-40%)',
+        padding: '50px',
+        zIndex: 100
+    }
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
+    const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+
     let [isLoading, setIsLoading] = useState(true);
     let workspaces = useSelector((state) => state.workspace);
     let loc
@@ -262,7 +276,53 @@ let element
         </Card>
          <Grid item xs={12} >
                     <Grid container spacing={gridSpacing}>
-                      {   importing==true ? load.map((i) => (<Grid item lg={4} md={12} sm={12} xs={12}><SkeltonChart/></Grid>)):lc}
+                      {   importing==true ? load.map((i) => (<Grid item lg={4} md={12} sm={12} xs={12}><SkeltonChart/></Grid>))
+
+
+
+
+
+                          : widget.widget!=0?lc:
+
+
+
+                      ((loc.includes('widget')))&&(
+
+
+                          <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
+                          <Grid item xs={12} >
+
+                          <Grid
+                          container
+                          direction={matchDownSM ? 'column-reverse' : 'row'}
+                          alignItems="center"
+                          justifyContent="center"
+
+                          >
+                          <Grid item mb={2} >
+                          <Stack alignItems="center" justifyContent="center" >
+
+                          <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
+
+
+                          <Grid container alignItems="center" >
+                          <img alt="login" src="/static/images/NoDataFound.png" />
+
+                          </Grid>
+                          </Grid>
+                          </Stack>
+                          </Grid>
+                          </Grid>
+                          </Grid>
+                          </Grid>
+
+
+
+                          )}
+
+
+
+
 
                     </Grid>
 

@@ -94,7 +94,7 @@ const Login = () => {
                                                 <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
                                                     Manage the job more effectively with Minimal effort
                                                 </Typography>
-                                                <img alt="register" src="/static/illustrations/illustration_register.png" />
+                                                <img alt="login" src="/static/illustrations/illustration_register.png" />
 
 
                                             </SectionStyle>

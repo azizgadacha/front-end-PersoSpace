@@ -43,6 +43,16 @@ import {IconPlus} from "@tabler/icons";
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
+
+    const Style = {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-45%,-40%)',
+        padding: '50px',
+        zIndex: 100
+    }
+
     const account = useSelector((state) => state.account);
 
     const { url, path } = useRouteMatch();
@@ -419,28 +429,26 @@ console.log("haja")
 
                             {((loc.includes('SharedWorkspaces')||loc.includes('VisualizationOfWorkspace'))&&workspaces.Workspace.length==0)&&(
 
-                                <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center" stroke-linecap="round">
-                                    <Grid item xs={12}>
+                                <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
+                                    <Grid item xs={12} >
 
                                         <Grid
                                             container
                                             direction={matchDownSM ? 'column-reverse' : 'row'}
                                             alignItems="center"
                                             justifyContent="center"
-                                        >
-                                            <Grid item mb={2}>
-                                                <Stack alignItems="center" justifyContent="center">
 
-                                                    <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center" >
+                                        >
+                                            <Grid item mb={2} >
+                                                <Stack alignItems="center" justifyContent="center" >
+
+                                                    <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
 
 
                                                         <Grid container alignItems="center" >
+                                                            <img alt="login" src="/static/images/NoDataFound.png" />
 
-                                                            <IconButton   alt="Add Workspace"   aria-label="close"  >
-
-                                                                <IconPlus size={100.5}    />
-                                                            </IconButton>
-                                                        </Grid>
+                                                                                                               </Grid>
                                                     </Grid>
                                                 </Stack>
                                             </Grid>

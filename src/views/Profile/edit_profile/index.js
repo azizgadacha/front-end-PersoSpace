@@ -3,15 +3,22 @@ import React, {Fragment, useEffect} from 'react';
 // material-ui
 import { useTheme } from '@material-ui/core';
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
-
+import PersonIcon from '@mui/icons-material/Person';
 // project imports
 
 import AccountProfile from "./account-profile";
 import AccountProfileDetails from "./account-profile-details";
-import {Box, Container} from "@mui/material";
+import {Box, Card, Container, List, ListItem, ListItemIcon, ListItemText, Stack} from "@mui/material";
 import {CLOSE_MODAL} from "../../../store/actions";
 import {useDispatch, useSelector} from "react-redux";
 import configData from "../../../config";
+import LinkSkealton from "../../../composant_de_style/cards/Skeleton/LinkSkealton/LinkSkealton";
+import ListItemButton from "@material-ui/core/ListItemButton";
+import config from "../../../config";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import {useHistory} from "react-router-dom";
+import Item from "../../dashboard/Default/Item";
+import BareProfile from "../BareProfile";
 
 
 // assets
@@ -19,6 +26,8 @@ import configData from "../../../config";
 //===============================|| AUTH3 - REGISTER ||===============================//
 
 const Profile = () => {
+    let history =useHistory()
+
     const account = useSelector((state) => state.account);
 
     let [file, setFile] = React.useState(`${configData.API_SERVER}${account.user.photo}`);
@@ -38,6 +47,13 @@ useEffect(() => {
     }, [])
     return (
         <Fragment>
+            <Card xs={12}  >
+
+                <Box ml={2} sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                   <BareProfile/>
+                </Box>
+
+            </Card>
 
 
             <Box
