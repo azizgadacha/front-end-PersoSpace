@@ -12,9 +12,9 @@ import configData from "../../config";
 
 
 import {
-    CLICK,
+    CLICK, CLICKED_INISIALIZE,
     CLOSE_DELETE_MODAL,
-    INISIALIZE,
+    INISIALIZE, INISIALIZE_LISTE,
     INISIALIZE_STORE,
     LOGOUT,
     UPDATE_WORKSPACE_NAME_LISTE
@@ -86,13 +86,33 @@ const [importing,setImporting]=useState(true)
     var listOfBar=null
 
 
+    let arrayOfLink=loc.split("/")
+    console.log(arrayOfLink)
+
+    arrayOfLink.splice(((arrayOfLink.length)-2),1)
+
+    const ar2 = arrayOfLink.slice(3, (arrayOfLink.length));
+
+console.log(ar2)
+
+
+    let link=ar2.join('/')
     useEffect(() => {
-        console.log("ddddddddddddd")
-        console.log(id)
-        console.log(id)
+
+        let clicked
+        if (workspaces.clicked) {
+            clicked = true
+
+        } else
+            clicked = false
+
         axios
-            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, token:account.token})
+            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id})
             .then(response =>{
+
+                dispatcher({
+                    type: CLICKED_INISIALIZE
+                })
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
@@ -104,20 +124,22 @@ const [importing,setImporting]=useState(true)
                     })
                 }
 
+else  if(response.data.invalidLink){
+
+                    history.push("/page404")
+
+                }
 
                 else
 
                 {
 
-                    console.log("ddddddd")
-                    console.log(response.data.Widgetitems)
 
-
-console.log(response.data.workspace)
-
+console.log("salut")
+console.log(response.data.listeName)
                     dispatcher({
-                            type:UPDATE_WORKSPACE_NAME_LISTE,
-                            payload: {LastWorkspace:response.data.workspace}
+                            type:INISIALIZE_LISTE,
+                            payload: { listeName: response.data.listeName}
                         }
                     )
                     dispatcher({
@@ -131,7 +153,6 @@ console.log(response.data.workspace)
 
                 }})
             .catch(function (error) {
-                console.log(error)
 
 
             })
@@ -140,15 +161,12 @@ console.log(response.data.workspace)
 
 
     if(!(loc.includes('SharedWorkspaces'))){
-        console.log("Ena el listBar")
-        console.log(workspaces.listeName)
+
         var liste =()=>{
             if(workspaces.listeName.length>2) {
-                console.log(workspaces.listeName.length)
-                console.log(workspaces.listeName)
+
                 const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
-                console.log("swxsdsqdsddsqdsqdqsdsqdsqdqqaaaaaaaaaaaaaaaa")
-                console.log(subliste)
+
                 listOfBar= subliste.map((item) => {
 
                     return (
@@ -161,7 +179,6 @@ console.log(response.data.workspace)
                 })
 
             } else{
-console.log(workspaces.listeName)
                 listOfBar= workspaces.listeName.map((item) => {
 
                     return (
@@ -175,9 +192,7 @@ console.log(workspaces.listeName)
 
             return listOfBar
         }
-        console.log('ssssssvvvvvvvvvvvvvvvvvvvvvvv')
         liste()
-        console.log(listOfBar)
 
     }else  {
         listOfBar=null

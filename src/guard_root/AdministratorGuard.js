@@ -7,8 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 const AdministratorGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
-console.log("je suuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus")
-console.log(window.location.pathname)
+
     const  isAdministrator  = (account.user.role=='administrateur'?true:false);
 
     if (!(isAdministrator)) {

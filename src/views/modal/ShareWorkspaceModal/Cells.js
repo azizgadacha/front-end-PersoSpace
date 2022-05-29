@@ -51,7 +51,6 @@ const Cells=  ({userPar}) => {
 
 
     return ( <Fragment>
-            {console.log(userPar)}
             <TableCell component="th" scope="row" padding="none">
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar alt={userPar.username}  src={`${configData.API_SERVER}${userPar.photo}`}/>

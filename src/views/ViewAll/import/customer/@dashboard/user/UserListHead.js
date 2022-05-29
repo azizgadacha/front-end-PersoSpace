@@ -39,10 +39,11 @@ export default function UserListHead({
                     <TableCell
                         key={headCell.id}
 
-                        align={headCell.alignRight}
-                        sortDirection={orderBy === headCell.id ? order : false}
-                    >
-                        { console.log(headCell.alignRight)}
+
+                  align={headCell.alignRight}
+                  sortDirection={orderBy === headCell.id ? order : false}
+              >
+
 
                         <TableSortLabel
                             hideSortIcon

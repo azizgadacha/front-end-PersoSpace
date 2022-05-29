@@ -232,11 +232,9 @@ const EditModalCore=  ({objet}) => {
                                             setErrors({ submit: "you didn't change any thing" });
                                             setSubmitting(false)
                                             setIsloading(false)
-                                            console.log('rani lena1.0')
 
                                         }
                                         else{
-                                            console.log('rani lena2.0')
 
                                         try {
                                          let link
@@ -270,7 +268,6 @@ const EditModalCore=  ({objet}) => {
                                                         dispatcher({
                                                             type:ClOSE_EDIT_MODAL,
                                                         });
-                                                        console.log('rani lena8.0')
 
                                                         dispatcher({
                                                             type:CLICK,

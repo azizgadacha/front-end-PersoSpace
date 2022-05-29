@@ -69,12 +69,10 @@ let elem =[notification.user,notification.notification]
         case EDIT_NOTIFICATION:
             const editedNotification=action.payload.listNotification
 
-console.log(editedNotification)
             let indexEdited = 0;
 
             state.notificationListe.find(function(item, i){
-console.log(item)
-console.log(item[1]._id)
+
 
                 if(  editedNotification.includes(item[1]._id)){
                     item[1].read = true;

@@ -113,8 +113,7 @@ let values=0
         let i=0
         values=0
         setOccurenceNotification(values)
-console.log("dddddd")
-console.log(notification.notificationListe)
+
         for(let element of notification.notificationListe){
             i++
 
@@ -201,7 +200,7 @@ console.log(notification.notificationListe)
                     j++
 
                     if (!elem[1].read) {
-
+console.log('salut')
                         //elem[1].read=!elem[1].read
                         IdListe.push(elem[1]._id)
                     }

@@ -7,8 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 const SimpleUserGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
-    console.log("je qqqqqqqqqqqqqqqqqqqqqqqqqs")
-    console.log(window.location.pathname)
+
     const  isSimpleEmployer  = (account.user.role==='simple employer'?true:false);
     console.log("alam")
     console.log(account.user.role)

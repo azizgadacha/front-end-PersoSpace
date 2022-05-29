@@ -137,7 +137,6 @@ let {id}=useParams()
                                 {
 
                                 if (response.data.success) {
-                                    console.log("ena lehne kifech menedrouch")
                                     setIsloading(false)
 
                                     dispatcher({

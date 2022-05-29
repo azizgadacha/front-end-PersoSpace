@@ -44,7 +44,7 @@ import {IconPlus} from "@tabler/icons";
 
 const Dashboard = (props, { ...others }) => {
     const account = useSelector((state) => state.account);
-console.log(account)
+
     const { url, path } = useRouteMatch();
 
     let socket,selectedChatCompare
@@ -98,17 +98,17 @@ console.log(account)
     let id1
     let datasend
     let loc
-if(window.location.pathname.includes('html'))
-    loc=window.location.hash
-else
-     loc=window.location.pathname
+    if(window.location.pathname.includes('html'))
+        loc=window.location.hash
+    else
+        loc=window.location.pathname
     const theme = useTheme();
 
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
 
     useEffect(() => {
-
+console.log("haja")
         axios
             .post(configData.API_SERVER + 'api/users/all', {
                 id:account.user._id,
@@ -127,8 +127,7 @@ else
 
                 setUSERLIST(userSt.users)
                 setSucess(true)
-console.log("ssssssssssssssqqqqqqqqqqqqqqqqqqqqqqq")
-console.log(userSt.users)
+
                 setUserLoading(false)
             }})},[] );
 
@@ -140,44 +139,40 @@ console.log(userSt.users)
 
         const ar2 = array.slice(3, (array.length));
 
-        let link2=ar2.join('/')
-if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/VisualizationOfWorkspace')))){
-        if (id) {
-            link = 'api/users/getinsideworkspace'
-            id1 = id
-            let clicked
-            if (workspaces.clicked) {
-                clicked = true
+        if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/VisualizationOfWorkspace')))){
+            if (id) {
+                link = 'api/users/getinsideworkspace'
+                id1 = id
+                let clicked
+                if (workspaces.clicked) {
+                    clicked = true
 
-            } else
-                clicked = false
+                } else
+                    clicked = false
 
-            datasend = {
-                user_id: account.user._id,
-                list: ar2,
-                clicked,
-                token: account.token,
-                listeNameReceive: workspaces.listeName,
+                datasend = {
+                    user_id: account.user._id,
+                    list: ar2,
+                    clicked,
+                    token: account.token,
+                    listeNameReceive: workspaces.listeName,
 
-                locVis:(  (loc).includes('/dashboard/VisualizationOfWorkspace'))?true:null
+                    locVis:(  (loc).includes('/dashboard/VisualizationOfWorkspace'))?true:null
+                }
+                dispatcher({
+                    type: CLICKED_INISIALIZE
+                })
+
             }
-            dispatcher({
-                type: CLICKED_INISIALIZE
-            })
+            else if(loc=='/dashboard/VisualizationOfWorkspace'){
+                link = 'api/users/visualizationOfWorkspaces'
+                datasend = {user_id:account.user._id, token: account.token,}
+            }
+            else {
+                link = 'api/users/getworkspace'
+                datasend = {superior_id: account.user._id, token: account.token}
 
-        }
-        else if(loc=='/dashboard/VisualizationOfWorkspace'){
-            link = 'api/users/visualizationOfWorkspaces'
-            datasend = {user_id:account.user._id, token: account.token,}
-        }
-        else {
-            link = 'api/users/getworkspace'
-            datasend = {superior_id: account.user._id, token: account.token}
-
-        }
-
-
-
+            }
 
 
             axios
@@ -185,57 +180,54 @@ if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/Visualiz
                 .then(response =>{
 
 
+                    if(response.data.notConnected){
+                        dispatcher({ type: LOGOUT });
+                        history.push("/login");
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:"You are no longer connected",severity:"error"}
+                        })
+                    }else if (response.data.administratorProblem){
+                        dispatcher({
+                            type:UPDATE,
+                            payload: {user:response.data.user}
+                        });
+                        if(loc.includes(configData.defaultPath))
+                            history.go(0)
+                        else
+                            history.push(configData.defaultPath)
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:"You are no longer an administrateur",severity:"error"}
+                        })
+                    }
+                    else if(response.data.invalidLink){
+                        history.push("/page404")
+
+                    }else if(response.data.success) {
+                        dispatcher({
+                                type: INISIALIZE,
+                                payload: {
+                                    work: response.data.workspaceitems,
+                                    listeName: response.data.listeName,
+                                    location: (link == 'api/users/visualizationOfWorkspaces') ? "Visualization" : null
+                                }
+                            }
+                        )
 
 
-
-
-if(response.data.notConnected){
-    dispatcher({ type: LOGOUT });
-    history.push("/login");
-    dispatcher({
-        type:CLICK,
-        payload: {text:"You are no longer connected",severity:"error"}
-    })
-}else if (response.data.administratorProblem){
-    dispatcher({
-        type:UPDATE,
-        payload: {user:response.data.user}
-    });
-    if(loc.includes(configData.defaultPath))
-        history.go(0)
-else
-    history.push(configData.defaultPath)
-    dispatcher({
-        type:CLICK,
-        payload: {text:"You are no longer an administrateur",severity:"error"}
-    })
-}
-else
-{ if(response.data.success) {
-    console.log("bara mriguel")
-    dispatcher({
-            type: INISIALIZE,
-            payload: {
-                work: response.data.workspaceitems,
-                listeName: response.data.listeName,
-                location: (link == 'api/users/visualizationOfWorkspaces') ? "Visualization" : null
-            }
-        }
-    )
-
-
-    setLoading(false);
-    setSucces(true)
-    setLoad(false)
-}else{
-    history.push(config.defaultPath)
-    dispatcher({
-        type:CLICK,
-        payload: {text:"Workspace No longer Exist",severity:"error"}
-    })
-}
-                }
-                })
+                        setLoading(false);
+                        setSucces(true)
+                        setLoad(false)
+                    }else{
+                        history.push(config.defaultPath)
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:"Workspace No longer Exist",severity:"error"}
+                        })
+                    }
+                    }
+                )
                 .catch(function (error) {
 
 
@@ -266,82 +258,74 @@ else
                 }
                 else{
 
-                dispatcher({
-                        type: INISIALIZE,
-                        payload: {work: response.data.workspaceitems, location :'shared',listeName: []}
-                    }
-                )
+                    dispatcher({
+                            type: INISIALIZE,
+                            payload: {work: response.data.workspaceitems, location :'shared',listeName: []}
+                        }
+                    )
 
-                setLoading(false);
-                setSucces(true)
-                setLoad(false)
-            }})
+                    setLoading(false);
+                    setSucces(true)
+                    setLoad(false)
+                }})
             .catch(function (error) {
 
 
             })
 
         }
-        console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
 
     },[]);
 
 
 
 
-    console.log(workspaces.listeName)
-if(!(loc.includes('SharedWorkspaces'))){
-    console.log("Ena el listBar")
-    console.log(workspaces.listeName)
-    var liste =()=>{
+    if(!(loc.includes('SharedWorkspaces'))){
 
-        if(workspaces.listeName.length>2) {
-            console.log(workspaces.listeName.length)
-            console.log(workspaces.listeName)
-            const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
-console.log("swxsdsqdsddsqdsqdqsdsqdsqdqqaaaaaaaaaaaaaaaa")
-console.log(subliste)
-            listOfBar= subliste.map((item) => {
+        var liste =()=>{
 
-                return (
+            if(workspaces.listeName.length>2) {
+
+                const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
+
+                listOfBar= subliste.map((item) => {
+
+                    return (
 
 
-                    <Item item={item}/>
+                        <Item item={item}/>
 
 
-                )
-            })
+                    )
+                })
 
-    } else{
+            } else{
 
-            listOfBar= workspaces.listeName.map((item) => {
+                listOfBar= workspaces.listeName.map((item) => {
 
-        return (
-
-
-            <Item item={item}/>
+                    return (
 
 
-        )
-    })}
+                        <Item item={item}/>
 
-        return listOfBar
+
+                    )
+                })}
+
+            return listOfBar
+        }
+        liste()
+
+
+    }else  {
+        var listOfBar=null
     }
-    console.log('ssssssvvvvvvvvvvvvvvvvvvvvvvv')
-    liste()
-    console.log(listOfBar)
-
-}else  {
-    var listOfBar=null
-}
     let j=-1
 
 
     let lc =   workspaces.Workspace.map((card)  => {
 
         j++
-       console.log( "dddddzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
-       console.log( workspaces.username[j])
 
         return(
 
@@ -389,22 +373,22 @@ console.log(subliste)
                             :
                             <Fragment>
                                 {(workspaces.listeName.length<=2)&&(
-                                <ListItem sx={{maxWidth:"80px"}}  key={1} disablePadding>
-                                    <ListItemButton sx={{maxWidth:"80px"}}   sx={{marginLeft:0,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
-                                        //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                        {((loc.includes('/dashboard/default')))?(
-                                            history.push(config.defaultPath)
-                                        ):(loc.includes('SharedWorkspaces')) ?  (
-                                            history.push('/dashboard/SharedWorkspaces')
-                                        ):history.push('/dashboard/VisualizationOfWorkspace')}
+                                    <ListItem sx={{maxWidth:"80px"}}  key={1} disablePadding>
+                                        <ListItemButton sx={{maxWidth:"80px"}}   sx={{marginLeft:0,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
+                                            //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
+                                            {((loc.includes('/dashboard/default')))?(
+                                                history.push(config.defaultPath)
+                                            ):(loc.includes('SharedWorkspaces')) ?  (
+                                                history.push('/dashboard/SharedWorkspaces')
+                                            ):history.push('/dashboard/VisualizationOfWorkspace')}
                                         }}>
-                                        <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
-                                            <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
-                                            <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
+                                            <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
+                                                <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
+                                                <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
 
-                                        </ListItemIcon>
-                                    </ListItemButton>
-                                </ListItem>)}
+                                            </ListItemIcon>
+                                        </ListItemButton>
+                                    </ListItem>)}
 
                                 {listOfBar}
 
@@ -450,13 +434,13 @@ console.log(subliste)
                                                     <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center" >
 
 
-                                                            <Grid container alignItems="center" >
+                                                        <Grid container alignItems="center" >
 
-                                                                <IconButton   alt="Add Workspace"   aria-label="close"  >
+                                                            <IconButton   alt="Add Workspace"   aria-label="close"  >
 
-                                                                    <IconPlus size={100.5}    />
-                                                                </IconButton>
-                                                            </Grid>
+                                                                <IconPlus size={100.5}    />
+                                                            </IconButton>
+                                                        </Grid>
                                                     </Grid>
                                                 </Stack>
                                             </Grid>
@@ -472,13 +456,13 @@ console.log(subliste)
 
                             {lc}
 
-                                {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
+                            {open.ModalDeleteState && (<Modal_Delete_Workspace  handleClose={handleClose} card={open.objet}  />)}
 
 
 
 
 
-                                {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
+                            {open.ModalEditState && (<Edit_Workspace_Modal  handleClose={handleCloseEdit} card={open.objet}  />)}
 
                             <ShareWorkspaceModal card= {open.card}/>
                             <RemoveShareModal card={open.card}/>
@@ -493,12 +477,12 @@ console.log(subliste)
 
                                 </Grid>
                             ):(
-<Fragment>
+                                <Fragment>
 
-                                        <Grid item lg={4} md={6} sm={12} xs={12}>
+                                    <Grid item lg={4} md={6} sm={12} xs={12}>
 
-                                </Grid>
-</Fragment>
+                                    </Grid>
+                                </Fragment>
                             )}
 
                         </Fragment>)}

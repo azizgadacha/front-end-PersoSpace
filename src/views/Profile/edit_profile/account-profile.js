@@ -81,8 +81,7 @@ const AccountProfile = ({setFile}) => {
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
             setSource(e.target.result);
-            console.log("BHIM")
-            console.log(target.files[0])
+
             setFile(target.files[0])
 
         };
