@@ -8,7 +8,7 @@ import {
     CardContent,
     CardHeader,
     Divider,
-    Grid, TextField,
+    Grid, Stack, TextField,
 } from '@mui/material';
 import {
     FormControl,
@@ -25,7 +25,7 @@ import {CLICK, CLOSE_MODAL, LOGOUT, UPDATE} from "../../../store/actions";
 
 import AnimateButton from "../../../animation/AnimateButton";
 
-import {Edit, Editing} from "../../Button/actionButton";
+import {Cancel, Edit, Editing} from "../../Button/actionButton";
 import Iconify from "../../ViewAll/import/customer/Iconify";
 import {useHistory} from "react-router-dom";
 import useScriptRef from "../../../hooks/useScriptRef";
@@ -94,7 +94,9 @@ const AccountProfileDetails = (props, { ...others }) => {
 
 
 
-
+    const handleClick = () => {
+        history.push("/Profile")
+    }
 
 
     const changePassword = (value) => {
@@ -495,11 +497,27 @@ const AccountProfileDetails = (props, { ...others }) => {
                       p: 2
                     }}
                 >
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+
+                    <AnimateButton>
+
+                        <Button
+                            fullWidth
+
+                            size="large"
+                            type="submit"
+                            color="error"
+                            variant="contained"
+                            onClick={handleClick}
+
+                        >
+                            {Cancel}         </Button>
+                    </AnimateButton>
                   <AnimateButton>
 
 
                       {isloading?(<LoadingButton variant="contained" size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):  <Button
-
+                          sx={{minWidth:'90px'}}
                           disableElevation
                           fullWidth
                           size="large"
@@ -512,7 +530,7 @@ const AccountProfileDetails = (props, { ...others }) => {
 
 
                   </AnimateButton>
-
+                    </Stack>
 
                 </Box>
               </Card>

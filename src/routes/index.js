@@ -135,32 +135,24 @@ console.log(ar2)
 
 
 
-                            {console.log("sssss1")}
                             <Route exact path={linkWidget} component={widget} />
-                            {console.log("sssss2")}
 
                             <Route exact path={linkIndex} component={DashboardDefault} />
-                            {console.log("sssss3")}
 
                             <Route exact path="/dashboard/default" component={DashboardDefault} />
 
-                            {console.log("sssss4")}
 
 
                             <Route path="/Profile" component={Profile} />
-                            {console.log("sssss5")}
 
                             <Route exact path="/ProfileEdit" component={ProfileEdit} />
-                            {console.log("sssss6")}
 
                             <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
-                            {console.log("sssss177")}
 
                             <Route
                                 path={["/dashboard/SharedWorkspaces"]}
                             >
                                 <SimpleUserGuard>
-                                    {console.log("sssss8")}
 
                                     <Route exact path="/dashboard/SharedWorkspaces" component={SharedWorkspaces} />
 
@@ -168,19 +160,15 @@ console.log(ar2)
                             </Route>
 
 
-                            {console.log("sssss9")}
 
                             <Route
                                 path={['/dashboard/viewAll', linkSpace, '/dashboard/VisualizationOfWorkspace']}
                             >
                                 <AdministratorGuard>
-                                    {console.log("sssss9")}
 
                                     <Route exact path='/dashboard/viewAll' component={ViewAll} />
-                                    {console.log("sssss10")}
 
                                     <Route exact path={linkSpace} component={VisualizationOfWorkspaces} />
-                                    {console.log("sssss11")}
 
                                     <Route exact path="/dashboard/VisualizationOfWorkspace" component={VisualizationOfWorkspaces}/>
                                 </AdministratorGuard>
@@ -188,28 +176,10 @@ console.log(ar2)
                         </AuthGuard>
                     </Switch>
                 </MainLayout>
-
-
-
-
-
             </Route>
-
-
-
-
-            {console.log("sssss12")}
-
             <Route path='*'>
                 <Page404/>
-
             </Route>
-            {console.log("sssss13")}
-
-
-
-
-
         </Switch>
 
     );

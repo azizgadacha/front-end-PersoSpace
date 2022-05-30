@@ -49,8 +49,12 @@ useEffect(() => {
         <Fragment>
             <Card xs={12}  >
 
-                <Box ml={2} sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                   <BareProfile/>
+                <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <List component={Stack} direction="row">
+
+                    <BareProfile/>
+                    <Item   item={["Edit Information","Edit Information"]}/>
+                    </List>
                 </Box>
 
             </Card>
@@ -60,7 +64,7 @@ useEffect(() => {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: 8
+                    py: 4
                 }}
             >
                 <Container maxWidth="lg">

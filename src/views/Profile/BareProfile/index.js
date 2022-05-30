@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useHistory, useLocation, useParams} from "react-router-dom";
 import ListItemButton from "@material-ui/core/ListItemButton";
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+import {useMediaQuery, useTheme} from "@material-ui/core";
 
 
 
@@ -104,6 +105,23 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const Item = () => {
+    const theme = useTheme();
+
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
+    const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
+
+
+
+    const ClickHome=()=>{
+            history.push(config.defaultPath)
+
+    }
+    const ClickProfile=()=>{
+        history.push("/Profile")
+
+    }
+
     let location
     let workspaces = useSelector((state) => state.workspace);
 
@@ -113,43 +131,43 @@ const Item = () => {
         location=window.location.pathname
 
     let history =useHistory()
+    const maxWidth=matchDownMD?"25%":"8%"
+const style={
+    maxWidth
 
-    let handleClickItem=(item)=>{
+}
 
 
-    }
+
 
     return (
 
-    <List component={Stack} direction="row">
+
 
         <Fragment>
 
-            <ListItem sx={{maxWidth:"100px"}}  key={1} disablePadding>
-                <ListItemButton sx={{maxWidth:"80px"}}   sx={{marginLeft:0,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
-
-                    history.push(config.defaultPath)
-
-                }}>
-                    <ListItemIcon   sx={{ whiteSpace: "normal"  }}>
+            <ListItem sx={style}  key={1} disablePadding>
+                <ListItemButton   sx={{marginLeft:0,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={ClickHome}>
+                    <ListItemIcon    sx={{ whiteSpace: "normal"  }}>
                         <HomeRoundedIcon sx={{ whiteSpace: "normal"  }} />
                         <ListItemText primary="home" sx={{ whiteSpace: "normal"  }} />
 
                     </ListItemIcon>
                 </ListItemButton>
             </ListItem>
-            <ListItem sx={{maxWidth:"120px"}}  key={3} disablePadding>
-                <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem()}}>
-                    <ListItemIcon>
+            <ListItem sx={style} key={3} disablePadding>
+                <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={ClickProfile}>
+                    <ListItemIcon sx={{ml:-2}}>
 
 
                         <NavigateNextRoundedIcon />
+                        <ListItemText primary="Profile"/>
+
                     </ListItemIcon>
-                    <ListItemText primary="Profile"/>
                 </ListItemButton>
             </ListItem>
         </Fragment>
-    </List>
+
 
 
     );

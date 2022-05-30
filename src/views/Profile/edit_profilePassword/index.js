@@ -8,9 +8,11 @@ import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 
 import AccountProfile from "./account-profile";
 import AccountProfileDetails from "./account-profile-details";
-import {Box, Container} from "@mui/material";
+import {Box, Card, Container, List, Stack} from "@mui/material";
 import {CLOSE_MODAL} from "../../../store/actions";
 import {useDispatch} from "react-redux";
+import BareProfile from "../BareProfile";
+import Item from "../../dashboard/Default/Item";
 
 
 // assets
@@ -32,13 +34,23 @@ const Profile = () => {
     }, [])
     return (
         <Fragment>
+            <Card xs={12}  >
 
+                <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <List component={Stack} direction="row">
+                    <BareProfile/>
+                        <Item   item={["Edit Password","Edit Password"]}/>
+
+                    </List>
+                </Box>
+
+            </Card>
 
             <Box
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    py: 8
+                    py: 4
                 }}
             >
                 <Container maxWidth="lg">

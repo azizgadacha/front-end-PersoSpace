@@ -41,12 +41,12 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translateX(-50%)',
         textAlign: 'center',
 color: 'wheat',
-lineHeight : '100px',
+lineHeight : '120px',
 fontFamily: 'sans-serif',
 fontSize: '13px',
 cursor: "pointer",
 backgroundColor: "#000000",
-opacity: '0.6',
+opacity: '0.8',
 
 },
 
@@ -103,15 +103,7 @@ const AccountProfile = ({setFile}) => {
                    justifyContent="center"
                    style={{ minHeight: '40vh' }}
             >
-                {/*<Avatar className="container">
-                <div className1="container" >
-                <Avatar  src={`${configData.API_SERVER}${account.user.photo}`}   className={classes.large}/>
 
-                    <div class="overlay">
-                        <div class="text1">Hello World</div>
-                    </div>
-                </div>
-</Avatar>*/}
 
                 <div className={classes.largeImage} id="divStyle">
                     <img src={source} id="photo" />

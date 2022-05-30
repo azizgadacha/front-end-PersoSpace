@@ -41,7 +41,7 @@ export default function Page404() {
         <Grid  className={classes.red} >
             <Container>
                 <MotionContainer initial="initial" open>
-                    <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
+                    <Box sx={{ maxWidth: "100%", margin: 'auto', textAlign: 'center' }}>
                         <motion.div variants={varBounceIn}>
                             <Typography variant="h1" paragraph>
                                 Sorry, page not found!
@@ -56,7 +56,7 @@ export default function Page404() {
                             <Box
                                 component="img"
                                 src="/static/images/404.svg"
-                                sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
+                                sx={{ height: "80%",width:'60%', mx: 'auto', my: { xs: 5, sm: 10 } }}
                             />
                         </motion.div>
                         <AnimateButton>

@@ -8,7 +8,7 @@ import {
     CardContent,
     CardHeader,
     Divider,
-    Grid, TextField,
+    Grid, Stack, TextField,
 } from '@mui/material';
 import {
     FormControl,
@@ -29,7 +29,7 @@ import AnimateButton from "../../../animation/AnimateButton";
 
 import Password_verify from "../../modal/password_verify_modal";
 import _ from "lodash";
-import {Change, Changing, Edit, Editing} from "../../Button/actionButton";
+import {Cancel, Change, Changing, Edit, Edit_Information, Edit_Password, Editing} from "../../Button/actionButton";
 import axios from "axios";
 import configData from "../../../config";
 import {useHistory} from "react-router-dom";
@@ -39,6 +39,12 @@ import SaveIcon from "@mui/icons-material/Save";
 
 
 const AccountProfileDetails = (props,{ ...others }) => {
+    let history =useHistory()
+
+    const handleClick = () => {
+      history.push("/Profile")
+    }
+
 
   const dispatcher = useDispatch();
 
@@ -61,7 +67,6 @@ const AccountProfileDetails = (props,{ ...others }) => {
 
     ];
     const theme = useTheme();
-    let history =useHistory()
 
     const account = useSelector((state) => state.account);
     let open1 = useSelector((state) => state.modal);
@@ -307,78 +312,20 @@ const AccountProfileDetails = (props,{ ...others }) => {
                 >
                   <Grid item xs={12} >
 
-                      {account.user.role=="administrateur"?(
-                    <FormControl fullWidth   error={Boolean(touched.role&& errors.role)} >
-
-                        <TextField
-                            fullWidth
-                            onChange={handleChange}
-                            required
-                            select
-                            SelectProps={{ native: true }}
-                            variant="outlined"
-                            id="role"
-                            name="role"
-
-                            value={values.role}
-                            label="Role"
-                            onBlur={handleBlur}
-                            error={touched.role && Boolean(errors.role)}
-
-                            onChange={(e)=>{
-                                setNotChanged(false)
-                                handleChange(e)
 
 
-                            }}
-
-
-                        >
-                            {states.map((option) => (
-                                <option
-                                    key={option.value}
-                                    value={option.value}
-                                >
-                                    {option.label}
-                                </option>
-                            ))}
-                        </TextField>
-
-
-
-                        {/*
-
-                      <InputLabel  htmlFor="demo-simple-select-helper-label">Role</InputLabel>
-                      <Select sx={{height:55}}
-                          labelId="demo-simple-select-helper-label"
-                          id="role"
-                          name="role"
-
-                          value={values.role}
-                          label="Role"
-                          onBlur={handleBlur}
-                          error={touched.role && Boolean(errors.role)}
-
-                          onChange={handleChange}    >
-
-                        <MenuItem value={"administrateur"}>administrateur</MenuItem>
-
-                        <MenuItem value={"Simple Employer"}>simple employer</MenuItem>
-                      </Select>
-                      {touched.role && errors.role && (
-                          <FormHelperText error id="standard-weight-helper-text--register">
-                            {' '}
-                            {errors.role}{' '}
-                          </FormHelperText>
-                      )}
-*/}
-                    </FormControl>):null}
                   </Grid>
                 </Grid>
 
               </Grid>
                 </CardContent>
                 <Divider />
+
+
+
+
+
+
                 <Box
                     sx={{
                       display: 'flex',
@@ -386,7 +333,22 @@ const AccountProfileDetails = (props,{ ...others }) => {
                       p: 2
                     }}
                 >
-                  <AnimateButton>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                        <AnimateButton>
+
+                            <Button
+                                fullWidth
+
+                                size="large"
+                                type="submit"
+                                color="error"
+                                variant="contained"
+                                onClick={handleClick}
+
+                            >
+                                {Cancel}         </Button>
+                        </AnimateButton>
+                    <AnimateButton>
                       {isloading?(<LoadingButton  disableElevation
                                                   fullWidth
                                                   size="large"
@@ -399,6 +361,7 @@ const AccountProfileDetails = (props,{ ...others }) => {
                               type="submit"
                               variant="contained"
                               color="secondary"
+                              sx={{minWidth:'90px'}}
                           >
                               {Edit}
                           </Button>}
@@ -406,6 +369,9 @@ const AccountProfileDetails = (props,{ ...others }) => {
 
                   </AnimateButton>
 
+
+
+                    </Stack>
 
                 </Box>
               </Card>

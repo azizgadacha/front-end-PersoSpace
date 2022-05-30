@@ -134,11 +134,19 @@ const Item = ({ item }) => {
         location=window.location.hash
     else
         location=window.location.pathname
+    let arrayOfLink=location.split("/")
+
+
 
     let history =useHistory()
 
     let handleClickItem=(item)=>{
+        if((arrayOfLink[1]).includes('Profile')){
+history.push(arrayOfLink[1])
+
+        }else {
         let index1
+
         workspaces.listeName.find(function(itemOfListe, i){
             if(item[1] === itemOfListe[1]){
                 index1 = i;
@@ -162,10 +170,10 @@ const Item = ({ item }) => {
             history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalListe.join('/'))
 
 
-    }
+    }}
 
     return (
-        <ListItem sx={{maxWidth:"120px"}}  key={item[1]} disablePadding>
+        <ListItem sx={{maxWidth:"20%"}}  key={item[1]} disablePadding>
             <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
                 <ListItemIcon>
 

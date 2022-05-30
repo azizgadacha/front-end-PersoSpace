@@ -18,7 +18,7 @@ import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 
 import AccountProfile from "./account-profile";
 import AccountProfileDetails from "./account-profile-details";
-import {Avatar, Box, Container, Stack} from "@mui/material";
+import {Avatar, Box, Card, Container, List, Stack} from "@mui/material";
 import ThemeConfig from "../../../themes/theme2";
 import {Formik} from "formik";
 import * as Yup from "yup";
@@ -32,6 +32,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {Alert} from "@material-ui/lab";
 import AnimateButton from "../../../animation/AnimateButton";
 import {useDispatch, useSelector} from "react-redux";
+import BareProfile from "../BareProfile";
 
 
 // assets
@@ -62,25 +63,35 @@ const Profile = () => {
 
     return (
         <Fragment>
+            <Card xs={12}  >
 
+                <Box ml={2} sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <List component={Stack} direction="row">
+
+                    <BareProfile/>
+                    </List>
+                </Box>
+
+            </Card>
 
             <Box
                 component="main"
                 sx={{
+                    mt:0,
                     flexGrow: 1,
-                    py: 8
+                    py:4
                 }}
             >
                 <Container maxWidth="lg">
                     <Typography
-                        sx={{ mb: 3 }}
+                        sx={{ mb: 3,mt:0}}
                         variant="h4"
                     >
                         Account
                     </Typography>
                     <Grid
                         container
-                        spacing={3}
+                        spacing={1}
                     >
                         <Grid
                             item
