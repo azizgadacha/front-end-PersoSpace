@@ -398,7 +398,7 @@ setIsloading(true)
                                     }
                                 }}
                             >
-                                {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+                                {({ errors,setFieldValue,setStatus,setSubmitting,setErrors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                                     <form  noValidate onSubmit={handleSubmit} >
 
 
@@ -430,11 +430,21 @@ setIsloading(true)
                                                 <img src={source} id="photo" />
                                                 <input type="file" id="file"  accept="image/*"
                                                        onChange={(event)=>{
-                                                           handleCapture(event);
-                                                           handleChange(event)
+                                                           if(((event.target.files[0].name).endsWith(".png"))||((event.target.files[0].name).endsWith(".jpg"))||((event.target.files[0].name).endsWith(".jpeg"))) {
 
-                                                           setFieldValue("file",event.target.files[0])
-                                                           setFieldValue("sendtphoto",true)
+                                                               handleCapture(event);
+                                                               handleChange(event)
+
+                                                               setFieldValue("file", event.target.files[0])
+                                                               setFieldValue("sendtphoto", true)
+                                                           }
+                                                       else{
+                                                               setStatus({ success: false });
+                                                               setErrors({ submit: "You should enter JPG or JPG photo " });
+                                                               setSubmitting(false);
+                                                               setIsloading(false)
+
+                                                           }
                                                        }}
 
                                                       id="file" type="file"/>
