@@ -252,7 +252,7 @@ console.log("haja")
                     history.push("/login");
 
                 }
-                else if (response.data.administratorProblem){
+                else if (response.data.SimpleEmployerProblem){
                     dispatcher({
                         type:UPDATE,
                         payload: {user:response.data.user}

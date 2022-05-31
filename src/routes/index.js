@@ -77,6 +77,7 @@ console.log(ar2)
         <Switch >
 
 
+
             <Redirect exact from="/" to={config.defaultPath} />
 
 
@@ -84,13 +85,13 @@ console.log(ar2)
                 path={[
                     "/change/:token","/forget","/login"
 
-                ]}
-            >
-                <Switch location={window.location} key={loc}>
-                    <Verif_login_Guard>
-                        <Route exact path="/login" component={AuthLogin} />
-                        <Route exact path="/forget" component={AuthForget} />
-                        <Route exact path="/change/:token" component={Authverif} />
+                        ]}
+                    >
+                        <Switch location={location} key={location.pathname}>
+                            <Verif_login_Guard>
+                                <Route exact path="/login" component={AuthLogin} />
+                                <Route exact path="/forget" component={AuthForget} />
+                                <Route exact path="/change/:token" component={Authverif} />
 
 
                     </Verif_login_Guard>

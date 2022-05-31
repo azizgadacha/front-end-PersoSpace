@@ -154,7 +154,7 @@ let {id}=useParams()
 
                                     dispatcher({
                                         type:CLICK,
-                                        payload: {text:'You are no langeran administrateur',severity:"error"}
+                                        payload: {text:'You are no longer an administrator',severity:"error"}
                                     });
 
                                 }

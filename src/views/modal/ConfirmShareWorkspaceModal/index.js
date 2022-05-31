@@ -22,9 +22,9 @@ import Backdrop from '@mui/material/Backdrop';
 import {useDispatch, useSelector} from "react-redux";
 import {
     CLICK,
-    CLOSE_Confirm_Share_Workspace_MODAL,
+    CLOSE_Confirm_Share_Workspace_MODAL, ClOSE_EDIT_MODAL,
     CLOSE_MODAL, CLOSE_MODAL_SHARE, INISIALIZE_FILTRED_USER, INISIALIZE_SHARED_USER,
-    LOGOUT, UPDATE_WORKSPACE,
+    LOGOUT, UPDATE, UPDATE_WORKSPACE,
 } from "../../../store/actions";
 
 import {useHistory, useParams} from "react-router-dom";
@@ -120,6 +120,12 @@ const Modal_confirm=  (props) => {
 
 
     let open1 = useSelector((state) => state.modal);
+    let location=null
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
+
 
     const handleClose=()=>{
         dispatcher({
@@ -130,12 +136,18 @@ const Modal_confirm=  (props) => {
 
     const Click=()=>{
         setIsloading(true)
+        let visualise=false
+        if(location.includes('VisualizationOfWorkspace')){
+            visualise=true
+        }else
+            visualise=false
 
         axios
             .post( configData.API_SERVER + 'api/users/shareWorkspace',{
                 token:account.token,
                 card_id:props.card._id,
                 withShared:props.user._id,
+                visualise,
                 user_id:account.user._id
             })
             .then(response =>{
@@ -181,7 +193,32 @@ const Modal_confirm=  (props) => {
                     })
                     socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user})
 
-                }else{
+                }
+                    else if(response.data.adminstratorProblem){
+                        dispatcher({
+                            type:UPDATE,
+                            payload: {user:response.data.user}
+                        });
+                        dispatcher({
+                            type: CLOSE_Confirm_Share_Workspace_MODAL,
+
+                        })
+
+                        dispatcher({
+                            type: CLOSE_MODAL_SHARE,
+
+                        })
+                        history.push(configData.defaultPath)
+
+                        setIsloading(false)
+
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:'You are no longer an administrator',severity:"error"}
+                        });
+
+                    }
+                    else{
 
 
                         dispatcher({
