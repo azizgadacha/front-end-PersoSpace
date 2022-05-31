@@ -286,7 +286,7 @@ const EditModalCore=  ({objet}) => {
 
                                                             dispatcher({
                                                                 type:CLICK,
-                                                                payload: {text:'You are no langeran administrateur',severity:"error"}
+                                                                payload: {text:'you are no longer an administrateur',severity:"error"}
                                                             });
 
                                                         }

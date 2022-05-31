@@ -34,7 +34,7 @@ import {
     CLOSE_DELETE_MODAL,
     ClOSE_EDIT_MODAL,
     CLOSE_MODAL,
-    INISIALIZE_USER, LOGOUT,
+    INISIALIZE_USER, LOGOUT, UPDATE,
 } from "../../store/actions";
 import {UserListHead, UserListToolbar} from "./import/customer/@dashboard/user";
 import Scrollbar from "./../../animation/NavigationScroll";
@@ -275,9 +275,9 @@ const User=  (props) => {
     }, [])
     useEffect(() => {
         axios
-            .post(configData.API_SERVER + 'api/users/all', {
+            .post(configData.API_SERVER + 'api/users/getAll', {
                 id:account.user._id,
-
+                user_id:account.user._id,
                 token: account.token
             }).then((result) => {
             if(result.data.notConnected){
@@ -288,6 +288,19 @@ const User=  (props) => {
                     payload: {text:"You are no longer connected",severity:"error"}
                 })
             }
+            else if(result.data.administratorProblem){
+                dispatcher({
+                    type:UPDATE,
+                    payload: {user:result.data.user}
+                });
+                history.push(configData.defaultPath)
+
+                dispatcher({
+                    type:CLICK,
+                    payload: {text:'You are no longer an administrateur',severity:"error"}
+                });
+            }
+
             else
             {
 

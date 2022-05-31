@@ -165,7 +165,6 @@ const RestPass = (props, { ...others }) => {
                                password: values.password,
                                email: props.user.email,
                                username:props.user.username,
-                               role:props.user.role,
                          sendPhoto:false,
                                phone:props.user.phone,
                                token:account.token
@@ -183,7 +182,6 @@ const RestPass = (props, { ...others }) => {
                         data.append('email',props.user.email)
                         data.append('phone',props.user.phone)
                         data.append('file',props.file)
-                        data.append('role',props.user.role)
                         data.append('token',account.token)
                         data.append('sendPhoto',true)
 

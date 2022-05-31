@@ -121,7 +121,7 @@ const Dashboard = (props, { ...others }) => {
 console.log("haja")
         axios
             .post(configData.API_SERVER + 'api/users/all', {
-                id:account.user._id,
+                user_id:account.user._id,
 
                 token: account.token
             }).then((result) => {
@@ -208,7 +208,7 @@ console.log("haja")
                             history.push(configData.defaultPath)
                         dispatcher({
                             type:CLICK,
-                            payload: {text:"You are no longer an administrateur",severity:"error"}
+                            payload: {text:"you are no longer an administrateur",severity:"error"}
                         })
                     }
                     else if(response.data.invalidLink){
@@ -245,7 +245,7 @@ console.log("haja")
 
         }
         else { axios
-            .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {user_id: account.user._id, token: account.token})
+            .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {Noadministration:true,user_id: account.user._id, token: account.token})
             .then(response => {
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
@@ -263,7 +263,7 @@ console.log("haja")
                         history.push(configData.defaultPath)
                     dispatcher({
                         type:CLICK,
-                        payload: {text:"You are no longer an Simple Employer",severity:"error"}
+                        payload: {text:"You are no longer a Simple Employer",severity:"error"}
                     })
                 }
                 else{

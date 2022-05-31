@@ -42,6 +42,7 @@ import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel} from "../../Button/actionButton";
 import {useHistory} from "react-router-dom";
+import {useTheme} from "@mui/material/styles";
 
 // ----------------------------------------------------------------------
 
@@ -55,32 +56,47 @@ const OVERLAY_Styles ={
     zIndex:100
 
 }
-const style = {
 
-    padding:'50px',
-    zIndex:100,
-
-    borderRadius: 5,
-
-
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    radius:3,
-    transform: 'translate(-50%, -50%)',
-
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-};
 
 // ----------------------------------------------------------------------
 
-const useStyles = makeStyles((theme) => ({
 
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+    largeImage: {
+
+        width: theme.spacing(20),
+        height: theme.spacing(20),
+        top: "50%",
+        left: "50%",
+        right: "50%",
+        bottom: "50%",
+        transform: 'translate(-2%,2%)',
+        borderRadius : "50%",
+        overflow: "hidden",
+        border: "1px solid grey",
+    },
+
+    uploadBtn:{
+        height: '0%',
+        width: '100%',
+        position: 'absolute',
+        bottom: '0',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        textAlign: 'center',
+        color: 'wheat',
+        lineHeight : '160px',
+        fontFamily: 'sans-serif',
+        fontSize: '16px',
+        cursor: "pointer",
+        backgroundColor: "#000000",
+        opacity: '0.8',
+
+    },
 
 
 
@@ -147,7 +163,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 
-
 }));
 
 
@@ -156,6 +171,43 @@ const useStyles = makeStyles((theme) => ({
 
 
 const User=  (props) => {
+    const theme = useTheme();
+
+    const  minWidth='330px'
+
+    const style = {
+
+        padding:'50px',
+        zIndex:100,
+minWidth,
+        borderRadius: 5,
+
+
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        radius:3,
+        transform: 'translate(-50%, -50%)',
+
+        bgcolor: 'background.paper',
+        border: '0px solid #000',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+    };
+
+
+
+
+
+
+
+
+
+
+
+
     const [isloading, setIsloading] = useState(false);
 
     const states = [
@@ -253,7 +305,7 @@ const User=  (props) => {
 
                     <Fade in={open1.ModalState}>
 
-                    <Box sx={{ ...style,  }} className={classes.modal}>
+                    <Box sx={{ ...style,  }}>
                         <ThemeConfig>
 
                             <Formik
@@ -351,43 +403,52 @@ setIsloading(true)
 
 
 
+    <Stack alignItems="center" justifyContent="center" spacing={1}>
+        <Stack alignItems="center" justifyContent="center" spacing={1}>
+    <Typography
+        color={theme.palette.secondary.main}
+        gutterBottom
+        variant={matchDownSM ? 'h3' : 'h3'}
+    >
+        Add User
+    </Typography>
+
+
+</Stack>
+    </Stack>
 
 
 
 
 
-                                        <grid>
 
-                                            <Typography sx={{mt:1}} id="child-modal-title"
-                                                        gutterBottom
-                                                        variant={matchDownSM ? 'h6' : 'h6'}
-                                                        align={"center"}  >
-                                                choose a photo                </Typography></grid>
+                                        <Grid marginBottom={1} >
+
                                         <FormControl fullWidth  className={classes.root}>
 
-                                            <input name="file" accept="image/*"
-                                                   onBlur={handleBlur}
+                                            <div className={classes.largeImage} id="divStyle">
+                                                <img src={source} id="photo" />
+                                                <input type="file" id="file"  accept="image/*"
+                                                       onChange={(event)=>{
+                                                           handleCapture(event);
+                                                           handleChange(event)
 
-                                                   onChange={(event)=>{
-                                                       handleCapture(event);
-                                                       handleChange(event)
+                                                           setFieldValue("file",event.target.files[0])
+                                                           setFieldValue("sendtphoto",true)
+                                                       }}
 
-                                                       setFieldValue("file",event.target.files[0])
-                                                       setFieldValue("sendtphoto",true)
+                                                      id="file" type="file"/>
+                                                <label htmlFor="file" className={classes.uploadBtn}  id="labelStyle">Choose Photo</label>
+                                            </div>
 
 
 
-                                                   }}
 
-                                                   className={classes.input} id="file" type="file"
-                                            />
-                                            <label htmlFor="file">
-                                                <IconButton color="primary" aria-label="upload picture" component="span">
-                                                    <Avatar src={source} className={classes.large}  />
 
-                                                </IconButton>
-                                            </label>
+
+
                                         </FormControl>
+                                        </Grid>
 
 
                                         <Stack spacing={2} id="transition-modal-title">

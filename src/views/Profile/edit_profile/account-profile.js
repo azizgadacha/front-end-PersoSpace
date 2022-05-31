@@ -107,7 +107,7 @@ const AccountProfile = ({setFile}) => {
 
                 <div className={classes.largeImage} id="divStyle">
                     <img src={source} id="photo" />
-                        <input type="file" id="file"  accept="image/*" o
+                        <input type="file" id="file"  accept="image/*"
                                onChange={onChange}
 
                                className={classes.input} id="file" type="file"/>

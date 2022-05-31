@@ -59,11 +59,11 @@ const Widget = (props, { ...others }) => {
 
     let [isLoading, setIsLoading] = useState(true);
     let workspaces = useSelector((state) => state.workspace);
-    let loc
+    let location
     if(window.location.pathname.includes('html'))
-        loc=window.location.hash
+        location=window.location.hash
     else
-        loc=window.location.pathname
+        location=window.location.pathname
     const dispatcher = useDispatch();
 
     useEffect(() => {
@@ -100,7 +100,7 @@ const [importing,setImporting]=useState(true)
     var listOfBar=null
 
 
-    let arrayOfLink=loc.split("/")
+    let arrayOfLink=location.split("/")
     console.log(arrayOfLink)
 
     arrayOfLink.splice(((arrayOfLink.length)-2),1)
@@ -174,7 +174,7 @@ console.log(response.data.listeName)
 
 
 
-    if(!(loc.includes('SharedWorkspaces'))){
+    if(!(location.includes('SharedWorkspaces'))){
 
         var liste =()=>{
             if(workspaces.listeName.length>2) {
@@ -254,9 +254,9 @@ let element
                                 <ListItem sx={{maxWidth:"92px"}}  key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                        {((loc.includes('/dashboard/default')))?(
+                                        {((location.includes('/dashboard/default')))?(
                                             history.push(config.defaultPath)
-                                        ):(loc.includes('SharedWorkspaces')) ?  (
+                                        ):(location.includes('SharedWorkspaces')) ?  (
                                             history.push('/dashboard/SharedWorkspaces')
                                         ):history.push('/dashboard/VisualizationOfWorkspace')}
                                     }}>
@@ -286,7 +286,7 @@ let element
 
 
 
-                      ((loc.includes('widget')))&&(
+                      ((location.includes('widget')))&&(
 
 
                           <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
@@ -327,7 +327,7 @@ let element
                     </Grid>
 
                 </Grid>
-            <Customization />
+        <Customization />
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {open.ModalState && ( <Import_Data_From_DB/>)}
     {open.ModalEditState&&(<EditWidget  type={"Widget"} />)}
@@ -339,3 +339,4 @@ let element
 
 )}
 export default Widget;
+

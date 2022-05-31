@@ -97,7 +97,6 @@ const AccountProfileDetails = (props,{ ...others }) => {
           initialValues={{
             username: account.user.username,
             email: account.user.email,
-            role: account.user.role,
             phone: account.user.phone,
             submit: null
           }}
@@ -107,7 +106,6 @@ const AccountProfileDetails = (props,{ ...others }) => {
 
               phone:Yup.string().required().matches(/^[0-9]+$/, "Must be only digits").min(8, 'Must be exactly 8 digits').max(8, 'Must be exactly 8 digits'),
 
-            role: Yup.string().required('role is required')
 
           })}
           onSubmit={(values) => {
@@ -126,7 +124,7 @@ const AccountProfileDetails = (props,{ ...others }) => {
                  else{
 
                  axios.post( configData.API_SERVER + 'api/users/all', {
-                     id:account.user._id,
+                     user_id:account.user._id,
                      email: values.email,
                      username:values.username,
                      token:account.token
