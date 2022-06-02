@@ -9,8 +9,7 @@ const SimpleUserGuard = ({ children }) => {
     const account = useSelector((state) => state.account);
 
     const  isSimpleEmployer  = (account.user.role==='simple employer'?true:false);
-    console.log("alam")
-    console.log(account.user.role)
+ 
 
 
     if (!(isSimpleEmployer)) {
