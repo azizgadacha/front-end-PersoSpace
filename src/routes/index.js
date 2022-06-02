@@ -55,7 +55,6 @@ const Routes = () => {
     let arrayOfLink=loc.split("/")
     let indexOfSlice=(((arrayOfLink.indexOf('widget')===3))?4:3)
     let ar2 = arrayOfLink.slice(indexOfSlice, ((arrayOfLink.length)-1));
-console.log(ar2)
 
     let link=ar2.join('/')
 
