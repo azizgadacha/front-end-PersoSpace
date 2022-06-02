@@ -38,7 +38,7 @@ import SaveIcon from "@mui/icons-material/Save";
 
 
 
-const AccountProfileDetails = (props,{ ...others }) => {
+const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,setNotChanged}) => {
     let history =useHistory()
 
     const handleClick = () => {
@@ -50,9 +50,6 @@ const AccountProfileDetails = (props,{ ...others }) => {
 
     const [isloading, setIsloading] = useState(false);
 
-
-    const [notChanged, setNotChanged] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
     const [val, setVal] = useState({});
 
     const states = [
@@ -111,9 +108,15 @@ const AccountProfileDetails = (props,{ ...others }) => {
           onSubmit={(values) => {
               setIsloading(true)
               setNotChanged(false)
-
-
-             if( _.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,role:account.user.role,submit:null})&&(props.file===`${configData.API_SERVER}${account.user.photo}`))
+console.log("ddddddddddzzz99999")
+console.log(values)
+console.log({username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null})
+console.log("zzzrrrrrarzrzar")
+console.log(file)
+console.log(file)
+console.log((file===`${configData.API_SERVER}${account.user.photo}`))
+console.log(_.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))
+             if( (_.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))&&(file===`${configData.API_SERVER}${account.user.photo}`))
              {
                  setIsloading(false)
                  setNotChanged(true)
@@ -186,7 +189,7 @@ const AccountProfileDetails = (props,{ ...others }) => {
 
       >
         {({ errors,setFieldValue, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-            <form  noValidate onSubmit={handleSubmit} {...others}>
+            <form  noValidate onSubmit={handleSubmit} >
 
 
                <Card sx={{minHeight:{matchDownLG}?"100%":null}}>
@@ -202,6 +205,8 @@ const AccountProfileDetails = (props,{ ...others }) => {
                   container
                   spacing={3}
               >
+                  {console.log("dddddddddzzaezzarrzrz")}
+                  {console.log(notChanged)}
                   { notChanged&&(
                   <Grid
                       item
@@ -227,6 +232,8 @@ const AccountProfileDetails = (props,{ ...others }) => {
                               setNotChanged(false)
                               handleChange(e)
 
+                              console.log("ssssszdddddzdzkll")
+                              console.log(notChanged)
 
                           }}
 
@@ -288,6 +295,7 @@ const AccountProfileDetails = (props,{ ...others }) => {
                           onBlur={handleBlur}
                                    onChange={(e)=>{
                                        setNotChanged(false)
+
                                        handleChange(e)
 
 
@@ -385,7 +393,7 @@ const AccountProfileDetails = (props,{ ...others }) => {
             </form>
         )}
       </Formik>
-        {open1.ModalState && (<Password_verify file={props.file}    user={val}/>)}
+        {open1.ModalState && (<Password_verify file={file}    user={val}/>)}
 
     </ThemeConfig>
 );

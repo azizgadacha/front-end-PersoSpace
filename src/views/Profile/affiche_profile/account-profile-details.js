@@ -48,7 +48,7 @@ const AccountProfileDetails = (props) => {
       noValidate
       {...props}
     >
-      <Card>
+      <Card sx={{minHeight:"100%"}} >
         <CardHeader
           subheader="The information can be edited"
           title="Profile"

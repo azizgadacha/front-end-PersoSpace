@@ -80,18 +80,17 @@ const Cells=  ({userPar}) => {
 
             <TableCell align="left">{userPar.role}</TableCell>
 
-jjj
 
 
             <TableCell align="left">
                 <Box sx={{ '& button': { m: 1 } }}>
 
                     <div>
-                        <Button  onClick={handleClickEditModal} sx={{width:110}} variant="outlined"  color="info" startIcon={<EditIcon />}>
-                            Edit
+                        <Button  onClick={handleClickEditModal}  variant="outlined"  color="info" >
+                            <EditIcon />
                         </Button>
-                        <Button  onClick={handleClickModal} variant="outlined" color="error" startIcon={<DeleteIcon />}>
-                            DELETE
+                        <Button  onClick={handleClickModal} variant="outlined" color="error" >
+                            <DeleteIcon />
                         </Button>
 
                     </div>
