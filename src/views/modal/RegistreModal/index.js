@@ -430,7 +430,7 @@ setIsloading(true)
                                                 <img src={source} id="photo" />
                                                 <input type="file" id="file"  accept="image/*"
                                                        onChange={(event)=>{
-                                                           if(((event.target.files[0].name).endsWith(".png"))||((event.target.files[0].name).endsWith(".jpg"))||((event.target.files[0].name).endsWith(".jpeg"))) {
+                                                           if((((event.target.files[0].name).toLowerCase()).endsWith(".png"))||(((event.target.files[0].name).toLowerCase()).endsWith(".jpg"))||(((event.target.files[0].name).toLowerCase()).endsWith(".jpeg"))) {
 
                                                                handleCapture(event);
                                                                handleChange(event)
@@ -440,7 +440,7 @@ setIsloading(true)
                                                            }
                                                        else{
                                                                setStatus({ success: false });
-                                                               setErrors({ submit: "You should enter JPG or JPG photo " });
+                                                               setErrors({ submit: "You should enter PNG or JPG photo " });
                                                                setSubmitting(false);
                                                                setIsloading(false)
 

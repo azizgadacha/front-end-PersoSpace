@@ -44,12 +44,9 @@ import Item from "../dashboard/Default/Item";
 
 const Widget = (props, { ...others }) => {
     const Style = {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-45%,-40%)',
+        top: '10%',
+        left: '0%',
         padding: '50px',
-        zIndex: 100
     }
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -101,19 +98,24 @@ const [importing,setImporting]=useState(true)
 
 
     let arrayOfLink=location.split("/")
+    console.log("fffezetzeteztzette")
     console.log(arrayOfLink)
 
-    arrayOfLink.splice(((arrayOfLink.length)-2),1)
 
-    const ar2 = arrayOfLink.slice(3, (arrayOfLink.length));
+    const ar2 = arrayOfLink.slice(4, (arrayOfLink.length));
 
 console.log(ar2)
 
 
     let link=ar2.join('/')
     useEffect(() => {
+console.log("sallllllllllllllllllllllllllllllllldddddddddddd")
+console.log(arrayOfLink.slice(3, (arrayOfLink.length)))
+console.log(ar2)
+        const locVis=(  (location).includes('/dashboard/VisualizationOfWorkspace'))?true:null
 
         let clicked
+
         if (workspaces.clicked) {
             clicked = true
 
@@ -121,7 +123,7 @@ console.log(ar2)
             clicked = false
 
         axios
-            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id})
+            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id ,locVis})
             .then(response =>{
 
                 dispatcher({
@@ -177,12 +179,15 @@ console.log(response.data.listeName)
     if(!(location.includes('SharedWorkspaces'))){
 
         var liste =()=>{
-            if(workspaces.listeName.length>2) {
+            if(workspaces.listeName.length>4) {
 
                 const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
-
+console.log("sal")
+console.log("sal")
                 listOfBar= subliste.map((item) => {
+                    console.log("sa^^^^^^^^^^^^^^^^^^^^^^^^^^^^l")
 
+                    console.log(item)
                     return (
 
 
@@ -193,7 +198,10 @@ console.log(response.data.listeName)
                 })
 
             } else{
+                console.log("sa^^^^^^^^^^^^^^^^^^^^^^^^^^^^l2.0")
+
                 listOfBar= workspaces.listeName.map((item) => {
+                    console.log(item)
 
                     return (
 
@@ -254,7 +262,7 @@ let element
                                 <ListItem sx={{maxWidth:"92px"}}  key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                        {((location.includes('/dashboard/default')))?(
+                                        {((location.includes('default')))?(
                                             history.push(config.defaultPath)
                                         ):(location.includes('SharedWorkspaces')) ?  (
                                             history.push('/dashboard/SharedWorkspaces')
@@ -299,14 +307,14 @@ let element
                           justifyContent="center"
 
                           >
-                          <Grid item mb={2} >
+                          <Grid item mb={2} mt={3} >
                           <Stack alignItems="center" justifyContent="center" >
 
                           <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
 
 
                           <Grid container alignItems="center" >
-                          <img alt="login" src="/static/images/NoDataFound.png" />
+                          <img alt="login" src="/static/images/NoDataFound.png" id={'centerImage'} />
 
                           </Grid>
                           </Grid>
@@ -327,7 +335,7 @@ let element
                     </Grid>
 
                 </Grid>
-        <Customization />
+    {location.includes("default") &&(<Customization />)}
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {open.ModalState && ( <Import_Data_From_DB/>)}
     {open.ModalEditState&&(<EditWidget  type={"Widget"} />)}

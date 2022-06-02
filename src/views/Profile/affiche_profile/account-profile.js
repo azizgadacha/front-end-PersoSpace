@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: '0',
         left: '50%',
-        transform: 'translateX(-50%)',
+        transform: 'translateX(-30%)',
         textAlign: 'center',
         color: 'wheat',
         lineHeight : '100px',
@@ -82,7 +82,7 @@ const account = useSelector((state) => state.account);
     const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
 
 return(
-    <Card   sx={{minHeight:{matchDownLG}?"100%":null}}   >
+    <Card   sx={{minHeight:"100%"}}   >
         <Grid  container
                spacing={0}
                direction="column"

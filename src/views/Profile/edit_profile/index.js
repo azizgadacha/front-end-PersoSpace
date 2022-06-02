@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -30,6 +30,8 @@ const Profile = () => {
 
     const account = useSelector((state) => state.account);
 
+    const [notChanged, setNotChanged] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     let [file, setFile] = React.useState(`${configData.API_SERVER}${account.user.photo}`);
 
     const theme = useTheme();
@@ -84,7 +86,7 @@ useEffect(() => {
                             md={5}
                             xs={12}
                         >
-                            <AccountProfile setFile={setFile} />
+                            <AccountProfile errorMessage={errorMessage}  setErrorMessage={setErrorMessage} setFile={setFile} notChanged={notChanged} setNotChanged={setNotChanged} />
                         </Grid>
                         <Grid
                             item
@@ -92,7 +94,7 @@ useEffect(() => {
                             md={7}
                             xs={12}
                         >
-                            <AccountProfileDetails file={file} />
+                            <AccountProfileDetails file={file} errorMessage={errorMessage}  setErrorMessage={setErrorMessage} setFile={setFile} notChanged={notChanged} setNotChanged={setNotChanged} />
                         </Grid>
                     </Grid>
                 </Container>

@@ -45,12 +45,9 @@ import {IconPlus} from "@tabler/icons";
 const Dashboard = (props, { ...others }) => {
 
     const Style = {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-45%,-40%)',
+        top: '10%',
+        left: '0%',
         padding: '50px',
-        zIndex: 100
     }
 
     const account = useSelector((state) => state.account);
@@ -446,7 +443,7 @@ console.log("haja")
 
 
                                                         <Grid container alignItems="center" >
-                                                            <img alt="login" src="/static/images/NoDataFound.png" />
+                                                            <img alt="login" src="/static/images/NoDataFound.png" id={'centerImage'} />
 
                                                                                                                </Grid>
                                                     </Grid>

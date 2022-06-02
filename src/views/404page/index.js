@@ -56,7 +56,7 @@ export default function Page404() {
                             <Box
                                 component="img"
                                 src="/static/images/404.svg"
-                                sx={{ height: "80%",width:'60%', mx: 'auto', my: { xs: 5, sm: 10 } }}
+                                sx={{ height: "39%",width:'50%', mx: 'auto', my: { xs: 5, sm: 10 } }}
                             />
                         </motion.div>
                         <AnimateButton>

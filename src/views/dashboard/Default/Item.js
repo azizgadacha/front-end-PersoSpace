@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import {Avatar,  Grid, Typography} from '@material-ui/core';
+import {Avatar, Grid, Typography, useMediaQuery, useTheme} from '@material-ui/core';
 
 import ShareIcon from '@mui/icons-material/Share';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -136,7 +136,7 @@ const Item = ({ item }) => {
         location=window.location.pathname
     let arrayOfLink=location.split("/")
 
-
+   console.log( item)
 
     let history =useHistory()
 
@@ -146,7 +146,8 @@ history.push(arrayOfLink[1])
 
         }else {
         let index1
-
+console.log('ddddddddddddddddddegsqdsdsd')
+console.log(workspaces.listeName)
         workspaces.listeName.find(function(itemOfListe, i){
             if(item[1] === itemOfListe[1]){
                 index1 = i;
@@ -168,19 +169,25 @@ history.push(arrayOfLink[1])
             history.push(config.defaultPath+"/"+finalListe.join('/'))
         else
             history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalListe.join('/'))
-
-
     }}
+    const theme = useTheme();
 
+    const matchDownLg = useMediaQuery(theme.breakpoints.down('lg'));
+    const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+console.log("salu")
+console.log(matchDownLg)
+console.log(matchDownXL)
     return (
-        <ListItem sx={{maxWidth:"20%"}}  key={item[1]} disablePadding>
-            <ListItemButton       style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
+        <ListItem sx={{maxWidth:"100px"}}  key={item[1]} disablePadding>
+            <ListItemButton        style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
                 <ListItemIcon>
 
 
                     <NavigateNextRoundedIcon />
+
                 </ListItemIcon>
                 <ListItemText primary={item[0]} />
+
             </ListItemButton>
         </ListItem>
     );

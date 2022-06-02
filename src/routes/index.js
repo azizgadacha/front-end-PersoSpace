@@ -54,16 +54,14 @@ const Routes = () => {
 
     let arrayOfLink=loc.split("/")
     let indexOfSlice=(((arrayOfLink.indexOf('widget')===3))?4:3)
-    console.log(indexOfSlice)
     let ar2 = arrayOfLink.slice(indexOfSlice, ((arrayOfLink.length)-1));
-console.log(ar2)
 
     let link=ar2.join('/')
 
-    let linkWidget=`/dashboard/default/widget/${link==''?'':link+"/"}:id`
 
-    console.log(linkWidget)
-    console.log(linkWidget)
+
+    let linkWidget=`/dashboard/${(arrayOfLink.length<2)?'default':(['VisualizationOfWorkspace'||'SharedWorkspaces'].includes(arrayOfLink[2]))?arrayOfLink[2]:'default'}/widget/${link==''?'':link+"/"}:id`
+
     console.log(linkWidget)
     let linkIndex=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
     console.log(linkIndex)

@@ -23,7 +23,7 @@ const WidgetName = ({ buttonRef }) => {
                     <Header  type={"Workspace"} />
 
 
-                    <Grid container alignItems={"center"}>
+                    <Grid container alignItems={"center"} mt={2} mb={2}>
 
                         <RestWidgetName buttonRef ={ buttonRef}  />
                     </Grid>

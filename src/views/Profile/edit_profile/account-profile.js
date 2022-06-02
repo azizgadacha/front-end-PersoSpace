@@ -70,12 +70,16 @@ opacity: '0.8',
 
 
 }));
-const AccountProfile = ({setFile}) => {
+const AccountProfile = ({setFile,   setErrorMessage,  setNotChanged}) => {
     const account = useSelector((state) => state.account);
 
     const theme = useTheme();
     const onChange = ({target}) => {
-        const fileReader = new FileReader();
+        setNotChanged(false)
+
+        if((((target.files[0].name).toLowerCase()).endsWith(".png"))||(((target.files[0].name).toLowerCase()).endsWith(".jpg"))||(((target.files[0].name).toLowerCase()).endsWith(".jpeg"))) {
+
+            const fileReader = new FileReader();
         // const name = target.accept.includes('image') ? 'images' : 'videos';
 
         fileReader.readAsDataURL(target.files[0]);
@@ -84,7 +88,12 @@ const AccountProfile = ({setFile}) => {
 
             setFile(target.files[0])
 
-        };
+        };}
+        else{
+            setNotChanged(true)
+            setErrorMessage("You should enter PNG or JPG photo ")
+
+        }
     };
     let [source, setSource] = React.useState(`${configData.API_SERVER}${account.user.photo}`);
 

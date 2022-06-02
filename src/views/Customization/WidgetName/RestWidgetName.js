@@ -149,14 +149,11 @@ let link
                         direction={'row'}
                         alignItems="center"
                         justifyContent="center"
+mb={2}
                     >
-                        <Grid item mb={2}>
-                            <Stack alignItems="center" justifyContent="center">
-
-                                <Grid container   sx={{mt:3.75 ,mb:3.30}} alignItems="center" >
 
 
-                                    <Grid md={12} container alignItems="center" >
+
 
             <Formik
                 initialValues={{
@@ -218,7 +215,20 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                                         payload: {text:"You are no longer connected",severity:"error"}
                                     })
 
-                                }else{
+                                }else if(response.data.WidgetExisite){
+                                    dispatcher({
+                                        type:IS_LOADING_CHANGE,
+
+                                    })
+                                    setStatus({ success: false });
+                                    setErrors({ submit: response.data.msg });
+
+
+
+
+                                }
+
+                                else{
                                 if (response.data.success) {
                                     dispatcher({
                                         type:IS_LOADING_CHANGE,
@@ -353,7 +363,7 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                                                             {errors.submit && (
                                                                 <Box
                                                                     sx={{
-                                                                        mt: 3
+                                                                        mt: 1, mb:1
                                                                     }}
                                                                 >
 
@@ -385,10 +395,7 @@ data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:wi
                     </form>
                 )}
             </Formik>
-                                    </Grid>
-                                </Grid>
-                            </Stack>
-                        </Grid>
+
                     </Grid>
                 </Grid>
             </Grid>

@@ -184,7 +184,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
             type:CLICKED
         });
         console.log(card)
-        history.push(  `${config.defaultPath}/widget/${link==""?"":(link+'/')}${card._id}`)
+        history.push(  `/dashboard/${(array.length<2)?'default':(['VisualizationOfWorkspace'||'SharedWorkspaces'].includes(array[2]))?array[2]:'default'}/widget/${link==""?"":(link+'/')}${card._id}`)
 
 
     }
