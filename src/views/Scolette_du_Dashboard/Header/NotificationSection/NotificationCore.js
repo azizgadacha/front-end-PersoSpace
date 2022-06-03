@@ -78,7 +78,7 @@ let loc ;
 
         if (IdListe.length >= 1) {
 
-            let result = await axios.post(configData.API_SERVER + 'api/users/editNotification', {
+            let result = await axios.post(configData.API_SERVER + 'api/Notification/editNotification', {
                 token: account.token,
                 IdListe
             })

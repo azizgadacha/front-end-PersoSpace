@@ -117,7 +117,7 @@ const Dashboard = (props, { ...others }) => {
     useEffect(() => {
 console.log("haja")
         axios
-            .post(configData.API_SERVER + 'api/users/all', {
+            .post(configData.API_SERVER + 'api/User/all', {
                 user_id:account.user._id,
 
                 token: account.token
@@ -148,7 +148,7 @@ console.log("haja")
 
         if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/VisualizationOfWorkspace')))){
             if (id) {
-                link = 'api/users/getinsideworkspace'
+                link = 'api/Workspace/getinsideworkspace'
                 id1 = id
                 let clicked
                 if (workspaces.clicked) {
@@ -172,11 +172,11 @@ console.log("haja")
 
             }
             else if(loc=='/dashboard/VisualizationOfWorkspace'){
-                link = 'api/users/visualizationOfWorkspaces'
+                link = 'api/Workspace/visualizationOfWorkspaces'
                 datasend = {user_id:account.user._id, token: account.token,}
             }
             else {
-                link = 'api/users/getworkspace'
+                link = 'api/Workspace/getworkspace'
                 datasend = {superior_id: account.user._id, token: account.token}
 
             }
@@ -217,7 +217,7 @@ console.log("haja")
                                 payload: {
                                     work: response.data.workspaceitems,
                                     listeName: response.data.listeName,
-                                    location: (link == 'api/users/visualizationOfWorkspaces') ? "Visualization" : null
+                                    location: (link == 'api/Workspace/visualizationOfWorkspaces') ? "Visualization" : null
                                 }
                             }
                         )
@@ -242,7 +242,7 @@ console.log("haja")
 
         }
         else { axios
-            .post(configData.API_SERVER + 'api/users/getsharedWorkspace', {Noadministration:true,user_id: account.user._id, token: account.token})
+            .post(configData.API_SERVER + 'api/Workspace/getsharedWorkspace', {Noadministration:true,user_id: account.user._id, token: account.token})
             .then(response => {
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });

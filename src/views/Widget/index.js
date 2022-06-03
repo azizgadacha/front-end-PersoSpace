@@ -123,7 +123,7 @@ console.log(ar2)
             clicked = false
 
         axios
-            .post( configData.API_SERVER + 'api/users/getWidget',{superior_id:id, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id ,locVis})
+            .post( configData.API_SERVER + 'api/Widget/getWidget',{superior_id:id, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id ,locVis})
             .then(response =>{
 
                 dispatcher({

@@ -116,7 +116,7 @@ const history=useHistory();
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'api/users/login', {
+                            .post( configData.API_SERVER + 'api/User/login', {
                                 password: values.password,
                                 email: values.email
                             })

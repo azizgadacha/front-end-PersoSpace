@@ -265,7 +265,7 @@ const Modal_confirm=  (props) => {
             visualise=false
 
         axios
-            .post( configData.API_SERVER + 'api/users/removeShare',{
+            .post( configData.API_SERVER + 'api/Workspace/removeShare',{
                 token:account.token,
                 card_id:props.card._id,
                 visualise,

@@ -49,7 +49,7 @@ if(!token){
 {
         try {
     let result = await axios
-        .post(configData.API_SERVER + 'api/users/validation', {token,})
+        .post(configData.API_SERVER + 'api/Forget/validation', {token,})
     setSucess(result.data.success)
 
     if(!result.data.success) {

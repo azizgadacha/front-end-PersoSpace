@@ -325,7 +325,7 @@ const DataModal=  (props) => {
 
     useEffect(() => {
         axios
-            .post(configData.API_SERVER + 'api/users/getData', {
+            .post(configData.API_SERVER + 'api/Data/getData', {
                 superior_Id:id,
                 token: account.token
             }).then((result) => {

@@ -141,7 +141,7 @@ const ProfileSection = () => {
     const handleLogout = () => {
 
         axios
-            .post( configData.API_SERVER + 'api/users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
+            .post( configData.API_SERVER + 'api/User/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
             .then(function (response) {
 
                 // Force the LOGOUT

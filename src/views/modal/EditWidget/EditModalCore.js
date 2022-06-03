@@ -240,10 +240,10 @@ const EditModalCore=  ({objet}) => {
                                          let link
                                             let dataSend
                                             if(objet.sourceDB){
-                                                link = 'api/users/editWidgetlink'
+                                                link = 'api/Data/editWidgetlink'
                                                 dataSend= {token:account.token, WidgetName:objet.WidgetName, newName:values.WidgetName, idData:objet.idData, type:objet.type, superiorID:id}
                                            } else {
-                                                link='api/users/editWidget'
+                                                link='api/Widget/editWidget'
                                                 dataSend=  {token:account.token,idWidget:objet._id, newName:values.WidgetName,superiorID:id }}
 
 

@@ -143,7 +143,7 @@ const Modal_confirm=  (props) => {
             visualise=false
 
         axios
-            .post( configData.API_SERVER + 'api/users/shareWorkspace',{
+            .post( configData.API_SERVER + 'api/Workspace/shareWorkspace',{
                 token:account.token,
                 card_id:props.card._id,
                 withShared:props.user._id,

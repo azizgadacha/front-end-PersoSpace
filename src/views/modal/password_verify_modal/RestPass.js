@@ -192,7 +192,7 @@ const RestPass = (props, { ...others }) => {
                     try{
 
 
-                        axios.post( configData.API_SERVER + 'api/users/edit', data,config)
+                        axios.post( configData.API_SERVER + 'api/User/edit', data,config)
                             .then(function (response) {
                                 if(response.data.notConnected){
                                     dispatcher({ type: LOGOUT });

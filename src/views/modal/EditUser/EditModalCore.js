@@ -233,7 +233,7 @@ const EditModalCore=  ({objet}) => {
 
 
 
-                                            axios.post( configData.API_SERVER + 'api/users/editUser', {
+                                            axios.post( configData.API_SERVER + 'api/User/editUser', {
                                               token:account.token,
 
                                                 role:values.role,

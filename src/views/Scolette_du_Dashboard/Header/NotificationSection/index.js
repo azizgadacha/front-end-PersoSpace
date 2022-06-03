@@ -211,7 +211,7 @@ console.log('salut')
 
             if (IdListe.length >= 1) {
 
-                let result =await axios.post(configData.API_SERVER + 'api/users/editNotification', {token: account.token, IdListe})
+                let result =await axios.post(configData.API_SERVER + 'api/Notification/editNotification', {token: account.token, IdListe})
 
                     if (result.data.notConnected) {
                         dispatcher({type: LOGOUT});
@@ -239,7 +239,7 @@ console.log('salut')
 
                 try {
                     axios
-                        .post(configData.API_SERVER + 'api/users/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
+                        .post(configData.API_SERVER + 'api/Notification/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
                         if(result.data.notConnected){
                             dispatcher({ type: LOGOUT });
                             history.push("/login");

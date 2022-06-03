@@ -275,7 +275,7 @@ const User=  (props) => {
     }, [])
     useEffect(() => {
         axios
-            .post(configData.API_SERVER + 'api/users/getAll', {
+            .post(configData.API_SERVER + 'api/User/getAll', {
                 id:account.user._id,
                 user_id:account.user._id,
                 token: account.token

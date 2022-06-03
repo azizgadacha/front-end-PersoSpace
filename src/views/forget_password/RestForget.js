@@ -108,7 +108,7 @@ const RestForget = ({ ...others }) => {
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'api/users/forget', {
+                            .post( configData.API_SERVER + 'api/Forget/forget', {
                                 email: values.email
                             })
                             .then(function (response) {

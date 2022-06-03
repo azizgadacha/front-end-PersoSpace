@@ -173,13 +173,13 @@ mb={2}
                     })
 if(widget.sourceDB)
 {
-    link='api/users/shareData'
+    link='api/Data/shareData'
     data={token:account.token, idData:widget.idData, WidgetName:values.WidgetName, superiorID:id,type:widget.Type}
 }
 else
 {
 
-    link='api/users/addWidget'
+    link='api/Widget/addWidget'
 data={superior_id:id, WidgetName: values.WidgetName, type: widget.Type, label:widget.label, dataWidget:widget.dataWidget, token:account.token}
 
 }
