@@ -80,7 +80,7 @@ let link
 
 
                 else {
-                    link='api/users/deleteWidget'
+                    link='api/Widget/deleteWidget'
                     dataSend=  {token:account.token,WidgetName:obj.WidgetName, superiorID:obj.superior_id}}
 
     }

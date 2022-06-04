@@ -16,6 +16,8 @@ import {
 } from '@mui/material';
 
 import {useDispatch, useSelector} from "react-redux";
+// Prject import
+
 import UserListHead from "./UserListHead";
 import UserListToolbarSkelton from "./UserListToolbarSkelton";
 
@@ -34,7 +36,7 @@ import SearchNotFound from "../../../../views/ViewAll/import/customer/SearchNotF
 
 
 const TABLE_HEAD = [
-    { id: 'titel', label: 'title' },
+    { id: 'titel', label: 'title',alignRight: 'center' },
 
 ];
 

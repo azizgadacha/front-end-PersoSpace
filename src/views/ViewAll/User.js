@@ -145,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const TABLE_HEAD = [
-    { id: 'username', label: 'User name', alignRight: 'left' },
+    { id: 'username', label: 'Username', alignRight: 'left' },
     { id: 'email', label: 'Email', alignRight: 'left' },
     { id: 'phone', label: 'Phone', alignRight: 'left' },
     { id: 'role', label: 'Role', alignRight: 'left' },
@@ -416,7 +416,7 @@ const User=  (props) => {
                         <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
 
 
-                            <Typography sx={{ml:1,mb:1,mt:1}} variant="h4" gutterBottom>
+                            <Typography sx={{ml:1,mb:1,mt:1}} variant="h6" gutterBottom>
                                 User Liste
                             </Typography>
                         </Stack>

@@ -335,7 +335,7 @@ let element
                     </Grid>
 
                 </Grid>
-    {location.includes("default") &&(<Customization />)}
+    {(location.includes("default")&&((!importing)) )&&(<Customization />)}
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {open.ModalState && ( <Import_Data_From_DB/>)}
     {open.ModalEditState&&(<EditWidget  type={"Widget"} />)}
