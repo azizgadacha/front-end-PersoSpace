@@ -257,6 +257,15 @@ const EditModalCore=  ({objet}) => {
                                                             payload: {text:"You are no longer connected",severity:"error"}
                                                         })
                                                     }
+                                                    else if (response.data.Existance){
+
+                                                        setStatus({ success: false });
+                                                        setSubmitting(false);
+                                                        setIsloading(false)
+                                                        setStatus({ success: false });
+                                                        setErrors({ submit: response.data.msg });
+
+                                                    }
                                                     else
                                                     {
                                                     if (response.data.success) {
