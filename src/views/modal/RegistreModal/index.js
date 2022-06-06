@@ -341,7 +341,7 @@ setIsloading(true)
                                         fd.append('sendtphoto',values.sendtphoto)
 
 
-                                        axios.post( configData.API_SERVER + 'api/users/register', fd,{ headers: {
+                                        axios.post( configData.API_SERVER + 'api/User/register', fd,{ headers: {
                                                 "Content-Type": "multipart/form-data"
                                             }})
                                             .then(function (response) {

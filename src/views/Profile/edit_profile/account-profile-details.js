@@ -126,7 +126,7 @@ console.log(_.isEqual(values, {username:account.user.username,phone:account.user
              }
                  else{
 
-                 axios.post( configData.API_SERVER + 'api/users/all', {
+                 axios.post( configData.API_SERVER + 'api/User/all', {
                      user_id:account.user._id,
                      email: values.email,
                      username:values.username,

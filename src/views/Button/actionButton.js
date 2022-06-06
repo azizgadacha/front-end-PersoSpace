@@ -1,6 +1,7 @@
 
 
 export const Edit = 'Edit';
+export const Sign_In = 'Sign In';
 export const Cancel = 'Cancel';
 export const Editing = 'Editing';
 export const Select = 'Select';

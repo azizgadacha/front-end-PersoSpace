@@ -64,7 +64,7 @@ let link
         if(type=="User")
 
             {
-                link='api/users/deleteUser'
+                link='api/User/deleteUser'
 
                 dataSend=  {token:account.token,user_id:account.user._id, userDeleted_id:obj._id}
             }
@@ -75,12 +75,12 @@ let link
 
 
                 if(obj.sourceDB){
-                    link = 'api/users/deleteLinkWidget'
+                    link = 'api/Data/deleteLinkWidget'
                     dataSend=  {token:account.token,superiorID:id,type:obj.type,WidgetName:obj.WidgetName, idData:obj.idData}}
 
 
                 else {
-                    link='api/users/deleteWidget'
+                    link='api/Widget/deleteWidget'
                     dataSend=  {token:account.token,WidgetName:obj.WidgetName, superiorID:obj.superior_id}}
 
     }

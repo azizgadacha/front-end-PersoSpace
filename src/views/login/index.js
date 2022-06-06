@@ -56,11 +56,24 @@ const Login = () => {
 
 
     const theme = useTheme();
+    const matchD= useMediaQuery((theme) => theme.breakpoints.down('md'));
+
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
     const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
+console.log("saluit")
+console.log(matchD)
+    console.log(matchDownMD)
 
+
+    console.log(matchDownLG)
+    console.log("salu8it")
+
+    console.log(matchDownMD)
+    console.log("salusit")
+
+    console.log(matchDownXL)
     return (
         <React.Fragment>
 
@@ -79,19 +92,21 @@ const Login = () => {
 
                                     <AuthCardWrapper1>
 
+                                        <Stack sx={{ justifyContent: { xs: "left", md: "left",lg:"center",xl:"center" ,alignItems:"center"} }}     spacing={1}>
+
+                                            <Grid item sx={{ mb: 3,  ml:{lg: 4,xl:4,md:0,xs:0},mt:1}} >
+                                                <RouterLink to="#">
+                                                    <Logo />
+
+                                                </RouterLink>
+                                            </Grid>
+                                        </Stack>
+
                                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={((matchDownLG||matchDownXL)&&(!matchDownMD))?2:1}>
 
-                                            <SectionStyle sx={{ display: { xs: 'none', md: 'nne',lg:'inline-block' } }}>
-                                                <Stack justifyContent="center" spacing={1}>
+                                            <SectionStyle sx={{ display: { xs: 'none', md: 'none',lg:'inline-block' } }}>
 
-                                                    <Grid item sx={{ mb: 3,  ml:4,mt:1}} >
-                                                        <RouterLink to="#">
-                                                            <Logo />
-
-                                                        </RouterLink>
-                                                    </Grid>
-                                                </Stack>
-                                                <Typography variant="h3" sx={{ px: 4, mt: 1.5, mb: 0 }}>
+                                                <Typography variant="h3" sx={{ px: 4,  mb: 0 }}>
                                                     Manage the job more effectively with Minimal effort
                                                 </Typography>
                                                 <img alt="login" src="/static/illustrations/illustration_register.png" />
@@ -99,7 +114,7 @@ const Login = () => {
 
                                             </SectionStyle>
 
-                                            <Grid container spacing={2} alignItems="center" justifyContent="center">
+                                            <Grid container spacing={1} alignItems="center" justifyContent="center">
 
 
 

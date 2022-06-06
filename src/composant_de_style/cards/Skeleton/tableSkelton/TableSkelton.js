@@ -32,10 +32,10 @@ import USERLIST from '../Static_Data/Static';
 
 
 const TABLE_HEAD = [
-    { id: 'username', label: 'User name', alignRight: 'right' },
-    { id: 'email', label: 'Email', alignRight: 'right' },
-    { id: 'phone', label: 'Phone', alignRight: 'right' },
-    { id: 'role', label: 'Role', alignRight: 'right' },
+    { id: 'username', label: 'User name', alignRight: 'left' },
+    { id: 'email', label: 'Email', alignRight: 'left' },
+    { id: 'phone', label: 'Phone', alignRight: 'left' },
+    { id: 'role', label: 'Role', alignRight: 'left' },
 
     {  id: 'action', label: '           Activites', alignLeft: 'center' }
 ];
@@ -146,7 +146,7 @@ const SkeltonTable=  (props) => {
                 filterName={filterName}
             />
                             <PerfectScrollbar>
-                                <TableContainer sx={{minWidth: 800}}>
+                                <TableContainer sx={{minWidth: 600}}>
                                     <Table>
                                         <UserListHead
                                             order={order}
@@ -178,13 +178,12 @@ const SkeltonTable=  (props) => {
                                                             >
 
                                                                 <TableCell padding="checkbox">
-                                                                    <Skeleton variant="rectangular" sx={{ml:1.5,width:15,height:15}} />
 
                                                                 </TableCell>
                                                                 <TableCell component="th" scope="row" padding="none">
                                                                     <Stack direction="row" alignItems="center" spacing={2}>
                                                                         <Skeleton variant="circular" width={40} height={40} />
-                                                                        <Skeleton width="60%" />
+                                                                        <Skeleton width="40%" />
                                                                     </Stack>
                                                                 </TableCell>
 

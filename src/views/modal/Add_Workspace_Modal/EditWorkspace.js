@@ -117,7 +117,7 @@ let {id}=useParams()
 
 
                         axios
-                            .post(configData.API_SERVER + 'api/users/editworkspace', {
+                            .post(configData.API_SERVER + 'api/Workspace/editworkspace', {
                                 token: account.token,
                                 card_id: props.card._id,
                                 WorkspaceName: values.WorkspaceName,

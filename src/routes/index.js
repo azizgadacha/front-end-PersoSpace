@@ -60,8 +60,8 @@ const Routes = () => {
 
 
 
-    let linkWidget=`/dashboard/${(arrayOfLink.length<2)?'default':(['VisualizationOfWorkspace'||'SharedWorkspaces'].includes(arrayOfLink[2]))?arrayOfLink[2]:'default'}/widget/${link==''?'':link+"/"}:id`
-
+    let linkWidget=`/dashboard/${(arrayOfLink.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(arrayOfLink[2]))?arrayOfLink[2]:'default'}/widget/${link==''?'':link+"/"}:id`
+console.log("rererezzzet")
     console.log(linkWidget)
     let linkIndex=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
     console.log(linkIndex)
@@ -79,7 +79,7 @@ const Routes = () => {
             <Redirect exact from="/" to={config.defaultPath} />
 
 
-            <Route
+            <Route exact
                 path={[
                     "/change/:token","/forget","/login"
 
@@ -107,7 +107,7 @@ const Routes = () => {
             </Route>
 
 
-            <Route
+            <Route exact
                 path={[
                     "/Profile",
                     '/ProfileEdit',
@@ -142,13 +142,13 @@ const Routes = () => {
 
 
 
-                            <Route path="/Profile" component={Profile} />
+                            <Route exact path="/Profile" component={Profile} />
 
                             <Route exact path="/ProfileEdit" component={ProfileEdit} />
 
                             <Route exact path="/ProfileEditPass" component={ProfileEdit2} />
 
-                            <Route
+                            <Route exact
                                 path={["/dashboard/SharedWorkspaces"]}
                             >
                                 <SimpleUserGuard>
@@ -160,7 +160,7 @@ const Routes = () => {
 
 
 
-                            <Route
+                            <Route exact
                                 path={['/dashboard/viewAll', linkSpace, '/dashboard/VisualizationOfWorkspace']}
                             >
                                 <AdministratorGuard>

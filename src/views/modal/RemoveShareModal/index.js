@@ -362,7 +362,7 @@ const RemoveShareModal=  (props) => {
                                     </TableContainer>
                                 </PerfectScrollbar>
                                 <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25]}
+                                    rowsPerPageOptions={[4]}
                                     component="div"
                                     count={userSt.Shared.length}
                                     rowsPerPage={rowsPerPage}

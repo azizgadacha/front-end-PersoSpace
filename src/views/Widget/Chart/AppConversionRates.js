@@ -176,7 +176,16 @@ else
     }
   });
 
-  return (
+
+
+  let loc
+  if(window.location.pathname.includes('html'))
+    loc=window.location.hash
+  else
+    loc=window.location.pathname
+
+
+return (
 
 
 
@@ -188,16 +197,20 @@ else
           <Grid item>
             <Grid container direction="column" >
               <Grid item>
-                <CardHeader title={data.data.WidgetName?data.data.WidgetName:data.data.title} />
-              </Grid>
+                  <CardHeader title={data.data.WidgetName ? data.data.WidgetName : data.data.title}/>
+
+                </Grid>
 
             </Grid>
           </Grid>
+
           <Grid item >
             <Grid item >
-             <Menu data={data.data}/>
+              {loc.includes('default')&&(
 
+                  <Menu data={data.data}/>)
 
+              }
             </Grid>
           </Grid>
         </Grid>

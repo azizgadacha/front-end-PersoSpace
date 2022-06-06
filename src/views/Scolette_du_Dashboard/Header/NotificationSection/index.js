@@ -107,6 +107,11 @@ const NotificationSection = () => {
     const [OccurenceNotification, setOccurenceNotification] = React.useState(0);
 let values=0
     let v=0
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
     useEffect(() => {
         v++
 
@@ -211,7 +216,7 @@ console.log('salut')
 
             if (IdListe.length >= 1) {
 
-                let result =await axios.post(configData.API_SERVER + 'api/users/editNotification', {token: account.token, IdListe})
+                let result =await axios.post(configData.API_SERVER + 'api/Notification/editNotification', {token: account.token, IdListe})
 
                     if (result.data.notConnected) {
                         dispatcher({type: LOGOUT});
@@ -239,7 +244,7 @@ console.log('salut')
 
                 try {
                     axios
-                        .post(configData.API_SERVER + 'api/users/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
+                        .post(configData.API_SERVER + 'api/Notification/getNotification', {token:account.token, id:account.user._id}).then((result)=>{
                         if(result.data.notConnected){
                             dispatcher({ type: LOGOUT });
                             history.push("/login");

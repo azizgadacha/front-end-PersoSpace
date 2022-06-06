@@ -187,6 +187,14 @@ export default function AppCurrentVisits(data) {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+
+  let loc
+  if(window.location.pathname.includes('html'))
+    loc=window.location.hash
+  else
+    loc=window.location.pathname
+
+
   return (
       <MainCard>
 
@@ -203,9 +211,12 @@ export default function AppCurrentVisits(data) {
               <Grid item >
                 <Grid item >
 
-   
-                  <Menu data={data.data}/>
 
+                  {loc.includes('default')&&(
+
+                      <Menu data={data.data}/>)
+
+                  }
 
                 </Grid>
               </Grid>

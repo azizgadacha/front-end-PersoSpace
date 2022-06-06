@@ -118,7 +118,7 @@ let {id}=useParams()
                             visualise=false
 
                         axios
-                            .post(configData.API_SERVER + 'api/users/editworkspace', {
+                            .post(configData.API_SERVER + 'api/Workspace/editworkspace', {
                                 token: account.token,
                                 user_id:account.user._id,
                                 visualise,

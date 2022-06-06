@@ -21,6 +21,7 @@ import {
     InputAdornment,
     InputLabel,
     OutlinedInput,
+    Grid,
     Stack,
     Typography
 } from '@material-ui/core';
@@ -38,8 +39,10 @@ import { ACCOUNT_INITIALIZE } from '../../store/actions';
 // assets
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import {Alert} from "@material-ui/lab";
+import {Alert, LoadingButton} from "@material-ui/lab";
 import config from "../../config";
+import SaveIcon from "@mui/icons-material/Save";
+import {Deleting, Sign_In} from "../Button/actionButton";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -116,7 +119,7 @@ const history=useHistory();
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'api/users/login', {
+                            .post( configData.API_SERVER + 'api/User/login', {
                                 password: values.password,
                                 email: values.email
                             })
@@ -218,7 +221,8 @@ const history=useHistory();
                                 </FormHelperText>
                             )}
                         </FormControl>
-                        <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+                        <Stack mt={2} mb direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+                            <Grid/>
                             <Typography
                                 variant="subtitle1"
 
@@ -251,7 +255,10 @@ const history=useHistory();
                             }}
                         >
                             <AnimateButton>
-                                <Button
+
+                                {isSubmitting?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start"  variant="outlined">{Sign_In}</LoadingButton>):
+
+                                    <Button
                                     disableElevation
                                     disabled={isSubmitting}
                                     fullWidth
@@ -260,8 +267,8 @@ const history=useHistory();
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign IN
-                                </Button>
+                                        {Sign_In}
+                                </Button>}
                             </AnimateButton>
                         </Box>
                     </form>

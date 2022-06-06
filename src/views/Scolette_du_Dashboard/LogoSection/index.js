@@ -12,7 +12,7 @@ import Logo from './../../../assets/Logo';
 
 const LogoSection = () => {
     return (
-        <ButtonBase disableRipple component={Link} to={config.defaultPath}>
+        <ButtonBase disableRipple sx={{mt:-2}} component={Link} to={config.defaultPath}>
             <Logo />
         </ButtonBase>
     );

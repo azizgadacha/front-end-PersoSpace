@@ -115,10 +115,10 @@ const RestWorkspace = (props) => {
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 setIsloading(true)
                     if (id) {
-                        link = 'api/users/addinsideworkspace'
+                        link = 'api/Workspace/addinsideworkspace'
                         id1=id
                     } else {
-                        link = 'api/users/addworkspace'
+                        link = 'api/Workspace/addworkspace'
                         id1=account.user._id
                     }
 

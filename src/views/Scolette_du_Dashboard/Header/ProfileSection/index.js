@@ -19,7 +19,6 @@ import {
     Typography
 } from '@material-ui/core';
 import ListItemButton from '@material-ui/core/ListItemButton';
-
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
@@ -30,7 +29,7 @@ import Transitions_menu_dash from '../../../../animation/Transitions_menu_dash';
 import { LOGOUT } from '../../../../store/actions';
 
 // assets
-import { IconLogout, IconSettings } from '@tabler/icons';
+import { IconLogout, IconSettings ,IconUser} from '@tabler/icons';
 import User1 from './../../../../assets/images/users/user-round.svg';
 import { useHistory} from "react-router-dom";
 
@@ -141,7 +140,7 @@ const ProfileSection = () => {
     const handleLogout = () => {
 
         axios
-            .post( configData.API_SERVER + 'api/users/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
+            .post( configData.API_SERVER + 'api/User/logout', {token: `${account.token}`}, { headers: { Authorization: `${account.token}` } })
             .then(function (response) {
 
                 // Force the LOGOUT
@@ -257,7 +256,7 @@ const ProfileSection = () => {
 
 
                                                     <ListItemIcon>
-                                                        <IconLogout stroke={1.5} size="1.3rem" />
+                                                        <IconUser stroke={1.5} size="1.3rem" />
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant="body2">Profile</Typography>} />
                                                 </ListItemButton>

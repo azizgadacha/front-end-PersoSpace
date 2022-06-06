@@ -175,6 +175,12 @@ export default function BarChart(data) {
         }
     });
     const [value, setValue] = React.useState('today');
+    let loc
+    if(window.location.pathname.includes('html'))
+        loc=window.location.hash
+    else
+        loc=window.location.pathname
+
 
     return (
 
@@ -196,8 +202,11 @@ export default function BarChart(data) {
                         </Grid>
                         <Grid item >
                             <Grid item >
-                                <Menu data={data.data}/>
-                            </Grid>
+                                {loc.includes('default')&&(
+
+                                    <Menu data={data.data}/>)
+
+                                }                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -197,7 +197,7 @@ const AccountProfileDetails = (props, { ...others }) => {
 
 
                   try{
-                      axios.post( configData.API_SERVER + 'api/users/editPass', {
+                      axios.post( configData.API_SERVER + 'api/User/editPass', {
                           userID:account.user._id,
                           newPassword: values.new,
                           oldPassword: values.old,
