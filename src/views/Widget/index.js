@@ -112,7 +112,7 @@ console.log(ar2)
 console.log("sallllllllllllllllllllllllllllllllldddddddddddd")
 console.log(arrayOfLink.slice(3, (arrayOfLink.length)))
 console.log(ar2)
-        const locVis=(  (location).includes('/dashboard/VisualizationOfWorkspace'))?true:null
+        const locVis=(  (location).includes('/dashboard/VisualizationOfWorkspace'))?true:undefined
 
         let clicked
 
@@ -121,9 +121,16 @@ console.log(ar2)
 
         } else
             clicked = false
+        let LocationSharing=null
+        if( location.includes('/dashboard/SharedWorkspaces')){
+            LocationSharing=true
 
+        }
+        else {
+            LocationSharing=undefined
+        }
         axios
-            .post( configData.API_SERVER + 'api/Widget/getWidget',{superior_id:id, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id ,locVis})
+            .post( configData.API_SERVER + 'api/Widget/getWidget',{superior_id:id,LocationSharing, list: ar2,token:account.token,clicked,listeNameReceive: workspaces.listeName,user_id: account.user._id ,locVis})
             .then(response =>{
 
                 dispatcher({
@@ -145,6 +152,14 @@ else  if(response.data.invalidLink){
                     history.push("/page404")
 
                 }
+else if(response.data.SharingProblem){
+                    history.push('/dashboard/SharedWorkspaces');
+                    dispatcher({
+                        type:CLICK,
+                        payload: {text:"Workspace No Longer shared with you",severity:"error"}
+                    })
+                }
+
 
                 else
 

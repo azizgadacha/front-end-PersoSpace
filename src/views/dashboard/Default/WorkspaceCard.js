@@ -166,7 +166,9 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
     let link=ar2.join('/')
 
-
+console.log('eeeeeeeeeeeeeeeeee')
+console.log(location)
+console.log(card)
 
 
     let workspaces = useSelector((state) => state.workspace);
@@ -183,8 +185,12 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         dispatcher({
             type:CLICKED
         });
+        console.log("sddddddddddddsdqsfffzefzef")
         console.log(card)
-        history.push(  `/dashboard/${(array.length<2)?'default':(['VisualizationOfWorkspace'||'SharedWorkspaces'].includes(array[2]))?array[2]:'default'}/widget/${link==""?"":(link+'/')}${card._id}`)
+        console.log(array[2])
+        console.log((array.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(array[2]))?array[2]:'default')
+       console.log(`/dashboard/${(array.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(array[2]))?array[2]:'default'}/widget/${link==""?"":(link+'/')}${card._id}`)
+        history.push(  `/dashboard/${(array.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(array[2]))?array[2]:'default'}/widget/${link==""?"":(link+'/')}${card._id}`)
 
 
     }

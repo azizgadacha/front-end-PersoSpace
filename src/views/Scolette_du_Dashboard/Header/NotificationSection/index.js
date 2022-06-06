@@ -107,6 +107,11 @@ const NotificationSection = () => {
     const [OccurenceNotification, setOccurenceNotification] = React.useState(0);
 let values=0
     let v=0
+    let location
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
     useEffect(() => {
         v++
 
