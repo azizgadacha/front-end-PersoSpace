@@ -240,7 +240,7 @@ const Customization = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Chose a widget
+                                                        Choose a widget
                                                     </Typography>
 
                                                 </Stack>

@@ -114,6 +114,7 @@ const RestWorkspace = (props) => {
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
 setIsloading(true)
+                    //le modal et les données a envoyer sont les memes just le id attribué au superior_id se différe (soit le _id de l'utilisateur au niveau 1,soit le _id du workspace parent au niveau i-1)
                     if (id) {
                         link = 'api/Workspace/addinsideworkspace'
                         id1=id
@@ -121,6 +122,7 @@ setIsloading(true)
                         link = 'api/Workspace/addworkspace'
                         id1=account.user._id
                     }
+//la liaison entre la partie front-end et la partie back-end se fait à travers ce bout de code durant lequel il y'aura l'envoie des données a utilisé et le type du méthode du contoller souhaité
 
                     try {
                         axios
@@ -172,7 +174,7 @@ setIsloading(true)
                                     history.push(configData.defaultPath)
                                     dispatcher({
                                         type: "Click",
-                                        payload: {text: "Workspace No Longer Exist", severity: "error"}
+                                        payload: {text: response.data.msg, severity: "error"}
                                     })
 
 
