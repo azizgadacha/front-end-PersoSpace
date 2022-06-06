@@ -45,6 +45,7 @@ import {useHistory, useParams} from "react-router-dom";
 
 
 const EditWorkspace = (props, { ...others }) => {
+    //On a étudié les deux cas (version Web et mobile) car le window.location.pathname(URL)différe dans les deux cas
     let location=null
     if(window.location.pathname.includes('html'))
         location=window.location.hash
@@ -68,7 +69,7 @@ const EditWorkspace = (props, { ...others }) => {
 
     ];
     let history =useHistory()
-
+    //récupération des valeus stockés dans le store
     const account = useSelector((state) => state.account);
     let open1 = useSelector((state) => state.modal);
     const [isloading, setIsloading] = useState(false);
@@ -105,22 +106,31 @@ let {id}=useParams()
                 })}
                 onSubmit={(values) => {
                     setChanged(false)
-
+                    if(window.location.pathname=='/dashboard/default'){
+                        id1=account.user._id
+                    }else{
+                        id1=id
+                    }
 
                     if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null}))
                         setChanged(true)
                     else {
-
+                        let onlyDesc=false
+                        if(values.WorkspaceName==props.card.WorkspaceName){
+                           onlyDesc=true
+                        }
                         let visualise=false
                         if(location.includes('VisualizationOfWorkspace')){
                             visualise=true
                         }else
                             visualise=false
-
+//la liaison entre la partie front et la partie back se fait à travers ce bout de code durant lequel il y'aura l'envoie des données a utilisé et le type du méthode du contoller souhaité
                         axios
                             .post(configData.API_SERVER + 'api/Workspace/editworkspace', {
                                 token: account.token,
                                 user_id:account.user._id,
+                                superior_id:id1,
+                                onlyDesc,
                                 visualise,
                                 card_id: props.card._id,
                                 WorkspaceName: values.WorkspaceName,
@@ -184,10 +194,11 @@ let {id}=useParams()
                                             type: ClOSE_EDIT_MODAL,
                                         }
                                     )
-                                    history.go(0)
+
+                                    history.push(configData.defaultPath)
                                     dispatcher({
                                         type: "Click",
-                                        payload: {text: "Workspace No Longer Exist", severity: "error"}
+                                        payload: {text:response.data.msg, severity: "error"}
                                     })
                                 }
                             }})

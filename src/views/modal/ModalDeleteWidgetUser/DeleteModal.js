@@ -86,6 +86,7 @@ let link
     }
         setIsloading(true)
 
+//la liaison entre la partie front et la partie back se fait à travers ce bout de code durant lequel il y'aura l'envoie des données a utilisé et le type du méthode du contoller souhaité
 
         axios
             .post( configData.API_SERVER + link,dataSend)
