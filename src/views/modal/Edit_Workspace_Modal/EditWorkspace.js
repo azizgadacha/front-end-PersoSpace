@@ -169,7 +169,9 @@ let {id}=useParams()
 
                                 }
 
-                                else{
+
+                                else (response.data.existe)
+                                {
 
                                 if (response.data.success) {
                                     setIsloading(false)

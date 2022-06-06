@@ -260,7 +260,6 @@ const EditModalCore=  ({objet}) => {
                                                     }
                                                     else if (response.data.Existance){
 
-                                                        setStatus({ success: false });
                                                         setSubmitting(false);
                                                         setIsloading(false)
                                                         setStatus({ success: false });
