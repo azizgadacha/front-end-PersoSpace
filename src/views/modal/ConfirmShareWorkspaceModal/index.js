@@ -105,7 +105,7 @@ const Modal_confirm=  (props) => {
 
 
 
-
+//our selecors
     const dispatcher = useDispatch();
     let account = useSelector((state) => state.account);
     let socket = useSelector((state) => state.socket);
@@ -152,10 +152,6 @@ const Modal_confirm=  (props) => {
                 user_id:account.user._id
             })
             .then(response =>{
-                console.log(response.data)
-                console.log(response.data.workspace)
-                console.log(response.data.success)
-                console.log(response.data.notification)
                 if(response.data.notConnected){
                     dispatcher({ type: LOGOUT });
                     history.push("/login");
@@ -242,7 +238,6 @@ const Modal_confirm=  (props) => {
                     }
                 }})
             .catch(function (error) {
-                console.log(error)
                 dispatcher({
                     type:INISIALIZE_SHARED_USER,
                     payload:{card:props.card}

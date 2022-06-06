@@ -107,8 +107,6 @@ let {id}=useParams()
 
                 })}
                 onSubmit={(values,{ setErrors, setStatus, setSubmitting }) => {
-                    console.log("test")
-                    console.log("test")
                     setIsloading(true)
                     setChanged(false)
                     if(location=='/dashboard/default'){
@@ -187,7 +185,6 @@ let {id}=useParams()
                                     });
 
                                 }else if (response.data.Existance){
-console.log("yoyo")
                                     setStatus({ success: false });
                                     setSubmitting(false);
                                     setIsloading(false)

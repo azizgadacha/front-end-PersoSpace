@@ -45,7 +45,6 @@ const DeleteModalCore = ({obj,type}) => {
 
     const [isloading, setIsloading] = useState(false);
     const account = useSelector((state) => state.account);
-    //const [openModal,setOpenModal]=useState(false);
 
     const dispatcher = useDispatch();
     let history =useHistory()

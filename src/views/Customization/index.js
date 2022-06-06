@@ -90,9 +90,7 @@ maxWidth:'98%',
 
 const Customization = () => {
     let modal = useSelector((state) => state.modal);
-
-    const [open, setOpen] = React.useState(false);
-
+    let widget = useSelector((state) => state.widget);
     const dispatcher = useDispatch();
     const handleCloseback = (event, reason) => {
         if (reason && reason == "backdropClick")
@@ -159,7 +157,7 @@ const Customization = () => {
             type:OPEN_WIDGET_MODAL,
 
         });    };
-    let widget = useSelector((state) => state.widget);
+
     useEffect(() => {
         return () => {
             dispatcher({

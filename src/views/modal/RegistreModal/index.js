@@ -206,8 +206,9 @@ minWidth,
 
 
 
+//our selectors
 
-
+    let account = useSelector((state) => state.account);
     const [isloading, setIsloading] = useState(false);
 
     const states = [
@@ -254,7 +255,6 @@ minWidth,
 
     const dispatcher = useDispatch();
 
-    let account = useSelector((state) => state.account);
 
 
 

@@ -98,20 +98,17 @@ const [importing,setImporting]=useState(true)
 
 
     let arrayOfLink=location.split("/")
-    console.log("fffezetzeteztzette")
-    console.log(arrayOfLink)
+
+
 
 
     const ar2 = arrayOfLink.slice(4, (arrayOfLink.length));
 
-console.log(ar2)
+
 
 
     let link=ar2.join('/')
     useEffect(() => {
-console.log("sallllllllllllllllllllllllllllllllldddddddddddd")
-console.log(arrayOfLink.slice(3, (arrayOfLink.length)))
-console.log(ar2)
         const locVis=(  (location).includes('/dashboard/VisualizationOfWorkspace'))?true:undefined
 
         let clicked
@@ -166,8 +163,6 @@ else if(response.data.SharingProblem){
                 {
 
 
-console.log("salut")
-console.log(response.data.listeName)
                     dispatcher({
                             type:INISIALIZE_LISTE,
                             payload: { listeName: response.data.listeName}
@@ -197,12 +192,9 @@ console.log(response.data.listeName)
             if(workspaces.listeName.length>4) {
 
                 const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
-console.log("sal")
-console.log("sal")
-                listOfBar= subliste.map((item) => {
-                    console.log("sa^^^^^^^^^^^^^^^^^^^^^^^^^^^^l")
 
-                    console.log(item)
+                listOfBar= subliste.map((item) => {
+
                     return (
 
 
@@ -213,10 +205,8 @@ console.log("sal")
                 })
 
             } else{
-                console.log("sa^^^^^^^^^^^^^^^^^^^^^^^^^^^^l2.0")
 
                 listOfBar= workspaces.listeName.map((item) => {
-                    console.log(item)
 
                     return (
 

@@ -136,7 +136,6 @@ const Item = ({ item }) => {
         location=window.location.pathname
     let arrayOfLink=location.split("/")
 
-   console.log( item)
 
     let history =useHistory()
 
@@ -146,14 +145,11 @@ history.push(arrayOfLink[1])
 
         }else {
         let index1
-console.log('ddddddddddddddddddegsqdsdsd')
-console.log(workspaces.listeName)
         workspaces.listeName.find(function(itemOfListe, i){
             if(item[1] === itemOfListe[1]){
                 index1 = i;
 
                 return i;
-                //console.log(i)
 
             }
         });
@@ -174,9 +170,9 @@ console.log(workspaces.listeName)
 
     const matchDownLg = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-console.log("salu")
-console.log(matchDownLg)
-console.log(matchDownXL)
+
+
+
     return (
         <ListItem sx={{maxWidth:"100px"}}  key={item[1]} disablePadding>
             <ListItemButton        style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>

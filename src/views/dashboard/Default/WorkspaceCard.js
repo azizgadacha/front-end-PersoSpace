@@ -153,6 +153,15 @@ const useStyles = makeStyles((theme) => ({
 //===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
 
 const WorkspaceCard = ({ isLoading,card,username }) => {
+
+    let workspaces = useSelector((state) => state.workspace);
+    let history =useHistory()
+    let userSt= useSelector((state) => state.user);
+    let open = useSelector((state) => state.modal);
+    const account = useSelector((state) => state.account);
+
+
+
     let location
     if(window.location.pathname.includes('html'))
         location=window.location.hash
@@ -160,22 +169,8 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         location=window.location.pathname
 
     let array=location.split("/")
-
-
     const ar2 = array.slice(3, (array.length));
-
     let link=ar2.join('/')
-
-console.log('eeeeeeeeeeeeeeeeee')
-console.log(location)
-console.log(card)
-
-
-    let workspaces = useSelector((state) => state.workspace);
-
-    let history =useHistory()
-    let userSt= useSelector((state) => state.user);
-
     const classes = useStyles();
     const  OpenWidget=()=>{
         dispatcher({
@@ -185,11 +180,7 @@ console.log(card)
         dispatcher({
             type:CLICKED
         });
-        console.log("sddddddddddddsdqsfffzefzef")
-        console.log(card)
-        console.log(array[2])
-        console.log((array.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(array[2]))?array[2]:'default')
-       console.log(`/dashboard/${(array.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(array[2]))?array[2]:'default'}/widget/${link==""?"":(link+'/')}${card._id}`)
+
         history.push(  `/dashboard/${(array.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(array[2]))?array[2]:'default'}/widget/${link==""?"":(link+'/')}${card._id}`)
 
 
@@ -208,7 +199,6 @@ console.log(card)
         setAnchorEl(null);
     };
 
-    let open = useSelector((state) => state.modal);
     const dispatcher = useDispatch();
     let {id}=useParams()
     const click = () => {
@@ -306,8 +296,8 @@ console.log(card)
 
     let listeUser =   card.Share.map((user)  => {
         let index=null
-        console.log((user))
-        console.log((userSt.users))
+
+
          userSt.users.find(function(item, i){
             if((item._id===user.sharedWith)){
                 index = i;
@@ -315,7 +305,7 @@ console.log(card)
 
             }
         });
-        console.log(index)
+
 
 
         return(
@@ -328,7 +318,6 @@ console.log(card)
 
 
     })
-    const account = useSelector((state) => state.account);
 
     return (
             <React.Fragment>

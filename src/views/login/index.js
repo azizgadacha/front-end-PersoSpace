@@ -62,18 +62,18 @@ const Login = () => {
     const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
     const matchDownMD= useMediaQuery(theme.breakpoints.down('md'));
     const matchDownXL = useMediaQuery(theme.breakpoints.down('xl'));
-console.log("saluit")
-console.log(matchD)
-    console.log(matchDownMD)
 
 
-    console.log(matchDownLG)
-    console.log("salu8it")
 
-    console.log(matchDownMD)
-    console.log("salusit")
 
-    console.log(matchDownXL)
+
+
+
+
+
+
+
+
     return (
         <React.Fragment>
 
