@@ -104,7 +104,9 @@ let {id}=useParams()
                         .optional().required("description is required")
 
                 })}
-                onSubmit={(values) => {
+                onSubmit={(values,{ setErrors, setStatus, setSubmitting }) => {
+                    console.log("test")
+                    console.log("test")
                     setChanged(false)
                     if(location=='/dashboard/default'){
                         id1=account.user._id
@@ -166,6 +168,13 @@ let {id}=useParams()
                                         type:CLICK,
                                         payload: {text:'You are no longer an administrator',severity:"error"}
                                     });
+
+                                }else if (response.data.Existance){
+console.log("yoyo")
+                                    setStatus({ success: false });
+                                    setSubmitting(false);
+                                    setIsloading(false)
+                                    setErrors({ submit: response.data.msg });
 
                                 }
 
