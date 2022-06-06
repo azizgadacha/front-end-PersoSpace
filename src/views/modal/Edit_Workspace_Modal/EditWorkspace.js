@@ -37,10 +37,12 @@ import AnimateButton from "../../../animation/AnimateButton";
 
 import Password_verify from "../../modal/password_verify_modal";
 import _ from "lodash";
-import {Cancel, Edit} from "../../Button/actionButton";
+import {Cancel, Changing, Edit, Editing} from "../../Button/actionButton";
 import configData from "../../../config";
 import axios from "axios";
 import {useHistory, useParams} from "react-router-dom";
+import {LoadingButton} from "@material-ui/lab";
+import SaveIcon from "@mui/icons-material/Save";
 
 
 
@@ -107,6 +109,7 @@ let {id}=useParams()
                 onSubmit={(values,{ setErrors, setStatus, setSubmitting }) => {
                     console.log("test")
                     console.log("test")
+                    setIsloading(true)
                     setChanged(false)
                     if(location=='/dashboard/default'){
                         id1=account.user._id
@@ -114,9 +117,18 @@ let {id}=useParams()
                         id1=id
                     }
 
-                    if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null}))
+                    if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null})) {
+                        setStatus({success: false});
+                        setSubmitting(false);
+                        setIsloading(false)
+                        setErrors({submit: "you didn't change any things"});
+                        setIsloading(true)
+
                         setChanged(true)
-                    else {
+                    }
+
+
+                else {
                         let onlyDesc=false
                         if(values.WorkspaceName==props.card.WorkspaceName){
                            onlyDesc=true
@@ -141,7 +153,10 @@ let {id}=useParams()
                             .then(function (response) {
 
                                 if(response.data.notConnected){
+                                    setIsloading(true)
+
                                     dispatcher({ type: LOGOUT });
+
                                     history.push("/login");
                                     dispatcher({
                                         type:CLICK,
@@ -149,6 +164,8 @@ let {id}=useParams()
                                     })
                                 }
                                 else if(response.data.adminstratorProblem){
+                                    setIsloading(true)
+
                                     dispatcher({
                                         type:UPDATE,
                                         payload: {user:response.data.user}
@@ -175,11 +192,15 @@ console.log("yoyo")
                                     setSubmitting(false);
                                     setIsloading(false)
                                     setErrors({ submit: response.data.msg });
+                                    setIsloading(true)
+
+                                    setChanged(true)
+
 
                                 }
 
 
-                                else (response.data.existe)
+                                else
                                 {
 
                                 if (response.data.success) {
@@ -194,6 +215,8 @@ console.log("yoyo")
                                             type: ClOSE_EDIT_MODAL,
                                         }
                                     )
+                                    setIsloading(true)
+
                                     dispatcher({
                                         type: "Click",
                                         payload: {text: "Workspace Edited successfully", severity: "success"}
@@ -238,7 +261,11 @@ console.log("yoyo")
                                             type="text"
                                             value={values.WorkspaceName}
                                             onBlur={handleBlur}
-                                            onChange={handleChange}
+                                            onChange={(e)=>{
+
+                                                setChanged(false)
+
+                                                handleChange(e)}}
                                             error={touched.WorkspaceName && Boolean(errors.WorkspaceName)}
                                         />
                                         {touched.WorkspaceName && errors.WorkspaceName && (
@@ -257,7 +284,11 @@ console.log("yoyo")
                                             type="text"
                                             value={values.description}
                                             onBlur={handleBlur}
-                                            onChange={handleChange}
+                                            onChange={(e)=>{
+
+                                                setChanged(false)
+
+                                                handleChange(e)}}
                                             error={touched.description && Boolean(errors.description)}
                                         />
                                         {touched.description && errors.description && (
@@ -267,6 +298,11 @@ console.log("yoyo")
                                         )}
                                     </Grid>
                                 </Grid>
+
+
+
+
+
                         { changed&&(
                             <Grid
                                 item
@@ -274,7 +310,7 @@ console.log("yoyo")
                                 xs={12}
                             >
                                 <Alert variant="filled" autoHideDuration={4000} severity="error">
-                                    You didn't change any things
+                                    {errors.submit}
                                 </Alert>
                             </Grid>)}
                         <Grid container alignItems={"center"}>
@@ -290,12 +326,14 @@ console.log("yoyo")
 
                                         }}
                                 >
-                                    <Button
+                                    {isloading?(<LoadingButton variant="contained"   fullWidth size="large" loading loadingPosition="start" startIcon={<SaveIcon />} variant="outlined">{Editing}</LoadingButton>):
+
+                                        <Button
                                         fullWidth
                                         type="submit"
                                         size="large"
                                         variant="contained"
-                                        color="secondary">{Edit} </Button>
+                                        color="secondary">{Edit} </Button>}
 
                                 </Box>
                             </Grid>
@@ -309,7 +347,7 @@ console.log("yoyo")
                                 >
                                     <AnimateButton>
 
-                                        <Button disableElevation  size="large"  onClick={props.handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
+                                        <Button disableElevation disabled={isloading}  size="large"  onClick={props.handleClose} fullWidth variant="contained" color="error">{Cancel}</Button>
                                     </AnimateButton>
 
                                 </Box>
