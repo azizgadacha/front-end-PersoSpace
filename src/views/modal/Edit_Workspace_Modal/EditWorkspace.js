@@ -106,7 +106,7 @@ let {id}=useParams()
                 })}
                 onSubmit={(values) => {
                     setChanged(false)
-                    if(window.location.pathname=='/dashboard/default'){
+                    if(location=='/dashboard/default'){
                         id1=account.user._id
                     }else{
                         id1=id
