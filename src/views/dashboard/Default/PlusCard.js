@@ -25,9 +25,9 @@ const useStyles = makeStyles({
 
 const PlusCard = () => {
     const theme = useTheme();
-
     const dispatcher = useDispatch();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    let open1 = useSelector((state) => state.modal);
 
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const PlusCard = () => {
         }
     }, [])
     const classes = useStyles();
-    let open1 = useSelector((state) => state.modal);
+
 
 
     const handleClick = () => {

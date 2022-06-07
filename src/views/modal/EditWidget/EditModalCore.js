@@ -164,6 +164,8 @@ const useStyles = makeStyles((theme) => ({
 
 const EditModalCore=  ({objet}) => {
     const [isloading, setIsloading] = useState(false);
+    let open1 = useSelector((state) => state.modal);
+
 
     const states = [
         {
@@ -196,7 +198,6 @@ const EditModalCore=  ({objet}) => {
 
 
 
-    let open1 = useSelector((state) => state.modal);
 
     const handleClose=()=>{
 
@@ -302,7 +303,6 @@ const EditModalCore=  ({objet}) => {
                                                     }}
                                                 )
                                                 .catch(function (error) {
-                                                    console.log(error)
                                                     setIsloading(false)
                                                     dispatcher({
                                                         type:ClOSE_EDIT_MODAL,
@@ -315,7 +315,6 @@ const EditModalCore=  ({objet}) => {
                                                     });
                                                 });
                                         } catch (err) {
-                                            console.log(err)
 
 
                                                 setStatus({ success: false });

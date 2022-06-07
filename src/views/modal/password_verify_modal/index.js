@@ -75,20 +75,10 @@ maxWidth:'100%',
 
 
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-
-
-
-
-
-
-
-
-
-
-
-    const dispatcher = useDispatch();
-
     let account = useSelector((state) => state.account);
+    const dispatcher = useDispatch();
+    let open1 = useSelector((state) => state.modal);
+
 
 
 
@@ -102,7 +92,6 @@ maxWidth:'100%',
 
 
 
-    let open1 = useSelector((state) => state.modal);
 
     const handleCloseModal = ()=> {
 

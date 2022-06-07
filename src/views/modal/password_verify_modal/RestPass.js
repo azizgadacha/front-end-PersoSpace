@@ -27,7 +27,7 @@ import axios from 'axios';
 
 // project imports
 
-//use ref ta3mil ref  lil objet   min il react
+
 
 import AnimateButton from '../../../animation/AnimateButton';
 
@@ -100,14 +100,15 @@ const useStyles = makeStyles((theme) => ({
 
 const RestPass = (props, { ...others }) => {
     const [verifPass, setVerifPass] = useState(false);
-
+    let account = useSelector((state) => state.account);
+    const [isloading, setIsloading] = useState(false);
 
     const handleClose=()=>{
         dispatcher({
                        type:CLOSE_MODAL,
                    });
     }
-    let account = useSelector((state) => state.account);
+
 
     const classes = useStyles();
     let history = useHistory();
@@ -136,7 +137,6 @@ const RestPass = (props, { ...others }) => {
 
             }
 
-    const [isloading, setIsloading] = useState(false);
     const dispatcher = useDispatch();
 
     return (

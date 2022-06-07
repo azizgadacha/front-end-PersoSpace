@@ -58,7 +58,7 @@ import {makeStyles} from "@material-ui/styles";
 import SaveIcon from "@mui/icons-material/Save";
 import RestWorkspace from "./RestWorkspace";
 import CloseIcon from "@mui/icons-material/Close";
-import EditWorkspace from "./EditWorkspace";
+
 
 // ----------------------------------------------------------------------
 

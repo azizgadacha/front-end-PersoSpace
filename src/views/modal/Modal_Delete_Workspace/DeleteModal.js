@@ -75,12 +75,8 @@ const useStyles = makeStyles((theme) => ({
 const DeleteWorkspace = (props) => {
 
     let history =useHistory()
-
     const [isloading, setIsloading] = useState(false);
-
-
     const account = useSelector((state) => state.account);
-    //const [openModal,setOpenModal]=useState(false);
     let open = useSelector((state) => state.modal);
     const workspaces = useSelector((state) => state.workspace);
     let location=null

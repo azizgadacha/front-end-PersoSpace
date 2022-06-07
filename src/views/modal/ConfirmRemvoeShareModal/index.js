@@ -201,6 +201,7 @@ const Modal_confirm=  (props) => {
 
 
     let userSt= useSelector((state) => state.user);
+    let open1 = useSelector((state) => state.modal);
 
 
 
@@ -230,7 +231,6 @@ const Modal_confirm=  (props) => {
 
 
     const theme = useTheme();
-    let open1 = useSelector((state) => state.modal);
     let location=null
     if(window.location.pathname.includes('html'))
         location=window.location.hash

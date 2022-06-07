@@ -49,12 +49,23 @@ const Dashboard = (props, { ...others }) => {
         left: '0%',
         padding: '50px',
     }
-
+//our Selectors and states
     const account = useSelector((state) => state.account);
+    const [succes, setSucces] = useState(false);
+    const [isload, setLoad] = useState(true);
+
+    const [isLoading, setLoading] = useState(true);
+    const [UserLoading, setUserLoading] = useState(true);
+    let userSt= useSelector((state) => state.user);
+
+
+    const [success,setSucess]=useState(false)
+    const [USERLIST,setUSERLIST]=useState([])
+    let workspaces = useSelector((state) => state.workspace);
+    let open = useSelector((state) => state.modal);
 
     const { url, path } = useRouteMatch();
 
-    let socket,selectedChatCompare
     const dispatcher = useDispatch();
 
 
@@ -79,18 +90,7 @@ const Dashboard = (props, { ...others }) => {
 
     const load=[1,2,3,4,5,6]
 
-    const [succes, setSucces] = useState(false);
-    const [isload, setLoad] = useState(true);
 
-    const [isLoading, setLoading] = useState(true);
-    const [UserLoading, setUserLoading] = useState(true);
-    let userSt= useSelector((state) => state.user);
-
-
-    const [success,setSucess]=useState(false)
-    const [USERLIST,setUSERLIST]=useState([])
-    let workspaces = useSelector((state) => state.workspace);
-    let open = useSelector((state) => state.modal);
 
     function handleClose  () {
         dispatcher({
@@ -115,7 +115,7 @@ const Dashboard = (props, { ...others }) => {
 
 
     useEffect(() => {
-console.log("haja")
+
         axios
             .post(configData.API_SERVER + 'api/User/all', {
                 user_id:account.user._id,

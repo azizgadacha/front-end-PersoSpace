@@ -97,7 +97,7 @@ const WorkspaceReducer = (state = initialState, action) => {
             };
         case UPDATE_WORKSPACE:
             const Work=action.payload.work
-console.log(Work)
+
            let index2 = 0;
             var filteredObj = state.Workspace.find(function(item, i){
 
@@ -108,9 +108,9 @@ console.log(Work)
                 }
             });
 
-console.log(index2)
+
             state.Workspace[index2]=Work
-console.log( state.Workspace)
+
 
 
             return {
@@ -143,7 +143,7 @@ console.log( state.Workspace)
                 if((item.WorkspaceName === deleteinsideWork[0].WorkspaceName)&&(item.description===deleteinsideWork[0].description)){
                     index1 = i;
                     return i;
-                    //console.log(i)
+
 
                 }
             });

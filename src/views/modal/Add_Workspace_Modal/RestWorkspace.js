@@ -92,7 +92,6 @@ const RestWorkspace = (props) => {
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState('');
     const account = useSelector((state) => state.account);
-    //const [openModal,setOpenModal]=useState(false);
     const dispatcher = useDispatch();
     let link
     let id1

@@ -205,7 +205,7 @@ let values=0
                     j++
 
                     if (!elem[1].read) {
-console.log('salut')
+
                         //elem[1].read=!elem[1].read
                         IdListe.push(elem[1]._id)
                     }

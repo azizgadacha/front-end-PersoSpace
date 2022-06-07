@@ -108,14 +108,10 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
           onSubmit={(values) => {
               setIsloading(true)
               setNotChanged(false)
-console.log("ddddddddddzzz99999")
-console.log(values)
-console.log({username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null})
-console.log("zzzrrrrrarzrzar")
-console.log(file)
-console.log(file)
-console.log((file===`${configData.API_SERVER}${account.user.photo}`))
-console.log(_.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))
+
+
+
+
              if( (_.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))&&(file===`${configData.API_SERVER}${account.user.photo}`))
              {
                  setIsloading(false)
@@ -205,8 +201,8 @@ console.log(_.isEqual(values, {username:account.user.username,phone:account.user
                   container
                   spacing={3}
               >
-                  {console.log("dddddddddzzaezzarrzrz")}
-                  {console.log(notChanged)}
+
+
                   { notChanged&&(
                   <Grid
                       item
@@ -232,8 +228,8 @@ console.log(_.isEqual(values, {username:account.user.username,phone:account.user
                               setNotChanged(false)
                               handleChange(e)
 
-                              console.log("ssssszdddddzdzkll")
-                              console.log(notChanged)
+
+
 
                           }}
 
