@@ -174,7 +174,7 @@ history.push(arrayOfLink[1])
 
 
     return (
-        <ListItem sx={{maxWidth:"100px"}}  key={item[1]} disablePadding>
+        <ListItem className={'BareItem'}  key={item[1]} disablePadding>
             <ListItemButton        style={{ backgroundColor: 'transparent' }} onClick={()=>{handleClickItem(item)}}>
                 <ListItemIcon>
 

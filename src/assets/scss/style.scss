@@ -199,4 +199,6 @@
     margin-top: -20%;
 }
 .BareItem {
-    display: inline-block;}
+display:flex;
+    flex-wrap: wrap;
+}
