@@ -309,7 +309,7 @@ const Modal_confirm=  (props) => {
                                                             Confirmm Share
                                                         </Typography>
                                                         <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''} align="center">
-                                                            Are you sure to Share this Workspace with {props.name} ?
+                                                            Are you sure to Share this Workspace with {props.user.username} ?
                                                         </Typography>
                                                     </Stack>
 

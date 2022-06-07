@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translate(-50%, -50%)',
         width: 500,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: '1px solid #000',
         boxShadow: 24,
         pt: 2,
         px: 4,
@@ -202,6 +202,7 @@ const Modal_confirm=  (props) => {
 
     let userSt= useSelector((state) => state.user);
     let open1 = useSelector((state) => state.modal);
+    let socket = useSelector((state) => state.socket);
 
 
 
@@ -282,7 +283,7 @@ const Modal_confirm=  (props) => {
                     if (response.data.success) {
                         dispatcher({
                             type:UPDATE_WORKSPACE,
-                            payload: {work:response.data.w}
+                            payload: {work:response.data.Workspace}
                         })
                         dispatcher({
                             type:INISIALIZE_SHARED_USER,
@@ -303,6 +304,10 @@ const Modal_confirm=  (props) => {
                             type: CLICK,
                             payload: {text: "User has been Removed successfully", severity: "success"}
                         })
+
+                        if (response.data.notification)
+                        socket.socket.emit("RemoveShareNotification",{NotificationListe:[response.data.notification]})
+
 
                     }
                     else if(response.data.adminstratorProblem){
@@ -400,9 +405,12 @@ const Modal_confirm=  (props) => {
                                                     >
                                                         Remove Share
                                                     </Typography>
-                                                    <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Are you sure to Remove {props.name} from {props.card.WorkspaceName} ?
+                                                    <Stack alignItems="center" justifyContent="center" spacing={1}>
+
+                                                        <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''} align="center">
+                                                        Are you sure to Remove Share for {props.user.username} from {props.card.WorkspaceName} ?
                                                     </Typography>
+                                                    </Stack>
                                                 </Stack>
 
 

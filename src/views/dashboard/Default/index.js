@@ -291,9 +291,9 @@ const Dashboard = (props, { ...others }) => {
 
         var liste =()=>{
 
-            if(workspaces.listeName.length>2) {
+            if(workspaces.listeName.length>4) {
 
-                const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-3) ,(workspaces.listeName.length));
+                const subliste = (workspaces.listeName).slice(((workspaces.listeName.length)-5) ,(workspaces.listeName.length));
 
                 listOfBar= subliste.map((item) => {
 

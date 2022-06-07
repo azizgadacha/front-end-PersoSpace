@@ -43,6 +43,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import {Add, Adding, Cancel} from "../../Button/actionButton";
 import {useHistory} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
+import CloseIcon from "@mui/icons-material/Close";
 
 // ----------------------------------------------------------------------
 
@@ -181,7 +182,7 @@ const User=  (props) => {
         zIndex:100,
 minWidth,
         borderRadius: 5,
-
+maxHeight:"90%",
 
         position: 'absolute',
         top: '50%',
@@ -306,6 +307,9 @@ minWidth,
                     <Fade in={open1.ModalState}>
 
                     <Box sx={{ ...style,  }}>
+                        <IconButton sx={{float:'right'}}               aria-label="close">
+                            <CloseIcon onClick={handleClose}  color="disabled"      />
+                        </IconButton>
                         <ThemeConfig>
 
                             <Formik

@@ -37,7 +37,7 @@ import configData from "../../../../config";
 import {useDispatch, useSelector} from "react-redux";
 import {
     ADD_NOTIFICATION,
-    CLICK,
+    CLICK, DELETE_NOTIFICATION,
     EDIT_NOTIFICATION,
     INISIALIZE_NOTIFICATION,
     INISIALIZE_SOCKET,
@@ -171,6 +171,16 @@ let values=0
                 type: ADD_NOTIFICATION, payload: {notification: data.notification}
             });
         })
+
+        await socket.socket?.on("delete_Notification_from_user", (data) => {
+
+
+            dispatcher({
+                type: DELETE_NOTIFICATION, payload: {notification: data.notification}
+            });
+        })
+
+
     },[socket.socket])
 
 
@@ -280,7 +290,7 @@ let values=0
 
         activationmail()
 
-    },[])
+    },[location])
 
 
 

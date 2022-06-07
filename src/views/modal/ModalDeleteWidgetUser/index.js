@@ -23,13 +23,14 @@ import {CLOSE_DELETE_MODAL, CLOSE_MODAL,} from "../../../store/actions";
 
 import {
 
-    Grid,
-     useMediaQuery,
+    Grid, IconButton,
+    useMediaQuery,
 } from "@material-ui/core";
 
 import {makeStyles} from "@material-ui/styles";
 import Modal_Delete from "../Modal_delete";
 import DeleteModalCore from "./DeleteModal";
+import CloseIcon from "@mui/icons-material/Close";
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +45,8 @@ const OVERLAY_Styles ={
 }
 const style = {
 
-    padding:'50px',
+    padding:'20px',
+    paddingBottom:'42px',
     zIndex:100,
       maxWidth:'95%',
     borderRadius: 3,
@@ -133,7 +135,10 @@ const User=  (props) => {
                     <Fade in={open1.ModalDeleteState}>
 
                         <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
-                        <ThemeConfig>
+                            <IconButton sx={{float:'right'}}               aria-label="close">
+                                <CloseIcon onClick={handleCloseModal}  color="disabled"      />
+                            </IconButton>
+                            <ThemeConfig>
 
                                 <Modal_Delete  obj={open1.objet} type={props.type} />
                                 <Grid container alignItems={"center"}>

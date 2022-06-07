@@ -53,14 +53,17 @@ let elem =[notification.user,notification.notification]
 
 
             let index = 0;
+            let founded = 0;
 
            state.notificationListe.find(function(item, i){
 
-                if(item._id === deleteNotification._id){
+                if(item[1]._id === deleteNotification._id){
                     index = i;
+                    founded=true
                     return i;
                 }
             });
+           if(founded)
             state.notificationListe.splice(index,1)
 
             return {

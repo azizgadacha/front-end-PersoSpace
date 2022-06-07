@@ -23,13 +23,14 @@ import {ClOSE_EDIT_MODAL, CLOSE_MODAL,} from "../../../store/actions";
 
 import {
 
-    Grid,
-     useMediaQuery,
+    Grid, IconButton,
+    useMediaQuery,
 } from "@material-ui/core";
 
 import {makeStyles} from "@material-ui/styles";
 import EditModalCore from "./EditModalCore";
 import EditModal from "../EditModalHeder/EditModal";
+import CloseIcon from "@mui/icons-material/Close";
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +45,7 @@ const OVERLAY_Styles ={
 }
 const style = {
 
-    padding:'50px',
+    padding:'20px',
     zIndex:100,
     maxWidth:"90%",
 
@@ -114,6 +115,9 @@ const User=  (props) => {
                     <Fade in={open1.ModalEditState}>
 
                         <Box sx={matchDownSM? {width:300,...style}:{width:450,...style} } >
+                            <IconButton sx={{float:'right'}}               aria-label="close">
+                                <CloseIcon onClick={handleClose}  color="disabled"      />
+                            </IconButton>
                         <ThemeConfig>
 
                                 <EditModal type={props.type} name={open1.objet.username} />

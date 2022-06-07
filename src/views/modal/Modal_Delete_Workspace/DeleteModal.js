@@ -130,6 +130,8 @@ const DeleteWorkspace = (props) => {
                             type: CLICK,
                             payload: {text: "Workspace Removed successfully", severity: "success"}
                         })
+
+
                     }
                     else if(response.data.adminstratorProblem){
                         dispatcher({

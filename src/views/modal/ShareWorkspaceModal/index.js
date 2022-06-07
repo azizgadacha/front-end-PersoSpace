@@ -107,6 +107,8 @@ let maxWidth=matchDownSM?'90%':matchDownMD?"98%":null;
         borderRadius: 5,
 maxWidth,
         minWith,
+        maxHeight:"97%",
+
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -157,7 +159,7 @@ maxWidth,
     const [selected, setSelected] = useState([]);
     const [orderBy, setOrderBy] = useState('username');
     const [filterName, setFilterName] = useState('');
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(4);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
