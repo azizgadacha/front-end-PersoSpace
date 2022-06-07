@@ -33,9 +33,7 @@ import USERLIST from '../Static_Data/Static';
 
 const TABLE_HEAD = [
     { id: 'username', label: 'User name', alignRight: 'left' },
-    { id: 'email', label: 'Email', alignRight: 'left' },
-    { id: 'phone', label: 'Phone', alignRight: 'left' },
-    { id: 'role', label: 'Role', alignRight: 'left' },
+
 
     {  id: 'action', label: '           Activites', alignLeft: 'center' }
 ];
@@ -146,8 +144,8 @@ const SkeltonTable=  (props) => {
                 filterName={filterName}
             />
                             <PerfectScrollbar>
-                                <TableContainer sx={{minWidth: 600}}>
-                                    <Table>
+                                <TableContainer sx={{minWidth:"100%"}} >
+                                    <Table  sx={{ml:2 ,minWidth:"30%"}} >
                                         <UserListHead
                                             order={order}
                                             orderBy={orderBy}
@@ -175,11 +173,10 @@ const SkeltonTable=  (props) => {
                                                                 role="checkbox"
                                                                 selected={isItemSelected}
                                                                 aria-checked={isItemSelected}
+                                                                sx={{minWidth:"100%"}}
+
                                                             >
 
-                                                                <TableCell padding="checkbox">
-
-                                                                </TableCell>
                                                                 <TableCell component="th" scope="row" padding="none">
                                                                     <Stack direction="row" alignItems="center" spacing={2}>
                                                                         <Skeleton variant="circular" width={40} height={40} />
@@ -188,10 +185,6 @@ const SkeltonTable=  (props) => {
                                                                 </TableCell>
 
 
-                                                                <TableCell align="left">  <Skeleton width="60%" /></TableCell>
-                                                                <TableCell align="left">  <Skeleton width="60%" /></TableCell>
-
-                                                                <TableCell align="left">  <Skeleton width="60%" /></TableCell>
 
 
 
@@ -238,7 +231,13 @@ const SkeltonTable=  (props) => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Fragment>)
+        </Fragment>
+
+
+
+
+
+    )
 
 }
 export default SkeltonTable;

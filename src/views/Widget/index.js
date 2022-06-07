@@ -46,7 +46,8 @@ const Widget = (props, { ...others }) => {
     const Style = {
         top: '10%',
         left: '0%',
-        padding: '50px',
+        width:"500px",
+        padding: '10px',
     }
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -302,7 +303,7 @@ let element
                       ((location.includes('widget')))&&(
 
 
-                          <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
+                          <Grid container spacing={2} alignItems="center"  justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
                           <Grid item xs={12} >
 
                           <Grid
@@ -318,8 +319,8 @@ let element
                           <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
 
 
-                          <Grid container alignItems="center" >
-                          <img alt="login" src="/static/images/NoDataFound.png" id={'centerImage'} />
+                          <Grid container alignItems="center"  >
+                          <img alt="login" width={"100%"} src="/static/images/NoDataFound.png" id={'centerImage'} />
 
                           </Grid>
                           </Grid>
