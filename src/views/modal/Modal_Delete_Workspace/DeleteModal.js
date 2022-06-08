@@ -98,7 +98,7 @@ const DeleteWorkspace = (props) => {
         axios
             .post( configData.API_SERVER + 'api/Workspace/deleteworkspace',{
                 token:account.token,
-                superior_id:props.card._id,
+                id:props.card._id,
                 user_id:account.user._id,
                 visualise,
                 WorkspaceName:props.card.WorkspaceName,
