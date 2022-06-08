@@ -66,10 +66,10 @@ let loc ;
             for (let elem of (notificationList.notificationListe)) {
                 j++
 
-                if (!elem[1].read) {
+                if (!elem.notification.read) {
 
                     //elem[1].read=!elem[1].read
-                    IdListe.push(elem[1]._id)
+                    IdListe.push(elem.notification._id)
                 }
             }
         }
@@ -108,7 +108,7 @@ let loc ;
 
 
     const theme = useTheme();
-   let TimeFromDb= new Date(notification[1].date)
+   let TimeFromDb= new Date(notification.notification.date)
 let TimeToLog
     let thisTime = new Date()
     let TimeInSeconde=(parseInt((thisTime-TimeFromDb)/1000))
@@ -146,7 +146,7 @@ let TimeToLog
 
 
 let color
-    if(!notification[1].read)
+    if(!notification.notification.read)
         color=theme.palette.primary.light
 
     const useStyles = makeStyles((theme) => ({
@@ -208,9 +208,9 @@ let color
             <div className={classes.itemAction} onClick={handleclick} sx={{background: theme.palette.primary.light}}>
                 <ListItem alignItems="center" className={classes.listItem}>
                     <ListItemAvatar>
-                        <Avatar alt={notification[0].username}  src={`${configData.API_SERVER}${notification[0].photo}`} />
+                        <Avatar alt={notification.user.username}  src={`${configData.API_SERVER}${notification.user.photo}`} />
                     </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">{notification[0].username}</Typography>} />
+                    <ListItemText primary={<Typography variant="subtitle1">{notification.user.username}</Typography>} />
                     <ListItemSecondaryAction className={classes.listAction}>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
@@ -225,9 +225,9 @@ let color
                 </ListItem>
                 <Grid container direction="column" className={classes.listContainer}>
                     <Grid item xs={12} className={classes.paddingBottom}>
-                        <Typography variant="subtitle2">{notification[0].username} {notification[1].text} </Typography>
+                        <Typography variant="subtitle2">{notification.user.username} {notification.notification.text} {notification.NameShared} </Typography>
                     </Grid>
-                    {!notification[1].read&&(
+                    {!notification.notification.read&&(
                     <Grid item xs={12}>
                         <Grid container>
                             <Grid item>

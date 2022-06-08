@@ -22,7 +22,7 @@ import axios from "axios";
 import configData from "../../../config";
 
 import {useDispatch, useSelector} from "react-redux";
-import {ADD_USER, CLICK, CLOSE_MODAL, LOGOUT} from "../../../store/actions";
+import {ADD_USER, CLICK, CLOSE_MODAL, LOGOUT, UPDATE} from "../../../store/actions";
 
 
 import {Formik} from "formik";
@@ -280,7 +280,11 @@ maxHeight:"90%",
             type:CLOSE_MODAL,
         });
     }
-
+let location=null
+    if(window.location.pathname.includes('html'))
+        location=window.location.hash
+    else
+        location=window.location.pathname
 
 
 
@@ -342,6 +346,7 @@ setIsloading(true)
                                         fd.append('file',values.file)
                                         fd.append('role',values.role)
                                         fd.append('token',account.token)
+                                        fd.append('user_id',account.user._id)
                                         fd.append('sendtphoto',values.sendtphoto)
 
 //la liaison entre la partie front et la partie back se fait à travers ce bout de code durant lequel il y'aura l'envoie des données a utilisé et le type du méthode du contoller souhaité
@@ -358,7 +363,19 @@ setIsloading(true)
                                                         payload: {text:"You are no longer connected",severity:"error"}
                                                     })
                                                 }
-                                                else
+                                                else if(response.data.administratorProblem){
+                                                    dispatcher({
+                                                        type:UPDATE,
+                                                        payload: {user:response.data.user}
+                                                    });
+
+                                                        history.push(configData.defaultPath)
+                                                    dispatcher({
+                                                        type:CLICK,
+                                                        payload: {text:"you are no longer an administrateur",severity:"error"}
+                                                    })
+
+                                                }else
                                                 {
                                                 if (response.data.success) {
 
@@ -372,11 +389,14 @@ setIsloading(true)
                                                     });
                                                     setSource("/static/images/avatar_1.png")
 
+
                                                     dispatcher({
                                                         type:CLICK,
                                                         payload: {text:"User added successfully",severity:"success"}
                                                     });
+                                                    //socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user,name:response.data.name})
 
+                                                   // NotificationListe
                                                 } else {
                                                     setStatus({ success: false });
                                                     setErrors({ submit: response.data.msg });

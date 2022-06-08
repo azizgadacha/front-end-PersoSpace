@@ -28,7 +28,7 @@ import ThemeConfig from "../../themes/theme2";
 import AppConversionRates from "./Chart/AppConversionRates";
 import BarChart from "./Chart/BarChart";
 import ModalDelete from "../modal/ModalDeleteWidgetUser";
-import SkeltonChart from "../../composant_de_style/cards/Skeleton/BarSkelton/TotalGrowthBarChart";
+import SkeltonChart from "../../composant_de_style/cards/Skeleton/WidgetSkelton/TotalGrowthBarChart";
 import Import_Data_From_DB from "../modal/Import_Data_From_DB";
 import EditWidget from "../modal/EditWidget";
 import {Box, Card, List, ListItem, ListItemIcon, ListItemText, Stack} from "@mui/material";

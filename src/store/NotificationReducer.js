@@ -35,10 +35,16 @@ const NotificationReducer= (state = initialState, action) => {
         case ADD_NOTIFICATION:
 
                 let notification =action.payload.notification
+console.log("rrrrzkk")
+console.log(notification)
+let elem ={user:notification.user,notification:notification.notification,NameShared:notification.name}
+            console.log('mmmmmmmpppppeke')
+            console.log(elem)
+            let OldListe=state.notificationListe
+            state.notificationListe.push(elem)
+            console.log('mmmmmmmpppppeke2')
+            console.log(state.notificationListe)
 
-let elem =[notification.user,notification.notification]
-
-         state.notificationListe=[elem].concat(state.notificationListe)
 
 
             return {
@@ -49,20 +55,33 @@ let elem =[notification.user,notification.notification]
 
 
         case DELETE_NOTIFICATION:
-            const deleteNotification=action.payload.notification
+            let deleteNotification=null
+            console.log('dddddddddzezrzr')
+try {
 
+
+     deleteNotification = action.payload.notification
+}catch (e) {
+    console.log('ffeff')
+    console.log(e)
+}
+    console.log(deleteNotification)
 
             let index = 0;
-            let founded = 0;
+            let founded = false;
 
            state.notificationListe.find(function(item, i){
+console.log(deleteNotification.notification)
+console.log(item.notification._id)
+                if(item.notification._id === deleteNotification){
 
-                if(item[1]._id === deleteNotification._id){
                     index = i;
                     founded=true
                     return i;
                 }
             });
+
+           console.log(founded)
            if(founded)
             state.notificationListe.splice(index,1)
 
@@ -77,8 +96,8 @@ let elem =[notification.user,notification.notification]
             state.notificationListe.find(function(item, i){
 
 
-                if(  editedNotification.includes(item[1]._id)){
-                    item[1].read = true;
+                if(  editedNotification.includes(item.notification._id)){
+                    item.notification.read = true;
                 }
             });
 

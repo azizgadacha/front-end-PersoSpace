@@ -122,7 +122,7 @@ let values=0
         for(let element of notification.notificationListe){
             i++
 
- if(!element[1].read){
+ if(!element.notification.read){
      values++
      setOccurenceNotification(values)
 
@@ -165,7 +165,8 @@ let values=0
     useEffect(async () => {
 
         await socket.socket?.on("send_Notification_to_user", (data) => {
-
+console.log("rrrrrrrrzeez")
+console.log(data)
 
             dispatcher({
                 type: ADD_NOTIFICATION, payload: {notification: data.notification}
@@ -174,7 +175,8 @@ let values=0
 
         await socket.socket?.on("delete_Notification_from_user", (data) => {
 
-
+console.log("sarrrrrrro")
+console.log(data)
             dispatcher({
                 type: DELETE_NOTIFICATION, payload: {notification: data.notification}
             });
@@ -214,10 +216,10 @@ let values=0
                 for (let elem of (notification.notificationListe)) {
                     j++
 
-                    if (!elem[1].read) {
+                    if (!elem.notification.read) {
 
                         //elem[1].read=!elem[1].read
-                        IdListe.push(elem[1]._id)
+                        IdListe.push(elem.notification._id)
                     }
                 }
             }
