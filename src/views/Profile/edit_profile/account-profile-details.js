@@ -112,10 +112,12 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
 
 
 
+
               let  test={ submit: null,username:values.username.toLowerCase(),email:values.email.toLowerCase(),phone:values.phone}
 
               if( (_.isEqual(test, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))&&(file===`${configData.API_SERVER}${account.user.photo}`))
               {
+
                  setIsloading(false)
                  setNotChanged(true)
 
@@ -127,7 +129,7 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
                  axios.post( configData.API_SERVER + 'api/User/all', {
                      user_id:account.user._id,
                      email: values.email,
-                     phone: values.email,
+                     phone: values.phone,
                      username:values.username,
                      token:account.token
                  })
