@@ -60,50 +60,50 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
 
   return (
       <Fragment>
-    <RootStyle
-      sx={{
-        ...(numSelected > 0 && {
-          color: 'primary.main',
-          bgcolor: 'primary.lighter'
-        })
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography component="div" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <SearchStyle sx={{mr:2 ,ml:0}}
-          value={filterName}
-          onChange={onFilterName}
-          placeholder="Search user..."
-          startAdornment={
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-            </InputAdornment>
-          }
-        />
-      )}
+        <RootStyle
+            sx={{
+              ...(numSelected > 0 && {
+                color: 'primary.main',
+                bgcolor: 'primary.lighter'
+              })
+            }}
+        >
+          {numSelected > 0 ? (
+              <Typography component="div" variant="subtitle1">
+                {numSelected} selected
+              </Typography>
+          ) : (
+              <SearchStyle sx={{mr:2 ,ml:0}}
+                           value={filterName}
+                           onChange={onFilterName}
+                           placeholder="Search user..."
+                           startAdornment={
+                             <InputAdornment position="start">
+                               <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                             </InputAdornment>
+                           }
+              />
+          )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <Iconify icon="eva:trash-2-fill" />
-          </IconButton>
-        </Tooltip>
-      ) : (
-          <Grid >
-          <Button sx={{width:125,mr:0,mb:2,mt:3}}
-              variant="contained"
-              onClick={HandleClick}
+          {numSelected > 0 ? (
+              <Tooltip title="Delete">
+                <IconButton>
+                  <Iconify icon="eva:trash-2-fill" />
+                </IconButton>
+              </Tooltip>
+          ) : (
+              <Grid >
+                <Button sx={{width:125,mr:0,mb:2,mt:3}}
+                        variant="contained"
+                        onClick={HandleClick}
 
-              startIcon={<Iconify icon="eva:plus-fill" />}
-          >
-            New User
-          </Button>
-          </Grid>
-      )}
-    </RootStyle>
+                        startIcon={<Iconify icon="eva:plus-fill" />}
+                >
+                  New User
+                </Button>
+              </Grid>
+          )}
+        </RootStyle>
       </Fragment>
-);
+  );
 }
