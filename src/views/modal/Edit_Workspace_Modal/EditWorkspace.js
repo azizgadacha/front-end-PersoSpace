@@ -189,7 +189,7 @@ let {id}=useParams()
                                     setSubmitting(false);
                                     setIsloading(false)
                                     setErrors({ submit: response.data.msg });
-                                    setIsloading(true)
+                                    setIsloading(false)
 
                                     setChanged(true)
 
