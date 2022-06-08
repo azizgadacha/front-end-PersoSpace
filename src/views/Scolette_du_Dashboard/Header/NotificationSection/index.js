@@ -37,7 +37,7 @@ import configData from "../../../../config";
 import {useDispatch, useSelector} from "react-redux";
 import {
     ADD_NOTIFICATION,
-    CLICK, DELETE_NOTIFICATION,
+    CLICK, CLOSE_MODAL, DELETE_NOTIFICATION,
     EDIT_NOTIFICATION,
     INISIALIZE_NOTIFICATION,
     INISIALIZE_SOCKET,
@@ -196,6 +196,12 @@ console.log(data)
         }
         setOpen(false);
     };
+    const notificationList = useSelector((state) => state.notification);
+
+
+
+
+
     const prevOpen = React.useRef(open);
     React.useEffect(async () => {
         if (prevOpen.current === true && open === false) {
@@ -266,6 +272,8 @@ console.log(data)
                             })
                         }
                         else {
+                            console.log('operererrerezrer')
+                            console.log(result.data.notifFound)
 
                             if (result.data.success) {
                                 dispatcher({

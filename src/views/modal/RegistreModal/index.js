@@ -395,7 +395,10 @@ setIsloading(true)
                                                         type:CLICK,
                                                         payload: {text:"User added successfully",severity:"success"}
                                                     });
-                                                    socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user,name:response.data.name})
+                                                    console.log("eeeeeezrezrrzrr")
+
+                                                    console.log(response.data.NotificationListe)
+                                                    socket.socket.emit("send_Notification",{NotificationListe:response.data.NotificationListe,})
 
                                                    // NotificationListe
                                                 } else {
