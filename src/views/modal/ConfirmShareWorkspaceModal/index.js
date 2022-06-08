@@ -216,6 +216,24 @@ const Modal_confirm=  (props) => {
                             payload: {text:'You are no longer an administrator',severity:"error"}
                         });
 
+                    }else if(response.data.NoExist){
+                        dispatcher({
+                            type: CLOSE_Confirm_Share_Workspace_MODAL,
+
+                        })
+
+                        dispatcher({
+                            type: CLOSE_MODAL_SHARE,
+
+                        })
+                        history.go(0)
+
+                        setIsloading(false)
+
+                        dispatcher({
+                            type:CLICK,
+                            payload: {text:'Workspace No Longer Exists',severity:"error"}
+                        });
                     }
                     else{
 

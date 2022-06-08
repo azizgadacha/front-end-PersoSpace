@@ -226,7 +226,7 @@ let {id}=useParams()
                                         }
                                     )
 
-                                    history.push(configData.defaultPath)
+                                    history.go(0)
                                     dispatcher({
                                         type: "Click",
                                         payload: {text:response.data.msg, severity: "error"}

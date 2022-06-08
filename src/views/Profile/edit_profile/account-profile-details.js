@@ -112,8 +112,10 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
 
 
 
-             if( (_.isEqual(values, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))&&(file===`${configData.API_SERVER}${account.user.photo}`))
-             {
+              let  test={ submit: null,username:values.username.toLowerCase(),email:values.email.toLowerCase(),phone:values.phone}
+
+              if( (_.isEqual(test, {username:account.user.username,phone:account.user.phone,email:account.user.email,submit:null}))&&(file===`${configData.API_SERVER}${account.user.photo}`))
+              {
                  setIsloading(false)
                  setNotChanged(true)
 
