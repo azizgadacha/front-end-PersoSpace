@@ -125,6 +125,7 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
                  axios.post( configData.API_SERVER + 'api/User/all', {
                      user_id:account.user._id,
                      email: values.email,
+                     phone: values.email,
                      username:values.username,
                      token:account.token
                  })
@@ -152,7 +153,7 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
                                   setIsloading(false)
 
                                   setNotChanged(true)
-                                  setErrorMessage( `  a user with same ${ response.data.users[0].email==values.email?'email':'username'} already exist `)
+                                  setErrorMessage( `  a user with same ${ response.data.users[0].email==values.email?'email':response.data.users[0].phone==values.phone?"phone":'username'} already exist `)
 
 
                               }
