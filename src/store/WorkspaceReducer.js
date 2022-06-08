@@ -63,7 +63,10 @@ const WorkspaceReducer = (state = initialState, action) => {
                     else
                         username.push((item[2]))
                 }
-
+                console.log("worskapces")
+                console.log(workspace)
+                console.log("username")
+                console.log(username)
                 state.Workspace = workspace
                 state.username = username
                 state. listeName=action.payload.listeName
@@ -120,6 +123,7 @@ const WorkspaceReducer = (state = initialState, action) => {
         case DELETE:
 
             const deleteWork=action.payload.work
+            const locationVisualization=action.payload.locationVisualization
 
         let index = 0;
             var filteredObj = state.Workspace.find(function(item, i){
@@ -130,6 +134,8 @@ const WorkspaceReducer = (state = initialState, action) => {
                 }
             });
             state.Workspace.splice(index,1)
+            if(locationVisualization==true)
+                state.username.splice(index,1)
 
             return {
                 ...state

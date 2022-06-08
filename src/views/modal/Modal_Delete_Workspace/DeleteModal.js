@@ -118,14 +118,23 @@ const DeleteWorkspace = (props) => {
                 }
                 else {
                     if (response.data.success) {
+                        let locationVisualization =null
+                        if(location.includes('Visualization')){
+                            locationVisualization=true
+                        }
+                      else{
+                            locationVisualization=false
 
+                        }
                         dispatcher({
                             type: CLOSE_DELETE_MODAL,
                         })
                         dispatcher({
                             type: DELETE,
-                            payload: {work: response.data.workspaceitems}
+                            payload: {work: response.data.workspaceitems,locationVisualization}
+
                         })
+
                         dispatcher({
                             type: CLICK,
                             payload: {text: "Workspace Removed successfully", severity: "success"}
