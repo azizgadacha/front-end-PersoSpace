@@ -153,7 +153,7 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
                                   setIsloading(false)
 
                                   setNotChanged(true)
-                                  setErrorMessage( `  a user with same ${ response.data.users[0].email==values.email?'email':response.data.users[0].phone==values.phone?"phone":'username'} already exist `)
+                                  setErrorMessage( `  a user with same ${ response.data.users[0].email==values.email?'email':response.data.users[0].username==values.username?'username':'phone'} already exist `)
 
 
                               }
