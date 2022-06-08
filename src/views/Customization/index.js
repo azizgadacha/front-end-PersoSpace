@@ -98,6 +98,7 @@ const Customization = () => {
                 type:OPEN_WIDGET_MODAL,
 
             });
+        console.log("t7al")
     }
     const handleClose=()=>{
 

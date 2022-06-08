@@ -15,6 +15,7 @@ import AuthGuard from "../guard_root/AuthGuard";
 import AdministratorGuard from "../guard_root/AdministratorGuard";
 import SimpleUserGuard from "../guard_root/SimpleUserGuard";
 import MainLayout from "../views/Scolette_du_Dashboard";
+import {useParams} from "react-router";
 const Page404 = Preparation_du_page(lazy(() => import('../views/404page')));
 const Authverif = Preparation_du_page(lazy(() => import('../views/verif_password')));
 const AuthLogin = Preparation_du_page(lazy(() => import('../views/login')));
@@ -60,7 +61,7 @@ const Routes = () => {
 
 
 
-    let linkWidget=`/dashboard/${(arrayOfLink.length<2)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(arrayOfLink[2]))?arrayOfLink[2]:'default'}/widget/${link==''?'':link+"/"}:id`
+    let linkWidget=`/dashboard/${(arrayOfLink.length<5)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(arrayOfLink[2]))?arrayOfLink[2]:'default'}/widget/${link==''?'':link+"/"}:id`
 
 
     let linkIndex=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
@@ -90,8 +91,7 @@ const Routes = () => {
                                 <Route exact path="/forget" component={AuthForget} />
                                 <Route exact path="/change/:token" component={Authverif} />
 
-
-                    </Verif_login_Guard>
+                           </Verif_login_Guard>
 
 
 
