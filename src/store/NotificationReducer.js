@@ -40,7 +40,6 @@ console.log(notification)
 let elem ={user:notification.user,notification:notification.notification,NameShared:notification.name}
             console.log('mmmmmmmpppppeke')
             console.log(elem)
-            let OldListe=state.notificationListe
             state.notificationListe.push(elem)
             console.log('mmmmmmmpppppeke2')
             console.log(state.notificationListe)

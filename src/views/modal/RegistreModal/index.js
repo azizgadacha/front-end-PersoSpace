@@ -238,6 +238,7 @@ maxHeight:"90%",
     const classes = useStyles();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    let socket = useSelector((state) => state.socket);
 
 
 
@@ -394,7 +395,7 @@ setIsloading(true)
                                                         type:CLICK,
                                                         payload: {text:"User added successfully",severity:"success"}
                                                     });
-                                                    //socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user,name:response.data.name})
+                                                    socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user,name:response.data.name})
 
                                                    // NotificationListe
                                                 } else {

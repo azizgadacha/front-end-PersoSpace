@@ -190,7 +190,7 @@ const Modal_confirm=  (props) => {
                     })
                         console.log('fffffffeeee')
                         console.log(response.data.notification)
-                    socket.socket.emit("send_Notification",{notification:response.data.notification,UserId:props.user._id,User:account.user,name:response.data.name})
+                    socket.socket.emit("send_Notification",{NotificationListe:[{notification:response.data.notification,UserId:props.user._id,User:account.user,name:response.data.name}]})
 
                 }
                     else if(response.data.adminstratorProblem){
