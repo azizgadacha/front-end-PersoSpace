@@ -472,7 +472,6 @@ const Dashboard = (props, { ...others }) => {
                                     </Grid>
                                 </Fragment>
                             )}
-                            {loc}
 
                         </Fragment>)}
 
