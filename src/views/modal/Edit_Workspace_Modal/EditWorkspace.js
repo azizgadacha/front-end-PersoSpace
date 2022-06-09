@@ -114,8 +114,9 @@ let {id}=useParams()
                     }else{
                         id1=id
                     }
+                    let  test={ submit: null,WorkspaceName:values.WorkspaceName.toLowerCase(),description:values.description.toLowerCase()}
 
-                    if( _.isEqual(values, {WorkspaceName: props.card.WorkspaceName,description: props.card.description,submit:null})) {
+                    if( _.isEqual(test, {WorkspaceName: props.card.WorkspaceName.toLowerCase(),description: props.card.description.toLowerCase(),submit:null})) {
                         setStatus({success: false});
                         setSubmitting(false);
                         setIsloading(false)

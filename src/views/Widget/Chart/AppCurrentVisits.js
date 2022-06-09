@@ -212,7 +212,7 @@ export default function AppCurrentVisits(data) {
                 <Grid item >
 
 
-                  {loc.includes('default')&&(
+                  {(loc.includes('default')||(loc.includes('Shared')))&&(
 
                       <Menu data={data.data}/>)
 
