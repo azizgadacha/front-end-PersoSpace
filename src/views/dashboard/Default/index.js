@@ -170,7 +170,7 @@ const Dashboard = (props, { ...others }) => {
                 })
 
             }
-            else if(loc=='/dashboard/VisualizationOfWorkspace'){
+            else if(loc.includes('/dashboard/VisualizationOfWorkspace')){
                 link = 'api/Workspace/visualizationOfWorkspaces'
                 datasend = {user_id:account.user._id, token: account.token,}
             }
@@ -198,7 +198,9 @@ const Dashboard = (props, { ...others }) => {
                             type:UPDATE,
                             payload: {user:response.data.user}
                         });
+
                         if(loc.includes('#/'+configData.defaultPath))
+
                             history.go(0)
                         else
                             history.push('#'/+configData.defaultPath)
@@ -425,33 +427,16 @@ const Dashboard = (props, { ...others }) => {
 
                             {((loc.includes('#/dashboard/SharedWorkspaces')||loc.includes('#/dashboard/VisualizationOfWorkspace'))&&workspaces.Workspace.length==0)&&(
 
-                                <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
-                                    <Grid item xs={12} >
+                                <Grid item mb={2} mt={3} >
 
-                                        <Grid
-                                            container
-                                            direction={matchDownSM ? 'column-reverse' : 'row'}
-                                            alignItems="center"
-                                            justifyContent="center"
-
-                                        >
-                                            <Grid item mb={2} >
-                                                <Stack alignItems="center" justifyContent="center" >
-
-                                                    <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
+                                    <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
 
 
-                                                        <Grid container alignItems="center" >
-                                                            <img alt="login" src="/static/images/NoDataFound.png" id={'centerImage'} />
+                                        <img alt="login" width={"100%"} src="/static/images/NoDataFound.png" id={'centerImage'} />
 
-                                                                                                               </Grid>
-                                                    </Grid>
-                                                </Stack>
-                                            </Grid>
-                                        </Grid>
                                     </Grid>
-                                </Grid>
 
+                                </Grid>
 
 
                             )}
