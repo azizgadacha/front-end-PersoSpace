@@ -50,12 +50,22 @@ let loc ;
         } else {
             loc = window.location.pathname
         }
-        if (loc.includes('SharedWorkspaces')) {
+        let locationToPush=null
+
+        if(notification.notification.type=="AddUser")
+        {
+            locationToPush='/dashboard/viewAll'
+        }
+        else
+            locationToPush="/dashboard/SharedWorkspaces"
+
+
+        if (loc.includes(locationToPush)) {
             history.go(0)
 
         }
         else{
-            history.push("/dashboard/SharedWorkspaces")
+            history.push(locationToPush)
 
         }
         let i = 0

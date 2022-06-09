@@ -7,9 +7,6 @@ import {Redirect, Route, Switch, useLocation} from 'react-router-dom';
 // project imports
 import config from './../config';
 import Preparation_du_page from "../animation/Preparation_du_page";
-import ErrorRoutes from "./ErroRoot";
-import errorPage from "../views/404page";
-import Animation_entre_page from "../animation/Animation_entre_page";
 import Verif_login_Guard from "../guard_root/verif_login_Guard";
 import AuthGuard from "../guard_root/AuthGuard";
 import AdministratorGuard from "../guard_root/AdministratorGuard";

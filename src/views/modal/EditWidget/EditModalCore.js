@@ -228,7 +228,8 @@ const EditModalCore=  ({objet}) => {
 
 
                                         setIsloading(true)
-                                        if(objet.WidgetName==values.WidgetName){
+
+                                        if(objet.WidgetName.toLowerCase()==values.WidgetName.toLowerCase()){
                                             setStatus({ success: false });
                                             setErrors({ submit: "you didn't change any thing" });
                                             setSubmitting(false)
