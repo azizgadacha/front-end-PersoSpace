@@ -210,7 +210,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
         dispatcher({
             type:CLICKED
         });
-        if((location).includes('/dashboard/default'))
+        if((location).includes('#/dashboard/default'))
         history.push(`${config.defaultPath}/${link==""?"":link+"/"}${card._id}`)
         else
             history.push(`/dashboard/VisualizationOfWorkspace/${link==""?"":link+"/"}${card._id}`)
@@ -331,7 +331,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
 
                         <Grid container direction="column">
                             <Grid item>
-                                {(!(location.includes('Shared'))) ?
+                                {(!(location.includes('#/dashboard/SharedWorkspaces'))) ?
                                     (
 <Fragment>
                                 <Grid container justifyContent="space-between">
@@ -339,7 +339,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                        <Button style={{ backgroundColor: 'transparent'}}>
 
                                            <AvatarGroup  alt={'salut'}   onClick={RemoveShare} max={3}>
-                                            {((!loading)&&(location.includes('default')||location.includes('VisualizationOfWorkspace')))?  listeUser:null}
+                                            {((!loading)&&(location.includes('#/dashboard/default')||location.includes('#/dashboard/VisualizationOfWorkspace')))?  listeUser:null}
 
                                         </AvatarGroup>
                                      </Button>
@@ -391,13 +391,13 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                 </Grid>                                         </Fragment>
                                     ):null}
 
-                                {((location.includes('/dashboard/VisualizationOfWorkspace'))||(location.includes('Shared')))&&(
+                                {((location.includes('#/dashboard/VisualizationOfWorkspace'))||(location.includes('#/dashboard/SharedWorkspaces')))&&(
                                    <ThemeConfig>
 
 
 
                                     <Grid item align="center">
-                                        <Chip label="primary" color="primary" className={classes.chip} label={((location.includes('Shared'))?"SharedBy ":'Owner : ') + username} />
+                                        <Chip label="primary" color="primary" className={classes.chip} label={((location.includes('#/dashboard/SharedWorkspaces'))?"SharedBy ":'Owner : ') + username} />
 
                                     </Grid>
                                    </ThemeConfig>
@@ -422,7 +422,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                             </Grid>
                             <Grid container alignItems={"center"}>
 
-                                {( (location.includes("Shared")))?(
+                                {( (location.includes('#/dashboard/SharedWorkspaces')))?(
 
 
 

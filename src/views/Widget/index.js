@@ -110,7 +110,7 @@ const [importing,setImporting]=useState(true)
 
     let link=ar2.join('/')
     useEffect(() => {
-        const locVis=(  (location).includes('/dashboard/VisualizationOfWorkspace'))?true:undefined
+        const locVis=(  (location).includes('#/dashboard/VisualizationOfWorkspace'))?true:undefined
 
         let clicked
 
@@ -120,7 +120,7 @@ const [importing,setImporting]=useState(true)
         } else
             clicked = false
         let LocationSharing=null
-        if( location.includes('/dashboard/SharedWorkspaces')){
+        if( location.includes('#/dashboard/SharedWorkspaces')){
             LocationSharing=true
 
         }
@@ -187,7 +187,7 @@ else if(response.data.SharingProblem){
 
 
 
-    if(!(location.includes('SharedWorkspaces'))){
+    if(!(location.includes('#/dashboard/SharedWorkspaces'))){
 
         var liste =()=>{
             if(workspaces.listeName.length>4) {
@@ -268,9 +268,9 @@ let element
                                 <ListItem sx={{maxWidth:"92px"}}  key={1} disablePadding>
                                     <ListItemButton    sx={{marginLeft:2,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                         //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                        {((location.includes('default')))?(
+                                        {((location.includes('#/dashboard/default')))?(
                                             history.push(config.defaultPath)
-                                        ):(location.includes('SharedWorkspaces')) ?  (
+                                        ):(location.includes('#/dashboard/SharedWorkspaces')) ?  (
                                             history.push('/dashboard/SharedWorkspaces')
                                         ):history.push('/dashboard/VisualizationOfWorkspace')}
                                     }}>
@@ -327,7 +327,7 @@ let element
                     </Grid>
 
                 </Grid>
-    {(location.includes("default")&&((!importing)) )&&(<Customization />)}
+    {(location.includes("#/dashboard/default")&&((!importing)) )&&(<Customization />)}
     {open.ModalDeleteState && (<ModalDelete   type={"Widget"}/>)}
     {open.ModalState && ( <Import_Data_From_DB/>)}
     {open.ModalEditState&&(<EditWidget  type={"Widget"} />)}

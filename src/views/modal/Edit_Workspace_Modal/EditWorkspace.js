@@ -132,7 +132,7 @@ let {id}=useParams()
                            onlyDesc=true
                         }
                         let visualise=false
-                        if(location.includes('VisualizationOfWorkspace')){
+                        if(location.includes('#/dashboard/VisualizationOfWorkspace')){
                             visualise=true
                         }else
                             visualise=false

@@ -56,7 +56,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
                 <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
                     <LogoSection />
                 </Box>
-                {(location.includes("dashboard"))&&
+                {(location.includes("#/dashboard"))&&
 
                     <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
                     <Avatar variant="rounded" className={classes.headerAvatar} onClick={handleLeftDrawerToggle} color="inherit">
@@ -66,7 +66,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
             </div>
 
             {/* header search */}
-            {(location.includes("dashboard"))&&
+            {(location.includes("#/dashboard"))&&
 
             <SearchSection theme="light" />}
             <div className={classes.grow} />

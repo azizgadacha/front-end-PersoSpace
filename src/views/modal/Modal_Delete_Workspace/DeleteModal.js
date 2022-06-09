@@ -89,7 +89,7 @@ const DeleteWorkspace = (props) => {
     const Click = () => {
         setIsloading(true)
        let visualise=false
-        if(location.includes('VisualizationOfWorkspace')){
+        if(location.includes('#/dashboard/VisualizationOfWorkspace')){
             visualise=true
         }else
             visualise=false
@@ -119,7 +119,7 @@ const DeleteWorkspace = (props) => {
                 else {
                     if (response.data.success) {
                         let locationVisualization =null
-                        if(location.includes('Visualization')){
+                        if(location.includes('#/dashboard/Visualization')){
                             locationVisualization=true
                         }
                       else{

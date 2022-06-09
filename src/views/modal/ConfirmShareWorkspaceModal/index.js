@@ -137,7 +137,7 @@ const Modal_confirm=  (props) => {
     const Click=()=>{
         setIsloading(true)
         let visualise=false
-        if(location.includes('VisualizationOfWorkspace')){
+        if(location.includes('#/dashboard/VisualizationOfWorkspace')){
             visualise=true
         }else
             visualise=false

@@ -140,7 +140,7 @@ const Item = ({ item }) => {
     let history =useHistory()
 
     let handleClickItem=(item)=>{
-        if((arrayOfLink[1]).includes('Profile')){
+        if((arrayOfLink[1]).includes('#/Profile')){
 history.push(arrayOfLink[1])
 
         }else {
@@ -161,7 +161,7 @@ history.push(arrayOfLink[1])
 
         }
 
-        if(location.includes('/dashboard/default'))
+        if(location.includes('#/dashboard/default'))
             history.push(config.defaultPath+"/"+finalListe.join('/'))
         else
             history.push('/dashboard/VisualizationOfWorkspace'+"/"+finalListe.join('/'))

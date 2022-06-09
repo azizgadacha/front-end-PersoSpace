@@ -202,7 +202,7 @@ export default function BarChart(data) {
                         </Grid>
                         <Grid item >
                             <Grid item >
-                                {(loc.includes('default')||(loc.includes('Shared')))&&(
+                                {(loc.includes('#/dashboard/default')||(loc.includes('#/dashboard/SharedWorkspaces')))&&(
 
                                     <Menu data={data.data}/>)
 

@@ -18,7 +18,7 @@ const AuthCardWrapper = ({ children, ...other }) => {
         loc=window.location.hash
     else
         loc=window.location.pathname
-    const maxWidth=((loc.includes('/login'))?"1050px":'475px')
+    const maxWidth=((loc.includes('#/login'))?"1050px":'475px')
     const useStyles = makeStyles((theme) => ({
         card: {
 

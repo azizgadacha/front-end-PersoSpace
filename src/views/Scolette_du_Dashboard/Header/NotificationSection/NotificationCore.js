@@ -60,7 +60,7 @@ let loc ;
             locationToPush="/dashboard/SharedWorkspaces"
 
 
-        if (loc.includes(locationToPush)) {
+        if (loc.includes("#/"+locationToPush)) {
             history.go(0)
 
         }

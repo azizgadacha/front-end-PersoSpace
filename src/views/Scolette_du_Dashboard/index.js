@@ -136,7 +136,7 @@ const MainLayout = ({ children }) => {
 
             {/* drawer */}
 
-            {(location.includes("dashboard"))&&
+            {(location.includes("#/dashboard"))&&
             <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />}
             {/* main content */}
             <main

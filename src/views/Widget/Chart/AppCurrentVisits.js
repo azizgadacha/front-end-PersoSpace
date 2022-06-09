@@ -212,7 +212,7 @@ export default function AppCurrentVisits(data) {
                 <Grid item >
 
 
-                  {(loc.includes('default')||(loc.includes('Shared')))&&(
+                  {(loc.includes('#/dashboard/default')||(loc.includes('#/dashboard/SharedWorkspaces\'')))&&(
 
                       <Menu data={data.data}/>)
 

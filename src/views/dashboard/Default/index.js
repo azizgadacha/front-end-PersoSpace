@@ -170,7 +170,7 @@ const Dashboard = (props, { ...others }) => {
                 })
 
             }
-            else if(loc.includes('/dashboard/VisualizationOfWorkspace')){
+            else if(loc.includes('#/dashboard/VisualizationOfWorkspace')){
                 link = 'api/Workspace/visualizationOfWorkspaces'
                 datasend = {user_id:account.user._id, token: account.token,}
             }
@@ -288,7 +288,7 @@ const Dashboard = (props, { ...others }) => {
 
 
 
-    if(!(loc.includes('#SharedWorkspaces'))){
+    if(!(loc.includes('#/dashboard/SharedWorkspaces'))){
 
         var liste =()=>{
 
@@ -463,7 +463,6 @@ const Dashboard = (props, { ...others }) => {
                                 <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
 
                                     <PlusCard/>
-                                    {loc}
                                 </Grid>
                             ):(
                                 <Fragment>
@@ -473,6 +472,7 @@ const Dashboard = (props, { ...others }) => {
                                     </Grid>
                                 </Fragment>
                             )}
+                            {loc}
 
                         </Fragment>)}
 
