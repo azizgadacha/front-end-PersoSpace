@@ -188,8 +188,6 @@ const Modal_confirm=  (props) => {
                         type:CLICK,
                         payload: {text:"Workspace has been shared successfully",severity:"success"}
                     })
-                        console.log('fffffffeeee')
-                        console.log(response.data.notification)
                     socket.socket.emit("send_Notification",{NotificationListe:[{notification:response.data.notification,UserId:props.user._id,user:account.user,name:response.data.name}]})
 
                 }

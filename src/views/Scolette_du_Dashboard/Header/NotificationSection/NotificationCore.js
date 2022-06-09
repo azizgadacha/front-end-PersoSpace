@@ -75,8 +75,7 @@ let loc ;
         let parcour = async () => {
             for (let elem of (notificationList.notificationListe)) {
                 j++
-console.log("salllalahhh")
-console.log(elem)
+
                 if (!elem.notification.read) {
 
                     //elem[1].read=!elem[1].read

@@ -63,10 +63,7 @@ const WorkspaceReducer = (state = initialState, action) => {
                     else
                         username.push((item[2]))
                 }
-                console.log("worskapces")
-                console.log(workspace)
-                console.log("username")
-                console.log(username)
+
                 state.Workspace = workspace
                 state.username = username
                 state. listeName=action.payload.listeName
