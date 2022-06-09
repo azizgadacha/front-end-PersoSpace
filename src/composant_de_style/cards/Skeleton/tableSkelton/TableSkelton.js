@@ -177,9 +177,6 @@ const SkeltonTable=  (props) => {
                                                                 aria-checked={isItemSelected}
                                                             >
 
-                                                                <TableCell padding="checkbox">
-
-                                                                </TableCell>
                                                                 <TableCell component="th" scope="row" padding="none">
                                                                     <Stack direction="row" alignItems="center" spacing={2}>
                                                                         <Skeleton variant="circular" width={40} height={40} />
