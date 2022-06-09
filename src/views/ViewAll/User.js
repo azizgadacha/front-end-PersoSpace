@@ -55,6 +55,7 @@ import {
 import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
 import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton/TableSkelton";
+import Visualization_Info from "../modal/Visualization_Info";
 
 // ----------------------------------------------------------------------
 
@@ -146,9 +147,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TABLE_HEAD = [
     { id: 'username', label: 'Username', alignRight: 'left' },
-    { id: 'email', label: 'Email', alignRight: 'left' },
-    { id: 'phone', label: 'Phone', alignRight: 'left' },
-    { id: 'role', label: 'Role', alignRight: 'left' },
+
 
     {  id: 'action', label: 'Activites', alignRight: 'left' }
 ];
@@ -408,113 +407,112 @@ const User=  (props) => {
 
     return (
         <Fragment>
+
+
+            <Card xs={12}  sx={{mb:3}}>
+
+                <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
+
+
+                    <Typography sx={{ml:1,mb:1,mt:1}} variant="h4" gutterBottom>
+                        User Liste
+                    </Typography>
+                </Stack>
+
+            </Card>
             <ThemeConfig>
 
-                <Container>
-                    <Card xs={6}  sx={{mb:3}}>
+                <Card >
+                    {success?(
+                        <Fragment>
+                            <UserListToolbar sx={{minWidth:"100%"}}
+                                             numSelected={selected.length}
+                                             filterName={filterName}
+                                             onFilterName={handleFilterByName}
+                            />
 
-                        <Stack direction="row" alignItems="center" justifyContent="space-between" mt={1} mb={1}>
-
-
-                            <Typography sx={{ml:1,mb:1,mt:1}} variant="h6" gutterBottom>
-                                User Liste
-                            </Typography>
-                        </Stack>
-
-                    </Card>
-
-
-                    <Card>
-                        {success?(
-                            <Fragment>
-                                <UserListToolbar
-                                    numSelected={selected.length}
-                                    filterName={filterName}
-                                    onFilterName={handleFilterByName}
-                                />
-
-                                <PerfectScrollbar>
-                                    <TableContainer sx={{minWidth: 800}}>
-                                        <Table>
-                                            <UserListHead
-                                                order={order}
-                                                orderBy={orderBy}
-                                                headLabel={TABLE_HEAD}
-                                                rowCount={userSt.users.length}
-                                                numSelected={selected.length}
-                                                onRequestSort={handleRequestSort}
-                                                onSelectAllClick={handleSelectAllClick}
-                                            />
-                                            <TableBody >
-                                                {filteredUsers
-                                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    .map((row) => {
+                            <PerfectScrollbar>
+                                <TableContainer sx={{minWidth:"100%"}} >
+                                    <Table  sx={{ml:2 ,minWidth:"30%"}} >
+                                        <UserListHead
+                                            order={order}
+                                            orderBy={orderBy}
+                                            headLabel={TABLE_HEAD}
+                                            rowCount={userSt.users.length}
+                                            numSelected={selected.length}
+                                            onRequestSort={handleRequestSort}
+                                            onSelectAllClick={handleSelectAllClick}
+                                        />
+                                        <TableBody  >
+                                            {filteredUsers
+                                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                .map((row) => {
 
 
-                                                        const {_id, username, email, phone,role,photo} = row;
-                                                        const isItemSelected = selected.indexOf(username) !== -1;
+                                                    const {_id, username, email, phone,role,photo} = row;
+                                                    const isItemSelected = selected.indexOf(username) !== -1;
 
-                                                        return (
-                                                            <Fragment>
-                                                                <TableRow
-                                                                    hover
-                                                                    key={_id}
-                                                                    tabIndex={-1}
-                                                                    role="checkbox"
-                                                                    selected={isItemSelected}
-                                                                    aria-checked={isItemSelected}
-                                                                >
-                                                                    <TableCell padding="checkbox">
+                                                    return (
+                                                        <Fragment >
+                                                            <TableRow
+                                                                hover
+                                                                key={_id}
+                                                                tabIndex={-1}
+                                                                role="checkbox"
+                                                                selected={isItemSelected}
+                                                                aria-checked={isItemSelected}
+                                                                sx={{minWidth:"100%"}}
+                                                            >
 
-                                                                    </TableCell>
-                                                                    <Cells    userPar={{_id,username,phone,role,photo,email}}/>
-                                                                </TableRow>
+                                                                <Cells    userPar={{_id,username,phone,role,photo,email}}/>
+                                                            </TableRow>
 
-                                                            </Fragment>
-                                                        );
-                                                    } )}
-                                                {emptyRows > 0 && (
-                                                    <TableRow style={{height: 53 * emptyRows}}>
-                                                        <TableCell colSpan={6}/>
-                                                    </TableRow>
-                                                )}
-
-                                            </TableBody>
-                                            {isUserNotFound && (
-                                                <TableBody>
-                                                    <TableRow>
-                                                        <TableCell align="center" colSpan={6} sx={{py: 3}}>
-                                                            <SearchNotFound searchQuery={filterName}/>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                </TableBody>
+                                                        </Fragment>
+                                                    );
+                                                } )}
+                                            {emptyRows > 0 && (
+                                                <TableRow style={{height: 53 * emptyRows}}>
+                                                    <TableCell colSpan={6}/>
+                                                </TableRow>
                                             )}
-                                        </Table>
-                                    </TableContainer>
-                                </PerfectScrollbar>
 
-                                <TablePagination
-                                    rowsPerPageOptions={[5, 10, 25]}
-                                    component="div"
-                                    count={userSt.users.length}
-                                    rowsPerPage={rowsPerPage}
-                                    page={page}
-                                    onPageChange={handleChangePage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                />
-                            </Fragment>
-                        ):(<SkeltonTable/>)}
-                    </Card>
+                                        </TableBody>
+                                        {isUserNotFound && (
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell align="center" colSpan={6} sx={{py: 3}}>
+                                                        <SearchNotFound searchQuery={filterName}/>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        )}
+                                    </Table>
+                                </TableContainer>
+                            </PerfectScrollbar>
 
-                </Container>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={userSt.users.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </Fragment>
+                    ):(<SkeltonTable/>)}
+                </Card>
             </ThemeConfig>
+
             {open.ModalDeleteState && (<Modal_Delete_User  handleClose={handleCloseModal} type={"User"}/>)}
             {open.ModalEditState&&(<Modal_Edit_User  type={"User"} />)}
+            {open.ModalInformation&&(<Visualization_Info  type={"User"} />)}
 
             <RegistreModal/>
             {/* <EditUser user={open.objet}/>*/}
 
         </Fragment>
+
     )
         ;
 }

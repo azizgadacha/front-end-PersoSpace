@@ -31,18 +31,15 @@ export default function UserListHead({
     return (
         <TableHead  >
             <TableRow>
-                <TableCell padding="checkbox">
 
-                </TableCell>
 
                 {headLabel.map((headCell) => (
                     <TableCell
                         key={headCell.id}
 
-
-                  align={headCell.alignRight}
-                  sortDirection={orderBy === headCell.id ? order : false}
-              >
+                        align={headCell.alignRight}
+                        sortDirection={orderBy === headCell.id ? order : false}
+                    >
 
 
                         <TableSortLabel

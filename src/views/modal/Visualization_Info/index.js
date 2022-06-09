@@ -61,7 +61,8 @@ const style = {
     padding:'50px',
     zIndex:100,
 minWidth:'320px',
-    maxWidth:"80%",
+    maxWidth:"90%",
+    maxHeight:"90%",
     borderRadius: 5,
 
 
