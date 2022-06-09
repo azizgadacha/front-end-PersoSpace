@@ -54,7 +54,7 @@ import {
 
 import {strengthColor, strengthIndicator} from "../../verification_password/password-strength";
 import {makeStyles} from "@material-ui/styles";
-import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton/TableSkelton";
+import SkeltonTable from "../../composant_de_style/cards/Skeleton/tableSkelton";
 
 // ----------------------------------------------------------------------
 

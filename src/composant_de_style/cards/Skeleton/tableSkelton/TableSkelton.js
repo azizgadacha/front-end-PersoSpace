@@ -32,7 +32,7 @@ import USERLIST from '../Static_Data/Static';
 
 
 const TABLE_HEAD = [
-    { id: 'username', label: 'User name', alignRight: 'left' },
+    { id: 'username', label: 'Username', alignRight: 'left' },
     { id: 'email', label: 'Email', alignRight: 'left' },
     { id: 'phone', label: 'Phone', alignRight: 'left' },
     { id: 'role', label: 'Role', alignRight: 'left' },
@@ -183,7 +183,6 @@ const SkeltonTable=  (props) => {
                                                                 <TableCell component="th" scope="row" padding="none">
                                                                     <Stack direction="row" alignItems="center" spacing={2}>
                                                                         <Skeleton variant="circular" width={40} height={40} />
-                                                                        <Skeleton width="40%" />
                                                                     </Stack>
                                                                 </TableCell>
 
