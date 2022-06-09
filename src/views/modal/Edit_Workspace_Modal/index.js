@@ -69,7 +69,9 @@ const style = {
     paddingLeft:'25px',
     paddingRight:'15px',
     zIndex:100,
-minWidth:'310px',
+minWidth:'92%',
+maxWidth:'93%',
+
     borderRadius: 2,
 
 
