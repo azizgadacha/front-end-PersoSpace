@@ -107,8 +107,8 @@ const RestWorkspace = (props) => {
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    WorkspaceName: Yup.string().required('WorkspaceName is required'),
-                    description:Yup.string().required('Description is required')
+                    WorkspaceName: Yup.string().max(15,"must contain only 15 digits").min(4," name should contain 4 digit minimum").required(" Name is required"),
+                    description: Yup.string().max(15,"must contain only 15 digits").min(4," name should contain 4 digit minimum").required(" description is required"),
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {

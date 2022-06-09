@@ -99,7 +99,8 @@ const AccountProfileDetails = ({file,notChanged,errorMessage,setErrorMessage,set
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string().email('Must be a valid email').max(100,"must contain only 100 digits").required('Email is required'),
-            username: Yup.string().required('Username is required').min(6,"must contain minimum 6 digits  "),
+              username: Yup.string().max(15,"must contain only 15 digits").min(4," username should contain 4 digit minimum").required(" userame is required"),
+
 
               phone:Yup.string().required().matches(/^[0-9]+$/, "Must be only digits").min(8, 'Must be exactly 8 digits').max(8, 'Must be exactly 8 digits'),
 

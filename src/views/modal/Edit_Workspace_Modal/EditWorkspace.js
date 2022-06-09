@@ -100,10 +100,9 @@ let {id}=useParams()
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    WorkspaceName: Yup.string().min(4).max(13)
-                        .optional().required("WorkspaceName is required"),
-                    description: Yup.string().min(4).max(25)
-                        .optional().required("description is required")
+                    WorkspaceName: Yup.string().max(15,"must contain only 15 digits").min(4," name should contain 4 digit minimum").required(" Name is required"),
+                    description: Yup.string().max(15,"must contain only 15 digits").min(4," name should contain 4 digit minimum").required(" description is required"),
+
 
                 })}
                 onSubmit={(values,{ setErrors, setStatus, setSubmitting }) => {

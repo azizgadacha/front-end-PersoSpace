@@ -46,7 +46,8 @@ const Widget = (props, { ...others }) => {
     const Style = {
         top: '10%',
         left: '0%',
-        padding: '50px',
+        width:"500px",
+        padding: '10px',
     }
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -302,36 +303,22 @@ let element
                       ((location.includes('widget')))&&(
 
 
-                          <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
-                          <Grid item xs={12} >
-
-                          <Grid
-                          container
-                          direction={matchDownSM ? 'column-reverse' : 'row'}
-                          alignItems="center"
-                          justifyContent="center"
-
-                          >
-                          <Grid item mb={2} mt={3} >
-                          <Stack alignItems="center" justifyContent="center" >
-
-                          <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
 
 
-                          <Grid container alignItems="center" >
-                          <img alt="login" src="/static/images/NoDataFound.png" id={'centerImage'} />
+                                              <Grid item mb={2} mt={3} >
 
-                          </Grid>
-                          </Grid>
-                          </Stack>
-                          </Grid>
-                          </Grid>
-                          </Grid>
-                          </Grid>
+                                                      <Grid container  sx={{mt:2.8 ,mb:2.30}}  alignItems="center"  >
+
+
+                                                              <img alt="login" width={"100%"} src="/static/images/NoDataFound.png" id={'centerImage'} />
+
+                                                      </Grid>
+
+                                  </Grid>
 
 
 
-                          )}
+                              )}
 
 
 
