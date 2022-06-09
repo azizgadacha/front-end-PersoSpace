@@ -61,7 +61,7 @@ const Routes = () => {
     let linkWidget=`/dashboard/${(arrayOfLink.length<5)?'default':(['VisualizationOfWorkspace','SharedWorkspaces'].includes(arrayOfLink[2]))?arrayOfLink[2]:'default'}/widget/${link==''?'':link+"/"}:id`
 
 
-    let linkIndex=`/dashboard/default/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
+    let linkIndex=`/dashboard/default/${ar2[0]=="widge t"?"":link==""?'':link+'/'}:id`
 
     let linkSpace=`/dashboard/VisualizationOfWorkspace/${ar2[0]=="widget"?"":link==""?'':link+'/'}:id`
 

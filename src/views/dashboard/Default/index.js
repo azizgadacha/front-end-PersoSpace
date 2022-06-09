@@ -43,7 +43,6 @@ import {IconPlus} from "@tabler/icons";
 //-----------------------|| DEFAULT DASHBOARD ||-----------------------//
 
 const Dashboard = (props, { ...others }) => {
-
     const Style = {
         top: '10%',
         left: '0%',
@@ -146,7 +145,7 @@ const Dashboard = (props, { ...others }) => {
 
         const ar2 = array.slice(3, (array.length));
 
-        if(((loc).includes('/dashboard/default'))||(((loc).includes('/dashboard/VisualizationOfWorkspace')))){
+        if(((loc).includes('#/dashboard/default'))||(((loc).includes('#/dashboard/VisualizationOfWorkspace')))){
             if (id) {
                 link = 'api/Workspace/getinsideworkspace'
                 id1 = id
@@ -164,7 +163,7 @@ const Dashboard = (props, { ...others }) => {
                     token: account.token,
                     listeNameReceive: workspaces.listeName,
 
-                    locVis:(  (loc).includes('/dashboard/VisualizationOfWorkspace'))?true:null
+                    locVis:(  (loc).includes('#/dashboard/VisualizationOfWorkspace'))?true:null
                 }
                 dispatcher({
                     type: CLICKED_INISIALIZE
@@ -199,10 +198,10 @@ const Dashboard = (props, { ...others }) => {
                             type:UPDATE,
                             payload: {user:response.data.user}
                         });
-                        if(loc.includes(configData.defaultPath))
+                        if(loc.includes('#/'+configData.defaultPath))
                             history.go(0)
                         else
-                            history.push(configData.defaultPath)
+                            history.push('#'/+configData.defaultPath)
                         dispatcher({
                             type:CLICK,
                             payload: {text:"you are no longer an administrateur",severity:"error"}
@@ -254,10 +253,10 @@ const Dashboard = (props, { ...others }) => {
                         type:UPDATE,
                         payload: {user:response.data.user}
                     });
-                    if(loc.includes(configData.defaultPath))
+                    if(loc.includes('#/'+configData.defaultPath))
                         history.go(0)
                     else
-                        history.push(configData.defaultPath)
+                        history.push('#/'+configData.defaultPath)
                     dispatcher({
                         type:CLICK,
                         payload: {text:"You are no longer a Simple Employer",severity:"error"}
@@ -287,7 +286,7 @@ const Dashboard = (props, { ...others }) => {
 
 
 
-    if(!(loc.includes('SharedWorkspaces'))){
+    if(!(loc.includes('#SharedWorkspaces'))){
 
         var liste =()=>{
 
@@ -338,14 +337,14 @@ const Dashboard = (props, { ...others }) => {
 
             <Grid item lg={4} md={12} sm={12} xs={12}>
 
-                <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('Shared'))||(loc.includes('Visualization')))?workspaces.username[j]:null} />
+                <WorkspaceCard isLoading={isLoading} card={card}   username={((loc.includes('#/dashboard/SharedWorkspaces'))||(loc.includes('#/dashboard/VisualizationOfWorkspace')))?workspaces.username[j]:null} />
 
             </Grid>
 
 
         )})
     let Url;
-    ((loc).includes('/dashboard/default'))? Url=true:Url=false
+    ((loc).includes('#/dashboard/default'))? Url=true:Url=false
 
     const flexContainer = {
         display: 'flex',
@@ -383,9 +382,9 @@ const Dashboard = (props, { ...others }) => {
                                     <ListItem sx={{maxWidth:"80px"}}  key={1} disablePadding>
                                         <ListItemButton sx={{maxWidth:"80px"}}   sx={{marginLeft:0,whiteSpace: 'normal',}}      style={{ backgroundColor: 'transparent' }} onClick={()=>{
                                             //loc.includes(config.defaultPath)?history.push((config.defaultPath)):history.push(('/dashboard/VisualizationOfWorkspace'))
-                                            {((loc.includes('/dashboard/default')))?(
+                                            {((loc.includes('#/dashboard/default')))?(
                                                 history.push(config.defaultPath)
-                                            ):(loc.includes('SharedWorkspaces')) ?  (
+                                            ):(loc.includes('#/dashboard/SharedWorkspaces')) ?  (
                                                 history.push('/dashboard/SharedWorkspaces')
                                             ):history.push('/dashboard/VisualizationOfWorkspace')}
                                         }}>
@@ -424,7 +423,7 @@ const Dashboard = (props, { ...others }) => {
 
 
 
-                            {((loc.includes('SharedWorkspaces')||loc.includes('VisualizationOfWorkspace'))&&workspaces.Workspace.length==0)&&(
+                            {((loc.includes('#/dashboard/SharedWorkspaces')||loc.includes('#/dashboard/VisualizationOfWorkspace'))&&workspaces.Workspace.length==0)&&(
 
                                 <Grid container spacing={2} alignItems="center" sx={{height:'100%', width:'100%'}} justifyContent="center"  sx={{ ...Style,  }} stroke-linecap="round" >
                                     <Grid item xs={12} >
@@ -479,7 +478,7 @@ const Dashboard = (props, { ...others }) => {
                                 <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
 
                                     <PlusCard/>
-
+                                    {loc}
                                 </Grid>
                             ):(
                                 <Fragment>

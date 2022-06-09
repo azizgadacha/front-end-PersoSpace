@@ -391,7 +391,7 @@ const WorkspaceCard = ({ isLoading,card,username }) => {
                                 </Grid>                                         </Fragment>
                                     ):null}
 
-                                {((location=='/dashboard/VisualizationOfWorkspace')||(location.includes('Shared')))&&(
+                                {((location.includes('/dashboard/VisualizationOfWorkspace'))||(location.includes('Shared')))&&(
                                    <ThemeConfig>
 
 

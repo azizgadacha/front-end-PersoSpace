@@ -19,9 +19,9 @@ ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
           <PersistGate loading={null} persistor={persister}>
-              <BrowserRouter basename={config.basename}>
+              <HashRouter basename={config.basename}>
                   <App />
-              </BrowserRouter>
+              </HashRouter>
           </PersistGate>
       </Provider>
   </React.StrictMode>,
