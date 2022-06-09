@@ -165,8 +165,7 @@ let values=0
     useEffect(async () => {
 
         await socket.socket?.on("send_Notification_to_user", (data) => {
-console.log("rrrrrrrrzeez")
-console.log(data)
+
 
             dispatcher({
                 type: ADD_NOTIFICATION, payload: {notification: data.notification}
@@ -175,8 +174,7 @@ console.log(data)
 
         await socket.socket?.on("delete_Notification_from_user", (data) => {
 
-console.log("sarrrrrrro")
-console.log(data)
+
             dispatcher({
                 type: DELETE_NOTIFICATION, payload: {notification: data.notification}
             });
@@ -272,8 +270,6 @@ console.log(data)
                             })
                         }
                         else {
-                            console.log('operererrerezrer')
-                            console.log(result.data.notifFound)
 
                             if (result.data.success) {
                                 dispatcher({
