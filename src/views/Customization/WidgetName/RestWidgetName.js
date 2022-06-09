@@ -163,7 +163,7 @@ mb={2}
                 }}
                 validationSchema={Yup.object().shape({
 
-                    WidgetName: Yup.string().min(4,"widget name should contain 4 digit minimum").required("Widget Name is required"),
+                    WidgetName: Yup.string().max(30,"must contain only 30 digits").min(4,"widget name should contain 4 digit minimum").required("Widget Name is required"),
 
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
